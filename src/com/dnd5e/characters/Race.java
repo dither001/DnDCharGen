@@ -1,4 +1,4 @@
-package com.dnd5e.definitions;
+package com.dnd5e.characters;
 
 import com.dnd5e.exceptions.*;
 import com.dnd5e.util.*;
@@ -41,6 +41,60 @@ public enum Race implements Similar {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String abbreviation() {
+		String s = null;
+
+		switch (this) {
+		case BLACKSCALE:
+		case BLUESCALE:
+		case BRASSLEAF:
+		case BRONZELEAF:
+		case COPPERLEAF:
+		case GOLDLEAF:
+		case GREENSCALE:
+		case REDSCALE:
+		case SILVERLEAF:
+		case WHITESCALE:
+			s = "dragonborn";
+			break;
+		case DARK_ELF:
+			s = "dark elf";
+			break;
+		case FOREST_GNOME:
+		case ROCK_GNOME:
+			s = "gnome";
+			break;
+		case HALF_ELF:
+			s = "half-elf";
+			break;
+		case HALF_ORC:
+			s = "half-orc";
+			break;
+		case HIGH_ELF:
+			s = "high elf";
+			break;
+		case HILL_DWARF:
+		case MOUNTAIN_DWARF:
+			s = "dwarf";
+			break;
+		case HUMAN:
+			s = "human";
+			break;
+		case LIGHTFOOT_HALFLING:
+		case STRONGHEART_HALFLING:
+			s = "halfling";
+			break;
+		case TIEFLING:
+			s = "tiefling";
+			break;
+		case WOOD_ELF:
+			s = "wood elf";
+			break;
+		}
+
+		return s;
+	}
+
 	public int indexOf() {
 		int index = -1;
 

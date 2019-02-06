@@ -1,6 +1,6 @@
 package controller;
 
-import com.dnd5e.characters.DnDCharacter;
+import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
 
 public class Main {
@@ -11,7 +11,11 @@ public class Main {
 	public static void main(String[] args) {
 		// testSkewEvil();
 		// testSkewHuman();
-		testRandomCharacter();
+		// testRandomRogues();
+
+		testRandomChaoticCharacters(10);
+		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
+		// testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
 
 		/*
 		 * 
@@ -22,14 +26,134 @@ public class Main {
 	/*
 	 * CHARACTER TESTING
 	 */
-	public static void testRandomCharacter() {
-		int NUMBER_TO_GENERATE = 10;
+	public static void testRandomCharactersOfAlignment(int n, Alignment ali) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getAlignment().equals(ali) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	public static void testRandomChaoticCharacters(int n) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getAlignment().nonChaotic());
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	public static void testRandomCharactersOfClass(int n, DnDClass job) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getJob().equals(job) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	public static void testRandomRogues() {
+		int[] array = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int NUMBER_TO_GENERATE = 10000;
+
+		int[] ali = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int num_ali = 0;
+		int male = 0;
+		int female = 0;
 
 		for (int i = 0; i < NUMBER_TO_GENERATE; ++i) {
-			System.out.println(DnDCharacter.random().toStringVerbose());
-			System.out.println();
+			DnDCharacter c = DnDCharacter.random();
+			++array[c.getJob().indexOf()];
 
+			if (c.isFemale())
+				++female;
+			else
+				++male;
+
+			if (c.getJob().equals(DnDClass.ROGUE)) {
+				++num_ali;
+				++ali[c.getAlignment().indexOf()];
+			}
 		}
+
+		int n = 0;
+		String s = null;
+		for (int i = 0; i < array.length; ++i) {
+			n = array[i];
+			s = String.format("(%4.1f %%)", 1.0 * n / NUMBER_TO_GENERATE * 100);
+			System.out.printf("%6d %-8s %-16s\n", n, s, DnDClass.get(i));
+		}
+
+		System.out.printf("\nFemale: %d", female);
+		System.out.printf("\nMale: %d", male);
+		System.out.printf("\n\n");
+		printClassArray(NUMBER_TO_GENERATE, array);
+
+		// rogue alignments
+		System.out.printf("\n");
+		for (int i = 0; i < ali.length; ++i) {
+			n = ali[i];
+			s = String.format("(%4.1f %%)", 1.0 * n / num_ali * 100);
+			System.out.printf("%6d %-8s %-16s\n", n, s, Alignment.get(i));
+		}
+
+		System.out.printf("\n");
+		printAlignmentArray(num_ali, ali);
+	}
+
+	public static void printClassArray(int num, int[] array) {
+		int n = 0;
+		String s = null;
+
+		// BARBARIAN, BARD, CLERIC
+		// DRUID, FIGHTER, MONK
+		// PALADIN, RANGER, ROGUE
+		// SORCERER, WARLOCK, WIZARD
+
+		n = array[1] + array[9] + array[10];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Charisma", s);
+
+		n = array[2] + array[3] + array[5];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Wisdom", s);
+
+		// n = array[11];
+		// s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		// System.out.printf("%-10s %s\n", "% Intelligence", s);
+
+		n = array[7];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Dexterity", s);
+
+		n = array[0] + array[4] + array[6];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Strength", s);
+
+		System.out.printf("\n");
+
+		n = array[8];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Rogues", s);
+
+		n = array[4];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Fighters", s);
+
+		n = array[3] + array[11];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Druid+Wizard", s);
+
+		n = array[2];
+		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
+		System.out.printf("%-10s %s\n", "% Clerics", s);
 	}
 
 	/*

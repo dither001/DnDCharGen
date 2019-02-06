@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.util.*;
+import com.dnd5e.worlds.*;
 
 public abstract class Actor implements Creature, Persistent {
 
@@ -19,9 +20,11 @@ public abstract class Actor implements Creature, Persistent {
 	 */
 	protected String name;
 	protected boolean isFemale;
+	protected Alignment alignment;
+	protected God god;
+
 	protected Size size;
 	protected CreatureType creatureType;
-	protected Alignment alignment;
 	protected EnumSet<MovementType> movement;
 	protected EnumSet<Sense> senses;
 
@@ -98,16 +101,6 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
-	public Size getCreatureSize() {
-		return size;
-	}
-
-	@Override
-	public CreatureType getCreatureType() {
-		return creatureType;
-	}
-
-	@Override
 	public Alignment getAlignment() {
 		return alignment;
 	}
@@ -115,6 +108,26 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setAlignment(Alignment alignment) {
 		this.alignment = alignment;
+	}
+
+	@Override
+	public God getGod() {
+		return god;
+	}
+
+	@Override
+	public void setGod(God god) {
+		this.god = god;
+	}
+
+	@Override
+	public Size getCreatureSize() {
+		return size;
+	}
+
+	@Override
+	public CreatureType getCreatureType() {
+		return creatureType;
 	}
 
 	@Override
@@ -211,4 +224,5 @@ public abstract class Actor implements Creature, Persistent {
 	public void setConditions(EnumSet<Condition> conditions) {
 		this.conditions = conditions;
 	}
+
 }

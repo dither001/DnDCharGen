@@ -23,7 +23,7 @@ public enum DnDClass {
 	/*
 	 * STATIC METHODS
 	 */
-	public DnDClass get(int index) {
+	public static DnDClass get(int index) {
 		return CLASSES[index];
 	}
 
@@ -100,34 +100,35 @@ public enum DnDClass {
 		DnDClass job = null;
 		Alignment ali = actor.getAlignment();
 
-		int dexterity, intelligence, wisdom, charisma;
+		int strength, dexterity, intelligence, wisdom, charisma;
+		strength = actor.getStrength();
 		dexterity = actor.getDexterity();
 		intelligence = actor.getIntelligence();
 		wisdom = actor.getWisdom();
 		charisma = actor.getCharisma();
 
-		int dice = Dice.roll(4);
-		if (charisma > 11 && dice == 1)
+		int dice = Dice.roll(6);
+		if (charisma > 11 && dice == 1 && ali.nonLawful())
 			job = BARD;
-		else if (charisma > 11 && dice == 2)
+		else if (charisma > 13 && (dice == 2 || dice == 3) && ali.nonLawful())
 			job = SORCERER;
-		else if (charisma > 11 && dice == 3)
+		else if (charisma > 13 && (dice == 4 || dice == 5) && ali.nonGood())
 			job = WARLOCK;
-		else if (wisdom > 11 && dice == 1)
+		else if (wisdom > 13 && (dice == 1 || dice == 2))
 			job = CLERIC;
-		else if (wisdom > 11 && dice == 2)
+		else if (wisdom > 13 && (dice == 3 || dice == 4) && ali.isNeutral())
 			job = DRUID;
-		else if (wisdom > 11 && dice == 3)
+		else if (dexterity > 11 && wisdom > 11 && dice < 6 && ali.nonChaotic())
 			job = MONK;
-		else if (intelligence > 11 && dice < 3)
+		else if (intelligence > 13 && dice < 4 && ali.nonLawful())
 			job = WIZARD;
-		else if (dexterity > 11 && dice < 3)
+		else if (dexterity > 11 && dice < 4 && ali.nonChaotic())
 			job = RANGER;
-		else if (ali.isGood())
+		else if (strength > 11 && ali.isGood())
 			job = PALADIN;
-		else if (ali.isChaotic())
+		else if (strength > 9 && ali.isChaotic())
 			job = BARBARIAN;
-		else if (ali.isLawful() || dice < 4)
+		else if (strength > 5 && dice < 5  && ali.nonChaotic())
 			job = FIGHTER;
 		else
 			job = ROGUE;

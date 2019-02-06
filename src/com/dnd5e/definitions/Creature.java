@@ -2,6 +2,8 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
+import com.dnd5e.worlds.*;
+
 public interface Creature {
 	/*
 	 * BASIC DESCRIPTION
@@ -14,13 +16,17 @@ public interface Creature {
 
 	public void setFemale(boolean isFemale);
 
-	public Size getCreatureSize();
-
-	public CreatureType getCreatureType();
-
 	public Alignment getAlignment();
 
 	public void setAlignment(Alignment alignment);
+
+	public God getGod();
+
+	public void setGod(God god);
+
+	public Size getCreatureSize();
+
+	public CreatureType getCreatureType();
 
 	public EnumSet<MovementType> getSpeed();
 
@@ -69,6 +75,20 @@ public interface Creature {
 	/*
 	 * DEFAULT METHODS
 	 */
+	public default String abilityArrayToString() {
+		int[] array = getAbilityScores();
+
+		String s = "";
+		s += array[0] + ", ";
+		s += array[1] + ", ";
+		s += array[2] + ", ";
+		s += array[3] + ", ";
+		s += array[4] + ", ";
+		s += array[5];
+
+		return String.format("[ %-22s ]", s);
+	}
+
 	public default int getStrength() {
 		return getAbilityScores()[0];
 	}

@@ -38,8 +38,7 @@ public enum Subclass {
 	 * STATIC METHODS
 	 */
 	public static Subclass selectSubclass(DnDCharacter actor) {
-		// FIXME
-		DnDClass job = DnDClass.random();
+		DnDClass job = actor.getJob();
 		Subclass subclass = null;
 
 		int dice = 0;

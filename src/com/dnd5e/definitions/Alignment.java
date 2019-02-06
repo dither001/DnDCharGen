@@ -15,6 +15,45 @@ public enum Alignment implements Opposite, Similar {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String abbreviation() {
+		String s = null;
+
+		switch (this) {
+		case CHAOTIC_EVIL:
+			s = "CE";
+			break;
+		case CHAOTIC_GOOD:
+			s = "CG";
+			break;
+		case CHAOTIC_NEUTRAL:
+			s = "CN";
+			break;
+		case LAWFUL_EVIL:
+			s = "LE";
+			break;
+		case LAWFUL_GOOD:
+			s = "LG";
+			break;
+		case LAWFUL_NEUTRAL:
+			s = "LN";
+			break;
+		case NEUTRAL_EVIL:
+			s = "NE";
+			break;
+		case NEUTRAL_GOOD:
+			s = "NG";
+			break;
+		case TRUE_NEUTRAL:
+			s = "TN";
+			break;
+		case UNALIGNED:
+			s = "UA";
+			break;
+		}
+
+		return s;
+	}
+
 	public int indexOf() {
 		return Misc.indexOfEnum(this.toString(), ALIGNMENTS);
 	}

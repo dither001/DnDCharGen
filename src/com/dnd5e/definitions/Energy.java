@@ -1,0 +1,5 @@
+package com.dnd5e.definitions;
+
+public enum Energy {
+	BLUDGEONING, PIERCING, SLASHING, FORCE, FIRE, COLD, LIGHTNING, ACID, RADIANT, THUNDER, NECROTIC, PSYCHIC, POISON;
+}

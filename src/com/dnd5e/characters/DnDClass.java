@@ -4,7 +4,7 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.exceptions.*;
 import com.dnd5e.util.*;
 
-public enum DnDClass {
+public enum DnDClass implements Opposite, Similar {
 	BARBARIAN, BARD, CLERIC, DRUID, FIGHTER, MONK, PALADIN, RANGER, ROGUE, SORCERER, WARLOCK, WIZARD;
 
 	/*
@@ -18,6 +18,78 @@ public enum DnDClass {
 	 */
 	public int indexOf() {
 		return Misc.indexOfEnum(this.toString(), CLASSES);
+	}
+
+	public boolean isController() {
+		return this.equals(DRUID) || this.equals(WIZARD);
+	}
+
+	public boolean isDefender() {
+		return this.equals(BARBARIAN) || this.equals(FIGHTER) || this.equals(PALADIN);
+	}
+
+	public boolean isLeader() {
+		return this.equals(BARD) || this.equals(CLERIC);
+	}
+
+	public boolean isStriker() {
+		return this.equals(MONK) || this.equals(RANGER) || this.equals(ROGUE) || this.equals(SORCERER)
+				|| this.equals(WARLOCK);
+	}
+
+	@Override
+	public int similarTo(Object o) {
+		int similar = -1;
+
+		if (o.getClass().equals(DnDClass.class)) {
+			DnDClass job = (DnDClass) o;
+
+			if (job.isStriker() && this.isStriker())
+				similar = 1;
+			else if (job.isLeader() && this.isLeader())
+				similar = 1;
+			else if (job.isController() && this.isController())
+				similar = 1;
+			else if (job.isDefender() && this.isDefender())
+				similar = 1;
+
+			// if (job.isStriker() && (this.isLeader() || this.isDefender()))
+			// similar = 1;
+			// else if (job.isLeader() && (this.isController() || this.isStriker()))
+			// similar = 1;
+			// else if (job.isController() && (this.isDefender() || this.isStriker()))
+			// similar = 1;
+			// else if (job.isDefender() && (this.isStriker() || this.isController()))
+			// similar = 1;
+
+			if (job.equals(this))
+				similar = 0;
+		}
+
+		return similar;
+	}
+
+	@Override
+	public boolean opposedTo(Object o) {
+		boolean opposed = false;
+
+		if (o.getClass().equals(DnDClass.class)) {
+			DnDClass job = (DnDClass) o;
+
+			if (job.isStriker() && this.isController())
+				opposed = true;
+			else if (job.isLeader() && this.isDefender())
+				opposed = true;
+			else if (job.isController() && this.isStriker())
+				opposed = true;
+			else if (job.isDefender() && this.isLeader())
+				opposed = true;
+
+			if (job.equals(this))
+				opposed = false;
+		}
+
+		return opposed;
 	}
 
 	/*
@@ -128,11 +200,12 @@ public enum DnDClass {
 			job = PALADIN;
 		else if (strength > 9 && ali.isChaotic())
 			job = BARBARIAN;
-		else if (strength > 5 && dice < 5  && ali.nonChaotic())
+		else if (strength > 5 && dice < 5 && ali.nonChaotic())
 			job = FIGHTER;
 		else
 			job = ROGUE;
 
 		return job;
 	}
+
 }

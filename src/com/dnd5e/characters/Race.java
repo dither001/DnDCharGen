@@ -3,7 +3,7 @@ package com.dnd5e.characters;
 import com.dnd5e.exceptions.*;
 import com.dnd5e.util.*;
 
-public enum Race implements Similar {
+public enum Race implements Opposite, Similar {
 	// GNOLL, GOBLIN, GRIMLOCK, KOBOLD, LIZARDFOLK, MERFOLK, ORC, SAHUAGIN
 	HALF_ELF, HALF_ORC, HUMAN, TIEFLING,
 	//
@@ -168,6 +168,12 @@ public enum Race implements Similar {
 		}
 
 		return similar;
+	}
+
+	@Override
+	public boolean opposedTo(Object o) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/*

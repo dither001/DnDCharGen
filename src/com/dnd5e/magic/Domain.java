@@ -9,6 +9,7 @@ public enum Domain {
 	/*
 	 * STATIC METHODS
 	 */
+	@SuppressWarnings("incomplete-switch")
 	public static Domain parseClericSubclass(Subclass subclass) throws InvalidDomainException {
 		switch (subclass) {
 		case DEATH:

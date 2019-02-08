@@ -2,11 +2,11 @@ package com.dnd5e.worlds;
 
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
-import com.dnd5e.exceptions.InvalidDomainException;
+import com.dnd5e.exceptions.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.util.*;
 
-public enum God {
+public enum God implements Opposite, Similar {
 	ASMODEUS, AVANDRA, BAHAMUT, BANE, CORELLON, ERATHIS, GRUUMSH, IOUN, KORD, LOLTH, MELORA, MORADIN, PELOR, RAVEN_QUEEN, SEHANINE, THARIZDUN, TIAMAT, TOROG, VECNA, ZEHIR;
 
 	//
@@ -29,6 +29,109 @@ public enum God {
 	private static final God[] TEMPEST_GODS = { GRUUMSH, KORD, MELORA };
 	private static final God[] TRICKERY_GODS = { ASMODEUS, AVANDRA, LOLTH, SEHANINE, THARIZDUN, TIAMAT, ZEHIR };
 	private static final God[] WAR_GODS = { BAHAMUT, BANE, GRUUMSH, MORADIN, TIAMAT };
+
+	/*
+	 * INSTANCE METHODS
+	 */
+	public String holySymbol() {
+		return holySymbol(this);
+	}
+
+	private boolean deathGod() {
+		return this.equals(RAVEN_QUEEN) || this.equals(TOROG) || this.equals(VECNA) || this.equals(ZEHIR);
+	}
+
+	private boolean knowledgeGod() {
+		return this.equals(ERATHIS) || this.equals(IOUN) || this.equals(MORADIN) || this.equals(VECNA);
+	}
+
+	private boolean lifeGod() {
+		return this.equals(BAHAMUT) || this.equals(PELOR) || this.equals(RAVEN_QUEEN);
+	}
+
+	private boolean lightGod() {
+		return this.equals(CORELLON) || this.equals(PELOR);
+	}
+
+	private boolean natureGod() {
+		return this.equals(MELORA);
+	}
+
+	private boolean tempestGod() {
+		return this.equals(GRUUMSH) || this.equals(KORD) || this.equals(MELORA);
+	}
+
+	private boolean tricksterGod() {
+		return this.equals(ASMODEUS) || this.equals(AVANDRA) || this.equals(LOLTH) || this.equals(SEHANINE)
+				|| this.equals(THARIZDUN) || this.equals(ZEHIR);
+	}
+
+	private boolean warGod() {
+		return this.equals(BAHAMUT) || this.equals(BANE) || this.equals(GRUUMSH) || this.equals(MORADIN)
+				|| this.equals(TIAMAT);
+	}
+
+	@Override
+	public int similarTo(Object o) {
+		int similar = -1;
+
+		if (o.getClass().equals(God.class)) {
+			God g = (God) o;
+
+			if (g.deathGod() && this.deathGod())
+				similar = 1;
+			else if (g.knowledgeGod() && this.knowledgeGod())
+				similar = 1;
+			else if (g.lifeGod() && this.lifeGod())
+				similar = 1;
+			else if (g.lightGod() && this.lightGod())
+				similar = 1;
+			else if (g.natureGod() && this.natureGod())
+				similar = 1;
+			else if (g.tempestGod() && this.tempestGod())
+				similar = 1;
+			else if (g.tricksterGod() && this.tricksterGod())
+				similar = 1;
+			else if (g.warGod() && this.warGod())
+				similar = 1;
+
+			if (g.equals(this))
+				similar = 0;
+		}
+
+		return similar;
+	}
+
+	@Override
+	public boolean opposedTo(Object o) {
+		boolean opposed = false;
+
+		if (o.getClass().equals(God.class)) {
+			God g = (God) o;
+
+			if (g.deathGod() && this.lifeGod())
+				opposed = true;
+			else if (g.knowledgeGod() && this.tricksterGod())
+				opposed = true;
+			else if (g.lightGod() && this.tempestGod())
+				opposed = true;
+			else if (g.natureGod() && this.warGod())
+				opposed = true;
+			else if (g.lifeGod() && this.deathGod())
+				opposed = true;
+			else if (g.tricksterGod() && this.knowledgeGod())
+				opposed = true;
+			else if (g.tempestGod() && this.lightGod())
+				opposed = true;
+			else if (g.warGod() && this.natureGod())
+				opposed = true;
+
+			if (g.equals(this))
+				opposed = false;
+		}
+
+		return opposed;
+	}
 
 	/*
 	 * STATIC METHODS
@@ -235,4 +338,74 @@ public enum God {
 
 		return god;
 	}
+
+	public static String holySymbol(God god) {
+		String s = null;
+
+		switch (god) {
+		case ASMODEUS:
+			s = "three triangles in tight formation";
+			break;
+		case AVANDRA:
+			s = "three stacked wavy lines";
+			break;
+		case BAHAMUT:
+			s = "dragon's head, in profile, facing left";
+			break;
+		case BANE:
+			s = "claw with three talons pointing down";
+			break;
+		case CORELLON:
+			s = "eight-pointed star";
+			break;
+		case ERATHIS:
+			s = "upper half of a clockwork gear";
+			break;
+		case GRUUMSH:
+			s = "triangular eye with bony protrusions";
+			break;
+		case IOUN:
+			s = "crook shaped like a stylized";
+			break;
+		case KORD:
+			s = "sword with a lightning bolt cross guard";
+			break;
+		case LOLTH:
+			s = "eight-pointed star with web motif";
+			break;
+		case MELORA:
+			s = "wavelike swirl";
+			break;
+		case MORADIN:
+			s = "flaming anvil";
+			break;
+		case PELOR:
+			s = "circle with six outwardly radiating points";
+			break;
+		case RAVEN_QUEEN:
+			s = "raven's head, in profile, facing left";
+			break;
+		case SEHANINE:
+			s = "crescent moon";
+			break;
+		case THARIZDUN:
+			s = "jagged counter-clockwise spiral";
+			break;
+		case TIAMAT:
+			s = "five-pointed star with curved points";
+			break;
+		case TOROG:
+			s = "letter 'T' attached to circular shackle";
+			break;
+		case VECNA:
+			s = "partially shattered one-eyed skull";
+			break;
+		case ZEHIR:
+			s = "snake in the shape of a dagger";
+			break;
+		}
+
+		return s;
+	}
+
 }

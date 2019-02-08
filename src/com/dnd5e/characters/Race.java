@@ -143,6 +143,25 @@ public enum Race implements Opposite, Similar {
 		return this.equals(HALF_ELF) || this.equals(HALF_ORC) || this.equals(HUMAN) || this.equals(TIEFLING);
 	}
 
+	/*
+	 * 
+	 */
+	private boolean ambitious() {
+		return this.equals(HUMAN) || this.equals(TIEFLING);
+	}
+
+	private boolean industrius() {
+		return this.isDwarf() || this.isDragonborn();
+	}
+
+	private boolean nomadic() {
+		return this.equals(HALF_ELF) || this.equals(HALF_ORC) || this.isHalfling();
+	}
+
+	private boolean sylvan() {
+		return this.isGnome() || this.isElf();
+	}
+
 	@Override
 	public int similarTo(Object o) {
 		int similar = -1;
@@ -150,17 +169,13 @@ public enum Race implements Opposite, Similar {
 		if (o.getClass().equals(Race.class)) {
 			Race r = (Race) o;
 
-			if (r.isDragonborn() && this.isDragonborn())
+			if (r.ambitious() && this.ambitious())
 				similar = 1;
-			else if (r.isDwarf() && this.isDwarf())
+			else if (r.industrius() && this.industrius())
 				similar = 1;
-			else if (r.isElf() && this.isElf())
+			else if (r.nomadic() && this.nomadic())
 				similar = 1;
-			else if (r.isGnome() && this.isGnome())
-				similar = 1;
-			else if (r.isHalfling() && this.isHalfling())
-				similar = 1;
-			else if (r.isHuman() && this.isHuman())
+			else if (r.sylvan() && this.sylvan())
 				similar = 1;
 
 			if (r.equals(this))
@@ -172,8 +187,25 @@ public enum Race implements Opposite, Similar {
 
 	@Override
 	public boolean opposedTo(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean opposed = false;
+
+		if (o.getClass().equals(Race.class)) {
+			Race r = (Race) o;
+
+			if (r.ambitious() && this.sylvan())
+				opposed = true;
+			else if (r.nomadic() && this.industrius())
+				opposed = true;
+			else if (r.sylvan() && this.ambitious())
+				opposed = true;
+			else if (r.industrius() && this.nomadic())
+				opposed = true;
+
+			if (r.equals(this))
+				opposed = false;
+		}
+
+		return opposed;
 	}
 
 	/*

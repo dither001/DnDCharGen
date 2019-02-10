@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.factions.*;
+import com.dnd5e.worlds.*;
 
 public class Main {
 
@@ -13,14 +17,190 @@ public class Main {
 		// testSkewHuman();
 		// testRandomRogues();
 
-		testRandomChaoticCharacters(10);
+		// testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
 		// testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
+
+		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
+		// testFactionOfGod(5, God.ASMODEUS);
+		// testFactionOfRace(5, Race.TIEFLING);
+//		testFactionOfBackground(5, Background.ACOLYTE);
+		testFactionOfJob(5, DnDClass.BARBARIAN);
+		// testFaction(5);
 
 		/*
 		 * 
 		 */
 
+	}
+
+	/*
+	 * FACTION TESTING
+	 */
+	public static void testAddAll() {
+		ArrayList<Creature> list = new ArrayList<Creature>();
+		for (int i = 0; i < 5; ++i)
+			list.add(DnDCharacter.random());
+
+		Band band = new Band();
+		band.addAllPartners(list);
+
+		System.out.println("Begin");
+		for (Creature el : band.getPartnerList())
+			System.out.println(el.toString());
+	}
+
+	public static void testFactionOfJob(int n, DnDClass job) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = randomCharacterOfJob(job);
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static void testFactionOfBackground(int n, Background bg) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = randomCharacterOfBackground(bg);
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static void testFactionOfRace(int n, Race race) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = randomCharacterOfRace(race);
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static void testFactionOfGod(int n, God god) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = randomCharacterOfGod(god);
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static void testFactionOfAlignment(int n, Alignment ali) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = randomCharacterOfAlignment(ali);
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static void testFaction(int n) {
+		Band band = new Band();
+		System.out.println("Before");
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter toon = DnDCharacter.random();
+			// System.out.println("wants to join: " + toon.toString());
+
+			band.addPartner(toon);
+
+			for (Creature el : band.getPartnerList())
+				System.out.println(el.toString());
+
+			System.out.println();
+		}
+
+		System.out.println("Finished");
+	}
+
+	public static DnDCharacter randomCharacterOfJob(DnDClass job) {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getJob().equals(job) != true);
+
+		return toon;
+	}
+
+	public static DnDCharacter randomCharacterOfBackground(Background bg) {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getBackground().equals(bg) != true);
+
+		return toon;
+	}
+
+	public static DnDCharacter randomCharacterOfRace(Race race) {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getRace().equals(race) != true);
+
+		return toon;
+	}
+
+	public static DnDCharacter randomCharacterOfGod(God god) {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getGod().equals(god) != true);
+
+		return toon;
+	}
+
+	public static DnDCharacter randomCharacterOfAlignment(Alignment ali) {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getAlignment().equals(ali) != true);
+
+		return toon;
 	}
 
 	/*

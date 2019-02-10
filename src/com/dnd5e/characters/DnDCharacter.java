@@ -9,6 +9,11 @@ public class DnDCharacter extends Hero {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String toString() {
+		return String.format("%s %s %s %s (%s) %s", alignment.abbreviation(), isFemale ? "female" : "male",
+				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
+	}
+
 	public String toStringVerbose() {
 		String s = "";
 

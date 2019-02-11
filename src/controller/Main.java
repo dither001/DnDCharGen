@@ -42,24 +42,24 @@ public class Main {
 		for (int i = 0; i < 5; ++i)
 			list.add(DnDCharacter.random());
 
-		Band band = new Band();
-		band.addAllPartners(list);
+		Warband band = new Warband();
+		band.addAll(list);
 
 		System.out.println("Begin");
-		for (Creature el : band.getPartnerList())
+		for (Creature el : band.getMembers())
 			System.out.println(el.toString());
 	}
 
 	public static void testFactionOfJob(int n, DnDClass job) {
-		Band band = new Band();
+		Warband band = new Warband();
 		System.out.println("Before");
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter toon = randomCharacterOfJob(job);
 			// System.out.println("wants to join: " + toon.toString());
 
-			band.addPartner(toon);
+			band.add(toon);
 
-			for (Creature el : band.getPartnerList())
+			for (Creature el : band.getMembers())
 				System.out.println(el.toString());
 
 			System.out.println();
@@ -69,15 +69,15 @@ public class Main {
 	}
 
 	public static void testFactionOfBackground(int n, Background bg) {
-		Band band = new Band();
+		Warband band = new Warband();
 		System.out.println("Before");
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter toon = randomCharacterOfBackground(bg);
 			// System.out.println("wants to join: " + toon.toString());
 
-			band.addPartner(toon);
+			band.add(toon);
 
-			for (Creature el : band.getPartnerList())
+			for (Creature el : band.getMembers())
 				System.out.println(el.toString());
 
 			System.out.println();
@@ -87,15 +87,15 @@ public class Main {
 	}
 
 	public static void testFactionOfRace(int n, Race race) {
-		Band band = new Band();
+		Warband band = new Warband();
 		System.out.println("Before");
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter toon = randomCharacterOfRace(race);
 			// System.out.println("wants to join: " + toon.toString());
 
-			band.addPartner(toon);
+			band.add(toon);
 
-			for (Creature el : band.getPartnerList())
+			for (Creature el : band.getMembers())
 				System.out.println(el.toString());
 
 			System.out.println();
@@ -105,15 +105,15 @@ public class Main {
 	}
 
 	public static void testFactionOfGod(int n, God god) {
-		Band band = new Band();
+		Warband band = new Warband();
 		System.out.println("Before");
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter toon = randomCharacterOfGod(god);
 			// System.out.println("wants to join: " + toon.toString());
 
-			band.addPartner(toon);
+			band.add(toon);
 
-			for (Creature el : band.getPartnerList())
+			for (Creature el : band.getMembers())
 				System.out.println(el.toString());
 
 			System.out.println();
@@ -123,15 +123,15 @@ public class Main {
 	}
 
 	public static void testFactionOfAlignment(int n, Alignment ali) {
-		Band band = new Band();
+		Warband band = new Warband();
 		System.out.println("Before");
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter toon = randomCharacterOfAlignment(ali);
 			// System.out.println("wants to join: " + toon.toString());
 
-			band.addPartner(toon);
+			band.add(toon);
 
-			for (Creature el : band.getPartnerList())
+			for (Creature el : band.getMembers())
 				System.out.println(el.toString());
 
 			System.out.println();
@@ -141,14 +141,14 @@ public class Main {
 	}
 
 	public static void testFaction(int n) {
-		Band band = new Band();
+		Warband band = new Warband();
 		for (int i = 0; i < n; ++i)
-			band.addPartner(DnDCharacter.random());
+			band.add(DnDCharacter.random());
 		
-		for (Creature el : band.getPartnerList())
+		for (Creature el : band.getMembers())
 			System.out.println(el.toString());
 
-		System.out.println(band.getIdeal());
+		System.out.println(band.getFoundation());
 	}
 
 	public static DnDCharacter randomCharacterOfJob(DnDClass job) {

@@ -1,6 +1,6 @@
 package com.dnd5e.factions;
 
-public enum FactionIdeal {
+public enum Foundation {
 	ALIGNMENT, GOD, RACE, BACKGROUND, JOB, NONE;
 
 	/*
@@ -10,8 +10,8 @@ public enum FactionIdeal {
 		return this.equals(NONE) != true;
 	}
 
-	public FactionIdeal next() {
-		FactionIdeal next = ALIGNMENT;
+	public Foundation next() {
+		Foundation next = ALIGNMENT;
 
 		switch (this) {
 		case ALIGNMENT:

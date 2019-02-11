@@ -24,9 +24,9 @@ public class Main {
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);
 		// testFactionOfRace(5, Race.TIEFLING);
-//		testFactionOfBackground(5, Background.ACOLYTE);
-		testFactionOfJob(5, DnDClass.BARBARIAN);
-		// testFaction(5);
+		// testFactionOfBackground(5, Background.ACOLYTE);
+		// testFactionOfJob(5, DnDClass.FIGHTER);
+		testFaction(5);
 
 		/*
 		 * 
@@ -142,20 +142,13 @@ public class Main {
 
 	public static void testFaction(int n) {
 		Band band = new Band();
-		System.out.println("Before");
-		for (int i = 0; i < n; ++i) {
-			DnDCharacter toon = DnDCharacter.random();
-			// System.out.println("wants to join: " + toon.toString());
+		for (int i = 0; i < n; ++i)
+			band.addPartner(DnDCharacter.random());
+		
+		for (Creature el : band.getPartnerList())
+			System.out.println(el.toString());
 
-			band.addPartner(toon);
-
-			for (Creature el : band.getPartnerList())
-				System.out.println(el.toString());
-
-			System.out.println();
-		}
-
-		System.out.println("Finished");
+		System.out.println(band.getIdeal());
 	}
 
 	public static DnDCharacter randomCharacterOfJob(DnDClass job) {

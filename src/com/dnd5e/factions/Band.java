@@ -44,17 +44,6 @@ public class Band {
 			added = true;
 			ideal = biggestDifference();
 
-			if (ideal.equals(FactionIdeal.ALIGNMENT))
-				System.out.println(ideal.toString() + ": " + founder.creature.getAlignment().toString());
-			else if (ideal.equals(FactionIdeal.GOD))
-				System.out.println(ideal.toString() + ": " + founder.creature.getGod().toString());
-			else if (ideal.equals(FactionIdeal.RACE))
-				System.out.println(ideal.toString() + ": " + ((Hero) founder.creature).getRace().toString());
-			else if (ideal.equals(FactionIdeal.BACKGROUND))
-				System.out.println(ideal.toString() + ": " + ((Hero) founder.creature).getBackground().toString());
-			else
-				System.out.println(ideal.toString());
-
 		} else {
 			partners.add(new Partner(creature));
 			added = true;
@@ -77,6 +66,25 @@ public class Band {
 		}
 
 		return added;
+	}
+
+	public String getIdeal() {
+		String s = null;
+
+		if (ideal.equals(FactionIdeal.ALIGNMENT))
+			s = ideal.toString() + " (1): " + founder.creature.getAlignment().toString();
+		else if (ideal.equals(FactionIdeal.GOD))
+			s = ideal.toString() + " (2): " + founder.creature.getGod().toString();
+		else if (ideal.equals(FactionIdeal.RACE))
+			s = ideal.toString() + " (3): " + ((Hero) founder.creature).getRace().toString();
+		else if (ideal.equals(FactionIdeal.BACKGROUND))
+			s = ideal.toString() + " (4): " + ((Hero) founder.creature).getBackground().toString();
+		else if (ideal.equals(FactionIdeal.JOB))
+			s = ideal.toString() + " (5): " + ((Hero) founder.creature).getJob().toString();
+		else
+			s = ideal.toString() + " (6)";
+
+		return s;
 	}
 
 	public List<Creature> getPartnerList() {
@@ -103,30 +111,18 @@ public class Band {
 				break;
 
 			for (i = 0; i + 1 < length; ++i) {
-				System.out.println("Testing ideal " + ideal.toString());
 				current = partners.get(i);
 
 				for (int j = i + 1; j < length; ++j) {
 					next = partners.get(j);
-					// System.out.println("Compared " + current.creature.toString() + " and " +
-					// next.creature.toString());
 
 					if (current.opposedIdeal(ideal, next)) {
-						System.out.println("Conflict of " + ideal.toString());
-
-						// if (ideal.equals(FactionIdeal.GOD)) {
-						// System.out.println(((DnDCharacter) current.creature).getGod().toString() + "
-						// and "
-						// + ((DnDCharacter) next.creature).getGod().toString());
-						// }
-
 						nextIdeal = true;
 						break;
 					}
 				}
 
 				if (nextIdeal) {
-					// System.out.println("Testing next ideal");
 					i = 0;
 					ideal = ideal.next();
 					foundIdeal = false;

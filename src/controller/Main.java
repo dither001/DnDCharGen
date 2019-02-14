@@ -148,7 +148,7 @@ public class Main {
 		for (Creature el : band.getMembers())
 			System.out.println(el.toString());
 
-		System.out.println(band.getFoundation());
+		System.out.println(band.foundationToString());
 	}
 
 	public static DnDCharacter randomCharacterOfJob(DnDClass job) {

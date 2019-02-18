@@ -83,13 +83,13 @@ public enum Background implements Opposite, Similar {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Background parse(String s) throws InvalidBackgroundException {
+	public static Background parse(String s) throws ParserException {
 		for (Background el : BACKGROUNDS) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
 
-		throw new InvalidBackgroundException();
+		throw new ParserException();
 	}
 
 	public static Background random() {

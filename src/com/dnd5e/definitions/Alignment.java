@@ -172,13 +172,13 @@ public enum Alignment implements Opposite, Similar {
 		return ALIGNMENTS[index];
 	}
 
-	public static Alignment parse(String s) throws InvalidAlignmentException {
+	public static Alignment parse(String s) throws ParserException {
 		for (Alignment el : ALIGNMENTS) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
 
-		throw new InvalidAlignmentException();
+		throw new ParserException();
 	}
 
 	public static Alignment random() {

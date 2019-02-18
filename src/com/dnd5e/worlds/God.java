@@ -323,7 +323,7 @@ public enum God implements Opposite, Similar {
 
 			try {
 				god = deusExDomain(Domain.parseClericSubclass(actor.getSubclass()));
-			} catch (InvalidDomainException e) {
+			} catch (ParserException e) {
 				god = God.ERATHIS;
 			}
 		} else if (dice < 5) {

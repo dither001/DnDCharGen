@@ -22,13 +22,13 @@ public enum Cornerstone {
 		return CORNERSTONES[index];
 	}
 
-	public static Cornerstone parse(String s) throws InvalidCornerstoneException {
+	public static Cornerstone parse(String s) throws ParserException {
 		for (Cornerstone el : CORNERSTONES) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
 		
-		throw new InvalidCornerstoneException(s);
+		throw new ParserException(s);
 	}
 
 }

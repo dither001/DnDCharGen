@@ -5,12 +5,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.exceptions.*;
-import com.dnd5e.gear.definitions.Handed;
-import com.dnd5e.gear.definitions.Material;
+import com.dnd5e.gear.definitions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.monsters.*;
 
@@ -55,7 +53,7 @@ public class FileLoader {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidCornerstoneException e) {
+		} catch (ParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -88,7 +86,7 @@ public class FileLoader {
 				weapon.setName(values[counter++]);
 				weapon.setMaterial(Material.parse(values[counter++]));
 				weapon.setCostCP(Integer.valueOf(values[counter++]));
-				weapon.setWeightOzs(Integer.valueOf(values[counter++]));
+				weapon.setWeightOz(Integer.valueOf(values[counter++]));
 
 				weapon.setIsStackable(false);
 				weapon.setQuantity(Integer.valueOf(values[counter++]));

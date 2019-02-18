@@ -10,7 +10,7 @@ public enum Domain {
 	 * STATIC METHODS
 	 */
 	@SuppressWarnings("incomplete-switch")
-	public static Domain parseClericSubclass(Subclass subclass) throws InvalidDomainException {
+	public static Domain parseClericSubclass(Subclass subclass) throws ParserException {
 		switch (subclass) {
 		case DEATH:
 			return Domain.DEATH;
@@ -30,6 +30,6 @@ public enum Domain {
 			return Domain.WAR;
 		}
 
-		throw new InvalidDomainException();
+		throw new ParserException();
 	}
 }

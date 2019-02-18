@@ -155,13 +155,13 @@ public enum DnDClass implements Opposite, Similar {
 		return jobSkills;
 	}
 
-	public static DnDClass parse(String s) throws InvalidDnDClassException {
+	public static DnDClass parse(String s) throws ParserException {
 		for (DnDClass el : CLASSES) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
 
-		throw new InvalidDnDClassException();
+		throw new ParserException();
 	}
 
 	public static DnDClass random() {

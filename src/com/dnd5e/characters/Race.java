@@ -215,13 +215,13 @@ public enum Race implements Opposite, Similar {
 		return RACES[index];
 	}
 
-	public static Race parse(String s) throws InvalidRaceException {
+	public static Race parse(String s) throws ParserException {
 		for (Race el : RACES) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
 
-		throw new InvalidRaceException();
+		throw new ParserException();
 	}
 
 	public static Race random() {

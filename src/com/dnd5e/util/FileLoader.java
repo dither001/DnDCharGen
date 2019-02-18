@@ -94,6 +94,7 @@ public class FileLoader {
 
 				weapon.setHanded(Handed.parse(values[counter++]));
 
+				// skill parser
 				skill = Skill.parseSimpleWeapon(values[counter++]);
 				weapon.setSkills(new Skill[] { skill });
 

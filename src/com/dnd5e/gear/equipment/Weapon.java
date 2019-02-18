@@ -88,13 +88,16 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	}
 
 	/*
-	 * 
+	 * STATIC METHODS
 	 */
-	public static Weapon build(Skill skill) {
+	public static Weapon getWeaponClone(Skill skill) {
 		return (Weapon) weaponMap.get(skill).clone();
 	}
 	
 	public static void mapSize() {
+		/*
+		 * FIXME - testing
+		 */
 		System.out.println(weaponMap.size());
 	}
 }

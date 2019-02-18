@@ -1,8 +1,11 @@
 package com.dnd5e.definitions;
 
+import com.dnd5e.exceptions.*;
+import com.dnd5e.util.*;
+
 public enum Skill {
 	UNSKILLED,
-	
+
 	// SIMPLE MELEE WEAPONS
 	UNARMED, CLUB, DAGGER, GREATCLUB, HANDAXE, JAVELIN, LIGHT_HAMMER, MACE, QUARTERSTAFF, SICKLE, SPEAR,
 
@@ -48,6 +51,9 @@ public enum Skill {
 	/*
 	 * STATIC FIELDS
 	 */
+	private static final Skill[] SIMPLE_WEAPONS = { UNARMED, CLUB, DAGGER, GREATCLUB, HANDAXE, JAVELIN, LIGHT_HAMMER,
+			MACE, QUARTERSTAFF, SICKLE, SPEAR, LIGHT_CROSSBOW, DART, SHORTBOW, SLING };
+
 	private static final Skill[] COMMON_SKILLS = { ACROBATICS, ANIMAL_HANDLING, ARCANA, ATHLETICS, DECEPTION, HISTORY,
 			INSIGHT, INTIMIDATION, INVESTIGATION, MEDICINE, NATURE, PERCEPTION, PERFORMANCE, PERSUASION, RELIGION,
 			SLEIGHT_OF_HAND, STEALTH, SURVIVAL };
@@ -100,7 +106,53 @@ public enum Skill {
 	private static final Skill[] DWARF_TOOLS = { BREWING_TOOLS, MASONRY_TOOLS, SMITHING_TOOLS };
 
 	/*
+	 * INSTANCE METHODS
+	 */
+	public int indexOf() {
+		if (isSimpleWeapon())
+			return Misc.indexOfEnum(this.toString(), SIMPLE_WEAPONS);
+		else
+			return -1;
+	}
+
+	private boolean isSimpleWeapon() {
+		boolean simple = false;
+
+		switch (this) {
+		case UNARMED:
+		case CLUB:
+		case DAGGER:
+		case GREATCLUB:
+		case HANDAXE:
+		case JAVELIN:
+		case LIGHT_HAMMER:
+		case MACE:
+		case QUARTERSTAFF:
+		case SICKLE:
+		case SPEAR:
+		case LIGHT_CROSSBOW:
+		case DART:
+		case SHORTBOW:
+		case SLING:
+			simple = true;
+		}
+
+		return simple;
+	}
+
+	/*
 	 * STATIC METHODS
 	 */
+	public static Skill getSimpleWeapon(int index) {
+		return SIMPLE_WEAPONS[index];
+	}
 
+	public static Skill parseSimpleWeapon(String s) throws ParserException {
+		for (Skill el : SIMPLE_WEAPONS) {
+			if (el.toString().compareToIgnoreCase(s) == 0)
+				return el;
+		}
+
+		throw new ParserException(s);
+	}
 }

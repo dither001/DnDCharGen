@@ -1,9 +1,22 @@
 package com.dnd5e.gear.equipment;
 
-import com.dnd5e.definitions.Energy;
+import java.util.HashMap;
+
+import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
+import com.dnd5e.util.FileLoader;
 
 public class Weapon extends Tool implements Armable {
+	private static HashMap<Skill, Weapon> weaponMap;
+	
+	static {
+		weaponMap = FileLoader.parseWeapons("weapons.csv");
+		
+	}
+	
+	/*
+	 * INSTANCE FIELDS
+	 */
 	private int[] damageDice;
 	private Energy damageType;
 	private WeaponTrait[] traits;
@@ -46,5 +59,12 @@ public class Weapon extends Tool implements Armable {
 	@Override
 	public void setTraits(WeaponTrait[] traits) {
 		this.traits = traits;
+	}
+	
+	/*
+	 * 
+	 */
+	public static void mapSize() {
+		System.out.println(weaponMap.size());
 	}
 }

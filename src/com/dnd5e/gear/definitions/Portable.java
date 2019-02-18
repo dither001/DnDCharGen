@@ -13,9 +13,9 @@ public interface Portable {
 
 	public void setCostCP(int cost);
 
-	public int getWeightOzs();
+	public int getWeightOz();
 
-	public void setWeightOzs(int weight);
+	public void setWeightOz(int weight);
 
 	public boolean getIsStackable();
 

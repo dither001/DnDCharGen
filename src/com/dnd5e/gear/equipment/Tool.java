@@ -7,8 +7,8 @@ public class Tool extends Item implements Usable {
 	/*
 	 * INSTANCE FIELDS
 	 */
-	private Handed handed;
-	private Skill[] skills;
+	protected Handed handed;
+	protected Skill[] skills;
 
 	public Tool() {
 		super();

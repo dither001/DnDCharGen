@@ -6,14 +6,14 @@ public class Item implements Portable {
 	/*
 	 * INSTANCE FIELDS
 	 */
-	private String name;
-	private Material material;
-	private int cost;
-	private int weight;
+	protected String name;
+	protected Material material;
+	protected int cost;
+	protected int weight;
 
-	private boolean isStackable;
-	private int quantity;
-	private int sizeOfStack;
+	protected boolean isStackable;
+	protected int quantity;
+	protected int sizeOfStack;
 
 	public Item() {
 		this.name = "Unnamed Item";
@@ -58,12 +58,12 @@ public class Item implements Portable {
 	}
 
 	@Override
-	public int getWeightOzs() {
+	public int getWeightOz() {
 		return weight;
 	}
 
 	@Override
-	public void setWeightOzs(int weight) {
+	public void setWeightOz(int weight) {
 		this.weight = weight;
 	}
 

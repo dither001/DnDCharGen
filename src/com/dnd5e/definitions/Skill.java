@@ -33,6 +33,9 @@ public enum Skill {
 	// HOLY SYMBOL
 	AMULET, EMBLEM, RELIQUARY,
 
+	// ARMOR
+	PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT, SCALE_MAIL, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL,
+
 	// COMMON SKILLS
 	ACROBATICS, ANIMAL_HANDLING, ARCANA, ATHLETICS, DECEPTION, HISTORY, INSIGHT, INTIMIDATION, INVESTIGATION, MEDICINE, NATURE, PERCEPTION, PERFORMANCE, PERSUASION, RELIGION, SLEIGHT_OF_HAND, STEALTH, SURVIVAL,
 
@@ -53,6 +56,9 @@ public enum Skill {
 	 */
 	private static final Skill[] SIMPLE_WEAPONS = { UNARMED, CLUB, DAGGER, GREATCLUB, HANDAXE, JAVELIN, LIGHT_HAMMER,
 			MACE, QUARTERSTAFF, SICKLE, SPEAR, LIGHT_CROSSBOW, DART, SHORTBOW, SLING };
+
+	private static final Skill[] ARMOR_TYPES = { PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT,
+			SCALE_MAIL, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL };
 
 	private static final Skill[] COMMON_SKILLS = { ACROBATICS, ANIMAL_HANDLING, ARCANA, ATHLETICS, DECEPTION, HISTORY,
 			INSIGHT, INTIMIDATION, INVESTIGATION, MEDICINE, NATURE, PERCEPTION, PERFORMANCE, PERSUASION, RELIGION,
@@ -109,10 +115,34 @@ public enum Skill {
 	 * INSTANCE METHODS
 	 */
 	public int indexOf() {
-		if (isSimpleWeapon())
+		if (isArmor())
+			return Misc.indexOfEnum(this.toString(), ARMOR_TYPES);
+		else if (isSimpleWeapon())
 			return Misc.indexOfEnum(this.toString(), SIMPLE_WEAPONS);
 		else
 			return -1;
+	}
+
+	private boolean isArmor() {
+		boolean armor = false;
+
+		switch (this) {
+		case PADDED_ARMOR:
+		case LEATHER_ARMOR:
+		case STUDDED_LEATHER:
+		case HIDE_ARMOR:
+		case CHAIN_SHIRT:
+		case SCALE_MAIL:
+		case BREASTPLATE:
+		case HALF_PLATE:
+		case RING_MAIL:
+		case CHAIN_MAIL:
+		case SPLINT_MAIL:
+		case PLATE_MAIL:
+			armor = true;
+		}
+
+		return armor;
 	}
 
 	private boolean isSimpleWeapon() {
@@ -143,8 +173,21 @@ public enum Skill {
 	/*
 	 * STATIC METHODS
 	 */
+	public static Skill getArmorType(int index) {
+		return ARMOR_TYPES[index];
+	}
+
 	public static Skill getSimpleWeapon(int index) {
 		return SIMPLE_WEAPONS[index];
+	}
+
+	public static Skill parseArmorType(String s) throws ParserException {
+		for (Skill el : ARMOR_TYPES) {
+			if (el.toString().compareToIgnoreCase(s) == 0)
+				return el;
+		}
+
+		throw new ParserException(s);
 	}
 
 	public static Skill parseSimpleWeapon(String s) throws ParserException {

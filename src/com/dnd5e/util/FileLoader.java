@@ -60,6 +60,59 @@ public class FileLoader {
 
 	}
 
+	public static HashMap<Skill, Armor> parseArmor(String filename) {
+		HashMap<Skill, Armor> map = new HashMap<Skill, Armor>();
+		BufferedReader input = null;
+
+		String line = "";
+		String comma = ",";
+
+		try {
+			input = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
+			// skips first character if '?'
+			input.mark(1);
+			if (input.read() != 0xFEFF)
+				input.reset();
+
+			Armor armor = null;
+			Skill skill = null;
+			int counter = 0;
+			while ((line = input.readLine()) != null) {
+				counter = 0;
+				String[] values = line.split(comma);
+
+				armor = new Armor();
+				armor.setName(values[counter++]);
+				armor.setMaterial(Material.parse(values[counter++]));
+				armor.setCostCP(Integer.valueOf(values[counter++]));
+				armor.setWeightOz(Integer.valueOf(values[counter++]));
+
+				armor.setIsStackable(false);
+				armor.setQuantity(Integer.valueOf(values[counter++]));
+				armor.setSizeOfStack(Integer.valueOf(values[counter++]));
+
+				armor.setHanded(Handed.parse(values[counter++]));
+
+				// skill parser
+				skill = Skill.parseArmorType(values[counter++]);
+				armor.setSkills(new Skill[] { skill });
+
+				armor.setArmorClass(Integer.valueOf(values[counter++]));
+				armor.setDexterityBonus(Integer.valueOf(values[counter++]));
+
+				map.put(skill, armor);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserException e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+
 	public static HashMap<Skill, Weapon> parseWeapons(String filename) {
 		HashMap<Skill, Weapon> map = new HashMap<Skill, Weapon>();
 		BufferedReader input = null;

@@ -11,7 +11,7 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 	static {
 		weaponMap = FileLoader.parseWeapons("weapons.csv");
-
+		System.out.println(weaponMap.size());
 	}
 
 	/*
@@ -93,11 +93,5 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	public static Weapon getWeaponClone(Skill skill) {
 		return (Weapon) weaponMap.get(skill).clone();
 	}
-	
-	public static void mapSize() {
-		/*
-		 * FIXME - testing
-		 */
-		System.out.println(weaponMap.size());
-	}
+
 }

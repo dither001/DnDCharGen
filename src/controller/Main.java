@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
+import com.dnd5e.gear.equipment.Armor;
 import com.dnd5e.gear.equipment.Weapon;
 import com.dnd5e.worlds.*;
 
@@ -28,11 +29,12 @@ public class Main {
 		// testFactionOfBackground(5, Background.ACOLYTE);
 		// testFactionOfJob(5, DnDClass.FIGHTER);
 		testFaction(5);
-		Weapon.mapSize();
 
 		/*
-		 * 
+		 * (force these objects to initialize)
 		 */
+		Armor.getArmorClone(Skill.PADDED_ARMOR);
+		Weapon.getWeaponClone(Skill.SLING);
 
 	}
 

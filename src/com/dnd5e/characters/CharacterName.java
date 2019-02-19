@@ -1,6 +1,5 @@
 package com.dnd5e.characters;
 
-import com.dnd5e.definitions.*;
 import com.dnd5e.util.*;
 
 public abstract class CharacterName {

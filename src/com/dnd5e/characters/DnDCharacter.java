@@ -6,6 +6,10 @@ import com.dnd5e.worlds.*;
 
 public class DnDCharacter extends Hero {
 
+	public DnDCharacter() {
+		super();
+	}
+
 	/*
 	 * INSTANCE METHODS
 	 */

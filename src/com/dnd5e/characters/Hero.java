@@ -13,6 +13,16 @@ public abstract class Hero extends Actor implements Adventurer {
 	protected Race race;
 	protected Background background;
 
+	public Hero() {
+		super();
+		this.level = 1;
+		this.experience = 0;
+
+		this.job = DnDClass.ROGUE;
+		this.subclass = Subclass.THIEF;
+		this.race = Race.HUMAN;
+		this.background = Background.CRIMINAL;
+	}
 
 	/*
 	 * ADVENTURER METHODS

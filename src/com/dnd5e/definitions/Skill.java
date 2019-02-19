@@ -54,6 +54,12 @@ public enum Skill {
 	/*
 	 * STATIC FIELDS
 	 */
+	private static final Skill[] ALL_WEAPONS = { UNARMED, CLUB, DAGGER, GREATCLUB, HANDAXE, JAVELIN, LIGHT_HAMMER, MACE,
+			QUARTERSTAFF, SICKLE, SPEAR, LIGHT_CROSSBOW, DART, SHORTBOW, SLING, BATTLEAXE, FLAIL, GLAIVE, GREATAXE,
+			GREATSWORD, HALBERD, LANCE, LONGSWORD, MAUL, MORNINGSTAR, PIKE, RAPIER, SCIMITAR, SHORTSWORD, TRIDENT,
+			WAR_PICK, WARHAMMER, WHIP, BLOWGUN, HAND_CROSSBOW, HEAVY_CROSSBOW, LONGBOW, NET, SHIELD, ARROW, BOLT,
+			BULLET, NEEDLE };
+
 	private static final Skill[] SIMPLE_WEAPONS = { CLUB, DAGGER, GREATCLUB, HANDAXE, JAVELIN, LIGHT_HAMMER, MACE,
 			QUARTERSTAFF, SICKLE, SPEAR, LIGHT_CROSSBOW, DART, SHORTBOW, SLING };
 
@@ -70,6 +76,9 @@ public enum Skill {
 			LONGSWORD, MAUL, MORNINGSTAR, PIKE, RAPIER, SCIMITAR, SHORTSWORD, TRIDENT, WAR_PICK, WARHAMMER, WHIP };
 
 	private static final Skill[] MILITARY_RANGED = { BLOWGUN, HAND_CROSSBOW, HEAVY_CROSSBOW, LONGBOW, NET };
+
+	private static final Skill[] RANGED_WEAPONS = { LIGHT_CROSSBOW, DART, SHORTBOW, SLING, BLOWGUN, HAND_CROSSBOW,
+			HEAVY_CROSSBOW, LONGBOW, NET };
 
 	private static final Skill[] ARMOR_TYPES = { PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT,
 			SCALE_MAIL, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL };
@@ -160,7 +169,7 @@ public enum Skill {
 	}
 
 	private boolean isSimpleWeapon() {
-		boolean simple = false;
+		boolean weapon = false;
 
 		switch (this) {
 		case UNARMED:
@@ -178,10 +187,61 @@ public enum Skill {
 		case DART:
 		case SHORTBOW:
 		case SLING:
-			simple = true;
+			weapon = true;
 		}
 
-		return simple;
+		return weapon;
+	}
+
+	private boolean isMilitaryWeapon() {
+		boolean weapon = false;
+
+		switch (this) {
+		case BATTLEAXE:
+		case FLAIL:
+		case GLAIVE:
+		case GREATAXE:
+		case GREATSWORD:
+		case HALBERD:
+		case LANCE:
+		case LONGSWORD:
+		case MAUL:
+		case MORNINGSTAR:
+		case PIKE:
+		case RAPIER:
+		case SCIMITAR:
+		case SHORTSWORD:
+		case TRIDENT:
+		case WAR_PICK:
+		case WARHAMMER:
+		case WHIP:
+		case BLOWGUN:
+		case HAND_CROSSBOW:
+		case HEAVY_CROSSBOW:
+		case LONGBOW:
+		case NET:
+			weapon = true;
+		}
+
+		return weapon;
+	}
+
+	public boolean usesAmmunition() {
+		boolean weapon = false;
+
+		switch (this) {
+		case BLOWGUN:
+		case DART:
+		case HAND_CROSSBOW:
+		case HEAVY_CROSSBOW:
+		case LIGHT_CROSSBOW:
+		case LONGBOW:
+		case SHORTBOW:
+		case SLING:
+			weapon = true;
+		}
+
+		return weapon;
 	}
 
 	/*
@@ -204,8 +264,8 @@ public enum Skill {
 		throw new ParserException(s);
 	}
 
-	public static Skill parseSimpleWeapon(String s) throws ParserException {
-		for (Skill el : SIMPLE_WEAPONS) {
+	public static Skill parseWeapon(String s) throws ParserException {
+		for (Skill el : ALL_WEAPONS) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}
@@ -215,6 +275,14 @@ public enum Skill {
 
 	public static Skill randomMilitaryMelee() {
 		return Misc.randomFromArray(MILITARY_MELEE);
+	}
+
+	public static Skill randomMilitaryWeapon() {
+		return Misc.randomFromArray(MILITARY_WEAPONS);
+	}
+
+	public static Skill randomSimpleMelee() {
+		return Misc.randomFromArray(SIMPLE_MELEE);
 	}
 
 	public static Skill randomSimpleWeapon() {

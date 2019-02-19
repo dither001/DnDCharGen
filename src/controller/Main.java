@@ -18,6 +18,7 @@ public class Main {
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
+		testRandomCharacters(10);
 
 		// testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
@@ -28,13 +29,14 @@ public class Main {
 		// testFactionOfRace(5, Race.TIEFLING);
 		// testFactionOfBackground(5, Background.ACOLYTE);
 		// testFactionOfJob(5, DnDClass.FIGHTER);
-		testFaction(5);
+		// testFaction(5);
+
+		// Armor.getArmorClone(Skill.PADDED_ARMOR);
+		// Weapon.get(Skill.SLING);
 
 		/*
 		 * (force these objects to initialize)
 		 */
-		Armor.getArmorClone(Skill.PADDED_ARMOR);
-		Weapon.getWeaponClone(Skill.SLING);
 
 	}
 
@@ -148,7 +150,7 @@ public class Main {
 		Warband band = new Warband();
 		for (int i = 0; i < n; ++i)
 			band.add(DnDCharacter.random());
-		
+
 		for (Creature el : band.getMembers())
 			System.out.println(el.toString());
 
@@ -232,6 +234,13 @@ public class Main {
 				toon = DnDCharacter.random();
 			} while (toon.getJob().equals(job) != true);
 			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	public static void testRandomCharacters(int n) {
+		for (int i = 0; i < n; ++i) {
+			System.out.println(DnDCharacter.random().toStringVerbose());
 			System.out.println();
 		}
 	}

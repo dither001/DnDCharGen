@@ -127,13 +127,14 @@ public class FileLoader {
 			if (input.read() != 0xFEFF)
 				input.reset();
 
+			WeaponTrait[] traits = null;
 			Weapon weapon = null;
 			Skill skill = null;
 			int counter = 0;
 			int[] dice = new int[] { 1, 1 };
 			while ((line = input.readLine()) != null) {
 				counter = 0;
-				String[] values = line.split(comma), damageDice;
+				String[] values = line.split(comma), damageDice, weaponTraits;
 
 				weapon = new Weapon();
 				weapon.setName(values[counter++]);
@@ -141,14 +142,18 @@ public class FileLoader {
 				weapon.setCostCP(Integer.valueOf(values[counter++]));
 				weapon.setWeightOz(Integer.valueOf(values[counter++]));
 
-				weapon.setIsStackable(false);
 				weapon.setQuantity(Integer.valueOf(values[counter++]));
 				weapon.setSizeOfStack(Integer.valueOf(values[counter++]));
+
+				if (weapon.getQuantity() > 1)
+					weapon.setIsStackable(true);
+				else
+					weapon.setIsStackable(false);
 
 				weapon.setHanded(Handed.parse(values[counter++]));
 
 				// skill parser
-				skill = Skill.parseSimpleWeapon(values[counter++]);
+				skill = Skill.parseWeapon(values[counter++]);
 				weapon.setSkills(new Skill[] { skill });
 
 				// DAMAGE DICE ASSIGNMENT
@@ -157,7 +162,16 @@ public class FileLoader {
 				dice[1] = Integer.valueOf(damageDice[1]);
 				weapon.setDamageDice(dice);
 				weapon.setDamageType(Energy.parse(values[counter++]));
-				// TODO - weapon.setTraits(traits);
+
+				// WEAPON TRAITS
+				if (values.length > 10) {
+					weaponTraits = values[counter++].split(".");
+					traits = new WeaponTrait[weaponTraits.length];
+					for (int i = 0; i < traits.length; ++i)
+						traits[i] = WeaponTrait.parse(weaponTraits[i]);
+
+					weapon.setTraits(traits);
+				}
 
 				map.put(skill, weapon);
 			}

@@ -276,8 +276,8 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
-	public void setInventory(Inventory invenetory) {
-		this.inventory = invenetory;
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 }

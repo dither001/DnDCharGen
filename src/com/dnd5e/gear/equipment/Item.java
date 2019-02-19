@@ -27,6 +27,13 @@ public class Item implements Portable {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String toString() {
+		if (isStackable)
+			return name + " (" + quantity + ")";
+		else
+			return name;
+	}
+
 	@Override
 	public String getName() {
 		return name;

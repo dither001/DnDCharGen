@@ -1,6 +1,7 @@
 package com.dnd5e.characters;
 
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.Inventory;
 import com.dnd5e.util.*;
 import com.dnd5e.worlds.*;
 
@@ -24,7 +25,8 @@ public class DnDCharacter extends Hero {
 		s += String.format("%s %s %s %s (%s) %s \n", alignment.abbreviation(), isFemale ? "female" : "male",
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
-		s += abilityArrayToString();
+		s += abilityArrayToString() + "\n";
+		s += inventory.toString();
 
 		return s;
 	}
@@ -51,8 +53,7 @@ public class DnDCharacter extends Hero {
 		toon.setGod(God.selectGod(toon));
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
-		toon.setLevel(1);
-		toon.setExperience(0);
+		Inventory.setupStartingGear(toon);
 
 		return toon;
 	}

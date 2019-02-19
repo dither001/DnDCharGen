@@ -11,7 +11,6 @@ public class Armor extends Tool implements Wearable, Cloneable {
 	
 	static {
 		armorMap = FileLoader.parseArmor("armor.csv");
-		System.out.println(armorMap.size());
 	}
 	
 	/*

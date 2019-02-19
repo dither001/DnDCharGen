@@ -3,6 +3,7 @@ package com.dnd5e.characters;
 import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.util.*;
 import com.dnd5e.worlds.*;
 
@@ -35,6 +36,7 @@ public abstract class Actor implements Creature, Persistent {
 	protected int[] abilityScores;
 	protected int[] abilityCeiling;
 	protected int[] savingThrows;
+	protected EnumSet<Skill> skills;
 
 	/*
 	 * STATUS EFFECTS
@@ -43,6 +45,39 @@ public abstract class Actor implements Creature, Persistent {
 	protected EnumSet<Energy> energyImmunity;
 	protected EnumSet<Condition> conditionImmunity;
 	protected EnumSet<Condition> conditions;
+
+	/*
+	 * ITEMS / INVENTORY
+	 */
+	protected Inventory inventory;
+	
+	/*
+	 * CONSTRUCTORS
+	 */
+	public Actor() {
+		this.name = "Unnamed Actor";
+		this.isFemale = true;
+		this.alignment = Alignment.UNALIGNED;
+		this.god = null;
+
+		this.size = Size.MEDIUM;
+		this.creatureType = CreatureType.HUMANOID;
+		this.movement = EnumSet.noneOf(MovementType.class);
+		this.senses = EnumSet.noneOf(Sense.class);
+
+		this.hitDice = new int[] { 1 };
+		this.abilityScores = new int[] { 10, 10, 10, 10, 10, 10 };
+		this.abilityCeiling = new int[] { 20, 20, 20, 20, 20, 20 };
+		this.savingThrows = new int[] { 0, 0, 0, 0, 0, 0 };
+		this.skills = EnumSet.noneOf(Skill.class);
+
+		this.energyResistance = EnumSet.noneOf(Energy.class);
+		this.energyImmunity = EnumSet.noneOf(Energy.class);
+		this.conditionImmunity = EnumSet.noneOf(Condition.class);
+		this.conditions = EnumSet.noneOf(Condition.class);
+		
+		this.inventory = new Inventory(this);
+	}
 
 	/*
 	 * PERSISTENT METHODS
@@ -186,6 +221,16 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
+	public EnumSet<Skill> getSkills() {
+		return skills;
+	}
+
+	@Override
+	public void setSkills(EnumSet<Skill> skills) {
+		this.skills = skills;
+	}
+
+	@Override
 	public EnumSet<Energy> getResistance() {
 		return energyResistance;
 	}
@@ -223,6 +268,16 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setConditions(EnumSet<Condition> conditions) {
 		this.conditions = conditions;
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	@Override
+	public void setInventory(Inventory invenetory) {
+		this.inventory = invenetory;
 	}
 
 }

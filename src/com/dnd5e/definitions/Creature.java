@@ -2,6 +2,7 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.worlds.*;
 
 public interface Creature {
@@ -53,6 +54,10 @@ public interface Creature {
 
 	public int[] getSavingThrows();
 
+	public EnumSet<Skill> getSkills();
+
+	public void setSkills(EnumSet<Skill> skills);
+
 	/*
 	 * STATUS EFFECTS
 	 */
@@ -73,8 +78,23 @@ public interface Creature {
 	public void setConditions(EnumSet<Condition> conditions);
 
 	/*
+	 * ITEMS / INVENTORY
+	 */
+	public Inventory getInventory();
+
+	public void setInventory(Inventory inventory);
+
+	/*
 	 * DEFAULT METHODS
 	 */
+	public default boolean isSmall() {
+		return getCreatureSize().equals(Size.SMALL);
+	}
+
+	public default boolean isMedium() {
+		return getCreatureSize().equals(Size.MEDIUM);
+	}
+
 	public default String abilityArrayToString() {
 		int[] array = getAbilityScores();
 

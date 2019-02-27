@@ -25,6 +25,25 @@ public abstract class Hero extends Actor implements Adventurer {
 	}
 
 	/*
+	 * OVERRIDE METHODS
+	 */
+	@Override
+	public int getProficiencyBonus() {
+		int bonus = 2;
+
+		if (level > 16)
+			bonus = 6;
+		else if (level > 12)
+			bonus = 5;
+		else if (level > 8)
+			bonus = 4;
+		else if (level > 4)
+			bonus = 3;
+
+		return bonus;
+	}
+
+	/*
 	 * ADVENTURER METHODS
 	 */
 	@Override

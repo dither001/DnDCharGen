@@ -204,4 +204,22 @@ public interface Creature {
 		return getAbilityModifier(5);
 	}
 
+	/*
+	 * SKILL METHODS
+	 */
+	public default int getProficiencyBonus() {
+		int bonus = 2;
+		int hitDice = getHitDice().length;
+
+		if (hitDice > 16)
+			bonus = 6;
+		else if (hitDice > 12)
+			bonus = 5;
+		else if (hitDice > 8)
+			bonus = 4;
+		else if (hitDice > 4)
+			bonus = 3;
+
+		return bonus;
+	}
 }

@@ -31,5 +31,4 @@ public interface Adventurer {
 	public Background getBackground();
 
 	public void setBackground(Background background);
-
 }

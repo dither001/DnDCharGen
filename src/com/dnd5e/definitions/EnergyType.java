@@ -1,12 +1,11 @@
 package com.dnd5e.definitions;
 
-import com.dnd5e.exceptions.*;
 import com.miscellaneous.util.*;
 
-public enum Energy {
+public enum EnergyType {
 	BLUDGEONING, PIERCING, SLASHING, FORCE, FIRE, COLD, LIGHTNING, ACID, RADIANT, THUNDER, NECROTIC, PSYCHIC, POISON;
 
-	private static final Energy[] ENERGIES = { ACID, BLUDGEONING, COLD, FIRE, FORCE, LIGHTNING, NECROTIC, PIERCING,
+	private static final EnergyType[] ENERGIES = { ACID, BLUDGEONING, COLD, FIRE, FORCE, LIGHTNING, NECROTIC, PIERCING,
 			POISON, PSYCHIC, RADIANT, SLASHING, THUNDER };
 
 	/*
@@ -19,12 +18,12 @@ public enum Energy {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Energy get(int index) {
+	public static EnergyType get(int index) {
 		return ENERGIES[index];
 	}
 	
-	public static Energy parse(String s) throws ParserException {
-		for (Energy el : ENERGIES) {
+	public static EnergyType parse(String s) throws ParserException {
+		for (EnergyType el : ENERGIES) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
 				return el;
 		}

@@ -22,9 +22,9 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 	public Weapon() {
 		super();
-		this.damageDice = new int[] { 1, 1 };
+		this.damageDice = new int[] { 1, 4 };
 		this.damageType = Energy.BLUDGEONING;
-		this.traits = new WeaponTrait[0];
+		this.traits = new WeaponTrait[] { WeaponTrait.IMPROVISED };
 	}
 
 	/*

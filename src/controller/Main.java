@@ -2,11 +2,14 @@ package controller;
 
 import java.util.ArrayList;
 
+import com.dnd4e.definitions.PowerSource;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.exceptions.ParserException;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.Armor;
 import com.dnd5e.gear.equipment.Weapon;
+import com.dnd5e.util.FileLoader;
 import com.dnd5e.worlds.*;
 
 public class Main {
@@ -18,7 +21,7 @@ public class Main {
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
-		testRandomCharacters(10);
+		// testRandomCharacters(50);
 
 		// testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
@@ -37,6 +40,7 @@ public class Main {
 		/*
 		 * (force these objects to initialize)
 		 */
+		FileLoader.parseMonsters("monsters.csv");
 
 	}
 

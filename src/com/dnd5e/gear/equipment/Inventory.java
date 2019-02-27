@@ -53,6 +53,23 @@ public class Inventory {
 		return s + "] (" + total + " lbs.)";
 	}
 
+	public int containsWeapon(Skill skill) {
+		int index = -1;
+
+		for (int i = 0; i < weaponList.size(); ++i) {
+			Skill[] array = weaponList.get(i).getSkills();
+			for (Skill el : array) {
+				if (el.equals(skill))
+					index = i;
+			}
+
+			if (index != -1)
+				break;
+		}
+
+		return index;
+	}
+
 	public ArrayList<Armor> getArmorList() {
 		return armorList;
 	}
@@ -74,13 +91,35 @@ public class Inventory {
 	}
 
 	private boolean addWeapon(Skill skill) {
-		return weaponList.add(Weapon.get(skill));
+		// OVERLOADS addWeapon()
+		return addWeapon(1, skill);
 	}
 
 	private boolean addWeapon(int quantity, Skill skill) {
+		boolean added = false;
 		Weapon weapon = Weapon.get(skill);
-		weapon.setQuantity(quantity);
-		return weaponList.add(weapon);
+
+		if (weapon.getIsStackable()) {
+			int index = containsWeapon(skill);
+
+			if (index > -1) {
+				// stack the stackable
+				Weapon w = weaponList.get(index);
+				int q = w.getQuantity();
+				w.setQuantity(quantity + q);
+				added = true;
+			} else {
+				added = weaponList.add(weapon);
+				weapon.setQuantity(quantity);
+				added = true;
+			}
+						
+		} else {
+			added = weaponList.add(weapon);
+			weapon.setQuantity(quantity);
+		}
+
+		return added;
 	}
 
 	private void randomSimpleHelper() {
@@ -112,12 +151,14 @@ public class Inventory {
 		case HAND_CROSSBOW:
 		case HEAVY_CROSSBOW:
 		case LIGHT_CROSSBOW:
-			addWeapon(20, Skill.ARROW);
+			addWeapon(20, Skill.BOLT);
 			break;
 		case LONGBOW:
 		case SHORTBOW:
-		case SLING:
 			addWeapon(20, Skill.ARROW);
+			break;
+		case SLING:
+			addWeapon(20, Skill.BULLET);
 			break;
 		}
 	}

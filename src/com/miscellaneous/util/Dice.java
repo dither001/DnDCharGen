@@ -1,4 +1,4 @@
-package com.dnd5e.util;
+package com.miscellaneous.util;
 
 import java.util.Random;
 

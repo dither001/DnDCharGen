@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
-import com.dnd5e.util.FileLoader;
+import com.miscellaneous.util.FileLoader;
 
 public class Weapon extends Tool implements Armable, Cloneable {
 	private static HashMap<Skill, Weapon> weaponMap;

@@ -4,7 +4,7 @@ import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.exceptions.*;
 import com.dnd5e.magic.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum God implements Opposite, Similar {
 	ASMODEUS, AVANDRA, BAHAMUT, BANE, CORELLON, ERATHIS, GRUUMSH, IOUN, KORD, LOLTH, MELORA, MORADIN, PELOR, RAVEN_QUEEN, SEHANINE, THARIZDUN, TIAMAT, TOROG, VECNA, ZEHIR;

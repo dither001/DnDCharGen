@@ -1,7 +1,7 @@
 package com.dnd5e.definitions;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Skill {
 	UNSKILLED,

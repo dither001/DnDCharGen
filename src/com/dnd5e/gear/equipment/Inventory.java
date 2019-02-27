@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public class Inventory {
 

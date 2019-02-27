@@ -1,7 +1,7 @@
 package com.dnd5e.gear.definitions;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Material {
 	CLOTH, PAPER, ROPE, CRYSTAL, GLASS, ICE, WOOD, BONE, STONE, IRON, STEEL, MITHRAL, ADAMANTINE;

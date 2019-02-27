@@ -2,8 +2,8 @@ package com.dnd5e.characters;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.Inventory;
-import com.dnd5e.util.*;
 import com.dnd5e.worlds.*;
+import com.miscellaneous.util.*;
 
 public class DnDCharacter extends Hero {
 

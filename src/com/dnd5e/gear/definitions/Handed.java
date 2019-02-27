@@ -1,7 +1,7 @@
 package com.dnd5e.gear.definitions;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Handed {
 	NONE, LIGHT, ONE, VERSATILE, TWO, HEAVY;

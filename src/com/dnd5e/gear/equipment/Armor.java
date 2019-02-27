@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public class Armor extends Tool implements Wearable, Cloneable {
 	private static HashMap<Skill, Armor> armorMap;

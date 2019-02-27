@@ -4,8 +4,8 @@ import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
-import com.dnd5e.util.*;
 import com.dnd5e.worlds.*;
+import com.miscellaneous.util.*;
 
 public abstract class Actor implements Creature, Persistent {
 

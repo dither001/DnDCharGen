@@ -1,7 +1,7 @@
 package com.dnd5e.characters;
 
-import com.dnd5e.util.Dice;
-import com.dnd5e.util.Misc;
+import com.miscellaneous.util.Dice;
+import com.miscellaneous.util.Misc;
 
 public enum Subclass {
 	BERSERKER, BEAR_TOTEM, EAGLE_TOTEM, WOLF_TOTEM, // barbarians

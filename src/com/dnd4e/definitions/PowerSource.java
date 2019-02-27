@@ -1,7 +1,7 @@
 package com.dnd4e.definitions;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum PowerSource implements Opposite, Similar {
 	ARCANE, DIVINE, ELEMENTAL, MARTIAL, PRIMAL, PSIONIC, SHADOW;

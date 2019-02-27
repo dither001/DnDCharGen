@@ -1,6 +1,6 @@
 package com.dnd5e.players;
 
-import com.dnd5e.util.Misc;
+import com.miscellaneous.util.Misc;
 
 /*
  * Per 4e "player" archetypes, pgs. 8-10.

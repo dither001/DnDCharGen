@@ -1,7 +1,7 @@
 package com.dnd5e.monsters;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Cornerstone {
 	ANGEL, DEMON, DRAGON, FAERIE, GIANT, GOD, OLD_ONE, SPIRIT, UNDEAD;

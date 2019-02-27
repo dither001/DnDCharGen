@@ -1,7 +1,7 @@
 package com.dnd5e.characters;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Race implements Opposite, Similar {
 	// GNOLL, GOBLIN, GRIMLOCK, KOBOLD, LIZARDFOLK, MERFOLK, ORC, SAHUAGIN

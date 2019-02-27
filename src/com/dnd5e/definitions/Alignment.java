@@ -1,7 +1,7 @@
 package com.dnd5e.definitions;
 
 import com.dnd5e.exceptions.*;
-import com.dnd5e.util.*;
+import com.miscellaneous.util.*;
 
 public enum Alignment implements Opposite, Similar {
 	CHAOTIC_EVIL, CHAOTIC_GOOD, CHAOTIC_NEUTRAL, LAWFUL_EVIL, LAWFUL_GOOD, LAWFUL_NEUTRAL, NEUTRAL_EVIL, NEUTRAL_GOOD, TRUE_NEUTRAL, UNALIGNED;

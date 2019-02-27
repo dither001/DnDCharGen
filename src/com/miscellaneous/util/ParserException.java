@@ -1,4 +1,4 @@
-package com.dnd5e.exceptions;
+package com.miscellaneous.util;
 
 @SuppressWarnings("serial")
 public class ParserException extends Exception {

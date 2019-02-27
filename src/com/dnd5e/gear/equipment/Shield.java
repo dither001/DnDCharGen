@@ -24,7 +24,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	protected int missileRange;
 
 	protected int[] damageDice;
-	protected Energy damageType;
+	protected EnergyType damageType;
 	protected WeaponTrait[] traits;
 
 	public Shield() {
@@ -37,7 +37,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 		this.missileRange = -1;
 
 		this.damageDice = new int[] { 1, 1 };
-		this.damageType = Energy.BLUDGEONING;
+		this.damageType = EnergyType.BLUDGEONING;
 		this.traits = new WeaponTrait[0];
 	}
 
@@ -141,12 +141,12 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	}
 
 	@Override
-	public Energy getDamageType() {
+	public EnergyType getDamageType() {
 		return damageType;
 	}
 
 	@Override
-	public void setDamageType(Energy damageType) {
+	public void setDamageType(EnergyType damageType) {
 		this.damageType = damageType;
 	}
 

@@ -21,7 +21,7 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	protected int missileRange;
 
 	protected int[] damageDice;
-	protected Energy damageType;
+	protected EnergyType damageType;
 	protected WeaponTrait[] traits;
 
 	public Weapon() {
@@ -31,7 +31,7 @@ public class Weapon extends Tool implements Armable, Cloneable {
 		this.missileRange = -1;
 	
 		this.damageDice = new int[] { 1, 4 };
-		this.damageType = Energy.BLUDGEONING;
+		this.damageType = EnergyType.BLUDGEONING;
 		this.traits = new WeaponTrait[] { WeaponTrait.IMPROVISED };
 	}
 
@@ -109,12 +109,12 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	}
 
 	@Override
-	public Energy getDamageType() {
+	public EnergyType getDamageType() {
 		return damageType;
 	}
 
 	@Override
-	public void setDamageType(Energy damageType) {
+	public void setDamageType(EnergyType damageType) {
 		this.damageType = damageType;
 	}
 

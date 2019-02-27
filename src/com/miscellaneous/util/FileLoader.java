@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
-import com.dnd5e.exceptions.*;
 import com.dnd5e.gear.definitions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.monsters.*;
@@ -161,7 +160,7 @@ public class FileLoader {
 				dice[0] = Integer.valueOf(damageDice[0]);
 				dice[1] = Integer.valueOf(damageDice[1]);
 				weapon.setDamageDice(dice);
-				weapon.setDamageType(Energy.parse(values[counter++]));
+				weapon.setDamageType(EnergyType.parse(values[counter++]));
 
 				// WEAPON TRAITS
 				if (values.length > 10) {

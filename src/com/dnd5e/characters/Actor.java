@@ -41,8 +41,8 @@ public abstract class Actor implements Creature, Persistent {
 	/*
 	 * STATUS EFFECTS
 	 */
-	protected EnumSet<Energy> energyResistance;
-	protected EnumSet<Energy> energyImmunity;
+	protected EnumSet<EnergyType> energyResistance;
+	protected EnumSet<EnergyType> energyImmunity;
 	protected EnumSet<Condition> conditionImmunity;
 	protected EnumSet<Condition> conditions;
 
@@ -71,8 +71,8 @@ public abstract class Actor implements Creature, Persistent {
 		this.savingThrows = new int[] { 0, 0, 0, 0, 0, 0 };
 		this.skills = EnumSet.noneOf(Skill.class);
 
-		this.energyResistance = EnumSet.noneOf(Energy.class);
-		this.energyImmunity = EnumSet.noneOf(Energy.class);
+		this.energyResistance = EnumSet.noneOf(EnergyType.class);
+		this.energyImmunity = EnumSet.noneOf(EnergyType.class);
 		this.conditionImmunity = EnumSet.noneOf(Condition.class);
 		this.conditions = EnumSet.noneOf(Condition.class);
 		
@@ -231,22 +231,22 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
-	public EnumSet<Energy> getResistance() {
+	public EnumSet<EnergyType> getResistance() {
 		return energyResistance;
 	}
 
 	@Override
-	public void setResistance(EnumSet<Energy> resistance) {
+	public void setResistance(EnumSet<EnergyType> resistance) {
 		this.energyResistance = resistance;
 	}
 
 	@Override
-	public EnumSet<Energy> getEnergyImmunity() {
+	public EnumSet<EnergyType> getEnergyImmunity() {
 		return energyImmunity;
 	}
 
 	@Override
-	public void setEnergyImmunity(EnumSet<Energy> energyImmunity) {
+	public void setEnergyImmunity(EnumSet<EnergyType> energyImmunity) {
 		this.energyImmunity = energyImmunity;
 	}
 

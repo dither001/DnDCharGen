@@ -61,13 +61,13 @@ public interface Creature {
 	/*
 	 * STATUS EFFECTS
 	 */
-	public EnumSet<Energy> getResistance();
+	public EnumSet<EnergyType> getResistance();
 
-	public void setResistance(EnumSet<Energy> resistance);
+	public void setResistance(EnumSet<EnergyType> resistance);
 
-	public EnumSet<Energy> getEnergyImmunity();
+	public EnumSet<EnergyType> getEnergyImmunity();
 
-	public void setEnergyImmunity(EnumSet<Energy> energyImmunity);
+	public void setEnergyImmunity(EnumSet<EnergyType> energyImmunity);
 
 	public EnumSet<Condition> getConditionImmunity();
 

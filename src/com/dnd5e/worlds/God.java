@@ -2,7 +2,6 @@ package com.dnd5e.worlds;
 
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.*;
-import com.dnd5e.exceptions.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 

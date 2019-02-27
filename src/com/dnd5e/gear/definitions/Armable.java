@@ -19,9 +19,9 @@ public interface Armable extends Usable {
 
 	public void setDamageDice(int[] damageDice);
 
-	public Energy getDamageType();
+	public EnergyType getDamageType();
 
-	public void setDamageType(Energy damageType);
+	public void setDamageType(EnergyType damageType);
 
 	public WeaponTrait[] getTraits();
 

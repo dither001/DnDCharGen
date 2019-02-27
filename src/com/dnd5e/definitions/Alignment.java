@@ -1,6 +1,5 @@
 package com.dnd5e.definitions;
 
-import com.dnd5e.exceptions.*;
 import com.miscellaneous.util.*;
 
 public enum Alignment implements Opposite, Similar {

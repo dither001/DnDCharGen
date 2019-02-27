@@ -1,6 +1,5 @@
 package com.dnd5e.characters;
 
-import com.dnd5e.exceptions.*;
 import com.miscellaneous.util.*;
 
 public enum Background implements Opposite, Similar {

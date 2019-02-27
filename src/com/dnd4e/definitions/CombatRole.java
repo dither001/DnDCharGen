@@ -1,6 +1,5 @@
 package com.dnd4e.definitions;
 
-import com.dnd5e.exceptions.*;
 import com.miscellaneous.util.*;
 
 public enum CombatRole implements Opposite, Similar {

@@ -16,12 +16,20 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	/*
 	 * INSTANCE FIELDS
 	 */
+	protected int meleeRange;
+	protected int thrownRange;
+	protected int missileRange;
+
 	protected int[] damageDice;
 	protected Energy damageType;
 	protected WeaponTrait[] traits;
 
 	public Weapon() {
 		super();
+		this.meleeRange = 1;
+		this.thrownRange = 4;
+		this.missileRange = -1;
+	
 		this.damageDice = new int[] { 1, 4 };
 		this.damageType = Energy.BLUDGEONING;
 		this.traits = new WeaponTrait[] { WeaponTrait.IMPROVISED };
@@ -46,6 +54,10 @@ public class Weapon extends Tool implements Armable, Cloneable {
 		weapon.setHanded(handed);
 		weapon.setSkills(skills);
 
+		weapon.setMeleeRange(meleeRange);
+		weapon.setThrownRange(thrownRange);
+		weapon.setMissileRange(missileRange);
+
 		weapon.setDamageDice(damageDice);
 		weapon.setDamageType(damageType);
 		weapon.setTraits(traits);
@@ -56,6 +68,36 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	/*
 	 * INSTANCE METHODS
 	 */
+	@Override
+	public int getMeleeRange() {
+		return meleeRange;
+	}
+
+	@Override
+	public void setMeleeRange(int meleeRange) {
+		this.meleeRange = meleeRange;
+	}
+
+	@Override
+	public int getThrownRange() {
+		return thrownRange;
+	}
+
+	@Override
+	public void setThrownRange(int thrownRange) {
+		this.thrownRange = thrownRange;
+	}
+
+	@Override
+	public int getMissileRange() {
+		return missileRange;
+	}
+
+	@Override
+	public void setMissileRange(int missileRange) {
+		this.missileRange = missileRange;
+	}
+
 	@Override
 	public int[] getDamageDice() {
 		return damageDice;

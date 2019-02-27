@@ -18,6 +18,11 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	 */
 	protected int armorClass;
 	protected int dexterityBonus;
+
+	protected int meleeRange;
+	protected int thrownRange;
+	protected int missileRange;
+
 	protected int[] damageDice;
 	protected Energy damageType;
 	protected WeaponTrait[] traits;
@@ -26,6 +31,11 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 		super();
 		this.armorClass = 10;
 		this.dexterityBonus = 10;
+
+		this.meleeRange = 1;
+		this.thrownRange = 4;
+		this.missileRange = -1;
+
 		this.damageDice = new int[] { 1, 1 };
 		this.damageType = Energy.BLUDGEONING;
 		this.traits = new WeaponTrait[0];
@@ -53,6 +63,10 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 		shield.setArmorClass(armorClass);
 		shield.setDexterityBonus(dexterityBonus);
 
+		shield.setMeleeRange(meleeRange);
+		shield.setThrownRange(thrownRange);
+		shield.setMissileRange(missileRange);
+
 		shield.setDamageDice(damageDice);
 		shield.setDamageType(damageType);
 		shield.setTraits(traits);
@@ -61,7 +75,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	}
 
 	/*
-	 * INSTANCE METHODS
+	 * ARMOR METHODS
 	 */
 	@Override
 	public int getArmorClass() {
@@ -81,6 +95,39 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	@Override
 	public void setDexterityBonus(int dexterityBonus) {
 		this.dexterityBonus = dexterityBonus;
+	}
+
+	/*
+	 * WEAPON METHODS
+	 */
+	@Override
+	public int getMeleeRange() {
+		return meleeRange;
+	}
+
+	@Override
+	public void setMeleeRange(int meleeRange) {
+		this.meleeRange = meleeRange;
+	}
+
+	@Override
+	public int getThrownRange() {
+		return thrownRange;
+	}
+
+	@Override
+	public void setThrownRange(int thrownRange) {
+		this.thrownRange = thrownRange;
+	}
+
+	@Override
+	public int getMissileRange() {
+		return missileRange;
+	}
+
+	@Override
+	public void setMissileRange(int missileRange) {
+		this.missileRange = missileRange;
 	}
 
 	@Override

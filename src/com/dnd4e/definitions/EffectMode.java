@@ -1,5 +1,5 @@
 package com.dnd4e.definitions;
 
 public enum EffectMode {
-	TOUCH, WEAPON
+	AREA, CLOSE, MELEE, PERSONAL, RANGED
 }

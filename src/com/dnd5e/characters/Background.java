@@ -15,20 +15,20 @@ public enum Background implements Opposite, Similar {
 		return Misc.indexOfEnum(this.toString(), BACKGROUNDS);
 	}
 
-	public boolean isClergy() {
+	private boolean isClergy() {
 		return this.equals(ACOLYTE);
 	}
 
-	public boolean isNoble() {
+	private boolean isNoble() {
 		return this.equals(NOBLE);
 	}
 
-	public boolean isOutlaw() {
+	private boolean isOutlaw() {
 		return this.equals(CHARLATAN) || this.equals(CRIMINAL) || this.equals(HERMIT) || this.equals(OUTLANDER)
 				|| this.equals(URCHIN);
 	}
 
-	public boolean isTradesman() {
+	private boolean isTradesman() {
 		return this.equals(ENTERTAINER) || this.equals(FOLK_HERO) || this.equals(GUILD_ARTISAN) || this.equals(SAGE)
 				|| this.equals(SAILOR) || this.equals(SOLDIER);
 	}

@@ -12,18 +12,16 @@ import com.dnd5e.gear.equipment.*;
 import com.dnd5e.monsters.*;
 
 public class FileLoader {
-	private static final String[] SYSTEM_FILES = { "monsters.csv", "weapons.csv" };
 
 	/*
 	 * STATIC METHODS
 	 */
-	public static void parseMonsters(String filename) {
+	public static HashMap<String, Monster> parseMonsters(String filename) {
+		HashMap<String, Monster> map = new HashMap<String, Monster>();
 		BufferedReader input = null;
 
 		String line = "";
 		String comma = ",";
-
-		int[] types = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		try {
 			input = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
@@ -33,18 +31,43 @@ public class FileLoader {
 			if (input.read() != 0xFEFF)
 				input.reset();
 
+			
 			while ((line = input.readLine()) != null) {
 				String[] values = line.split(comma);
 
-				++types[Cornerstone.parse(values[1]).indexOf()];
-			}
+				Monster monster = new Monster();
+				int counter = 0, dexMod = 0, conMod = 0, hitDice = 0, hdSize = 0;
 
-			/*
-			 * FIXME - TESTING
-			 */
-			for (int i = 0; i < types.length; ++i) {
-				System.out.printf("%2d (%5.1f%%) %s\n", types[i], 1.0 * types[i] / 167 * 100,
-						Cornerstone.get(i).toString());
+				monster.setName(values[counter++]);
+				// monster.setFemale(false);
+				// monster.setAlignment(Alignment.UNALIGNED);
+				// monster.setGod(God.ASMODEUS);
+
+				++counter; // my creature type system
+				monster.setStrength(Integer.valueOf(values[counter++]));
+				monster.setDexterity(Integer.valueOf(values[counter++]));
+				dexMod = monster.getDexterityModifier(); // DEX
+				monster.setConstitution(Integer.valueOf(values[counter++]));
+				conMod = monster.getConstitutionModifier(); // CON
+				monster.setIntelligence(Integer.valueOf(values[counter++]));
+				monster.setWisdom(Integer.valueOf(values[counter++]));
+				monster.setCharisma(Integer.valueOf(values[counter++]));
+
+				monster.setCreatureSize(Size.parse(values[counter++]));
+				monster.setCreatureType(CreatureType.parse(values[counter++]));
+
+				++counter; // Armor Class
+				hitDice = Integer.valueOf(values[counter++]);
+				hdSize = monster.getCreatureSize().hitDieSize();
+				monster.setHitDice(Misc.setupHitDice(hitDice, hdSize));
+
+				if (values.length > 12) {
+					++counter; // attack
+					++counter; // damage
+					++counter; // type
+				}
+
+				map.put(monster.getName(), monster);
 			}
 
 			input.close();
@@ -57,6 +80,7 @@ public class FileLoader {
 			e.printStackTrace();
 		}
 
+		return map;
 	}
 
 	public static HashMap<Skill, Armor> parseArmor(String filename) {

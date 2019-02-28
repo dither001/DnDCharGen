@@ -50,7 +50,7 @@ public abstract class Actor implements Creature, Persistent {
 	 * ITEMS / INVENTORY
 	 */
 	protected Inventory inventory;
-	
+
 	/*
 	 * CONSTRUCTORS
 	 */
@@ -75,10 +75,18 @@ public abstract class Actor implements Creature, Persistent {
 		this.energyImmunity = EnumSet.noneOf(EnergyType.class);
 		this.conditionImmunity = EnumSet.noneOf(Condition.class);
 		this.conditions = EnumSet.noneOf(Condition.class);
-		
+
 		this.inventory = new Inventory(this);
 	}
 
+	/*
+	 * INSTANCE METHODS
+	 */
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	/*
 	 * PERSISTENT METHODS
 	 */
@@ -161,8 +169,18 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
+	public void setCreatureSize(Size size) {
+		this.size = size;
+	}
+
+	@Override
 	public CreatureType getCreatureType() {
 		return creatureType;
+	}
+
+	@Override
+	public void setCreatureType(CreatureType creatureType) {
+		this.creatureType = creatureType;
 	}
 
 	@Override

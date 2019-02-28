@@ -95,17 +95,13 @@ public enum Race implements Opposite, Similar {
 	}
 
 	public int indexOf() {
-		int index = -1;
-
 		// TODO
 		for (int i = 0; i < RACES.length; ++i) {
-			if (RACES[i].equals(this)) {
-				index = i;
-				break;
-			}
+			if (RACES[i].equals(this))
+				return i;
 		}
 
-		return index;
+		return -1;
 	}
 
 	public boolean isDragonborn() {

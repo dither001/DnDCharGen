@@ -27,7 +27,11 @@ public interface Creature {
 
 	public Size getCreatureSize();
 
+	public void setCreatureSize(Size size);
+
 	public CreatureType getCreatureType();
+
+	public void setCreatureType(CreatureType creatureType);
 
 	public EnumSet<MovementType> getSpeed();
 

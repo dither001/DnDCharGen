@@ -32,6 +32,8 @@ public abstract class Actor implements Creature, Persistent {
 	/*
 	 * COMBAT STATS
 	 */
+	protected int currentHitPoints;
+	protected int maximumHitPoints;
 	protected int[] hitDice;
 	protected int[] abilityScores;
 	protected int[] abilityCeiling;
@@ -65,6 +67,8 @@ public abstract class Actor implements Creature, Persistent {
 		this.movement = EnumSet.noneOf(MovementType.class);
 		this.senses = EnumSet.noneOf(Sense.class);
 
+		this.currentHitPoints = 1;
+		this.maximumHitPoints = 1;
 		this.hitDice = new int[] { 1 };
 		this.abilityScores = new int[] { 10, 10, 10, 10, 10, 10 };
 		this.abilityCeiling = new int[] { 20, 20, 20, 20, 20, 20 };
@@ -82,11 +86,20 @@ public abstract class Actor implements Creature, Persistent {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String toStringVerbose() {
+		String s = "";
+
+		s += String.format("%s %s %s\n", name, size.toString(), creatureType.toString());
+		s += abilityArrayToString() + "\n";
+
+		return s;
+	}
+
 	@Override
 	public String toString() {
-		return name;
+		return String.format("%20s %s", name, abilityArrayToString());
 	}
-	
+
 	/*
 	 * PERSISTENT METHODS
 	 */
@@ -201,6 +214,29 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setSenses(EnumSet<Sense> senses) {
 		this.senses = senses;
+	}
+
+	/*
+	 * COMBAT METHODS
+	 */
+	@Override
+	public int getCurrentHitPoints() {
+		return currentHitPoints;
+	}
+
+	@Override
+	public void setCurrentHitPoints(int currentHitPoints) {
+		this.currentHitPoints = currentHitPoints;
+	}
+
+	@Override
+	public int getMaximumHitPoints() {
+		return maximumHitPoints;
+	}
+
+	@Override
+	public void setMaximumHitPoints(int maximumHitPoints) {
+		this.maximumHitPoints = maximumHitPoints;
 	}
 
 	@Override

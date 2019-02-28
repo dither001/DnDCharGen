@@ -58,4 +58,14 @@ public class DnDCharacter extends Hero {
 		return toon;
 	}
 
+	@Override
+	public void updateHitPoints() {
+		int hp = 0, conMod = getConstitutionModifier();
+
+		for (int i = 0; i < level; ++i)
+			hp += hitDice[i] + conMod;
+
+		this.maximumHitPoints = hp;
+	}
+
 }

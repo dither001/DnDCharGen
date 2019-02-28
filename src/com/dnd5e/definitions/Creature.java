@@ -6,6 +6,7 @@ import com.dnd5e.gear.equipment.*;
 import com.dnd5e.worlds.*;
 
 public interface Creature {
+
 	/*
 	 * BASIC DESCRIPTION
 	 */
@@ -44,6 +45,14 @@ public interface Creature {
 	/*
 	 * COMBAT STATS
 	 */
+	public int getCurrentHitPoints();
+
+	public void setCurrentHitPoints(int currentHitPoints);
+
+	public int getMaximumHitPoints();
+
+	public void setMaximumHitPoints(int maximumHitPoints);
+
 	public int[] getHitDice();
 
 	public void setHitDice(int[] hitDice);
@@ -211,6 +220,15 @@ public interface Creature {
 	/*
 	 * SKILL METHODS
 	 */
+	public default void updateHitPoints() {
+		int hp = 0, conMod = getConstitutionModifier();
+
+		for (int el : getHitDice())
+			hp += el + conMod;
+
+		setMaximumHitPoints(hp);
+	}
+
 	public default int getProficiencyBonus() {
 		int bonus = 2;
 		int hitDice = getHitDice().length;

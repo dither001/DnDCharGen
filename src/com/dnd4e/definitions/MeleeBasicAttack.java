@@ -14,6 +14,17 @@ public class MeleeBasicAttack implements Attack {
 	protected int range;
 	protected EffectArea effectArea;
 
+	protected int attackBonus;
+	protected int averageDamage;
+
+	/*
+	 * CONSTRUCTORS
+	 */
+	public MeleeBasicAttack() {
+		this.attackBonus = 2;
+		this.averageDamage = 1;
+	}
+
 	/*
 	 * INSTANCE METHODS
 	 */
@@ -37,11 +48,33 @@ public class MeleeBasicAttack implements Attack {
 		this.target = target;
 	}
 
+	@Override
+	public int getAttackBonus() {
+		return attackBonus;
+	}
+
+	@Override
+	public void setAttackBonus(int attackBonus) {
+		this.attackBonus = attackBonus;
+	}
+
+	@Override
+	public int getAverageDamage() {
+		return averageDamage;
+	}
+
+	@Override
+	public void setAverageDamage(int averageDamage) {
+		this.averageDamage = averageDamage;
+	}
+
 	/*
 	 * STATIC METHODS
 	 */
 	public static MeleeBasicAttack build(Weapon weapon, Creature actor) {
 		MeleeBasicAttack b = new MeleeBasicAttack();
+
+		b.weapon = weapon;
 
 		/*
 		 * attack bonus calculation

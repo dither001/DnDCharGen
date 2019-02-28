@@ -10,4 +10,12 @@ public interface Attack {
 	public Creature getTarget();
 
 	public void setTarget(Creature target);
+
+	public int getAttackBonus();
+
+	public void setAttackBonus(int attackBonus);
+
+	public int getAverageDamage();
+
+	public void setAverageDamage(int averageDamage);
 }

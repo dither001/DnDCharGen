@@ -22,13 +22,8 @@ public class Main {
 		/*
 		 * WORLD GEN TESTING
 		 */
-		Grid grid = Grid.build();
+		testWorldGen(0);
 
-		for (int i = 0; i < grid.tiles.length; ++i)
-			System.out.println(grid.tiles[i].toString());
-		
-		
-		
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
@@ -51,10 +46,28 @@ public class Main {
 		/*
 		 * (force these objects to initialize)
 		 */
-//		FileLoader.parseMonsters("monsters.csv");
+		// FileLoader.parseMonsters("monsters.csv");
 
 	}
 
+	/*
+	 * PLANET GENERATION
+	 */
+	public static void testWorldGen(int size) {
+		// "maximum" normal size is probably about 8
+		Grid grid;
+		try {
+			grid = Grid.build(size);
+
+			for (int i = 0; i < grid.tiles.length; ++i)
+				System.out.println(grid.tiles[i].toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/*
 	 * FACTION TESTING
 	 */

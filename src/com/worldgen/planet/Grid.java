@@ -1,17 +1,17 @@
 package com.worldgen.planet;
 
 public class Grid {
-	private static final float x = -0.525731112119133606f;
-	private static final float z = -0.850650808352039932f;
+	private static final float X_POS = -0.525731112119133606f;
+	private static final float Z_POS = -0.850650808352039932f;
 
-	private static final float[][] icos_tiles = { //
-			{ -x, 0, z }, { x, 0, z }, { -x, 0, -z }, //
-			{ x, 0, -z }, { 0, z, x }, { 0, z, -x }, //
-			{ 0, -z, x }, { 0, -z, -x }, { z, x, 0 }, //
-			{ -z, x, 0 }, { z, -x, 0 }, { -z, -x, 0 } //
+	private static final float[][] ICOSAHEDRON_VECTORS = { //
+			{ -X_POS, 0, Z_POS }, { X_POS, 0, Z_POS }, { -X_POS, 0, -Z_POS }, //
+			{ X_POS, 0, -Z_POS }, { 0, Z_POS, X_POS }, { 0, Z_POS, -X_POS }, //
+			{ 0, -Z_POS, X_POS }, { 0, -Z_POS, -X_POS }, { Z_POS, X_POS, 0 }, //
+			{ -Z_POS, X_POS, 0 }, { Z_POS, -X_POS, 0 }, { -Z_POS, -X_POS, 0 } //
 	};
 
-	private static final int[][] icos_tiles_n = { //
+	private static final int[][] ICOSAHEDRON_IDS = { //
 			{ 9, 4, 1, 6, 11 }, { 4, 8, 10, 6, 0 }, { 11, 7, 3, 5, 9 }, //
 			{ 2, 7, 10, 8, 5 }, { 9, 5, 8, 1, 0 }, { 2, 3, 8, 4, 9 }, //
 			{ 0, 1, 10, 7, 11 }, { 11, 6, 10, 3, 2 }, { 5, 3, 10, 1, 4 }, //
@@ -21,9 +21,32 @@ public class Grid {
 	/*
 	 * 
 	 */
+	int size;
+
 	public GridTile[] tiles;
 	public GridCorner[] corners;
 	public GridEdge[] edges;
+
+	private Grid(int size) {
+		this.size = size;
+
+		int tileSize = tileCount(size);
+		int cornerSize = cornerCount(size);
+		int edgeSize = edgeCount(size);
+
+		tiles = new GridTile[tileSize];
+		for (int i = 0; i < tileSize; ++i)
+			tiles[i] = new GridTile(i, i < 12 ? 5 : 6);
+
+		corners = new GridCorner[cornerSize];
+		for (int i = 0; i < cornerSize; ++i)
+			corners[i] = new GridCorner(i);
+
+		edges = new GridEdge[edgeSize];
+		for (int i = 0; i < edgeSize; ++i)
+			edges[i] = new GridEdge(i);
+
+	}
 
 	/*
 	 * INSTANCE METHODS
@@ -73,48 +96,85 @@ public class Grid {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Grid build() {
-		// TODO
-		return sizeZeroGrid();
+	public static Grid build(int size) throws Exception {
+		if (size == 0)
+			return sizeZeroGrid();
+		else if (size > 8) {
+			throw new Exception("Make a smaller world.");
+		} else
+			return subdivide(build(size - 1));
+	}
+
+	private static Grid subdivide(Grid prev) {
+		Grid grid = new Grid(prev.size + 1);
+
+		int prev_tile_count = prev.tiles.length;
+		int prev_corner_count = prev.corners.length;
+
+		// OLD TILES
+		for (int i = 0; i < prev_tile_count; i++) {
+			grid.tiles[i].v = prev.tiles[i].v;
+			for (int k = 0; k < grid.tiles[i].edgeCount; k++) {
+				grid.tiles[i].tiles[k] = grid.tiles[prev.tiles[i].corners[k].id + prev_tile_count];
+			}
+		}
+
+		// OLD CORNERS BECOMES TILES
+		for (int i = 0; i < prev_corner_count; i++) {
+			grid.tiles[i + prev_tile_count].v = prev.corners[i].v;
+			for (int k = 0; k < 3; k++) {
+				grid.tiles[i + prev_tile_count].tiles[2 * k] = grid.tiles[prev.corners[i].corners[k].id
+						+ prev_tile_count];
+				grid.tiles[i + prev_tile_count].tiles[2 * k + 1] = grid.tiles[prev.corners[i].tiles[k].id];
+			}
+		}
+
+		// NEW CORNERS
+		int next_corner_id = 0;
+		for (GridTile n : prev.tiles) {
+			GridTile t = grid.tiles[n.id];
+			for (int k = 0; k < t.edgeCount; k++) {
+				grid.addCorner(next_corner_id, t.id, t.tiles[(k + t.edgeCount - 1) % t.edgeCount].id, t.tiles[k].id);
+				++next_corner_id;
+			}
+		}
+
+		// CONNECT CORNERS
+		for (GridCorner c : grid.corners) {
+			for (int k = 0; k < 3; k++) {
+				c.corners[k] = c.tiles[k].corners[(position(c.tiles[k], c) + 1) % (c.tiles[k].edgeCount)];
+			}
+		}
+
+		// NEW EDGES
+		int next_edge_id = 0;
+		for (GridTile t : grid.tiles) {
+			for (int k = 0; k < t.edgeCount; k++) {
+				if (t.edges[k] == null) {
+					grid.addEdge(next_edge_id, t.id, t.tiles[k].id);
+					next_edge_id++;
+				}
+			}
+		}
+
+		return grid;
 	}
 
 	private static Grid sizeZeroGrid() {
-		Grid grid = new Grid();
+		Grid grid = new Grid(0);
 
-		/*
-		 * The following 15 lines were formerly in Grid constructor.
-		 */
-		int tileSize = tileCount(0);
-		int cornerSize = cornerCount(0);
-		int edgeSize = edgeCount(0);
-
-		grid.tiles = new GridTile[tileSize];
-		for (int i = 0; i < tileSize; ++i)
-			grid.tiles[i] = new GridTile(i, i < 12 ? 5 : 6);
-
-		grid.corners = new GridCorner[cornerSize];
-		for (int i = 0; i < cornerSize; ++i)
-			grid.corners[i] = new GridCorner(i);
-
-		grid.edges = new GridEdge[edgeSize];
-		for (int i = 0; i < edgeSize; ++i)
-			grid.edges[i] = new GridEdge(i);
-
-		/*
-		 * 
-		 */
 		for (GridTile el : grid.tiles) {
-			el.v = icos_tiles[el.id];
+			el.v = ICOSAHEDRON_VECTORS[el.id];
 
 			for (int i = 0; i < 5; ++i)
-				el.tiles[i] = grid.tiles[icos_tiles_n[el.id][i]];
+				el.tiles[i] = grid.tiles[ICOSAHEDRON_IDS[el.id][i]];
 		}
 
 		for (int i = 0; i < 5; i++)
-			grid.addCorner(i, 0, icos_tiles_n[0][(i + 4) % 5], icos_tiles_n[0][i]);
+			grid.addCorner(i, 0, ICOSAHEDRON_IDS[0][(i + 4) % 5], ICOSAHEDRON_IDS[0][i]);
 
 		for (int i = 0; i < 5; i++)
-			grid.addCorner(i + 5, 3, icos_tiles_n[3][(i + 4) % 5], icos_tiles_n[3][i]);
+			grid.addCorner(i + 5, 3, ICOSAHEDRON_IDS[3][(i + 4) % 5], ICOSAHEDRON_IDS[3][i]);
 
 		grid.addCorner(10, 10, 1, 8);
 		grid.addCorner(11, 1, 10, 6);
@@ -138,7 +198,7 @@ public class Grid {
 		for (GridTile el : grid.tiles) {
 			for (int i = 0; i < 5; i++) {
 				if (el.edges[i] == null) {
-					grid.addEdge(nextId, el.id, icos_tiles_n[el.id][i]);
+					grid.addEdge(nextId, el.id, ICOSAHEDRON_IDS[el.id][i]);
 					nextId++;
 				}
 			}
@@ -149,22 +209,19 @@ public class Grid {
 	}
 
 	public static int tileCount(int size) {
-		// TODO - untested
 		return (int) (10 * Math.pow(3, size) + 2);
 	}
 
 	public static int cornerCount(int size) {
-		// TODO - untested
 		return (int) (20 * Math.pow(3, size));
 	}
 
 	public static int edgeCount(int size) {
-		// TODO - untested
 		return (int) (30 * Math.pow(3, size));
 	}
 
 	/*
-	 * 
+	 * RELATIVE POSITION FINDERS
 	 */
 	static int position(GridTile t, GridTile n) {
 		for (int i = 0; i < t.edgeCount; i++) {

@@ -11,6 +11,7 @@ import com.dnd5e.gear.equipment.Weapon;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.FileLoader;
 import com.miscellaneous.util.ParserException;
+import com.worldgen.planet.Grid;
 
 public class Main {
 
@@ -18,6 +19,15 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
+		/*
+		 * WORLD GEN TESTING
+		 */
+		System.out.println(Grid.cornerCount(0));
+		System.out.println(Grid.edgeCount(0));
+		System.out.println(Grid.tileCount(0));
+		
+		
+		
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
@@ -40,7 +50,7 @@ public class Main {
 		/*
 		 * (force these objects to initialize)
 		 */
-		FileLoader.parseMonsters("monsters.csv");
+//		FileLoader.parseMonsters("monsters.csv");
 
 	}
 

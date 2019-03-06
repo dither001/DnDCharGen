@@ -22,9 +22,10 @@ public class Main {
 		/*
 		 * WORLD GEN TESTING
 		 */
-		System.out.println(Grid.cornerCount(0));
-		System.out.println(Grid.edgeCount(0));
-		System.out.println(Grid.tileCount(0));
+		Grid grid = Grid.build();
+
+		for (int i = 0; i < grid.tiles.length; ++i)
+			System.out.println(grid.tiles[i].toString());
 		
 		
 		

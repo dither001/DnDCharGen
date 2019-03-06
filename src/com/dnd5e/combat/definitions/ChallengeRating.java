@@ -2,6 +2,9 @@ package com.dnd5e.combat.definitions;
 
 public abstract class ChallengeRating {
 	
+	/*
+	 * 
+	 */
 	private static final int[] REWARDS = { 10, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900,
 			7200, 8400, 10000, 11500, 13000, 15000, 18000, 20000, 22000, 25000, 33000, 41000, 50000, 62000, 75000,
 			90000, 105000, 120000, 135000, 155000 };
@@ -14,15 +17,19 @@ public abstract class ChallengeRating {
 		int averageDamage = attack.getAverageDamage();
 
 		int offense, defense, finalRating = 0;
-		defense = defenseRating(hitPoints, armorClass);
-		offense = offenseRating(averageDamage, attackBonus);
+		defense = defensiveCR(hitPoints, armorClass);
+		offense = offensiveCR(averageDamage, attackBonus);
 
 		finalRating = (offense + defense) / 2;
 		return finalRating;
 	}
 
-	public static int defenseRating(int hp, int ac) {
+	/*
+	 * HELPER METHODS
+	 */
+	private static int defensiveCR(int hp, int ac) {
 		int defenseRating = hitPointsToCR(hp);
+
 		int armorRating = armorClassToCR(ac);
 		int hitPointArmor = hitPointsToAC(hp);
 
@@ -101,22 +108,22 @@ public abstract class ChallengeRating {
 		return rating;
 	}
 
-	public static int offenseRating(int dmg, int atk) {
-		int offenseRating = damageToCR(dmg);
+	public static int offensiveCR(int dmg, int atk) {
+		int offensiveCR = damageToCR(dmg);
 		int attackRating = attackToCR(atk);
 		int damageAttack = damageToAttack(dmg);
 
 		if (damageAttack > atk) {
-			for (int i = offenseRating - attackRating; i > 1; i -= 2) {
-				--offenseRating;
+			for (int i = offensiveCR - attackRating; i > 1; i -= 2) {
+				--offensiveCR;
 			}
 		} else if (damageAttack < atk) {
-			for (int i = attackRating - offenseRating; i > 1; i -= 2) {
-				++offenseRating;
+			for (int i = attackRating - offensiveCR; i > 1; i -= 2) {
+				++offensiveCR;
 			}
 		}
 
-		return offenseRating;
+		return offensiveCR;
 	}
 
 	private static int damageToCR(int dmg) {

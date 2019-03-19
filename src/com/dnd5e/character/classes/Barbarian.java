@@ -92,6 +92,7 @@ public abstract class Barbarian extends JobClass {
 
 			break;
 		case 8:
+			//
 			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
 			enhanceAbility(actor);
 
@@ -176,6 +177,7 @@ public abstract class Barbarian extends JobClass {
 
 			break;
 		case 19:
+			//
 			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
 			enhanceAbility(actor);
 

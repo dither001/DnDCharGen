@@ -2,7 +2,8 @@ package com.dnd5e.monsters;
 
 import java.util.HashMap;
 
-import com.dnd5e.characters.*;
+import com.dnd5e.character.definitions.*;
+import com.dnd5e.definitions.Actor;
 import com.miscellaneous.util.*;
 
 public class Monster extends Actor {

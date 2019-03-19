@@ -2,7 +2,8 @@ package com.dnd5e.gear.equipment;
 
 import java.util.EnumSet;
 
-import com.dnd5e.characters.*;
+import com.dnd5e.character.classes.DnDClass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.miscellaneous.util.*;
 

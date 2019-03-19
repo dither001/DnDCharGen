@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dnd5e.characters.*;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 
 public class Warband implements Ensemble {

@@ -1,4 +1,8 @@
-package com.dnd5e.characters;
+package com.dnd5e.character.classes;
+
+import com.dnd5e.character.classes.*;
+import com.dnd5e.character.definitions.Background;
+import com.dnd5e.character.definitions.Race;
 
 public interface Adventurer {
 

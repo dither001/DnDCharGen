@@ -3,7 +3,8 @@ package controller;
 import java.util.ArrayList;
 
 import com.dnd4e.definitions.PowerSource;
-import com.dnd5e.characters.*;
+import com.dnd5e.character.classes.DnDClass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.Armor;

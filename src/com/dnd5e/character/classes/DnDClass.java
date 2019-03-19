@@ -1,5 +1,6 @@
-package com.dnd5e.characters;
+package com.dnd5e.character.classes;
 
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.miscellaneous.util.*;
 

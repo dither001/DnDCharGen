@@ -1,5 +1,7 @@
-package com.dnd5e.characters;
+package com.dnd5e.character.definitions;
 
+import com.dnd5e.character.classes.DnDClass;
+import com.dnd5e.character.classes.Subclass;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.InventoryBuilder;
@@ -58,7 +60,7 @@ public class DnDCharacter extends Hero {
 		toon.setBackground(Background.random());
 		toon.setGod(God.selectGod(toon));
 		
-		Feature.applyRacialFeatures(toon);
+		RacialFeature.apply(toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		InventoryBuilder.setupStartingGear(toon);

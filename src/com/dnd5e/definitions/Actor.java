@@ -1,4 +1,4 @@
-package com.dnd5e.characters;
+package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
@@ -29,7 +29,7 @@ public abstract class Actor implements Creature, Persistent {
 	protected EnumSet<MovementType> movement;
 	protected EnumSet<Sense> senses;
 	protected EnumSet<Language> languages;
-	protected EnumSet<Feature> features;
+	protected EnumSet<RacialFeature> features;
 
 	/*
 	 * COMBAT STATS
@@ -69,7 +69,7 @@ public abstract class Actor implements Creature, Persistent {
 		this.movement = EnumSet.noneOf(MovementType.class);
 		this.senses = EnumSet.noneOf(Sense.class);
 		this.languages = EnumSet.noneOf(Language.class);
-		this.features = EnumSet.noneOf(Feature.class);
+		this.features = EnumSet.noneOf(RacialFeature.class);
 
 		this.currentHitPoints = 1;
 		this.maximumHitPoints = 1;
@@ -231,12 +231,12 @@ public abstract class Actor implements Creature, Persistent {
 	}
 
 	@Override
-	public EnumSet<Feature> getFeatures() {
+	public EnumSet<RacialFeature> getFeatures() {
 		return features;
 	}
 
 	@Override
-	public void setFeatures(EnumSet<Feature> features) {
+	public void setFeatures(EnumSet<RacialFeature> features) {
 		this.features = features;
 	}
 

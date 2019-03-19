@@ -2,7 +2,7 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
-import com.dnd5e.characters.*;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.worlds.*;
 
@@ -47,9 +47,9 @@ public interface Creature {
 
 	public void setLanguages(EnumSet<Language> Languages);
 
-	public EnumSet<Feature> getFeatures();
+	public EnumSet<RacialFeature> getFeatures();
 
-	public void setFeatures(EnumSet<Feature> features);
+	public void setFeatures(EnumSet<RacialFeature> features);
 
 	/*
 	 * COMBAT STATS

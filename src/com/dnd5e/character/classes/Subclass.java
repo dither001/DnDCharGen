@@ -1,5 +1,6 @@
-package com.dnd5e.characters;
+package com.dnd5e.character.classes;
 
+import com.dnd5e.character.definitions.DnDCharacter;
 import com.miscellaneous.util.Dice;
 import com.miscellaneous.util.Misc;
 

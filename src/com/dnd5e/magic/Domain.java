@@ -1,6 +1,7 @@
 package com.dnd5e.magic;
 
-import com.dnd5e.characters.*;
+import com.dnd5e.character.classes.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.miscellaneous.util.*;
 
 public enum Domain {

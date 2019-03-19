@@ -5,49 +5,9 @@ public abstract class JobClass {
 	/*
 	 * 
 	 */
-	public static void advance(int level, Adventurer actor) {
-		switch (actor.getJob()) {
-		case BARBARIAN:
-			Barbarian.apply(level, actor);
-			break;
-		case BARD:
-			// FIXME
-			break;
-		case CLERIC:
-			// FIXME
-			break;
-		case DRUID:
-			// FIXME
-			break;
-		case FIGHTER:
-			// FIXME
-			break;
-		case MONK:
-			// FIXME
-			break;
-		case PALADIN:
-			// FIXME
-			break;
-		case RANGER:
-			// FIXME
-			break;
-		case ROGUE:
-			// FIXME
-			break;
-		case SORCERER:
-			// FIXME
-			break;
-		case WARLOCK:
-			// FIXME
-			break;
-		case WIZARD:
-			// FIXME
-			break;
-		}
-
-	}
-
-	public static void apply(int level, Adventurer actor) {
+	public static void apply(int level, Hero actor) {
+		System.out.println("Not implemented.");
+		
 		switch (level) {
 		case 1:
 			break;

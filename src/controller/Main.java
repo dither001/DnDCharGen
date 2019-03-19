@@ -27,9 +27,9 @@ public class Main {
 		// testRandomRogues();
 		// testRandomCharacters(50);
 
-		 testRandomChaoticCharacters(10);
+//		 testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
-		// testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
+		 testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);

@@ -15,7 +15,6 @@ public abstract class Hero extends Actor implements Adventurer {
 
 	protected DnDClass job;
 	protected Subclass subclass;
-
 	protected EnumSet<ClassFeature> classFeatures;
 
 	protected Race race;
@@ -28,6 +27,8 @@ public abstract class Hero extends Actor implements Adventurer {
 
 		this.job = DnDClass.ROGUE;
 		this.subclass = Subclass.THIEF;
+		this.classFeatures = EnumSet.noneOf(ClassFeature.class);
+		
 		this.race = Race.HUMAN;
 		this.background = Background.CRIMINAL;
 	}

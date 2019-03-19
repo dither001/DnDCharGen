@@ -184,4 +184,56 @@ public enum ClassFeature {
 
 	//
 	;
+	
+	public static void apply(int level, Hero actor) {
+		switch (actor.getJob()) {
+		case BARBARIAN:
+			Barbarian.apply(level, actor);
+			break;
+		case BARD:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case CLERIC:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case DRUID:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case FIGHTER:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case MONK:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case PALADIN:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case RANGER:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case ROGUE:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case SORCERER:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case WARLOCK:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		case WIZARD:
+			// FIXME
+			JobClass.apply(level, actor);
+			break;
+		}
+	}
 }

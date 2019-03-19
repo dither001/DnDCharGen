@@ -1,5 +1,6 @@
 package com.dnd5e.character.definitions;
 
+import com.dnd5e.character.classes.ClassFeature;
 import com.dnd5e.character.classes.DnDClass;
 import com.dnd5e.character.classes.Hero;
 import com.dnd5e.character.classes.Subclass;
@@ -30,7 +31,11 @@ public class DnDCharacter extends Hero {
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
+		s += skills.toString() + "\n";
+
 		s += features.toString() + "\n";
+		s += classFeatures.toString() + "\n";
+
 		s += inventory.toString() + "\n";
 
 		// attack options
@@ -62,6 +67,7 @@ public class DnDCharacter extends Hero {
 		toon.setGod(God.selectGod(toon));
 		
 		RacialFeature.apply(toon);
+		ClassFeature.apply(1, toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		InventoryBuilder.setupStartingGear(toon);

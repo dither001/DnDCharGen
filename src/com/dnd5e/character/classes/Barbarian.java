@@ -9,6 +9,7 @@ public abstract class Barbarian extends JobClass {
 	/*
 	 * 
 	 */
+
 	public static void apply(int level, Hero actor) {
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
 		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();

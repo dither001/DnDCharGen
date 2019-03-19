@@ -1,5 +1,8 @@
 package com.dnd5e.definitions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.miscellaneous.util.*;
 
 public enum Skill {
@@ -81,6 +84,9 @@ public enum Skill {
 
 	private static final Skill[] ARMOR_TYPES = { PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT,
 			SCALE_MAIL, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL };
+	private static final Skill[] LIGHT_ARMOR = { PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER };
+	private static final Skill[] MEDIUM_ARMOR = { HIDE_ARMOR, CHAIN_SHIRT, SCALE_MAIL, BREASTPLATE, HALF_PLATE };
+	private static final Skill[] HEAVY_ARMOR = { RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL };
 
 	private static final Skill[] COMMON_SKILLS = { ACROBATICS, ANIMAL_HANDLING, ARCANA, ATHLETICS, DECEPTION, HISTORY,
 			INSIGHT, INTIMIDATION, INVESTIGATION, MEDICINE, NATURE, PERCEPTION, PERFORMANCE, PERSUASION, RELIGION,
@@ -131,7 +137,7 @@ public enum Skill {
 	/*
 	 * MISCELLANEOUS
 	 */
-	private static final Skill[] DWARF_TOOLS = { BREWING_TOOLS, MASONRY_TOOLS, SMITHING_TOOLS };
+	protected static final Skill[] DWARF_TOOLS = { BREWING_TOOLS, MASONRY_TOOLS, SMITHING_TOOLS };
 
 	/*
 	 * INSTANCE METHODS
@@ -272,6 +278,52 @@ public enum Skill {
 		throw new ParserException(s);
 	}
 
+	/*
+	 * ARMOR & WEAPONS
+	 */
+	public static List<Skill> lightArmorList() {
+		return arrayToList(LIGHT_ARMOR);
+	}
+
+	public static List<Skill> mediumArmorList() {
+		return arrayToList(MEDIUM_ARMOR);
+	}
+
+	public static List<Skill> heavyArmorList() {
+		return arrayToList(HEAVY_ARMOR);
+	}
+
+	public static List<Skill> lightAndMediumArmorList() {
+		return addArrayToList(MEDIUM_ARMOR, arrayToList(LIGHT_ARMOR));
+	}
+
+	public static List<Skill> allArmorList() {
+		return addArrayToList(HEAVY_ARMOR, lightAndMediumArmorList());
+	}
+	
+	public static List<Skill> simpleMeleeList() {
+		return arrayToList(SIMPLE_MELEE);
+	}
+
+	public static List<Skill> simpleRangedList() {
+		return arrayToList(SIMPLE_RANGED);
+	}
+
+	public static List<Skill> simpleWeaponList() {
+		return addArrayToList(SIMPLE_RANGED, simpleMeleeList());
+	}
+
+	public static List<Skill> meleeWeaponList() {
+		return addArrayToList(MILITARY_MELEE, simpleMeleeList());
+	}
+
+	public static List<Skill> militaryWeaponList() {
+		return arrayToList(ALL_WEAPONS);
+	}
+
+	/*
+	 * RANDOM SKILLS
+	 */
 	public static Skill randomMilitaryMelee() {
 		return Misc.randomFromArray(MILITARY_MELEE);
 	}
@@ -286,6 +338,24 @@ public enum Skill {
 
 	public static Skill randomSimpleWeapon() {
 		return Misc.randomFromArray(SIMPLE_WEAPONS);
+	}
+
+	/*
+	 * PRIVATE METHODS
+	 */
+	private static List<Skill> arrayToList(Skill[] array) {
+		List<Skill> list = new ArrayList<Skill>();
+		for (int i = 0; i < array.length; ++i)
+			list.add(array[i]);
+
+		return list;
+	}
+
+	private static List<Skill> addArrayToList(Skill[] array, List<Skill> list) {
+		for (int i = 0; i < array.length; ++i)
+			list.add(array[i]);
+
+		return list;
 	}
 
 }

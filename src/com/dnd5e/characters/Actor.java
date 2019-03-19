@@ -28,6 +28,8 @@ public abstract class Actor implements Creature, Persistent {
 	protected CreatureType creatureType;
 	protected EnumSet<MovementType> movement;
 	protected EnumSet<Sense> senses;
+	protected EnumSet<Language> languages;
+	protected EnumSet<Feature> features;
 
 	/*
 	 * COMBAT STATS
@@ -66,6 +68,8 @@ public abstract class Actor implements Creature, Persistent {
 		this.creatureType = CreatureType.HUMANOID;
 		this.movement = EnumSet.noneOf(MovementType.class);
 		this.senses = EnumSet.noneOf(Sense.class);
+		this.languages = EnumSet.noneOf(Language.class);
+		this.features = EnumSet.noneOf(Feature.class);
 
 		this.currentHitPoints = 1;
 		this.maximumHitPoints = 1;
@@ -214,6 +218,26 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setSenses(EnumSet<Sense> senses) {
 		this.senses = senses;
+	}
+
+	@Override
+	public EnumSet<Language> getLanguages() {
+		return languages;
+	}
+
+	@Override
+	public void setLanguages(EnumSet<Language> languages) {
+		this.languages = languages;
+	}
+
+	@Override
+	public EnumSet<Feature> getFeatures() {
+		return features;
+	}
+
+	@Override
+	public void setFeatures(EnumSet<Feature> features) {
+		this.features = features;
 	}
 
 	/*

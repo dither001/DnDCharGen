@@ -27,6 +27,7 @@ public class DnDCharacter extends Hero {
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
+		s += features.toString() + "\n";
 		s += inventory.toString() + "\n";
 
 		// attack options
@@ -56,6 +57,8 @@ public class DnDCharacter extends Hero {
 		toon.setRace(Race.randomSkewHuman());
 		toon.setBackground(Background.random());
 		toon.setGod(God.selectGod(toon));
+		
+		Feature.applyRacialFeatures(toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		InventoryBuilder.setupStartingGear(toon);

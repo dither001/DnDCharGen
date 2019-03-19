@@ -29,10 +29,18 @@ public class Weapon extends Tool implements Armable, Cloneable {
 		this.meleeRange = 1;
 		this.thrownRange = 4;
 		this.missileRange = -1;
-	
+
 		this.damageDice = new int[] { 1, 4 };
 		this.damageType = EnergyType.BLUDGEONING;
 		this.traits = new WeaponTrait[] { WeaponTrait.IMPROVISED };
+	}
+
+	/*
+	 * 
+	 */
+	public String toStringVerbose() {
+		String dice = damageDice[0] + "d" + damageDice[1];
+		return String.format("%s %s %s ", name, dice, damageType.toString());
 	}
 
 	/*
@@ -105,7 +113,8 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 	@Override
 	public void setDamageDice(int[] damageDice) {
-		this.damageDice = damageDice;
+		this.damageDice[0] = damageDice[0];
+		this.damageDice[1] = damageDice[1];
 	}
 
 	@Override

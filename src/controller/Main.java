@@ -12,6 +12,7 @@ import com.dnd5e.worlds.*;
 import com.miscellaneous.util.FileLoader;
 import com.miscellaneous.util.ParserException;
 import com.worldgen.planet.Grid;
+import com.worldgen.terrain.Terrain;
 
 public class Main {
 
@@ -19,26 +20,21 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		/*
-		 * WORLD GEN TESTING
-		 */
-		testWorldGen(0);
-
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
 		// testRandomCharacters(50);
 
-		// testRandomChaoticCharacters(10);
+		 testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
 		// testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);
-		// testFactionOfRace(5, Race.TIEFLING);
+//		 testFactionOfRace(5, Race.TIEFLING);
 		// testFactionOfBackground(5, Background.ACOLYTE);
 		// testFactionOfJob(5, DnDClass.FIGHTER);
-		// testFaction(5);
+//		 testFaction(5);
 
 		// Armor.getArmorClone(Skill.PADDED_ARMOR);
 		// Weapon.get(Skill.SLING);
@@ -56,6 +52,10 @@ public class Main {
 	public static void testWorldGen(int size) {
 		// "maximum" normal size is probably about 8
 		Grid grid;
+		
+		/*
+		 * FIXME - numerous problems, untested nonsense
+		 */
 		try {
 			grid = Grid.build(size);
 
@@ -65,6 +65,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Terrain.build(size);
 	}
 	
 	

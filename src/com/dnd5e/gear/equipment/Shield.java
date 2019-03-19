@@ -36,7 +36,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 		this.thrownRange = 4;
 		this.missileRange = -1;
 
-		this.damageDice = new int[] { 1, 1 };
+		this.damageDice = new int[] { 1, 4 };
 		this.damageType = EnergyType.BLUDGEONING;
 		this.traits = new WeaponTrait[0];
 	}

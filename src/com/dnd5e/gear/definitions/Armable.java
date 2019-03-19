@@ -30,6 +30,11 @@ public interface Armable extends Usable {
 	/*
 	 * DEFAULT METHODS
 	 */
+	public default String diceToString() {
+		int[] dice = getDamageDice();
+		return dice[0] + "d" + dice[1];
+	}
+
 	public default int getMaxThrownRange() {
 		return 3 * getThrownRange();
 	}

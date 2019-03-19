@@ -2,7 +2,10 @@ package com.dnd5e.gear.equipment;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import com.dnd4e.definitions.*;
+import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 
 public class Inventory {
@@ -70,15 +73,15 @@ public class Inventory {
 		return index;
 	}
 
-	protected ArrayList<Armor> getArmorList() {
+	protected List<Armor> getArmorList() {
 		return armorList;
 	}
 
-	protected ArrayList<Shield> getShieldList() {
+	protected List<Shield> getShieldList() {
 		return shieldList;
 	}
 
-	protected ArrayList<Weapon> getWeaponList() {
+	protected List<Weapon> getWeaponList() {
 		return weaponList;
 	}
 
@@ -165,4 +168,17 @@ public class Inventory {
 			break;
 		}
 	}
+
+	/*
+	 * 
+	 */
+	public List<Attack> weaponAttackList() {
+		List<Attack> list = new ArrayList<Attack>();
+
+		for (Weapon el : weaponList)
+			list.add(BasicAttack.build(el, owner));
+
+		return list;
+	}
+
 }

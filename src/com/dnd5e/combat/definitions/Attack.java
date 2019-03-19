@@ -18,4 +18,8 @@ public interface Attack {
 	public int getAverageDamage();
 
 	public void setAverageDamage(int averageDamage);
+
+	public EnergyType getDamageType();
+
+	public void setDamageType(EnergyType damageType);
 }

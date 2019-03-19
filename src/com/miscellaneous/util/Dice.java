@@ -1,5 +1,7 @@
 package com.miscellaneous.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Dice {
@@ -37,5 +39,36 @@ public abstract class Dice {
 		return array;
 	}
 
+	/*
+	 * 
+	 */
+	public static List<float[][]> rollVector3(int n) {
+		List<float[][]> list = new ArrayList<float[][]>(n);
+
+		for (int i = 0; i < n; ++i) {
+			list.add(new float[][] { //
+					pointUniform(RAND.nextInt(), RAND.nextInt()), //
+					pointUniform(RAND.nextInt(), RAND.nextInt()), //
+					pointUniform(RAND.nextInt(), RAND.nextInt()) //
+			});
+		}
+
+		return list;
+	}
+
+	/*
+	 * returns point on sphere of uniform distribution, given two random integers
+	 */
+	public static float[] pointUniform(int a, int b) {
+		double x = 2 * Math.PI * (a / Double.MAX_VALUE);
+		double y = Math.acos(2 * (b / Double.MAX_VALUE) - 1) - (0.5 * Math.PI);
+
+		return new float[] { (float) (Math.sin(x) * Math.cos(y)), (float) Math.sin(y),
+				(float) (Math.cos(x) * Math.cos(y)) };
+	}
+
+	public static String printVector3(float[] array) {
+		return String.format("[%s, %s, %s]", array[0], array[1], array[2]);
+	}
 
 }

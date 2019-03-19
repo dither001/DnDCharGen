@@ -1,5 +1,6 @@
 package com.dnd5e.characters;
 
+import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.InventoryBuilder;
 import com.dnd5e.worlds.*;
@@ -26,7 +27,11 @@ public class DnDCharacter extends Hero {
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
-		s += inventory.toString();
+		s += inventory.toString() + "\n";
+
+		// attack options
+		for (Attack el : inventory.weaponAttackList())
+			s += el + "\n";
 
 		return s;
 	}

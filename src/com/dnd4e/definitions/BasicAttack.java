@@ -4,7 +4,7 @@ import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
 
-public class MeleeBasicAttack implements Attack {
+public class BasicAttack implements Attack {
 	protected Creature attacker;
 	protected Creature target;
 
@@ -14,19 +14,35 @@ public class MeleeBasicAttack implements Attack {
 	protected int range;
 	protected EffectArea effectArea;
 
+	protected EnergyType damageType;
 	protected int attackBonus;
 	protected int averageDamage;
 
 	/*
 	 * CONSTRUCTORS
 	 */
-	public MeleeBasicAttack() {
+	public BasicAttack() {
+		this.weapon = null;
+		this.attacker = null;
+		this.target = null;
+
 		this.attackBonus = 2;
 		this.averageDamage = 1;
+		this.damageType = EnergyType.BLUDGEONING;
 	}
 
 	/*
 	 * INSTANCE METHODS
+	 */
+	public String toString() {
+		String atk = attackBonus > -1 ? "+" + attackBonus : "" + attackBonus;
+		String dmg = weapon.diceToString();
+		String avg = averageDamage > -1 ? "" + averageDamage : "1";
+		return String.format("%s %s %s (%s)", weapon.getName(), atk, dmg, avg);
+	}
+
+	/*
+	 * ATTACK METHODS
 	 */
 	@Override
 	public Creature getAttacker() {
@@ -68,13 +84,21 @@ public class MeleeBasicAttack implements Attack {
 		this.averageDamage = averageDamage;
 	}
 
+	@Override
+	public EnergyType getDamageType() {
+		return damageType;
+	}
+
+	@Override
+	public void setDamageType(EnergyType damageType) {
+		this.damageType = damageType;
+	}
+
 	/*
 	 * STATIC METHODS
 	 */
-	public static MeleeBasicAttack build(Weapon weapon, Creature actor) {
-		MeleeBasicAttack b = new MeleeBasicAttack();
-
-		b.weapon = weapon;
+	public static BasicAttack build(Weapon weapon, Creature actor) {
+		BasicAttack b = new BasicAttack();
 
 		/*
 		 * attack bonus calculation
@@ -85,11 +109,19 @@ public class MeleeBasicAttack implements Attack {
 				proficientUser = true;
 		}
 
-		int attackBonus = (proficientUser) ? actor.getProficiencyBonus() : 0;
+		int attackBonus = 0;
 
-		/*
-		 * 
-		 */
+		// proficiency
+		attackBonus += proficientUser ? actor.getProficiencyBonus() : 0;
+		// ability modifier
+		attackBonus += weapon.usesDexterity() && actor.prefersFinesse() ? actor.getDexterityModifier()
+				: actor.getStrengthModifier();
+
+		b.weapon = weapon;
+		b.setAttackBonus(attackBonus);
+		b.setAverageDamage(weapon.getAverageDamage());
+		b.setDamageType(weapon.getDamageType());
+
 		if (weapon.uses(Skill.UNARMED)) {
 			b.effectArea = EffectArea.TOUCH;
 		} else {

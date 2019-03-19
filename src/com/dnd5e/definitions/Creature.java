@@ -185,6 +185,10 @@ public interface Creature {
 		return setAbilityScore(5, bonus);
 	}
 
+	public default boolean prefersFinesse() {
+		return getDexterity() > getStrength();
+	}
+	
 	/*
 	 * ABILITY MODIFIER GETTERS
 	 */

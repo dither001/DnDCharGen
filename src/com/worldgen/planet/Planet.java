@@ -1,5 +1,7 @@
 package com.worldgen.planet;
 
+import com.worldgen.climate.Climate;
+
 public class Planet {
 	Grid grid;
 	Terrain terrain;

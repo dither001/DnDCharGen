@@ -1,8 +1,8 @@
 package com.dnd5e.character.classes;
 
-import com.dnd5e.character.classes.*;
-import com.dnd5e.character.definitions.Background;
-import com.dnd5e.character.definitions.Race;
+import java.util.EnumSet;
+
+import com.dnd5e.character.definitions.*;
 
 public interface Adventurer {
 
@@ -25,6 +25,11 @@ public interface Adventurer {
 	public Subclass getSubclass();
 
 	public void setSubclass(Subclass subclass);
+	
+	// class features
+	public EnumSet<ClassFeature> getClassFeatures();
+	
+	public void setClassFeatures(EnumSet<ClassFeature> classFeatures);
 
 	// race
 	public Race getRace();

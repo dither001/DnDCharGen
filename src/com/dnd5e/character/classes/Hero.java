@@ -1,7 +1,9 @@
-package com.dnd5e.character.definitions;
+package com.dnd5e.character.classes;
 
-import com.dnd5e.character.classes.*;
-import com.dnd5e.definitions.Actor;
+import java.util.EnumSet;
+
+import com.dnd5e.character.definitions.*;
+import com.dnd5e.definitions.*;
 
 public abstract class Hero extends Actor implements Adventurer {
 
@@ -13,6 +15,9 @@ public abstract class Hero extends Actor implements Adventurer {
 
 	protected DnDClass job;
 	protected Subclass subclass;
+
+	protected EnumSet<ClassFeature> classFeatures;
+
 	protected Race race;
 	protected Background background;
 
@@ -87,6 +92,16 @@ public abstract class Hero extends Actor implements Adventurer {
 	@Override
 	public void setSubclass(Subclass subclass) {
 		this.subclass = subclass;
+	}
+
+	@Override
+	public EnumSet<ClassFeature> getClassFeatures() {
+		return classFeatures;
+	}
+
+	@Override
+	public void setClassFeatures(EnumSet<ClassFeature> classFeatures) {
+		this.classFeatures = classFeatures;
 	}
 
 	@Override

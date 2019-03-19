@@ -2,6 +2,7 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
+import com.dnd5e.character.classes.Hero;
 import com.dnd5e.character.definitions.*;
 import com.miscellaneous.util.*;
 

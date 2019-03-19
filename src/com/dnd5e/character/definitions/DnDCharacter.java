@@ -1,6 +1,7 @@
 package com.dnd5e.character.definitions;
 
 import com.dnd5e.character.classes.DnDClass;
+import com.dnd5e.character.classes.Hero;
 import com.dnd5e.character.classes.Subclass;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;

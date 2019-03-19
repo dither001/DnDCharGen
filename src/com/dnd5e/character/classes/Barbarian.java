@@ -1,0 +1,194 @@
+package com.dnd5e.character.classes;
+
+import java.util.EnumSet;
+
+import com.dnd5e.definitions.*;
+
+public abstract class Barbarian extends JobClass {
+
+	/*
+	 * 
+	 */
+	public static void apply(int level, Hero actor) {
+		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
+		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
+
+		Subclass subclass = actor.getSubclass();
+		switch (level) {
+		case 1:
+			racialFeatures.add(RacialFeature.STRENGTH_SAVE);
+			racialFeatures.add(RacialFeature.CONSTITUTION_SAVE);
+			//
+			classFeatures.add(ClassFeature.RAGE);
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_2);
+			classFeatures.add(ClassFeature.RAGE_BONUS_2);
+			classFeatures.add(ClassFeature.UNARMORED_BARBARIAN);
+
+			break;
+		case 2:
+			classFeatures.add(ClassFeature.RECKLESS_ATTACK);
+			classFeatures.add(ClassFeature.DANGER_SENSE);
+
+			break;
+		case 3:
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_3);
+
+			/*
+			 * PRIMAL PATH
+			 */
+			if (subclass.equals(Subclass.BERSERKER)) {
+				classFeatures.add(ClassFeature.FRENZY);
+
+			} else if (subclass.equals(Subclass.BEAR_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_SEEKER);
+				classFeatures.add(ClassFeature.BEAR_SPIRIT_3);
+
+			} else if (subclass.equals(Subclass.EAGLE_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_SEEKER);
+				classFeatures.add(ClassFeature.EAGLE_SPIRIT_3);
+
+			} else if (subclass.equals(Subclass.WOLF_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_SEEKER);
+				classFeatures.add(ClassFeature.WOLF_SPIRIT_3);
+
+			}
+
+			break;
+		case 4:
+			//
+			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
+			enhanceAbility(actor);
+
+			break;
+		case 5:
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_4);
+			//
+			classFeatures.add(ClassFeature.EXTRA_ATTACK_1);
+			classFeatures.add(ClassFeature.FAST_MOVEMENT);
+
+			break;
+		case 6:
+			/*
+			 * PRIMAL PATH
+			 */
+			if (subclass.equals(Subclass.BERSERKER)) {
+				classFeatures.add(ClassFeature.MINDLESS_RAGE);
+
+			} else if (subclass.equals(Subclass.BEAR_TOTEM)) {
+				classFeatures.add(ClassFeature.BEAR_ASPECT_6);
+
+			} else if (subclass.equals(Subclass.EAGLE_TOTEM)) {
+				classFeatures.add(ClassFeature.EAGLE_ASPECT_6);
+
+			} else if (subclass.equals(Subclass.WOLF_TOTEM)) {
+				classFeatures.add(ClassFeature.WOLF_ASPECT_6);
+
+			}
+
+			break;
+		case 7:
+			classFeatures.add(ClassFeature.FERAL_INSTINCT);
+
+			break;
+		case 8:
+			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
+			enhanceAbility(actor);
+
+			break;
+		case 9:
+			classFeatures.add(ClassFeature.RAGE_BONUS_3);
+			//
+			classFeatures.add(ClassFeature.BRUTAL_CRITICAL_1);
+
+			break;
+		case 10:
+			/*
+			 * PRIMAL PATH
+			 */
+			if (subclass.equals(Subclass.BERSERKER)) {
+				classFeatures.add(ClassFeature.INTIMIDATING_PRESENCE);
+
+			} else if (subclass.equals(Subclass.BEAR_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_WALKER);
+
+			} else if (subclass.equals(Subclass.EAGLE_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_WALKER);
+
+			} else if (subclass.equals(Subclass.WOLF_TOTEM)) {
+				classFeatures.add(ClassFeature.SPIRIT_WALKER);
+
+			}
+
+			break;
+		case 11:
+			classFeatures.add(ClassFeature.RELENTLESS_RAGE);
+
+			break;
+		case 12:
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_5);
+			//
+			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
+			enhanceAbility(actor);
+
+			break;
+		case 13:
+			classFeatures.add(ClassFeature.BRUTAL_CRITICAL_2);
+
+			break;
+		case 14:
+			/*
+			 * PRIMAL PATH
+			 */
+			if (subclass.equals(Subclass.BERSERKER)) {
+				classFeatures.add(ClassFeature.RETALIATION);
+
+			} else if (subclass.equals(Subclass.BEAR_TOTEM)) {
+				classFeatures.add(ClassFeature.BEAR_ATTUNEMENT_14);
+
+			} else if (subclass.equals(Subclass.EAGLE_TOTEM)) {
+				classFeatures.add(ClassFeature.EAGLE_ATTUNEMENT_14);
+
+			} else if (subclass.equals(Subclass.WOLF_TOTEM)) {
+				classFeatures.add(ClassFeature.WOLF_ATTUNEMENT_14);
+
+			}
+
+			break;
+		case 15:
+			classFeatures.add(ClassFeature.PERSISTENT_RAGE);
+
+			break;
+		case 16:
+			classFeatures.add(ClassFeature.RAGE_BONUS_4);
+			//
+			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
+			enhanceAbility(actor);
+
+			break;
+		case 17:
+			classFeatures.add(ClassFeature.BRUTAL_CRITICAL_3);
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_6);
+
+			break;
+		case 18:
+			classFeatures.add(ClassFeature.INDOMITABLE_MIGHT);
+
+			break;
+		case 19:
+			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
+			enhanceAbility(actor);
+
+			break;
+		case 20:
+			classFeatures.add(ClassFeature.RAGE_PER_DAY_99);
+			//
+			classFeatures.add(ClassFeature.PRIMAL_CHAMPION);
+
+			break;
+		}
+
+		actor.setFeatures(racialFeatures);
+		actor.setClassFeatures(classFeatures);
+	}
+
+}

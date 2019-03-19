@@ -35,7 +35,10 @@ public class BasicAttack implements Attack {
 	 * INSTANCE METHODS
 	 */
 	public String toString() {
-		String atk = attackBonus > -1 ? "+" + attackBonus : "" + attackBonus;
+
+		String atk = weapon.isRangedOnly() ? "ranged " : "melee ";
+		atk += attackBonus > -1 ? "+" + attackBonus : "" + attackBonus;
+
 		String dmg = weapon.diceToString();
 		String avg = averageDamage > -1 ? "" + averageDamage : "1";
 		return String.format("%s %s %s (%s)", weapon.getName(), atk, dmg, avg);
@@ -114,8 +117,13 @@ public class BasicAttack implements Attack {
 		// proficiency
 		attackBonus += proficientUser ? actor.getProficiencyBonus() : 0;
 		// ability modifier
-		attackBonus += weapon.usesDexterity() && actor.prefersFinesse() ? actor.getDexterityModifier()
-				: actor.getStrengthModifier();
+		if (weapon.isRangedOnly() || (weapon.usesDexterity() && actor.prefersFinesse())) {
+			attackBonus += actor.getDexterityModifier();
+
+		} else {
+			attackBonus += actor.getStrengthModifier();
+
+		}
 
 		b.weapon = weapon;
 		b.setAttackBonus(attackBonus);

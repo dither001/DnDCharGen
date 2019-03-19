@@ -31,7 +31,6 @@ public class FileLoader {
 			if (input.read() != 0xFEFF)
 				input.reset();
 
-			
 			while ((line = input.readLine()) != null) {
 				String[] values = line.split(comma);
 
@@ -188,12 +187,15 @@ public class FileLoader {
 
 				// WEAPON TRAITS
 				if (values.length > 10) {
-					weaponTraits = values[counter++].split(".");
+					weaponTraits = values[counter++].split(":");
+
 					traits = new WeaponTrait[weaponTraits.length];
-					for (int i = 0; i < traits.length; ++i)
+					for (int i = 0; i < weaponTraits.length; ++i) {
 						traits[i] = WeaponTrait.parse(weaponTraits[i]);
+					}
 
 					weapon.setTraits(traits);
+				} else {
 				}
 
 				map.put(skill, weapon);

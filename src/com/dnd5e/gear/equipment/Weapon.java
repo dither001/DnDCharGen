@@ -11,6 +11,7 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 	static {
 		weaponMap = FileLoader.parseWeapons("weapons.csv");
+		
 	}
 
 	/*
@@ -40,7 +41,16 @@ public class Weapon extends Tool implements Armable, Cloneable {
 	 */
 	public String toStringVerbose() {
 		String dice = damageDice[0] + "d" + damageDice[1];
-		return String.format("%s %s %s ", name, dice, damageType.toString());
+
+		String t = traits.length > 0 ? "[" : "";
+		for (int i = 0; i < traits.length; ++i) {
+			t += traits[i];
+			if (i+1 < traits.length)
+				t += ", ";
+		}
+		t += traits.length > 0 ? "]" : "";
+
+		return String.format("%s %s %s %s", name, dice, damageType.toString(), t);
 	}
 
 	/*
@@ -68,7 +78,13 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 		weapon.setDamageDice(damageDice);
 		weapon.setDamageType(damageType);
-		weapon.setTraits(traits);
+
+		// weapon traits
+		WeaponTrait[] t = new WeaponTrait[traits.length];
+		for (int i = 0; i < traits.length; ++i)
+			t[i] = traits[i];
+
+		weapon.setTraits(t);
 
 		return weapon;
 	}
@@ -134,7 +150,11 @@ public class Weapon extends Tool implements Armable, Cloneable {
 
 	@Override
 	public void setTraits(WeaponTrait[] traits) {
-		this.traits = traits;
+		WeaponTrait[] t = new WeaponTrait[traits.length];
+		for (int i = 0; i < traits.length; ++i)
+			t[i] = traits[i];
+
+		this.traits = t;
 	}
 
 	/*

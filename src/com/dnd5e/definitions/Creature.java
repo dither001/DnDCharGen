@@ -186,7 +186,7 @@ public interface Creature {
 	}
 
 	public default boolean prefersFinesse() {
-		return getDexterity() > getStrength();
+		return getDexterityModifier() > getStrengthModifier();
 	}
 	
 	/*

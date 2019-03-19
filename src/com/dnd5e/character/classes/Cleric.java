@@ -3,6 +3,7 @@ package com.dnd5e.character.classes;
 import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
+import com.dnd5e.magic.*;
 
 public abstract class Cleric extends JobClass {
 	/*
@@ -20,6 +21,8 @@ public abstract class Cleric extends JobClass {
 			racialFeatures.add(RacialFeature.CHARISMA_SAVE);
 			//
 
+			EnumSet<Skill> skills = actor.getSkills();
+			EnumSet<Spell> cantrips = actor.getCantripsKnown();
 			/*
 			 * DIVINE DOMAIN
 			 */
@@ -27,41 +30,61 @@ public abstract class Cleric extends JobClass {
 			case DEATH:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_DEATH);
 				classFeatures.add(ClassFeature.REAPER);
+				cantrips.add(Spell.CHILL_TOUCH);
 				//
-				EnumSet<Skill> skills = actor.getSkills();
 				skills.addAll(Skill.militaryWeaponList());
 				actor.setSkills(skills);
 				break;
 			case KNOWLEDGE:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_KNOWLEDGE);
-				//
+				classFeatures.add(ClassFeature.BLESSINGS_OF_KNOWLEDGE);
+				// add 2 non-secret languages
+				// add 2 skills
 				break;
 			case LIFE:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIFE);
+				classFeatures.add(ClassFeature.DISCIPLE_OF_LIFE);
 				//
+				skills.addAll(Skill.heavyArmorList());
+				actor.setSkills(skills);
 				break;
 			case LIGHT:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIGHT);
+				classFeatures.add(ClassFeature.WARDING_FLARE);
+				cantrips.add(Spell.LIGHT);
 				//
 				break;
 			case NATURE:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_NATURE);
+				// add druid cantrip
 				//
+				skills.addAll(Skill.heavyArmorList());
+				actor.setSkills(skills);
 				break;
 			case TEMPEST:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TEMPEST);
+				classFeatures.add(ClassFeature.WRATH_OF_THE_STORM);
 				//
+				skills.addAll(Skill.heavyArmorList());
+				skills.addAll(Skill.militaryWeaponList());
+				actor.setSkills(skills);
 				break;
 			case TRICKERY:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TRICKERY);
+				classFeatures.add(ClassFeature.BLESSING_OF_THE_TRICKSTER);
 				//
 				break;
 			case WAR:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_WAR);
+				classFeatures.add(ClassFeature.WAR_PRIEST);
 				//
+				skills.addAll(Skill.heavyArmorList());
+				skills.addAll(Skill.militaryWeaponList());
+				actor.setSkills(skills);
 				break;
 			}
 
+			actor.setCantripsKnown(cantrips);
 			break;
 		case 2:
 			classFeatures.add(ClassFeature.CHANNEL_DIVINITY_1);

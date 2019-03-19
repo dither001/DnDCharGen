@@ -9,6 +9,7 @@ import java.util.HashMap;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
 import com.dnd5e.gear.equipment.*;
+import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 
 public class FileLoader {
@@ -210,4 +211,33 @@ public class FileLoader {
 
 		return map;
 	}
+	
+	public static HashMap<String, Spell> parseSpells(String filename) {
+		HashMap<String, Spell> map = new HashMap<String, Spell>();
+		BufferedReader input = null;
+
+		String line = "";
+		String comma = ",";
+
+		try {
+			input = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
+
+			// skips first character if '?'
+			input.mark(1);
+			if (input.read() != 0xFEFF)
+				input.reset();
+
+			while ((line = input.readLine()) != null) {
+				String[] values = line.split(comma);
+				
+				System.out.println(values[0]  + ",");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
+		return map;
+	}
+
 }

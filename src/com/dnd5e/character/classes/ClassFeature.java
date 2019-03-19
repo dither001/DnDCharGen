@@ -195,8 +195,7 @@ public enum ClassFeature {
 			JobClass.apply(level, actor);
 			break;
 		case CLERIC:
-			// FIXME
-			JobClass.apply(level, actor);
+			Cleric.apply(level, actor);
 			break;
 		case DRUID:
 			// FIXME

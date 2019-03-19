@@ -34,6 +34,8 @@ public class DnDCharacter extends Hero {
 		s += skills.toString() + "\n";
 
 		s += features.toString() + "\n";
+		s += cantripsKnown.size() > 0 ? cantripsKnown.toString() + "\n" : "";
+		s += spellsKnown.size() > 0 ? spellsKnown.toString() + "\n" : "";
 		s += classFeatures.toString() + "\n";
 
 		s += inventory.toString() + "\n";

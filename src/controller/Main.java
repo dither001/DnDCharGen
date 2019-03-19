@@ -22,6 +22,8 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+//		FileLoader.parseSpells("spells.csv");
+		
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
@@ -29,7 +31,7 @@ public class Main {
 
 //		 testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
-		 testRandomCharactersOfClass(10, DnDClass.BARBARIAN);
+		 testRandomCharactersOfClass(10, DnDClass.CLERIC);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);

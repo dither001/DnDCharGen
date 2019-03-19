@@ -2,8 +2,8 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
-import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
+import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
@@ -30,6 +30,8 @@ public abstract class Actor implements Creature, Persistent {
 	protected EnumSet<Sense> senses;
 	protected EnumSet<Language> languages;
 	protected EnumSet<RacialFeature> features;
+	protected EnumSet<Spell> cantripsKnown;
+	protected EnumSet<Spell> spellsKnown;
 
 	/*
 	 * COMBAT STATS
@@ -70,6 +72,8 @@ public abstract class Actor implements Creature, Persistent {
 		this.senses = EnumSet.noneOf(Sense.class);
 		this.languages = EnumSet.noneOf(Language.class);
 		this.features = EnumSet.noneOf(RacialFeature.class);
+		this.cantripsKnown = EnumSet.noneOf(Spell.class);
+		this.spellsKnown = EnumSet.noneOf(Spell.class);
 
 		this.currentHitPoints = 1;
 		this.maximumHitPoints = 1;
@@ -238,6 +242,26 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setFeatures(EnumSet<RacialFeature> features) {
 		this.features = features;
+	}
+
+	@Override
+	public EnumSet<Spell> getCantripsKnown() {
+		return cantripsKnown;
+	}
+
+	@Override
+	public void setCantripsKnown(EnumSet<Spell> cantripsKnown) {
+		this.cantripsKnown = cantripsKnown;
+	}
+
+	@Override
+	public EnumSet<Spell> getSpellsKnown() {
+		return spellsKnown;
+	}
+
+	@Override
+	public void setSpellsKnown(EnumSet<Spell> spellsKnown) {
+		this.spellsKnown = spellsKnown;
 	}
 
 	/*

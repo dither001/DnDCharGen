@@ -2,8 +2,8 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.*;
 import com.dnd5e.gear.equipment.*;
+import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 
 public interface Creature {
@@ -50,6 +50,14 @@ public interface Creature {
 	public EnumSet<RacialFeature> getFeatures();
 
 	public void setFeatures(EnumSet<RacialFeature> features);
+	
+	public EnumSet<Spell> getCantripsKnown();
+
+	public void setCantripsKnown(EnumSet<Spell> cantripsKnown);
+
+	public EnumSet<Spell> getSpellsKnown();
+
+	public void setSpellsKnown(EnumSet<Spell> spellsKnown);
 
 	/*
 	 * COMBAT STATS
@@ -103,7 +111,7 @@ public interface Creature {
 	 * ITEMS / INVENTORY
 	 */
 	public Inventory getInventory();
-
+ 
 	public void setInventory(Inventory inventory);
 
 	/*

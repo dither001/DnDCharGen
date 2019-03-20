@@ -9,6 +9,7 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.Armor;
 import com.dnd5e.gear.equipment.Weapon;
+import com.dnd5e.magic.Spell;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.FileLoader;
 import com.miscellaneous.util.ParserException;
@@ -22,6 +23,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		for (Spell el : Spell.spellsList(DnDClass.ROGUE))
+			System.out.println(el.toString());
+		
+		System.out.println();
+		
 //		FileLoader.parseSpells("spells.csv");
 		
 		// testSkewEvil();
@@ -29,9 +35,10 @@ public class Main {
 		// testRandomRogues();
 		// testRandomCharacters(50);
 
+//		testRandomCharacters(50);
 //		 testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
-		 testRandomCharactersOfClass(10, DnDClass.CLERIC);
+//		 testRandomCharactersOfClass(10, DnDClass.CLERIC);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);

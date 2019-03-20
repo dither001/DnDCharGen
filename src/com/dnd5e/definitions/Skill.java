@@ -1,7 +1,7 @@
 package com.dnd5e.definitions;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.miscellaneous.util.*;
 
@@ -282,43 +282,43 @@ public enum Skill {
 	 * ARMOR & WEAPONS
 	 */
 	public static List<Skill> lightArmorList() {
-		return arrayToList(LIGHT_ARMOR);
+		return Misc.arrayToList(LIGHT_ARMOR);
 	}
 
 	public static List<Skill> mediumArmorList() {
-		return arrayToList(MEDIUM_ARMOR);
+		return Misc.arrayToList(MEDIUM_ARMOR);
 	}
 
 	public static List<Skill> heavyArmorList() {
-		return arrayToList(HEAVY_ARMOR);
+		return Misc.arrayToList(HEAVY_ARMOR);
 	}
 
 	public static List<Skill> lightAndMediumArmorList() {
-		return addArrayToList(MEDIUM_ARMOR, arrayToList(LIGHT_ARMOR));
+		return Misc.addArrayToList(MEDIUM_ARMOR, Misc.arrayToList(LIGHT_ARMOR));
 	}
 
 	public static List<Skill> allArmorList() {
-		return addArrayToList(HEAVY_ARMOR, lightAndMediumArmorList());
+		return Misc.addArrayToList(HEAVY_ARMOR, lightAndMediumArmorList());
 	}
 	
 	public static List<Skill> simpleMeleeList() {
-		return arrayToList(SIMPLE_MELEE);
+		return Misc.arrayToList(SIMPLE_MELEE);
 	}
 
 	public static List<Skill> simpleRangedList() {
-		return arrayToList(SIMPLE_RANGED);
+		return Misc.arrayToList(SIMPLE_RANGED);
 	}
 
 	public static List<Skill> simpleWeaponList() {
-		return addArrayToList(SIMPLE_RANGED, simpleMeleeList());
+		return Misc.addArrayToList(SIMPLE_RANGED, simpleMeleeList());
 	}
 
 	public static List<Skill> meleeWeaponList() {
-		return addArrayToList(MILITARY_MELEE, simpleMeleeList());
+		return Misc.addArrayToList(MILITARY_MELEE, simpleMeleeList());
 	}
 
 	public static List<Skill> militaryWeaponList() {
-		return arrayToList(ALL_WEAPONS);
+		return Misc.arrayToList(ALL_WEAPONS);
 	}
 
 	/*
@@ -338,24 +338,6 @@ public enum Skill {
 
 	public static Skill randomSimpleWeapon() {
 		return Misc.randomFromArray(SIMPLE_WEAPONS);
-	}
-
-	/*
-	 * PRIVATE METHODS
-	 */
-	private static List<Skill> arrayToList(Skill[] array) {
-		List<Skill> list = new ArrayList<Skill>();
-		for (int i = 0; i < array.length; ++i)
-			list.add(array[i]);
-
-		return list;
-	}
-
-	private static List<Skill> addArrayToList(Skill[] array, List<Skill> list) {
-		for (int i = 0; i < array.length; ++i)
-			list.add(array[i]);
-
-		return list;
 	}
 
 }

@@ -3,12 +3,37 @@ package com.dnd5e.character.classes;
 import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.InventoryBuilder;
+import com.miscellaneous.util.Misc;
 
 public abstract class Barbarian extends JobClass {
+	private static final DnDClass CLAZZ = DnDClass.BARBARIAN;
+
+	//
+	private static final Skill[] CLASS_SKILLS = Skill.getClassSkills(CLAZZ);
+	private static int NUMBER_OF_SKILLS = DnDClass.getNumberOfSkills(CLAZZ);
 
 	/*
-	 * 
+	 * STATIC METHODS
 	 */
+	public static void setup(Hero actor) {
+		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
+		Subclass subclass = actor.getSubclass();
+
+		// SAVING THROWS
+		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
+		racialFeatures.add(RacialFeature.STRENGTH_SAVE);
+		racialFeatures.add(RacialFeature.CONSTITUTION_SAVE);
+
+		// SKILLS & WEAPON/ARMOR PROFICIENCY
+		EnumSet<Skill> skills = actor.getSkills();
+		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, skills);
+
+		// END STEP
+		actor.setSkills(skills);
+		actor.setFeatures(racialFeatures);
+		actor.setClassFeatures(classFeatures);
+	}
 
 	public static void apply(int level, Hero actor) {
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
@@ -17,8 +42,6 @@ public abstract class Barbarian extends JobClass {
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
-			racialFeatures.add(RacialFeature.STRENGTH_SAVE);
-			racialFeatures.add(RacialFeature.CONSTITUTION_SAVE);
 			//
 			classFeatures.add(ClassFeature.RAGE);
 			classFeatures.add(ClassFeature.RAGE_PER_DAY_2);

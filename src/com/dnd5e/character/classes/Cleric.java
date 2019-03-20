@@ -14,7 +14,6 @@ public abstract class Cleric extends JobClass {
 	 * 
 	 */
 
-	@SuppressWarnings("incomplete-switch")
 	public static void apply(int level, Hero actor) {
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
 		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
@@ -83,6 +82,8 @@ public abstract class Cleric extends JobClass {
 				actor.getSkills().addAll(Skill.heavyArmorList());
 				actor.getSkills().addAll(Skill.militaryWeaponList());
 				break;
+			default:
+				break;
 			}
 
 			break;
@@ -116,6 +117,8 @@ public abstract class Cleric extends JobClass {
 				break;
 			case WAR:
 				classFeatures.add(ClassFeature.GUIDED_STRIKE);
+				break;
+			default:
 				break;
 			}
 
@@ -168,6 +171,8 @@ public abstract class Cleric extends JobClass {
 			case WAR:
 				classFeatures.add(ClassFeature.WAR_GODS_BLESSING);
 				break;
+			default:
+				break;
 			}
 
 			break;
@@ -209,6 +214,8 @@ public abstract class Cleric extends JobClass {
 				break;
 			case WAR:
 				classFeatures.add(ClassFeature.DIVINE_STRIKE_WAR);
+				break;
+			default:
 				break;
 			}
 
@@ -288,6 +295,8 @@ public abstract class Cleric extends JobClass {
 				break;
 			case WAR:
 				classFeatures.add(ClassFeature.AVATAR_OF_BATTLE);
+				break;
+			default:
 				break;
 			}
 

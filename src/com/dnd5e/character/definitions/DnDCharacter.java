@@ -27,7 +27,7 @@ public class DnDCharacter extends Hero {
 	public String toStringVerbose() {
 		String s = "";
 
-		s += String.format("%s %s %s %s (%s) %s \n", alignment.abbreviation(), isFemale ? "female" : "male",
+		s += String.format("%s- %s %s %s %s (%s) %s \n", name, alignment.abbreviation(), isFemale ? "female" : "male",
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";

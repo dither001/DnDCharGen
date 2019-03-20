@@ -1,8 +1,8 @@
 package com.dnd5e.definitions;
 
 import java.util.List;
-import java.util.Set;
 
+import com.dnd5e.character.classes.*;
 import com.miscellaneous.util.*;
 
 public enum Skill {
@@ -168,6 +168,8 @@ public enum Skill {
 		case SPLINT_MAIL:
 		case PLATE_MAIL:
 			armor = true;
+		default:
+			break;
 		}
 
 		return armor;
@@ -193,6 +195,8 @@ public enum Skill {
 		case SHORTBOW:
 		case SLING:
 			weapon = true;
+		default:
+			break;
 		}
 
 		return weapon;
@@ -226,6 +230,8 @@ public enum Skill {
 		case LONGBOW:
 		case NET:
 			weapon = true;
+		default:
+			break;
 		}
 
 		return weapon;
@@ -244,6 +250,8 @@ public enum Skill {
 		case SHORTBOW:
 		case SLING:
 			weapon = true;
+		default:
+			break;
 		}
 
 		return weapon;
@@ -252,6 +260,52 @@ public enum Skill {
 	/*
 	 * STATIC METHODS
 	 */
+	public static Skill[] getClassSkills(DnDClass job) {
+		Skill[] array = null;
+		switch (job) {
+		case BARBARIAN:
+			array = BARBARIAN_SKILLS;
+			break;
+		case BARD:
+			array = COMMON_SKILLS;
+			break;
+		case CLERIC:
+			array = CLERIC_SKILLS;
+			break;
+		case DRUID:
+			array = DRUID_SKILLS;
+			break;
+		case FIGHTER:
+			array = FIGHTER_SKILLS;
+			break;
+		case MONK:
+			array = MONK_SKILLS;
+			break;
+		case PALADIN:
+			array = PALADIN_SKILLS;
+			break;
+		case RANGER:
+			array = RANGER_SKILLS;
+			break;
+		case ROGUE:
+			array = ROGUE_SKILLS;
+			break;
+		case SORCERER:
+			array = SORCERER_SKILLS;
+			break;
+		case WARLOCK:
+			array = WARLOCK_SKILLS;
+			break;
+		case WIZARD:
+			array = WIZARD_SKILLS;
+			break;
+		default:
+			break;
+		}
+		
+		return array;
+	}
+	
 	public static Skill getArmorType(int index) {
 		return ARMOR_TYPES[index];
 	}

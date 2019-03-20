@@ -4,8 +4,9 @@ import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
 
-public abstract class JobClass {
+import controller.Main;
 
+public abstract class JobClass {
 	/*
 	 * STATIC FIELDS
 	 */
@@ -28,20 +29,14 @@ public abstract class JobClass {
 			ClassFeature.CHA_BONUS_8, ClassFeature.CHA_BONUS_10, ClassFeature.CHA_BONUS_12, ClassFeature.CHA_BONUS_14,
 			ClassFeature.CHA_BONUS_16, ClassFeature.CHA_BONUS_19 };
 
-	protected static final ClassFeature[] EXPERTISE = { ClassFeature.EXPERTISE_ATHLETICS,
-			ClassFeature.EXPERTISE_ACROBATICS, ClassFeature.EXPERTISE_SLEIGHT_OF_HAND, ClassFeature.EXPERTISE_STEALTH,
-			ClassFeature.EXPERTISE_ARCANA, ClassFeature.EXPERTISE_HISTORY, ClassFeature.EXPERTISE_INVESTIGATION,
-			ClassFeature.EXPERTISE_NATURE, ClassFeature.EXPERTISE_RELIGION, ClassFeature.EXPERTISE_ANIMAL_HANDLING,
-			ClassFeature.EXPERTISE_INSIGHT, ClassFeature.EXPERTISE_MEDICINE, ClassFeature.EXPERTISE_PERCEPTION,
-			ClassFeature.EXPERTISE_SURVIVAL, ClassFeature.EXPERTISE_DECEPTION, ClassFeature.EXPERTISE_INTIMIDATION,
-			ClassFeature.EXPERTISE_PERFORMANCE, ClassFeature.EXPERTISE_PERSUASION,
-			ClassFeature.EXPERTISE_THIEVES_TOOLS };
-
 	/*
 	 * STATIC METHODS
 	 */
+	@SuppressWarnings("unused")
 	public static void apply(int level, Hero actor) {
-		System.out.println("Not implemented.");
+
+		if (Main.TESTING_MESSAGES_ON)
+			System.out.println("Not implemented.");
 
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
 		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
@@ -59,9 +54,9 @@ public abstract class JobClass {
 		case 3:
 			break;
 		case 4:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 5:
@@ -71,9 +66,9 @@ public abstract class JobClass {
 		case 7:
 			break;
 		case 8:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 9:
@@ -83,9 +78,9 @@ public abstract class JobClass {
 		case 11:
 			break;
 		case 12:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 13:
@@ -95,9 +90,9 @@ public abstract class JobClass {
 		case 15:
 			break;
 		case 16:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 17:
@@ -105,9 +100,9 @@ public abstract class JobClass {
 		case 18:
 			break;
 		case 19:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 20:
@@ -118,10 +113,9 @@ public abstract class JobClass {
 		actor.setClassFeatures(classFeatures);
 	}
 
-	public static void enhanceAbility(Adventurer actor) {
+	public static void improveAbility(Adventurer actor) {
 		// TODO
 
 	}
-
 
 }

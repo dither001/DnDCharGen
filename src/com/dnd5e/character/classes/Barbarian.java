@@ -56,9 +56,9 @@ public abstract class Barbarian extends JobClass {
 
 			break;
 		case 4:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 5:
@@ -92,9 +92,9 @@ public abstract class Barbarian extends JobClass {
 
 			break;
 		case 8:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 9:
@@ -128,9 +128,9 @@ public abstract class Barbarian extends JobClass {
 			break;
 		case 12:
 			classFeatures.add(ClassFeature.RAGE_PER_DAY_5);
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 13:
@@ -162,9 +162,9 @@ public abstract class Barbarian extends JobClass {
 			break;
 		case 16:
 			classFeatures.add(ClassFeature.RAGE_BONUS_4);
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 17:
@@ -177,9 +177,9 @@ public abstract class Barbarian extends JobClass {
 
 			break;
 		case 19:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 20:

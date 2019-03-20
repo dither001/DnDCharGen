@@ -128,9 +128,9 @@ public abstract class Cleric extends JobClass {
 		case 4:
 			// NEW CANTRIP
 			Misc.tryToAdd(Spell.CLERIC_SPELLS[0], actor.getCantripsKnown());
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 5:
@@ -178,9 +178,9 @@ public abstract class Cleric extends JobClass {
 			break;
 		case 8:
 			classFeatures.add(ClassFeature.DESTROY_UNDEAD_8);
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			/*
 			 * DIVINE DOMAIN
@@ -231,9 +231,9 @@ public abstract class Cleric extends JobClass {
 
 			break;
 		case 12:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 13:
@@ -252,9 +252,9 @@ public abstract class Cleric extends JobClass {
 			 */
 			break;
 		case 16:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 17:
@@ -266,33 +266,45 @@ public abstract class Cleric extends JobClass {
 			 */
 			switch (subclass) {
 			case DEATH:
+				classFeatures.add(ClassFeature.IMPROVED_REAPER);
 				break;
 			case KNOWLEDGE:
+				classFeatures.add(ClassFeature.VISIONS_OF_THE_PAST);
 				break;
 			case LIFE:
+				classFeatures.add(ClassFeature.SUPREME_HEALING);
 				break;
 			case LIGHT:
+				classFeatures.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
 				break;
 			case NATURE:
+				classFeatures.add(ClassFeature.MASTER_OF_NATURE);
 				break;
 			case TEMPEST:
+				classFeatures.add(ClassFeature.STORMBORN);
 				break;
 			case TRICKERY:
+				classFeatures.add(ClassFeature.IMPROVED_DUPLICITY);
 				break;
 			case WAR:
+				classFeatures.add(ClassFeature.AVATAR_OF_BATTLE);
 				break;
 			}
 
 			break;
 		case 18:
+			classFeatures.add(ClassFeature.CHANNEL_DIVINITY_3);
+			
 			break;
 		case 19:
-			//
+			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
-			enhanceAbility(actor);
+			improveAbility(actor);
 
 			break;
 		case 20:
+			classFeatures.add(ClassFeature.DIVINE_INTERVENTION_20);
+			
 			break;
 		}
 

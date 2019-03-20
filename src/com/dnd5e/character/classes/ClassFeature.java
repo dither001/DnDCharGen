@@ -1,5 +1,7 @@
 package com.dnd5e.character.classes;
 
+import com.dnd5e.definitions.Skill;
+
 public enum ClassFeature {
 	/*
 	 * CLASS FEATURES
@@ -29,7 +31,7 @@ public enum ClassFeature {
 	 * GENERIC & SHARED FEATURES
 	 */
 	FIGHTING_STYLE, EXTRA_ATTACK_1, LANDS_STRIDE, TIMELESS_BODY, EVASION, UNCANNY_DODGE,
-	
+
 	/*
 	 * BARBARIAN
 	 */
@@ -184,7 +186,22 @@ public enum ClassFeature {
 
 	//
 	;
-	
+
+	/*
+	 * STATIC FIELDS
+	 */
+	private static final ClassFeature[] EXPERTISE = { ClassFeature.EXPERTISE_ATHLETICS,
+			ClassFeature.EXPERTISE_ACROBATICS, ClassFeature.EXPERTISE_SLEIGHT_OF_HAND, ClassFeature.EXPERTISE_STEALTH,
+			ClassFeature.EXPERTISE_ARCANA, ClassFeature.EXPERTISE_HISTORY, ClassFeature.EXPERTISE_INVESTIGATION,
+			ClassFeature.EXPERTISE_NATURE, ClassFeature.EXPERTISE_RELIGION, ClassFeature.EXPERTISE_ANIMAL_HANDLING,
+			ClassFeature.EXPERTISE_INSIGHT, ClassFeature.EXPERTISE_MEDICINE, ClassFeature.EXPERTISE_PERCEPTION,
+			ClassFeature.EXPERTISE_SURVIVAL, ClassFeature.EXPERTISE_DECEPTION, ClassFeature.EXPERTISE_INTIMIDATION,
+			ClassFeature.EXPERTISE_PERFORMANCE, ClassFeature.EXPERTISE_PERSUASION,
+			ClassFeature.EXPERTISE_THIEVES_TOOLS };
+
+	/*
+	 * STATIC METHODS
+	 */
 	public static void apply(int level, Hero actor) {
 		switch (actor.getJob()) {
 		case BARBARIAN:
@@ -234,5 +251,17 @@ public enum ClassFeature {
 			JobClass.apply(level, actor);
 			break;
 		}
+	}
+
+	public static ClassFeature matchExpertise(Skill skill) {
+		ClassFeature feature = null;
+		for (ClassFeature el : EXPERTISE) {
+			if (el.toString().endsWith(skill.toString())) {
+				feature = el;
+				break;
+			}
+		}
+
+		return feature;
 	}
 }

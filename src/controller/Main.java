@@ -17,16 +17,12 @@ import com.worldgen.planet.Grid;
 import com.worldgen.terrain.Terrain;
 
 public class Main {
+	public static final boolean TESTING_MESSAGES_ON = false;
 
 	/*
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		
-		for (Spell el : Spell.spellsList(DnDClass.ROGUE))
-			System.out.println(el.toString());
-		
-		System.out.println();
 		
 //		FileLoader.parseSpells("spells.csv");
 		
@@ -246,7 +242,7 @@ public class Main {
 	/*
 	 * CHARACTER TESTING
 	 */
-	public static void testRandomCharactersOfAlignment(int n, Alignment ali) {
+	public static void characterOfAlignment(int n, Alignment ali) {
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -268,7 +264,7 @@ public class Main {
 		}
 	}
 
-	public static void testRandomCharactersOfClass(int n, DnDClass job) {
+	public static void characterOfClass(int n, DnDClass job) {
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -279,7 +275,7 @@ public class Main {
 		}
 	}
 
-	public static void testRandomCharacters(int n) {
+	public static void randomCharacter(int n) {
 		for (int i = 0; i < n; ++i) {
 			System.out.println(DnDCharacter.random().toStringVerbose());
 			System.out.println();

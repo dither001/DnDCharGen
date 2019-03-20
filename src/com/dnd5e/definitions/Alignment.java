@@ -18,34 +18,34 @@ public enum Alignment implements Opposite, Similar {
 		String s = null;
 
 		switch (this) {
-		case CHAOTIC_EVIL:
+		case CHAOTIC_EVIL: // 0
 			s = "CE";
 			break;
-		case CHAOTIC_GOOD:
+		case CHAOTIC_GOOD: // 1
 			s = "CG";
 			break;
-		case CHAOTIC_NEUTRAL:
+		case CHAOTIC_NEUTRAL: // 2
 			s = "CN";
 			break;
-		case LAWFUL_EVIL:
+		case LAWFUL_EVIL: // 3
 			s = "LE";
 			break;
-		case LAWFUL_GOOD:
+		case LAWFUL_GOOD: // 4
 			s = "LG";
 			break;
-		case LAWFUL_NEUTRAL:
+		case LAWFUL_NEUTRAL: // 5
 			s = "LN";
 			break;
-		case NEUTRAL_EVIL:
+		case NEUTRAL_EVIL: // 6
 			s = "NE";
 			break;
-		case NEUTRAL_GOOD:
+		case NEUTRAL_GOOD: // 7
 			s = "NG";
 			break;
-		case TRUE_NEUTRAL:
+		case TRUE_NEUTRAL: // 8
 			s = "TN";
 			break;
-		case UNALIGNED:
+		case UNALIGNED: // 9
 			s = "UA";
 			break;
 		}

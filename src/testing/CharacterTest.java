@@ -5,19 +5,23 @@ import org.junit.Test;
 import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.worlds.*;
 
 public class CharacterTest {
 	//
 	private static final int NUMBER_TO_GENERATE = 10;
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
+	private static final Background BACKGROUND = Background.SOLDIER;
 	private static final DnDClass CHARACTER_CLASS = DnDClass.BARBARIAN;
+	private static final God GOD = God.ASMODEUS;
+	private static final Race RACE = Race.HALF_ORC;
 
 	/*
 	 * ALIGNMENT TESTING
 	 */
 	@Test
-	public void testSkewEvil() {
+	public void skewEvil() {
 		int[] array = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < NUMBER_TO_GENERATE; ++i) {
@@ -32,6 +36,8 @@ public class CharacterTest {
 			System.out.printf("%6d %-8s %-16s\n", n, s, Alignment.get(i));
 		}
 
+		System.out.printf("\n");
+		printAlignmentGrid(NUMBER_TO_GENERATE, array);
 		System.out.printf("\n");
 		printAlignmentArray(NUMBER_TO_GENERATE, array);
 	}
@@ -62,14 +68,66 @@ public class CharacterTest {
 
 	}
 
+	private void printAlignmentGrid(int num, int[] array) {
+		int n = 0;
+		String[] s = new String[9];
+
+		n = array[4]; // LG
+		s[0] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[5]; // LN
+		s[1] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[3]; // LE
+		s[2] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[7]; // NG
+		s[3] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[8]; // TN
+		s[4] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[6]; // NE
+		s[5] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[1]; // CG
+		s[6] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[2]; // CN
+		s[7] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+		n = array[0]; // CE
+		s[8] = String.format("%6d (%4.1f %%)", n, 1.0 * n / num * 100);
+
+		System.out.printf("%s | %s | %s%n", s[0], s[1], s[2]);
+		System.out.printf("%s | %s | %s%n", s[3], s[4], s[5]);
+		System.out.printf("%s | %s | %s%n", s[6], s[7], s[8]);
+		n = array[9]; // LG
+		System.out.println(String.format("            Unaligned: %6d (%4.1f %%)", n, 1.0 * n / num * 100));
+
+	}
+
 	/*
 	 * CLASS TESTING
 	 */
 	@Test
 	public void testRandomCharacters() {
+
+		//
 		randomCharacter(NUMBER_TO_GENERATE);
+
+		// ALIGNMENT
+//		characterOfAlignment(NUMBER_TO_GENERATE, ALIGNMENT);
+
+		// BACKGROUND
+//		characterOfBackground(NUMBER_TO_GENERATE, BACKGROUND);
+
+		// CHARACTER CLASS
+//		characterOfClass(NUMBER_TO_GENERATE, CHARACTER_CLASS);
+
+		// DEITY
+//		characterOfGod(NUMBER_TO_GENERATE, GOD);
+
+		// RACE
+//		characterOfRace(NUMBER_TO_GENERATE, RACE);
+
 	}
 
+	/*
+	 * 
+	 */
 	private void characterOfAlignment(int n, Alignment ali) {
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
@@ -81,12 +139,45 @@ public class CharacterTest {
 		}
 	}
 
+	private void characterOfBackground(int n, Background job) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getBackground().equals(job) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
 	private void characterOfClass(int n, DnDClass job) {
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
 				toon = DnDCharacter.random();
 			} while (toon.getJob().equals(job) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	private void characterOfGod(int n, God god) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getGod().equals(god) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	private void characterOfRace(int n, Race race) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getRace().equals(race) != true);
 			System.out.println(toon.toStringVerbose());
 			System.out.println();
 		}

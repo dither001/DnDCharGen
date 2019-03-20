@@ -41,7 +41,7 @@ public class Main {
 //		 testFactionOfRace(5, Race.TIEFLING);
 		// testFactionOfBackground(5, Background.ACOLYTE);
 		// testFactionOfJob(5, DnDClass.FIGHTER);
-//		 testFaction(5);
+		 testFaction(5);
 
 		// Armor.getArmorClone(Skill.PADDED_ARMOR);
 		// Weapon.get(Skill.SLING);

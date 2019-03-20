@@ -31,8 +31,9 @@ public class DnDCharacter extends Hero {
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
-		s += skills.toString() + "\n";
 
+		s += languages.toString() + "\n";
+		s += skills.toString() + "\n";
 		s += features.toString() + "\n";
 		s += cantripsKnown.size() > 0 ? cantripsKnown.toString() + "\n" : "";
 		s += spellsKnown.size() > 0 ? spellsKnown.toString() + "\n" : "";
@@ -67,7 +68,7 @@ public class DnDCharacter extends Hero {
 		toon.setRace(Race.randomSkewHuman());
 		toon.setBackground(Background.random());
 		toon.setGod(God.selectGod(toon));
-		
+
 		RacialFeature.apply(toon);
 		ClassFeature.apply(1, toon);
 

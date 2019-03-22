@@ -1,6 +1,7 @@
 package com.dnd5e.definitions;
 
 import java.util.List;
+import java.util.Set;
 
 import com.dnd5e.character.classes.*;
 import com.miscellaneous.util.*;
@@ -260,6 +261,10 @@ public enum Skill {
 	/*
 	 * STATIC METHODS
 	 */
+	public static List<Skill> getCommonSkills() {
+		return Misc.arrayToList(COMMON_SKILLS);
+	}
+
 	public static Skill[] getClassSkills(DnDClass job) {
 		Skill[] array = null;
 		switch (job) {
@@ -302,10 +307,10 @@ public enum Skill {
 		default:
 			break;
 		}
-		
+
 		return array;
 	}
-	
+
 	public static Skill getArmorType(int index) {
 		return ARMOR_TYPES[index];
 	}
@@ -333,6 +338,13 @@ public enum Skill {
 	}
 
 	/*
+	 * COMMON & SPECIAL SKILLS
+	 */
+	public static List<Skill> getInstruments() {
+		return Misc.arrayToList(INSTRUMENT_SKILLS);
+	}
+
+	/*
 	 * ARMOR & WEAPONS
 	 */
 	public static List<Skill> lightArmorList() {
@@ -354,7 +366,8 @@ public enum Skill {
 	public static List<Skill> allArmorList() {
 		return Misc.addArrayToList(HEAVY_ARMOR, lightAndMediumArmorList());
 	}
-	
+
+	// SIMPLE WEAPONS
 	public static List<Skill> simpleMeleeList() {
 		return Misc.arrayToList(SIMPLE_MELEE);
 	}
@@ -367,11 +380,30 @@ public enum Skill {
 		return Misc.addArrayToList(SIMPLE_RANGED, simpleMeleeList());
 	}
 
+	// MILITARY WEAPONS
+	public static List<Skill> militaryMeleeList() {
+		return Misc.arrayToList(MILITARY_MELEE);
+	}
+
+	public static List<Skill> militaryRangedList() {
+		return Misc.arrayToList(MILITARY_RANGED);
+	}
+
+	public static List<Skill> militaryWeaponList() {
+		return Misc.addArrayToList(MILITARY_RANGED, militaryMeleeList());
+	}
+
+	// COMBINED LISTS
 	public static List<Skill> meleeWeaponList() {
 		return Misc.addArrayToList(MILITARY_MELEE, simpleMeleeList());
 	}
 
-	public static List<Skill> militaryWeaponList() {
+	public static List<Skill> rogueWeapons() {
+		Skill[] array = new Skill[] { Skill.HAND_CROSSBOW, Skill.LONGSWORD, Skill.RAPIER, Skill.SHORTSWORD };
+		return Misc.addArrayToList(array, simpleWeaponList());
+	}
+
+	public static List<Skill> allWeaponList() {
 		return Misc.arrayToList(ALL_WEAPONS);
 	}
 

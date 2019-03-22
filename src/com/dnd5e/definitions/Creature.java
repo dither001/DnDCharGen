@@ -47,10 +47,29 @@ public interface Creature {
 
 	public void setLanguages(EnumSet<Language> Languages);
 
+	/*
+	 * FEATURES & SKILLS
+	 */
 	public EnumSet<RacialFeature> getFeatures();
 
 	public void setFeatures(EnumSet<RacialFeature> features);
-	
+
+	public EnumSet<Skill> getCommonSkills();
+
+	public void setCommonSkills(EnumSet<Skill> commonSkills);
+
+	public EnumSet<Skill> getSpecialSkills();
+
+	public void setSpecialSkills(EnumSet<Skill> specialSkills);
+
+	public EnumSet<Skill> getArmorSkills();
+
+	public void setArmorSkills(EnumSet<Skill> armorSkills);
+
+	public EnumSet<Skill> getWeaponSkills();
+
+	public void setWeaponSkills(EnumSet<Skill> weaponSkills);
+
 	public EnumSet<Spell> getCantripsKnown();
 
 	public void setCantripsKnown(EnumSet<Spell> cantripsKnown);
@@ -84,10 +103,6 @@ public interface Creature {
 
 	public int[] getSavingThrows();
 
-	public EnumSet<Skill> getSkills();
-
-	public void setSkills(EnumSet<Skill> skills);
-
 	/*
 	 * STATUS EFFECTS
 	 */
@@ -111,7 +126,7 @@ public interface Creature {
 	 * ITEMS / INVENTORY
 	 */
 	public Inventory getInventory();
- 
+
 	public void setInventory(Inventory inventory);
 
 	/*
@@ -205,7 +220,7 @@ public interface Creature {
 	public default boolean prefersFinesse() {
 		return getDexterityModifier() > getStrengthModifier();
 	}
-	
+
 	/*
 	 * ABILITY MODIFIER GETTERS
 	 */

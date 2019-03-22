@@ -108,7 +108,7 @@ public class BasicAttack implements Attack {
 		 */
 		boolean proficientUser = false;
 		for (Skill el : weapon.getSkills()) {
-			if (actor.getSkills().contains(el))
+			if (actor.getCommonSkills().contains(el))
 				proficientUser = true;
 		}
 

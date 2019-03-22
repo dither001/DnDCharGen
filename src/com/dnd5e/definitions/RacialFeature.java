@@ -37,19 +37,26 @@ public enum RacialFeature {
 	;
 
 	/*
+	 * STATIC FIELDS
+	 */
+	private static final Skill[] ELF_WEAPONS = { Skill.LONGBOW, Skill.LONGSWORD, Skill.SHORTBOW, Skill.SHORTSWORD };
+	private static final Skill[] DROW_WEAPONS = { Skill.HAND_CROSSBOW, Skill.RAPIER, Skill.SHORTSWORD };
+	private static final Skill[] DWARF_WEAPONS = { Skill.BATTLEAXE, Skill.HANDAXE, Skill.LIGHT_HAMMER,
+			Skill.WARHAMMER };
+
+	/*
 	 * STATIC METHODS
 	 */
-	public static void apply(Creature creature) {
+	public static void setup(Creature creature) {
 		DnDCharacter actor = null;
 		if (creature.getClass().equals(DnDCharacter.class))
 			actor = (DnDCharacter) creature;
 		else
 			return;
-			
-		
+
 		EnumSet<Language> languages = actor.getLanguages();
 		EnumSet<RacialFeature> features = actor.getFeatures();
-		EnumSet<Skill> skills = actor.getSkills();
+		// EnumSet<Skill> skills = actor.getCommonSkills();
 
 		languages.add(Language.COMMON);
 
@@ -83,7 +90,7 @@ public enum RacialFeature {
 			 * ELF FEATURES
 			 */
 			actor.setDexterity(actor.getDexterity() + 2);
-			skills.add(Skill.PERCEPTION);
+			actor.getCommonSkills().add(Skill.PERCEPTION);
 			features.add(FEY_ANCESTRY);
 			features.add(ELF_TRANCE);
 			//
@@ -94,10 +101,7 @@ public enum RacialFeature {
 				features.add(DARKVISION_60);
 				//
 				features.add(ELF_WEAPON_TRAINING);
-				skills.add(Skill.LONGBOW);
-				skills.add(Skill.LONGSWORD);
-				skills.add(Skill.SHORTBOW);
-				skills.add(Skill.SHORTSWORD);
+				actor.getWeaponSkills().addAll(Misc.arrayToList(ELF_WEAPONS));
 				// TODO - random cantrip
 				// TODO - random common language
 
@@ -110,10 +114,7 @@ public enum RacialFeature {
 				features.add(MASK_OF_THE_WILD);
 				//
 				features.add(ELF_WEAPON_TRAINING);
-				skills.add(Skill.LONGBOW);
-				skills.add(Skill.LONGSWORD);
-				skills.add(Skill.SHORTBOW);
-				skills.add(Skill.SHORTSWORD);
+				actor.getWeaponSkills().addAll(Misc.arrayToList(ELF_WEAPONS));
 
 			} else if (race.equals(Race.DARK_ELF)) {
 				actor.setCharisma(actor.getCharisma() + 1);
@@ -121,9 +122,7 @@ public enum RacialFeature {
 				features.add(SUNLIGHT_SENSITIVITY);
 				//
 				features.add(DROW_WEAPON_TRAINING);
-				skills.add(Skill.HAND_CROSSBOW);
-				skills.add(Skill.RAPIER);
-				skills.add(Skill.SHORTSWORD);
+				actor.getWeaponSkills().addAll(Misc.arrayToList(DROW_WEAPONS));
 				// TODO - dancing lights cantrip
 
 			}
@@ -185,7 +184,7 @@ public enum RacialFeature {
 			features.add(HALF_ORC_MENACE);
 			features.add(RELENTLESS_ENDURANCE);
 			features.add(SAVAGE_ATTACKS);
-			skills.add(Skill.INTIMIDATION);
+			actor.getCommonSkills().add(Skill.INTIMIDATION);
 
 			break;
 		case HILL_DWARF:
@@ -198,12 +197,9 @@ public enum RacialFeature {
 			features.add(DARKVISION_60);
 			//
 			features.add(DWARF_WEAPON_TRAINING);
-			skills.add(Skill.BATTLEAXE);
-			skills.add(Skill.HANDAXE);
-			skills.add(Skill.LIGHT_HAMMER);
-			skills.add(Skill.WARHAMMER);
+			actor.getWeaponSkills().addAll(Misc.arrayToList(DWARF_WEAPONS));
 			//
-			skills.add(Misc.randomFromArray(Skill.DWARF_TOOLS));
+			actor.getSpecialSkills().add(Misc.randomFromArray(Skill.DWARF_TOOLS));
 			features.add(RacialFeature.STONECUNNING);
 			//
 			languages.add(Language.DWARVISH);
@@ -217,7 +213,7 @@ public enum RacialFeature {
 				actor.setStrength(actor.getStrength() + 2);
 				//
 				features.add(DWARF_ARMOR_TRAINING);
-				skills.addAll(Skill.lightAndMediumArmorList());
+				actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
 
 			}
 
@@ -272,13 +268,12 @@ public enum RacialFeature {
 			features.add(HELLISH_RESISTANCE);
 			features.add(INFERNAL_LEGACY);
 			// TODO - add spell-like ability
-			
+
 			break;
 		}
 
 		actor.setLanguages(languages);
 		actor.setFeatures(features);
-		actor.setSkills(skills);
 	}
 
 	public static void removeRacialAbilityBonuses(Hero actor) {
@@ -377,7 +372,7 @@ public enum RacialFeature {
 		case TIEFLING:
 			actor.setCharisma(actor.getCharisma() - 2);
 			actor.setIntelligence(actor.getIntelligence() - 1);
-			
+
 			break;
 		}
 

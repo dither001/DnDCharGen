@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import com.dnd5e.definitions.*;
 
-import controller.Main;
+import controller.*;
 
 public abstract class JobClass {
 	/*
@@ -32,12 +32,14 @@ public abstract class JobClass {
 	/*
 	 * STATIC METHODS
 	 */
-	@SuppressWarnings("unused")
-	public static void apply(int level, Hero actor) {
+	public static void setup(Hero actor) {
 
 		if (Main.TESTING_MESSAGES_ON)
 			System.out.println("Not implemented.");
-
+	}
+	
+	@SuppressWarnings("unused")
+	public static void apply(int level, Hero actor) {
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
 		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
 

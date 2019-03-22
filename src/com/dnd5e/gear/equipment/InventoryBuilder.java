@@ -15,7 +15,7 @@ public abstract class InventoryBuilder {
 	public static void setupStartingGear(Creature owner) {
 		if (owner.getClass().equals(DnDCharacter.class)) {
 			DnDCharacter actor = (DnDCharacter) owner;
-			EnumSet<Skill> skills = actor.getSkills();
+			EnumSet<Skill> skills = actor.getCommonSkills();
 			Inventory inv = actor.getInventory();
 	
 			int dice, strength, dexterity;

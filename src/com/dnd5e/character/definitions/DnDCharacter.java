@@ -27,13 +27,16 @@ public class DnDCharacter extends Hero {
 	public String toStringVerbose() {
 		String s = "";
 
-		s += String.format("%s- %s %s %s %s (%s) %s \n", name, alignment.abbreviation(), isFemale ? "female" : "male",
-				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
+		s += String.format("%s- %s %s %s %s %d (%s) %s \n", name, alignment.abbreviation(), isFemale ? "female" : "male",
+				race.abbreviation(), job.toString(), level, subclass.toString(), background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
 
 		s += languages.toString() + "\n";
-		s += skills.toString() + "\n";
+		s += commonSkills.toString() + "\n";
+		s += specialSkills.size() > 0 ? specialSkills.toString() + "\n" : "";
+		s += armorSkills.size() > 0 ? armorSkills.toString() + "\n" : "";
+		s += weaponSkills.size() > 0 ? weaponSkills.toString() + "\n" : "";
 		s += features.toString() + "\n";
 		s += cantripsKnown.size() > 0 ? cantripsKnown.toString() + "\n" : "";
 		s += spellsKnown.size() > 0 ? spellsKnown.toString() + "\n" : "";
@@ -69,8 +72,8 @@ public class DnDCharacter extends Hero {
 		toon.setBackground(Background.random());
 		toon.setGod(God.selectGod(toon));
 
-		RacialFeature.apply(toon);
-		ClassFeature.apply(1, toon);
+		RacialFeature.setup(toon);
+		ClassFeature.setup(toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		InventoryBuilder.setupStartingGear(toon);

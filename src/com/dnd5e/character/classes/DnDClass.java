@@ -155,6 +155,53 @@ public enum DnDClass implements Opposite, Similar {
 		return jobSkills;
 	}
 
+	public static RacialFeature[] getSavingThrows(DnDClass job) {
+		RacialFeature[] array = null;
+
+		switch (job) {
+		case BARBARIAN:
+			array = new RacialFeature[] { RacialFeature.STRENGTH_SAVE, RacialFeature.CONSTITUTION_SAVE };
+			break;
+		case BARD:
+			array = new RacialFeature[] { RacialFeature.DEXTERITY_SAVE, RacialFeature.CHARISMA_SAVE };
+			break;
+		case CLERIC:
+			array = new RacialFeature[] { RacialFeature.WISDOM_SAVE, RacialFeature.CHARISMA_SAVE };
+			break;
+		case DRUID:
+			array = new RacialFeature[] { RacialFeature.INTELLIGENCE_SAVE, RacialFeature.WISDOM_SAVE };
+			break;
+		case FIGHTER:
+			array = new RacialFeature[] { RacialFeature.STRENGTH_SAVE, RacialFeature.CONSTITUTION_SAVE };
+			break;
+		case MONK:
+			array = new RacialFeature[] { RacialFeature.STRENGTH_SAVE, RacialFeature.DEXTERITY_SAVE };
+			break;
+		case PALADIN:
+			array = new RacialFeature[] { RacialFeature.STRENGTH_SAVE, RacialFeature.CHARISMA_SAVE };
+			break;
+		case RANGER:
+			array = new RacialFeature[] { RacialFeature.DEXTERITY_SAVE, RacialFeature.WISDOM_SAVE };
+			break;
+		case ROGUE:
+			array = new RacialFeature[] { RacialFeature.DEXTERITY_SAVE, RacialFeature.INTELLIGENCE_SAVE };
+			break;
+		case SORCERER:
+			array = new RacialFeature[] { RacialFeature.CONSTITUTION_SAVE, RacialFeature.CHARISMA_SAVE };
+			break;
+		case WARLOCK:
+			array = new RacialFeature[] { RacialFeature.WISDOM_SAVE, RacialFeature.CHARISMA_SAVE };
+			break;
+		case WIZARD:
+			array = new RacialFeature[] { RacialFeature.INTELLIGENCE_SAVE, RacialFeature.WISDOM_SAVE };
+			break;
+		default:
+			break;
+		}
+
+		return array;
+	}
+
 	public static DnDClass parse(String s) throws ParserException {
 		for (DnDClass el : CLASSES) {
 			if (el.toString().compareToIgnoreCase(s) == 0)

@@ -29,7 +29,15 @@ public abstract class Actor implements Creature, Persistent {
 	protected EnumSet<MovementType> movement;
 	protected EnumSet<Sense> senses;
 	protected EnumSet<Language> languages;
+
+	/*
+	 * FEATURES & SKILLS
+	 */
 	protected EnumSet<RacialFeature> features;
+	protected EnumSet<Skill> commonSkills;
+	protected EnumSet<Skill> specialSkills;
+	protected EnumSet<Skill> armorSkills;
+	protected EnumSet<Skill> weaponSkills;
 	protected EnumSet<Spell> cantripsKnown;
 	protected EnumSet<Spell> spellsKnown;
 
@@ -42,7 +50,6 @@ public abstract class Actor implements Creature, Persistent {
 	protected int[] abilityScores;
 	protected int[] abilityCeiling;
 	protected int[] savingThrows;
-	protected EnumSet<Skill> skills;
 
 	/*
 	 * STATUS EFFECTS
@@ -71,7 +78,12 @@ public abstract class Actor implements Creature, Persistent {
 		this.movement = EnumSet.noneOf(MovementType.class);
 		this.senses = EnumSet.noneOf(Sense.class);
 		this.languages = EnumSet.noneOf(Language.class);
+
 		this.features = EnumSet.noneOf(RacialFeature.class);
+		this.commonSkills = EnumSet.noneOf(Skill.class);
+		this.specialSkills = EnumSet.noneOf(Skill.class);
+		this.armorSkills = EnumSet.noneOf(Skill.class);
+		this.weaponSkills = EnumSet.noneOf(Skill.class);
 		this.cantripsKnown = EnumSet.noneOf(Spell.class);
 		this.spellsKnown = EnumSet.noneOf(Spell.class);
 
@@ -81,7 +93,6 @@ public abstract class Actor implements Creature, Persistent {
 		this.abilityScores = new int[] { 10, 10, 10, 10, 10, 10 };
 		this.abilityCeiling = new int[] { 20, 20, 20, 20, 20, 20 };
 		this.savingThrows = new int[] { 0, 0, 0, 0, 0, 0 };
-		this.skills = EnumSet.noneOf(Skill.class);
 
 		this.energyResistance = EnumSet.noneOf(EnergyType.class);
 		this.energyImmunity = EnumSet.noneOf(EnergyType.class);
@@ -234,6 +245,9 @@ public abstract class Actor implements Creature, Persistent {
 		this.languages = languages;
 	}
 
+	/*
+	 * FEATURES & SKILLS
+	 */
 	@Override
 	public EnumSet<RacialFeature> getFeatures() {
 		return features;
@@ -242,6 +256,46 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public void setFeatures(EnumSet<RacialFeature> features) {
 		this.features = features;
+	}
+
+	@Override
+	public EnumSet<Skill> getCommonSkills() {
+		return commonSkills;
+	}
+
+	@Override
+	public void setCommonSkills(EnumSet<Skill> commonSkills) {
+		this.commonSkills = commonSkills;
+	}
+
+	@Override
+	public EnumSet<Skill> getSpecialSkills() {
+		return specialSkills;
+	}
+
+	@Override
+	public void setSpecialSkills(EnumSet<Skill> specialSkills) {
+		this.specialSkills = specialSkills;
+	}
+
+	@Override
+	public EnumSet<Skill> getArmorSkills() {
+		return armorSkills;
+	}
+
+	@Override
+	public void setArmorSkills(EnumSet<Skill> armorSkills) {
+		this.armorSkills = armorSkills;
+	}
+
+	@Override
+	public EnumSet<Skill> getWeaponSkills() {
+		return weaponSkills;
+	}
+
+	@Override
+	public void setWeaponSkills(EnumSet<Skill> weaponSkills) {
+		this.weaponSkills = weaponSkills;
 	}
 
 	@Override
@@ -320,16 +374,6 @@ public abstract class Actor implements Creature, Persistent {
 	@Override
 	public int[] getSavingThrows() {
 		return savingThrows;
-	}
-
-	@Override
-	public EnumSet<Skill> getSkills() {
-		return skills;
-	}
-
-	@Override
-	public void setSkills(EnumSet<Skill> skills) {
-		this.skills = skills;
 	}
 
 	@Override

@@ -28,9 +28,22 @@ public abstract class Hero extends Actor implements Adventurer {
 		this.job = DnDClass.ROGUE;
 		this.subclass = Subclass.THIEF;
 		this.classFeatures = EnumSet.noneOf(ClassFeature.class);
-		
+
 		this.race = Race.HUMAN;
 		this.background = Background.CRIMINAL;
+	}
+
+	/*
+	 * INSTANCE METHODS
+	 */
+	public void advance() {
+		/*
+		 * FIXME - need to check experience values somewhere; need to apply racial
+		 * features (e.g. tiefling spell-like advancement); need to update hit points
+		 */
+		++level;
+		ClassFeature.apply(level, this);
+
 	}
 
 	/*

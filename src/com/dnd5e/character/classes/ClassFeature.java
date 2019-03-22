@@ -1,6 +1,11 @@
 package com.dnd5e.character.classes;
 
-import com.dnd5e.definitions.Skill;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.dnd5e.definitions.*;
+import com.miscellaneous.util.*;
 
 public enum ClassFeature {
 	/*
@@ -202,14 +207,64 @@ public enum ClassFeature {
 	/*
 	 * STATIC METHODS
 	 */
+	public static void setup(Hero actor) {
+		switch (actor.getJob()) {
+		case BARBARIAN:
+			Barbarian.setup(actor);
+			break;
+		case BARD:
+			// FIXME
+			Bard.setup(actor);
+			break;
+		case CLERIC:
+			Cleric.setup(actor);
+			break;
+		case DRUID:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case FIGHTER:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case MONK:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case PALADIN:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case RANGER:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case ROGUE:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case SORCERER:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case WARLOCK:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		case WIZARD:
+			// FIXME
+			JobClass.setup(actor);
+			break;
+		}
+	}
+
 	public static void apply(int level, Hero actor) {
 		switch (actor.getJob()) {
 		case BARBARIAN:
 			Barbarian.apply(level, actor);
 			break;
 		case BARD:
-			// FIXME
-			JobClass.apply(level, actor);
+			Bard.apply(level, actor);
 			break;
 		case CLERIC:
 			Cleric.apply(level, actor);
@@ -264,4 +319,29 @@ public enum ClassFeature {
 
 		return feature;
 	}
+
+	public static void addRandomExpertise(Hero actor) {
+		addRandomExpertise(1, actor);
+	}
+
+	public static void addRandomExpertise(int n, Hero actor) {
+		// list for potential expertise
+		List<ClassFeature> list = new ArrayList<ClassFeature>();
+		for (Skill el : actor.getCommonSkills())
+			list.add(matchExpertise(el));
+
+		// SPECIAL CASE
+		if (actor.getJob().equals(DnDClass.ROGUE))
+			list.add(EXPERTISE_THIEVES_TOOLS);
+
+		// remove duplicates
+		list.removeAll(Misc.filterSetFor(EXPERTISE, actor.getClassFeatures()));
+
+		if (list.size() > 0) {
+			Collections.shuffle(list);
+			for (int i = 0; i < n; ++i)
+				actor.getClassFeatures().add(list.get(0));
+		}
+	}
+
 }

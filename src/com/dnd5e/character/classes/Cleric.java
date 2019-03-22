@@ -7,12 +7,34 @@ import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
 public abstract class Cleric extends JobClass {
+	private static final DnDClass CLAZZ = DnDClass.CLERIC;
 
-	private static final Skill[] KNOWLEDGE_SKILLS = { Skill.ARCANA, Skill.HISTORY, Skill.NATURE, Skill.RELIGION };
+	//
+	private static final RacialFeature[] SAVING_THROWS = DnDClass.getSavingThrows(CLAZZ);
+	private static final Skill[] CLASS_SKILLS = Skill.getClassSkills(CLAZZ);
+	private static int NUMBER_OF_SKILLS = DnDClass.getNumberOfSkills(CLAZZ);
+
+	private static final Skill[] KNOWLEDGE_DOMAIN = { Skill.ARCANA, Skill.HISTORY, Skill.NATURE, Skill.RELIGION };
 
 	/*
-	 * 
+	 * STATIC METHODS
 	 */
+	public static void setup(Hero actor) {
+		// CLASS FEATURES
+		apply(1, actor);
+
+		// SAVING THROWS
+		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
+
+		// SKILLS & WEAPON/ARMOR PROFICIENCY
+		EnumSet<Skill> skills = actor.getCommonSkills();
+		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, skills);
+		skills.addAll(Skill.lightAndMediumArmorList());
+		skills.add(Skill.SHIELD);
+		skills.addAll(Skill.simpleWeaponList());
+		//
+		actor.setCommonSkills(skills);
+	}
 
 	public static void apply(int level, Hero actor) {
 		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
@@ -21,9 +43,6 @@ public abstract class Cleric extends JobClass {
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
-			racialFeatures.add(RacialFeature.WISDOM_SAVE);
-			racialFeatures.add(RacialFeature.CHARISMA_SAVE);
-
 			/*
 			 * DIVINE DOMAIN
 			 */
@@ -34,21 +53,21 @@ public abstract class Cleric extends JobClass {
 
 				Misc.tryToAdd(Spell.CHILL_TOUCH, actor.getCantripsKnown());
 				//
-				actor.getSkills().addAll(Skill.militaryWeaponList());
+				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
 				break;
 			case KNOWLEDGE:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_KNOWLEDGE);
 				classFeatures.add(ClassFeature.BLESSINGS_OF_KNOWLEDGE);
 				//
 				Misc.tryToAdd(2, Language.NONSECRET_LANGUAGES, actor.getLanguages());
-				Misc.tryToAdd(2, KNOWLEDGE_SKILLS, actor.getSkills());
+				Misc.tryToAdd(2, KNOWLEDGE_DOMAIN, actor.getCommonSkills());
 
 				break;
 			case LIFE:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIFE);
 				classFeatures.add(ClassFeature.DISCIPLE_OF_LIFE);
 				//
-				actor.getSkills().addAll(Skill.heavyArmorList());
+				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				break;
 			case LIGHT:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIGHT);
@@ -61,14 +80,14 @@ public abstract class Cleric extends JobClass {
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_NATURE);
 				Misc.tryToAdd(Spell.DRUID_SPELLS[0], actor.getCantripsKnown());
 				//
-				actor.getSkills().addAll(Skill.heavyArmorList());
+				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				break;
 			case TEMPEST:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TEMPEST);
 				classFeatures.add(ClassFeature.WRATH_OF_THE_STORM);
 				//
-				actor.getSkills().addAll(Skill.heavyArmorList());
-				actor.getSkills().addAll(Skill.militaryWeaponList());
+				actor.getCommonSkills().addAll(Skill.heavyArmorList());
+				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
 				break;
 			case TRICKERY:
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TRICKERY);
@@ -79,8 +98,8 @@ public abstract class Cleric extends JobClass {
 				classFeatures.add(ClassFeature.DIVINE_DOMAIN_WAR);
 				classFeatures.add(ClassFeature.WAR_PRIEST);
 				//
-				actor.getSkills().addAll(Skill.heavyArmorList());
-				actor.getSkills().addAll(Skill.militaryWeaponList());
+				actor.getCommonSkills().addAll(Skill.heavyArmorList());
+				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
 				break;
 			default:
 				break;
@@ -130,7 +149,8 @@ public abstract class Cleric extends JobClass {
 			break;
 		case 4:
 			// NEW CANTRIP
-			Misc.tryToAdd(Spell.CLERIC_SPELLS[0], actor.getCantripsKnown());
+			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
+
 			// ABILTIY SCORE IMPROVEMENT
 			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
 			improveAbility(actor);

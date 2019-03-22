@@ -13,7 +13,7 @@ public class CharacterTest {
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CHARACTER_CLASS = DnDClass.BARBARIAN;
+	private static final DnDClass CLAZZ = DnDClass.BARD;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
 
@@ -104,24 +104,49 @@ public class CharacterTest {
 	 */
 	@Test
 	public void testRandomCharacters() {
-
-		//
 		randomCharacter(NUMBER_TO_GENERATE);
+	}
 
-		// ALIGNMENT
-//		characterOfAlignment(NUMBER_TO_GENERATE, ALIGNMENT);
+	@Test
+	public void testCharacterAlignment() {
+		characterOfAlignment(NUMBER_TO_GENERATE, ALIGNMENT);
+	}
 
-		// BACKGROUND
-//		characterOfBackground(NUMBER_TO_GENERATE, BACKGROUND);
+	@Test
+	public void testCharacterBackground() {
+		characterOfBackground(NUMBER_TO_GENERATE, BACKGROUND);
+	}
 
-		// CHARACTER CLASS
-//		characterOfClass(NUMBER_TO_GENERATE, CHARACTER_CLASS);
+	@Test
+	public void testCharacterClass() {
+		characterOfClass(NUMBER_TO_GENERATE, CLAZZ);
+	}
 
-		// DEITY
-//		characterOfGod(NUMBER_TO_GENERATE, GOD);
+	@Test
+	public void testCharacterGod() {
+		characterOfGod(NUMBER_TO_GENERATE, GOD);
+	}
 
-		// RACE
-//		characterOfRace(NUMBER_TO_GENERATE, RACE);
+	@Test
+	public void testCharacterRace() {
+		characterOfRace(NUMBER_TO_GENERATE, RACE);
+	}
+
+	@Test
+	public void testLevelAdvancement() {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getJob().equals(CLAZZ) != true);
+
+		System.out.println(toon.toStringVerbose());
+		System.out.println();
+
+		for (int i = 1; i < 20; ++i) {
+			toon.advance();
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
 
 	}
 

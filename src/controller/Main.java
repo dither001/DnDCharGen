@@ -23,25 +23,25 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		
-//		FileLoader.parseSpells("spells.csv");
-		
+
+		// FileLoader.parseSpells("spells.csv");
+
 		// testSkewEvil();
 		// testSkewHuman();
 		// testRandomRogues();
 		// testRandomCharacters(50);
 
-//		testRandomCharacters(50);
-//		 testRandomChaoticCharacters(10);
+		// testRandomCharacters(50);
+		// testRandomChaoticCharacters(10);
 		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
-//		 testRandomCharactersOfClass(10, DnDClass.CLERIC);
+		// testRandomCharactersOfClass(10, DnDClass.CLERIC);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);
-//		 testFactionOfRace(5, Race.TIEFLING);
+		// testFactionOfRace(5, Race.TIEFLING);
 		// testFactionOfBackground(5, Background.ACOLYTE);
 		// testFactionOfJob(5, DnDClass.FIGHTER);
-		 testFaction(5);
+		// testFaction(5);
 
 		// Armor.getArmorClone(Skill.PADDED_ARMOR);
 		// Weapon.get(Skill.SLING);
@@ -59,7 +59,7 @@ public class Main {
 	public static void testWorldGen(int size) {
 		// "maximum" normal size is probably about 8
 		Grid grid;
-		
+
 		/*
 		 * FIXME - numerous problems, untested nonsense
 		 */
@@ -72,11 +72,10 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Terrain.build(size);
 	}
-	
-	
+
 	/*
 	 * FACTION TESTING
 	 */

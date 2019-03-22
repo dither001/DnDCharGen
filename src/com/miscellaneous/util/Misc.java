@@ -2,6 +2,7 @@ package com.miscellaneous.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -37,8 +38,7 @@ public abstract class Misc {
 	/*
 	 * L - LIST METHODS
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T> List<T> arrayToList(Object[] array) {
+	public static <T> List<T> arrayToList(T[] array) {
 		List<T> list = new ArrayList<T>();
 		for (int i = 0; i < array.length; ++i)
 			list.add((T) array[i]);
@@ -46,10 +46,26 @@ public abstract class Misc {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> List<T> addArrayToList(Object[] array, List<T> list) {
+	public static <T> List<T> addArrayToList(T[] array, List<T> list) {
 		for (int i = 0; i < array.length; ++i)
 			list.add((T) array[i]);
+
+		return list;
+	}
+
+	public static <T> List<T> filterSetFor(T[] array, Set<T> set) {
+		List<T> list = new ArrayList<T>();
+
+		for (Iterator<T> it = set.iterator(); it.hasNext();) {
+			T current = it.next();
+
+			for (T el : array) {
+				if (el.equals(current)) {
+					list.add(current);
+					break;
+				}
+			}
+		}
 
 		return list;
 	}
@@ -70,22 +86,21 @@ public abstract class Misc {
 		return set.add(el);
 	}
 
-	public static <T> boolean tryToAdd(Object[] array, Set<T> set) {
+	public static <T> boolean tryToAdd(T[] array, Set<T> set) {
 		return tryToAdd(1, array, set);
 	}
 
-	public static <T> boolean tryToAdd(List<Object> array, Set<T> set) {
+	public static <T> boolean tryToAdd(List<T> array, Set<T> set) {
 		return tryToAdd(1, array, set);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> boolean tryToAdd(int n, Object[] array, Set<T> set) {
+	public static <T> boolean tryToAdd(int n, T[] array, Set<T> set) {
 		boolean added = false;
 		List<T> list = new ArrayList<T>();
 
-		for (Object el : array) {
+		for (T el : array) {
 			if (set.contains(el) != true)
-				list.add((T) el);
+				list.add(el);
 		}
 
 		if (list.size() > n - 1) {
@@ -100,14 +115,13 @@ public abstract class Misc {
 		return added;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> boolean tryToAdd(int n, List<Object> array, Set<T> set) {
+	public static <T> boolean tryToAdd(int n, List<T> array, Set<T> set) {
 		boolean added = false;
 		List<T> list = new ArrayList<T>();
 
-		for (Object el : array) {
+		for (T el : array) {
 			if (set.contains(el) != true)
-				list.add((T) el);
+				list.add(el);
 		}
 
 		if (list.size() > n - 1) {

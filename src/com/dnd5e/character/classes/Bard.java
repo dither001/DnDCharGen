@@ -7,12 +7,17 @@ import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
 public abstract class Bard extends JobClass {
-	private static final DnDClass CLAZZ = DnDClass.BARD;
+	private static final DnDClass CLAZZ;
+	private static final RacialFeature[] SAVING_THROWS;
+	private static final Skill[] CLASS_SKILLS;
+	private static final int NUMBER_OF_SKILLS;
 
-	//
-	private static final RacialFeature[] SAVING_THROWS = DnDClass.getSavingThrows(CLAZZ);
-	private static final Skill[] CLASS_SKILLS = Skill.getClassSkills(CLAZZ);
-	private static int NUMBER_OF_SKILLS = DnDClass.getNumberOfSkills(CLAZZ);
+	static {
+		CLAZZ = DnDClass.BARD;
+		SAVING_THROWS = DnDClass.getSavingThrows(CLAZZ);
+		CLASS_SKILLS = Skill.getClassSkills(CLAZZ);
+		NUMBER_OF_SKILLS = DnDClass.getNumberOfSkills(CLAZZ);
+	}
 
 	/*
 	 * STATIC METHODS

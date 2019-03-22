@@ -28,7 +28,7 @@ public abstract class JobClass {
 	protected static final ClassFeature[] CHA_BONUSES = { ClassFeature.CHA_BONUS_4, ClassFeature.CHA_BONUS_6,
 			ClassFeature.CHA_BONUS_8, ClassFeature.CHA_BONUS_10, ClassFeature.CHA_BONUS_12, ClassFeature.CHA_BONUS_14,
 			ClassFeature.CHA_BONUS_16, ClassFeature.CHA_BONUS_19 };
-
+	
 	/*
 	 * STATIC METHODS
 	 */

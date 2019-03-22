@@ -27,76 +27,76 @@ public abstract class Cleric extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		EnumSet<Skill> skills = actor.getCommonSkills();
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, skills);
-		skills.addAll(Skill.lightAndMediumArmorList());
-		skills.add(Skill.SHIELD);
-		skills.addAll(Skill.simpleWeaponList());
-		//
-		actor.setCommonSkills(skills);
+		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+
+		actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
+		actor.getArmorSkills().add(Skill.SHIELD);
+		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
+
 	}
 
 	public static void apply(int level, Hero actor) {
-		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
-		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
+		EnumSet<ClassFeature> features = actor.getClassFeatures();
 
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
+			features.add(ClassFeature.RITUAL_CASTING_CLERIC);
+
 			/*
 			 * DIVINE DOMAIN
 			 */
 			switch (subclass) {
 			case DEATH:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_DEATH);
-				classFeatures.add(ClassFeature.REAPER);
+				features.add(ClassFeature.DIVINE_DOMAIN_DEATH);
+				features.add(ClassFeature.REAPER);
 
 				Misc.tryToAdd(Spell.CHILL_TOUCH, actor.getCantripsKnown());
 				//
 				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
 				break;
 			case KNOWLEDGE:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_KNOWLEDGE);
-				classFeatures.add(ClassFeature.BLESSINGS_OF_KNOWLEDGE);
+				features.add(ClassFeature.DIVINE_DOMAIN_KNOWLEDGE);
+				features.add(ClassFeature.BLESSINGS_OF_KNOWLEDGE);
 				//
 				Misc.tryToAdd(2, Language.NONSECRET_LANGUAGES, actor.getLanguages());
 				Misc.tryToAdd(2, KNOWLEDGE_DOMAIN, actor.getCommonSkills());
 
 				break;
 			case LIFE:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIFE);
-				classFeatures.add(ClassFeature.DISCIPLE_OF_LIFE);
+				features.add(ClassFeature.DIVINE_DOMAIN_LIFE);
+				features.add(ClassFeature.DISCIPLE_OF_LIFE);
 				//
 				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				break;
 			case LIGHT:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_LIGHT);
-				classFeatures.add(ClassFeature.WARDING_FLARE);
+				features.add(ClassFeature.DIVINE_DOMAIN_LIGHT);
+				features.add(ClassFeature.WARDING_FLARE);
 
 				Misc.tryToAdd(Spell.LIGHT, actor.getCantripsKnown());
 				//
 				break;
 			case NATURE:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_NATURE);
+				features.add(ClassFeature.DIVINE_DOMAIN_NATURE);
 				Misc.tryToAdd(Spell.DRUID_SPELLS[0], actor.getCantripsKnown());
 				//
 				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				break;
 			case TEMPEST:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TEMPEST);
-				classFeatures.add(ClassFeature.WRATH_OF_THE_STORM);
+				features.add(ClassFeature.DIVINE_DOMAIN_TEMPEST);
+				features.add(ClassFeature.WRATH_OF_THE_STORM);
 				//
 				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
 				break;
 			case TRICKERY:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_TRICKERY);
-				classFeatures.add(ClassFeature.BLESSING_OF_THE_TRICKSTER);
+				features.add(ClassFeature.DIVINE_DOMAIN_TRICKERY);
+				features.add(ClassFeature.BLESSING_OF_THE_TRICKSTER);
 				//
 				break;
 			case WAR:
-				classFeatures.add(ClassFeature.DIVINE_DOMAIN_WAR);
-				classFeatures.add(ClassFeature.WAR_PRIEST);
+				features.add(ClassFeature.DIVINE_DOMAIN_WAR);
+				features.add(ClassFeature.WAR_PRIEST);
 				//
 				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				actor.getCommonSkills().addAll(Skill.militaryWeaponList());
@@ -107,35 +107,35 @@ public abstract class Cleric extends JobClass {
 
 			break;
 		case 2:
-			classFeatures.add(ClassFeature.CHANNEL_DIVINITY_1);
+			features.add(ClassFeature.CHANNEL_DIVINITY_1);
 
 			/*
 			 * DIVINE DOMAIN
 			 */
 			switch (subclass) {
 			case DEATH:
-				classFeatures.add(ClassFeature.TOUCH_OF_DEATH);
+				features.add(ClassFeature.TOUCH_OF_DEATH);
 				break;
 			case KNOWLEDGE:
-				classFeatures.add(ClassFeature.KNOWLEDGE_OF_THE_AGES);
+				features.add(ClassFeature.KNOWLEDGE_OF_THE_AGES);
 				break;
 			case LIFE:
-				classFeatures.add(ClassFeature.PRESERVE_LIFE);
+				features.add(ClassFeature.PRESERVE_LIFE);
 				break;
 			case LIGHT:
-				classFeatures.add(ClassFeature.RADIANCE_OF_THE_DAWN);
+				features.add(ClassFeature.RADIANCE_OF_THE_DAWN);
 				break;
 			case NATURE:
-				classFeatures.add(ClassFeature.CHARM_ANIMALS_AND_PLANTS);
+				features.add(ClassFeature.CHARM_ANIMALS_AND_PLANTS);
 				break;
 			case TEMPEST:
-				classFeatures.add(ClassFeature.DESTRUCTIVE_WRATH);
+				features.add(ClassFeature.DESTRUCTIVE_WRATH);
 				break;
 			case TRICKERY:
-				classFeatures.add(ClassFeature.INVOKE_DUPLICITY);
+				features.add(ClassFeature.INVOKE_DUPLICITY);
 				break;
 			case WAR:
-				classFeatures.add(ClassFeature.GUIDED_STRIKE);
+				features.add(ClassFeature.GUIDED_STRIKE);
 				break;
 			default:
 				break;
@@ -152,44 +152,44 @@ public abstract class Cleric extends JobClass {
 			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
 
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
+			features.add(ClassFeature.ABILITY_BONUS_4);
 			improveAbility(actor);
 
 			break;
 		case 5:
-			classFeatures.add(ClassFeature.DESTROY_UNDEAD_5);
+			features.add(ClassFeature.DESTROY_UNDEAD_5);
 
 			break;
 		case 6:
-			classFeatures.add(ClassFeature.CHANNEL_DIVINITY_2);
+			features.add(ClassFeature.CHANNEL_DIVINITY_2);
 
 			/*
 			 * DIVINE DOMAIN
 			 */
 			switch (subclass) {
 			case DEATH:
-				classFeatures.add(ClassFeature.INESCAPABLE_DESTRUCTION);
+				features.add(ClassFeature.INESCAPABLE_DESTRUCTION);
 				break;
 			case KNOWLEDGE:
-				classFeatures.add(ClassFeature.READ_THOUGHTS);
+				features.add(ClassFeature.READ_THOUGHTS);
 				break;
 			case LIFE:
-				classFeatures.add(ClassFeature.BLESSED_HEALER);
+				features.add(ClassFeature.BLESSED_HEALER);
 				break;
 			case LIGHT:
-				classFeatures.add(ClassFeature.IMPROVED_FLARE);
+				features.add(ClassFeature.IMPROVED_FLARE);
 				break;
 			case NATURE:
-				classFeatures.add(ClassFeature.DAMPEN_ELEMENTS);
+				features.add(ClassFeature.DAMPEN_ELEMENTS);
 				break;
 			case TEMPEST:
-				classFeatures.add(ClassFeature.THUNDERBOLT_STRIKE);
+				features.add(ClassFeature.THUNDERBOLT_STRIKE);
 				break;
 			case TRICKERY:
-				classFeatures.add(ClassFeature.TRICKERY_CLOAK);
+				features.add(ClassFeature.TRICKERY_CLOAK);
 				break;
 			case WAR:
-				classFeatures.add(ClassFeature.WAR_GODS_BLESSING);
+				features.add(ClassFeature.WAR_GODS_BLESSING);
 				break;
 			default:
 				break;
@@ -202,9 +202,9 @@ public abstract class Cleric extends JobClass {
 			 */
 			break;
 		case 8:
-			classFeatures.add(ClassFeature.DESTROY_UNDEAD_8);
+			features.add(ClassFeature.DESTROY_UNDEAD_8);
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
+			features.add(ClassFeature.ABILITY_BONUS_8);
 			improveAbility(actor);
 
 			/*
@@ -212,28 +212,28 @@ public abstract class Cleric extends JobClass {
 			 */
 			switch (subclass) {
 			case DEATH:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_DEATH);
+				features.add(ClassFeature.DIVINE_STRIKE_DEATH);
 				break;
 			case KNOWLEDGE:
-				classFeatures.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
+				features.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
 				break;
 			case LIFE:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_LIFE);
+				features.add(ClassFeature.DIVINE_STRIKE_LIFE);
 				break;
 			case LIGHT:
-				classFeatures.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
+				features.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
 				break;
 			case NATURE:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_NATURE);
+				features.add(ClassFeature.DIVINE_STRIKE_NATURE);
 				break;
 			case TEMPEST:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_TEMPEST);
+				features.add(ClassFeature.DIVINE_STRIKE_TEMPEST);
 				break;
 			case TRICKERY:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_TRICKERY);
+				features.add(ClassFeature.DIVINE_STRIKE_TRICKERY);
 				break;
 			case WAR:
-				classFeatures.add(ClassFeature.DIVINE_STRIKE_WAR);
+				features.add(ClassFeature.DIVINE_STRIKE_WAR);
 				break;
 			default:
 				break;
@@ -249,17 +249,17 @@ public abstract class Cleric extends JobClass {
 			// NEW CANTRIP
 			Misc.tryToAdd(Spell.CLERIC_SPELLS[0], actor.getCantripsKnown());
 			//
-			classFeatures.add(ClassFeature.DIVINE_INTERVENTION_10);
+			features.add(ClassFeature.DIVINE_INTERVENTION_10);
 
 			break;
 		case 11:
-			classFeatures.add(ClassFeature.DESTROY_UNDEAD_11);
+			features.add(ClassFeature.DESTROY_UNDEAD_11);
 			//
 
 			break;
 		case 12:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
+			features.add(ClassFeature.ABILITY_BONUS_12);
 			improveAbility(actor);
 
 			break;
@@ -269,7 +269,7 @@ public abstract class Cleric extends JobClass {
 			 */
 			break;
 		case 14:
-			classFeatures.add(ClassFeature.DESTROY_UNDEAD_14);
+			features.add(ClassFeature.DESTROY_UNDEAD_14);
 			//
 
 			break;
@@ -280,12 +280,12 @@ public abstract class Cleric extends JobClass {
 			break;
 		case 16:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
+			features.add(ClassFeature.ABILITY_BONUS_16);
 			improveAbility(actor);
 
 			break;
 		case 17:
-			classFeatures.add(ClassFeature.DESTROY_UNDEAD_17);
+			features.add(ClassFeature.DESTROY_UNDEAD_17);
 			//
 
 			/*
@@ -293,28 +293,28 @@ public abstract class Cleric extends JobClass {
 			 */
 			switch (subclass) {
 			case DEATH:
-				classFeatures.add(ClassFeature.IMPROVED_REAPER);
+				features.add(ClassFeature.IMPROVED_REAPER);
 				break;
 			case KNOWLEDGE:
-				classFeatures.add(ClassFeature.VISIONS_OF_THE_PAST);
+				features.add(ClassFeature.VISIONS_OF_THE_PAST);
 				break;
 			case LIFE:
-				classFeatures.add(ClassFeature.SUPREME_HEALING);
+				features.add(ClassFeature.SUPREME_HEALING);
 				break;
 			case LIGHT:
-				classFeatures.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
+				features.add(ClassFeature.POTENT_SPELLCASTING_CLERIC);
 				break;
 			case NATURE:
-				classFeatures.add(ClassFeature.MASTER_OF_NATURE);
+				features.add(ClassFeature.MASTER_OF_NATURE);
 				break;
 			case TEMPEST:
-				classFeatures.add(ClassFeature.STORMBORN);
+				features.add(ClassFeature.STORMBORN);
 				break;
 			case TRICKERY:
-				classFeatures.add(ClassFeature.IMPROVED_DUPLICITY);
+				features.add(ClassFeature.IMPROVED_DUPLICITY);
 				break;
 			case WAR:
-				classFeatures.add(ClassFeature.AVATAR_OF_BATTLE);
+				features.add(ClassFeature.AVATAR_OF_BATTLE);
 				break;
 			default:
 				break;
@@ -322,23 +322,22 @@ public abstract class Cleric extends JobClass {
 
 			break;
 		case 18:
-			classFeatures.add(ClassFeature.CHANNEL_DIVINITY_3);
-			
+			features.add(ClassFeature.CHANNEL_DIVINITY_3);
+
 			break;
 		case 19:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
+			features.add(ClassFeature.ABILITY_BONUS_19);
 			improveAbility(actor);
 
 			break;
 		case 20:
-			classFeatures.add(ClassFeature.DIVINE_INTERVENTION_20);
-			
+			features.add(ClassFeature.DIVINE_INTERVENTION_20);
+
 			break;
 		}
 
-		actor.setFeatures(racialFeatures);
-		actor.setClassFeatures(classFeatures);
+		actor.setClassFeatures(features);
 	}
 
 }

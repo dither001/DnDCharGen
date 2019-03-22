@@ -42,6 +42,7 @@ public abstract class Bard extends JobClass {
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
+			features.add(ClassFeature.RITUAL_CASTING_BARD);
 			features.add(ClassFeature.INSPIRATION_D6);
 
 			break;

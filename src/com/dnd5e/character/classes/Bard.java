@@ -36,8 +36,10 @@ public abstract class Bard extends JobClass {
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
 		actor.getWeaponSkills().addAll(Skill.rogueWeapons());
 
+		// MAGIC SETUP
 		Spell.addCantrip(2, CLAZZ, actor.getCantripsKnown());
 		Spell.addSpell(4, 1, CLAZZ, actor.getSpellsKnown());
+		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_BARD);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -47,7 +49,6 @@ public abstract class Bard extends JobClass {
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
-			features.add(ClassFeature.RITUAL_CASTING_BARD);
 			features.add(ClassFeature.INSPIRATION_D6);
 
 			break;

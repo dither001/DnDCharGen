@@ -7,7 +7,7 @@ import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
-public abstract class Actor implements Creature, Persistent {
+public abstract class Actor implements Creature, MagicUser, Persistent {
 
 	/*
 	 * PERSISTENT FIELDS
@@ -38,6 +38,10 @@ public abstract class Actor implements Creature, Persistent {
 	protected EnumSet<Skill> specialSkills;
 	protected EnumSet<Skill> armorSkills;
 	protected EnumSet<Skill> weaponSkills;
+
+	/*
+	 * MAGIC USE
+	 */
 	protected EnumSet<Spell> cantripsKnown;
 	protected EnumSet<Spell> spellsKnown;
 
@@ -84,6 +88,7 @@ public abstract class Actor implements Creature, Persistent {
 		this.specialSkills = EnumSet.noneOf(Skill.class);
 		this.armorSkills = EnumSet.noneOf(Skill.class);
 		this.weaponSkills = EnumSet.noneOf(Skill.class);
+
 		this.cantripsKnown = EnumSet.noneOf(Spell.class);
 		this.spellsKnown = EnumSet.noneOf(Spell.class);
 
@@ -298,6 +303,9 @@ public abstract class Actor implements Creature, Persistent {
 		this.weaponSkills = weaponSkills;
 	}
 
+	/*
+	 * MAGIC-USER METHODS
+	 */
 	@Override
 	public EnumSet<Spell> getCantripsKnown() {
 		return cantripsKnown;

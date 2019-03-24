@@ -178,43 +178,71 @@ public interface Creature {
 		return getAbilityScores()[5];
 	}
 
-	public default boolean setAbilityScore(int index, int bonus) {
-		boolean set = false;
-		int ability = getAbilityScores()[index], ceiling = getAbilityCeiling()[index];
-
-		// FIXME - testing
+	public default void setAbilityScore(int index, int score) {
 		int[] newScores = getAbilityScores();
-		if (ability <= ceiling) {
-			set = true;
-			newScores[index] = bonus;
-			setAbilityScores(newScores);
+		newScores[index] = score;
+
+		setAbilityScores(newScores);
+	}
+
+	public default void setStrength(int score) {
+		setAbilityScore(0, score);
+	}
+
+	public default void setDexterity(int score) {
+		setAbilityScore(1, score);
+	}
+
+	public default void setConstitution(int score) {
+		setAbilityScore(2, score);
+	}
+
+	public default void setIntelligence(int score) {
+		setAbilityScore(3, score);
+	}
+
+	public default void setWisdom(int score) {
+		setAbilityScore(4, score);
+	}
+
+	public default void setCharisma(int score) {
+		setAbilityScore(5, score);
+	}
+
+	public default boolean improveAbilityScore(int index, int bonus) {
+		boolean improved = false;
+
+		int ability = getAbilityScores()[index];
+		if (ability + bonus <= getAbilityCeiling()[index]) {
+			improved = true;
+			setAbilityScore(index, ability + bonus);
 		}
 
-		return set;
+		return improved;
 	}
 
-	public default boolean setStrength(int bonus) {
-		return setAbilityScore(0, bonus);
+	public default boolean improveStrength(int bonus) {
+		return improveAbilityScore(0, bonus);
 	}
 
-	public default boolean setDexterity(int bonus) {
-		return setAbilityScore(1, bonus);
+	public default boolean improveDexterity(int bonus) {
+		return improveAbilityScore(1, bonus);
 	}
 
-	public default boolean setConstitution(int bonus) {
-		return setAbilityScore(2, bonus);
+	public default boolean improveConstitution(int bonus) {
+		return improveAbilityScore(2, bonus);
 	}
 
-	public default boolean setIntelligence(int bonus) {
-		return setAbilityScore(3, bonus);
+	public default boolean improveIntelligence(int bonus) {
+		return improveAbilityScore(3, bonus);
 	}
 
-	public default boolean setWisdom(int bonus) {
-		return setAbilityScore(4, bonus);
+	public default boolean improveWisdom(int bonus) {
+		return improveAbilityScore(4, bonus);
 	}
 
-	public default boolean setCharisma(int bonus) {
-		return setAbilityScore(5, bonus);
+	public default boolean improveCharisma(int bonus) {
+		return improveAbilityScore(5, bonus);
 	}
 
 	public default boolean prefersFinesse() {

@@ -42,6 +42,9 @@ public abstract class Cleric extends JobClass {
 		actor.getArmorSkills().add(Skill.SHIELD);
 		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
 
+		// MAGIC SETUP
+		Spell.addCantrip(3, CLAZZ, actor.getCantripsKnown());
+		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_CLERIC);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -50,8 +53,6 @@ public abstract class Cleric extends JobClass {
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
-			features.add(ClassFeature.RITUAL_CASTING_CLERIC);
-
 			/*
 			 * DIVINE DOMAIN
 			 */
@@ -87,7 +88,7 @@ public abstract class Cleric extends JobClass {
 				break;
 			case NATURE:
 				features.add(ClassFeature.DIVINE_DOMAIN_NATURE);
-				Misc.tryToAdd(Spell.DRUID_SPELLS[0], actor.getCantripsKnown());
+				Spell.addCantrip(DnDClass.DRUID, actor.getCantripsKnown());
 				//
 				actor.getCommonSkills().addAll(Skill.heavyArmorList());
 				break;

@@ -28,7 +28,7 @@ public abstract class JobClass {
 	protected static final ClassFeature[] CHA_BONUSES = { ClassFeature.CHA_BONUS_4, ClassFeature.CHA_BONUS_6,
 			ClassFeature.CHA_BONUS_8, ClassFeature.CHA_BONUS_10, ClassFeature.CHA_BONUS_12, ClassFeature.CHA_BONUS_14,
 			ClassFeature.CHA_BONUS_16, ClassFeature.CHA_BONUS_19 };
-	
+
 	/*
 	 * STATIC METHODS
 	 */
@@ -37,19 +37,14 @@ public abstract class JobClass {
 		if (Main.TESTING_MESSAGES_ON)
 			System.out.println("Not implemented.");
 	}
-	
+
 	@SuppressWarnings("unused")
 	public static void apply(int level, Hero actor) {
-		EnumSet<RacialFeature> racialFeatures = actor.getFeatures();
 		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
 
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
 		case 1:
-			racialFeatures.add(RacialFeature.STRENGTH_SAVE);
-			racialFeatures.add(RacialFeature.CONSTITUTION_SAVE);
-			//
-
 			break;
 		case 2:
 			break;
@@ -111,13 +106,45 @@ public abstract class JobClass {
 			break;
 		}
 
-		actor.setFeatures(racialFeatures);
 		actor.setClassFeatures(classFeatures);
 	}
 
-	public static void improveAbility(Adventurer actor) {
-		// TODO
+	public static void improveAbility(Hero actor) {
+		ClassFeature improvement = null;
 
+		// determines index of improvement to return
+		int level = actor.getLevel(), index = 0;
+		if (level == 4)
+			index = 0;
+		else if (level == 6)
+			index = 1;
+		else if (level == 8)
+			index = 2;
+		else if (level == 10)
+			index = 3;
+		else if (level == 12)
+			index = 4;
+		else if (level == 14)
+			index = 5;
+		else if (level == 16)
+			index = 6;
+		else if (level == 19)
+			index = 7;
+
+		if (actor.improveConstitution(2))
+			improvement = CON_BONUSES[index];
+		else if (actor.improveCharisma(2))
+			improvement = CHA_BONUSES[index];
+		else if (actor.improveStrength(2))
+			improvement = STR_BONUSES[index];
+		else if (actor.improveIntelligence(2))
+			improvement = INT_BONUSES[index];
+		else if (actor.improveDexterity(2))
+			improvement = DEX_BONUSES[index];
+		else if (actor.improveWisdom(2))
+			improvement = WIS_BONUSES[index];
+
+		actor.getClassFeatures().add(improvement);
 	}
 
 }

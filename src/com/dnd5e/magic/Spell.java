@@ -445,7 +445,7 @@ public enum Spell {
 	}
 
 	public static boolean addSpell(int n, int level, DnDClass job, Set<Spell> set) {
-		return Misc.tryToAdd(n, spellsList(level - 1, job), set);
+		return Misc.tryToAdd(n, spellsList(level, job), set);
 	}
 
 	public static void addMagicalSecret(int n, int level, Set<Spell> spellsKnown) {

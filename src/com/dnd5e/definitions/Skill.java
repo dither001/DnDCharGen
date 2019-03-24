@@ -398,6 +398,12 @@ public enum Skill {
 		return Misc.addArrayToList(MILITARY_MELEE, simpleMeleeList());
 	}
 
+	public static List<Skill> druidWeapons() {
+		Skill[] array = new Skill[] { Skill.CLUB, Skill.DAGGER, Skill.DART, Skill.JAVELIN, Skill.MACE,
+				Skill.QUARTERSTAFF, Skill.SCIMITAR, Skill.SICKLE, Skill.SLING, Skill.SPEAR };
+		return Misc.addArrayToList(array, simpleWeaponList());
+	}
+
 	public static List<Skill> rogueWeapons() {
 		Skill[] array = new Skill[] { Skill.HAND_CROSSBOW, Skill.LONGSWORD, Skill.RAPIER, Skill.SHORTSWORD };
 		return Misc.addArrayToList(array, simpleWeaponList());

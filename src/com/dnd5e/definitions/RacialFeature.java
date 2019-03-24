@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import com.dnd5e.character.classes.Hero;
 import com.dnd5e.character.definitions.*;
+import com.dnd5e.magic.Spell;
 import com.miscellaneous.util.*;
 
 public enum RacialFeature {
@@ -99,11 +100,12 @@ public enum RacialFeature {
 			if (race.equals(Race.HIGH_ELF)) {
 				actor.setIntelligence(actor.getIntelligence() + 1);
 				features.add(DARKVISION_60);
+				Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
 				//
 				features.add(ELF_WEAPON_TRAINING);
 				actor.getWeaponSkills().addAll(Misc.arrayToList(ELF_WEAPONS));
-				// TODO - random cantrip
-				// TODO - random common language
+				//
+				Misc.tryToAdd(Spell.CANTRIPS, actor.getCantripsKnown());
 
 			} else if (race.equals(Race.WOOD_ELF)) {
 				actor.setWisdom(actor.getWisdom() + 1);
@@ -123,7 +125,8 @@ public enum RacialFeature {
 				//
 				features.add(DROW_WEAPON_TRAINING);
 				actor.getWeaponSkills().addAll(Misc.arrayToList(DROW_WEAPONS));
-				// TODO - dancing lights cantrip
+				//
+				Misc.tryToAdd(Spell.DANCING_LIGHTS, actor.getCantripsKnown());
 
 			}
 
@@ -145,7 +148,7 @@ public enum RacialFeature {
 				//
 				features.add(NATURAL_ILLUSIONIST);
 				features.add(SPEAK_WITH_SMALL_BEASTS);
-				// TODO - add cantrip
+				Misc.tryToAdd(Spell.MINOR_ILLUSION, actor.getCantripsKnown());
 
 			} else if (race.equals(Race.ROCK_GNOME)) {
 				actor.setConstitution(actor.getConstitution() + 1);
@@ -167,8 +170,9 @@ public enum RacialFeature {
 			features.add(DARKVISION_60);
 			features.add(FEY_ANCESTRY);
 			languages.add(Language.ELVISH);
-			// TODO - add another language
-			// TODO - add 2 skills
+			Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
+			//
+			Misc.tryToAdd(2, Skill.getCommonSkills(), actor.getCommonSkills());
 
 			break;
 		case HALF_ORC:
@@ -184,6 +188,7 @@ public enum RacialFeature {
 			features.add(HALF_ORC_MENACE);
 			features.add(RELENTLESS_ENDURANCE);
 			features.add(SAVAGE_ATTACKS);
+			//
 			actor.getCommonSkills().add(Skill.INTIMIDATION);
 
 			break;

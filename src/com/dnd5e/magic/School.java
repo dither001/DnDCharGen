@@ -31,7 +31,7 @@ public enum School {
 				return el;
 		}
 
-		throw new ParserException();
+		throw new ParserException(s);
 	}
 
 }

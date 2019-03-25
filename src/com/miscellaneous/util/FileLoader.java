@@ -212,8 +212,8 @@ public class FileLoader {
 		return map;
 	}
 
-	public static HashMap<String, Sorcery> parseSpells(String filename) {
-		HashMap<String, Sorcery> map = new HashMap<String, Sorcery>();
+	public static HashMap<Spell, Sorcery> parseSpells(String filename) {
+		HashMap<Spell, Sorcery> map = new HashMap<Spell, Sorcery>();
 		BufferedReader input = null;
 
 		String line = "";
@@ -231,10 +231,11 @@ public class FileLoader {
 				String[] values = line.split(comma);
 
 				Sorcery sorcery = new Sorcery();
-				sorcery.setSchool(School.parse(values[1]));
-				sorcery.setLevel(Integer.valueOf(values[2]));
+				sorcery.setName(values[0]);
+				sorcery.setLevel(Integer.valueOf(values[1]));
+				sorcery.setSchool(School.parse(values[2]));
 
-				map.put(values[0], sorcery);
+				map.put(Spell.parse(values[0]), sorcery);
 			}
 		} catch (IOException | ParserException e) {
 			// TODO Auto-generated catch block

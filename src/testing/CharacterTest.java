@@ -13,7 +13,7 @@ public class CharacterTest {
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.CLERIC;
+	private static final DnDClass CLAZZ = DnDClass.DRUID;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
 

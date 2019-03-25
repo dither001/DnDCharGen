@@ -66,6 +66,9 @@ public class Druid extends JobClass {
 		case 3:
 			break;
 		case 4:
+			// NEW CANTRIP
+			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
+
 			if (subclass.equals(Subclass.MOON_CIRCLE) != true) {
 				features.add(ClassFeature.WILD_SHAPE_4);
 			}
@@ -78,6 +81,15 @@ public class Druid extends JobClass {
 		case 5:
 			break;
 		case 6:
+			if (subclass.equals(Subclass.LAND_CIRCLE)) {
+				features.add(ClassFeature.LANDS_STRIDE);
+
+			} else if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.MOON_SHAPE_6);
+				features.add(ClassFeature.PRIMAL_STRIKE);
+
+			}
+
 			break;
 		case 7:
 			break;
@@ -88,12 +100,31 @@ public class Druid extends JobClass {
 
 			break;
 		case 9:
+			if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.MOON_SHAPE_9);
+			}
+
 			break;
 		case 10:
+			// NEW CANTRIP
+			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
+
+			if (subclass.equals(Subclass.LAND_CIRCLE)) {
+				features.add(ClassFeature.NATURES_WARD);
+
+			} else if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.ELEMENTAL_SHAPE);
+
+			}
+
 			break;
 		case 11:
 			break;
 		case 12:
+			if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.MOON_SHAPE_12);
+			}
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_12);
 			improveAbility(actor);
@@ -102,8 +133,20 @@ public class Druid extends JobClass {
 		case 13:
 			break;
 		case 14:
+			if (subclass.equals(Subclass.LAND_CIRCLE)) {
+				features.add(ClassFeature.NATURES_SANCTUARY);
+
+			} else if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.THOUSAND_FORMS);
+
+			}
+
 			break;
 		case 15:
+			if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.MOON_SHAPE_15);
+			}
+
 			break;
 		case 16:
 			// ABILTIY SCORE IMPROVEMENT
@@ -114,6 +157,13 @@ public class Druid extends JobClass {
 		case 17:
 			break;
 		case 18:
+			if (subclass.equals(Subclass.MOON_CIRCLE)) {
+				features.add(ClassFeature.MOON_SHAPE_18);
+			}
+
+			features.add(ClassFeature.TIMELESS_BODY);
+			features.add(ClassFeature.BEAST_SPELLS);
+
 			break;
 		case 19:
 			// ABILTIY SCORE IMPROVEMENT
@@ -122,6 +172,8 @@ public class Druid extends JobClass {
 
 			break;
 		case 20:
+			features.add(ClassFeature.ARCHDRUID);
+
 			break;
 		}
 

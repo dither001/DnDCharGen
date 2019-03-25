@@ -220,12 +220,10 @@ public enum ClassFeature {
 			Cleric.setup(actor);
 			break;
 		case DRUID:
-			// FIXME
-			JobClass.setup(actor);
+			Druid.setup(actor);
 			break;
 		case FIGHTER:
-			// FIXME
-			JobClass.setup(actor);
+			Fighter.setup(actor);
 			break;
 		case MONK:
 			// FIXME
@@ -270,12 +268,10 @@ public enum ClassFeature {
 			Cleric.apply(level, actor);
 			break;
 		case DRUID:
-			// FIXME
-			JobClass.apply(level, actor);
+			Druid.apply(level, actor);
 			break;
 		case FIGHTER:
-			// FIXME
-			JobClass.apply(level, actor);
+			Fighter.apply(level, actor);
 			break;
 		case MONK:
 			// FIXME

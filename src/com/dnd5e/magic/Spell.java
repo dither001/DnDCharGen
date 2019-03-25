@@ -2,12 +2,12 @@ package com.dnd5e.magic;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import com.dnd5e.character.classes.*;
-import com.miscellaneous.util.Misc;
+import com.miscellaneous.util.*;
 
 public enum Spell {
 	// SYSTEM REFERENCE DOCUMENT
@@ -18,7 +18,7 @@ public enum Spell {
 
 	// END OF SPELLS
 	;
-
+	
 	/*
 	 * SPELLS KNOWN (NUMBER OF)
 	 */

@@ -34,6 +34,7 @@ public abstract class Bard extends JobClass {
 		Misc.tryToAdd(3, Skill.getInstruments(), actor.getSpecialSkills());
 		//
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
+		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
 		actor.getWeaponSkills().addAll(Skill.rogueWeapons());
 
 		// MAGIC SETUP
@@ -91,7 +92,6 @@ public abstract class Bard extends JobClass {
 			break;
 		case 5:
 			Spell.addSpell(spellLevel, CLAZZ, actor.getSpellsKnown());
-
 			//
 			features.add(ClassFeature.INSPIRATION_D8);
 			features.add(ClassFeature.FONT_OF_INSPIRATION);

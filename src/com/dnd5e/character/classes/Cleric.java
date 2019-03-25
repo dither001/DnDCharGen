@@ -156,6 +156,7 @@ public abstract class Cleric extends JobClass {
 			/*
 			 * NO NEW FEATURE
 			 */
+
 			break;
 		case 4:
 			// NEW CANTRIP
@@ -210,9 +211,11 @@ public abstract class Cleric extends JobClass {
 			/*
 			 * NO NEW FEATURE
 			 */
+
 			break;
 		case 8:
 			features.add(ClassFeature.DESTROY_UNDEAD_8);
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_8);
 			improveAbility(actor);
@@ -254,6 +257,7 @@ public abstract class Cleric extends JobClass {
 			/*
 			 * NO NEW FEATURE
 			 */
+
 			break;
 		case 10:
 			// NEW CANTRIP
@@ -287,6 +291,7 @@ public abstract class Cleric extends JobClass {
 			/*
 			 * NO NEW FEATURE
 			 */
+
 			break;
 		case 16:
 			// ABILTIY SCORE IMPROVEMENT

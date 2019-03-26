@@ -43,7 +43,7 @@ public class FileLoader {
 				// monster.setAlignment(Alignment.UNALIGNED);
 				// monster.setGod(God.ASMODEUS);
 
-				++counter; // my creature type system
+				monster.setCornerstone(Cornerstone.parse(values[counter++]));
 				monster.setStrength(Integer.valueOf(values[counter++]));
 				monster.setDexterity(Integer.valueOf(values[counter++]));
 				dexMod = monster.getDexterityModifier(); // DEX

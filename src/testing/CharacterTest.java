@@ -8,6 +8,7 @@ import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.*;
+import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 
 public class CharacterTest {
@@ -16,11 +17,14 @@ public class CharacterTest {
 
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
+
 	private static final Background BACKGROUND = Background.SOLDIER;
 	private static final DnDClass CLAZZ = DnDClass.FIGHTER;
 	private static final Subclass SUBCLASS = Subclass.ELDRITCH_KNIGHT;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
+
+	private static final Cornerstone CORNERSTONE = Cornerstone.DEMON;
 
 	//
 	private static final School[] SCHOOLS = { School.ABJURATION, School.EVOCATION };
@@ -312,6 +316,16 @@ public class CharacterTest {
 	public void testSchoolFilter() {
 		for (Iterator<Spell> it = Sorcery.getSpellsOfSchool(SCHOOLS).iterator(); it.hasNext();)
 			System.out.println(it.next().toString());
+	}
+
+	/*
+	 * MONSTER TESTING
+	 */
+	@Test
+	public void getCornerstone() {
+		for (Monster el : Monster.getCornerstone(CORNERSTONE))
+			System.out.println(el.toStringVerbose());
+
 	}
 
 	/*

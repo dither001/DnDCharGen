@@ -4,10 +4,11 @@ import java.util.EnumSet;
 
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
+import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
-public abstract class Actor implements Creature, MagicUser, Persistent {
+public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 
 	/*
 	 * PERSISTENT FIELDS
@@ -46,6 +47,11 @@ public abstract class Actor implements Creature, MagicUser, Persistent {
 	protected EnumSet<Spell> spellsKnown;
 
 	/*
+	 * MONSTERS
+	 */
+	protected Cornerstone cornerstone;
+
+	/*
 	 * COMBAT STATS
 	 */
 	protected int currentHitPoints;
@@ -82,6 +88,8 @@ public abstract class Actor implements Creature, MagicUser, Persistent {
 		this.movement = EnumSet.noneOf(MovementType.class);
 		this.senses = EnumSet.noneOf(Sense.class);
 		this.languages = EnumSet.noneOf(Language.class);
+
+		this.cornerstone = null;
 
 		this.features = EnumSet.noneOf(RacialFeature.class);
 		this.commonSkills = EnumSet.noneOf(Skill.class);
@@ -432,6 +440,20 @@ public abstract class Actor implements Creature, MagicUser, Persistent {
 	@Override
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
+	}
+
+	/*
+	 * MONSTER METHODS
+	 */
+
+	@Override
+	public Cornerstone getCornerstone() {
+		return cornerstone;
+	}
+
+	@Override
+	public void setCornerstone(Cornerstone cornerstone) {
+		this.cornerstone = cornerstone;
 	}
 
 }

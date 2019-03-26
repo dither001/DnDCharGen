@@ -11,6 +11,7 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
+import com.dnd5e.monsters.Cornerstone;
 import com.dnd5e.monsters.Encounter;
 import com.dnd5e.monsters.Monster;
 import com.dnd5e.worlds.*;

@@ -232,6 +232,7 @@ public class FileLoader {
 
 				Sorcery sorcery = new Sorcery();
 				sorcery.setName(values[0]);
+				sorcery.setSpellName(Spell.parse(values[0]));
 				sorcery.setLevel(Integer.valueOf(values[1]));
 				sorcery.setSchool(School.parse(values[2]));
 

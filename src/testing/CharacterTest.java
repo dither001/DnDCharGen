@@ -17,7 +17,8 @@ public class CharacterTest {
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.DRUID;
+	private static final DnDClass CLAZZ = DnDClass.FIGHTER;
+	private static final Subclass SUBCLASS = Subclass.ELDRITCH_KNIGHT;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
 
@@ -130,6 +131,11 @@ public class CharacterTest {
 	}
 
 	@Test
+	public void testCharacterSubclass() {
+		characterOfSubclass(NUMBER_TO_GENERATE, SUBCLASS);
+	}
+
+	@Test
 	public void testCharacterGod() {
 		characterOfGod(NUMBER_TO_GENERATE, GOD);
 	}
@@ -140,11 +146,29 @@ public class CharacterTest {
 	}
 
 	@Test
-	public void testLevelAdvancement() {
+	public void testClassAdvancement() {
 		DnDCharacter toon = null;
 		do {
 			toon = DnDCharacter.random();
 		} while (toon.getJob().equals(CLAZZ) != true);
+
+		System.out.println(toon.toStringVerbose());
+		System.out.println();
+
+		for (int i = 1; i < 20; ++i) {
+			toon.advance();
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+
+	}
+
+	@Test
+	public void testSubclassAdvancement() {
+		DnDCharacter toon = null;
+		do {
+			toon = DnDCharacter.random();
+		} while (toon.getSubclass().equals(SUBCLASS) != true);
 
 		System.out.println(toon.toStringVerbose());
 		System.out.println();
@@ -188,6 +212,17 @@ public class CharacterTest {
 			do {
 				toon = DnDCharacter.random();
 			} while (toon.getJob().equals(job) != true);
+			System.out.println(toon.toStringVerbose());
+			System.out.println();
+		}
+	}
+
+	private void characterOfSubclass(int n, Subclass job) {
+		DnDCharacter toon = null;
+		for (int i = 0; i < n; ++i) {
+			do {
+				toon = DnDCharacter.random();
+			} while (toon.getSubclass().equals(job) != true);
 			System.out.println(toon.toStringVerbose());
 			System.out.println();
 		}

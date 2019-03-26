@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.dnd4e.definitions.*;
 import com.dnd5e.character.classes.*;
@@ -10,6 +11,8 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
+import com.dnd5e.monsters.Encounter;
+import com.dnd5e.monsters.Monster;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 import com.worldgen.planet.Grid;
@@ -23,6 +26,20 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		Encounter.redistribute(new Monster[19]);
+		
+		
+
+		// List<Spell> list = Spell.spellsList(DnDClass.WIZARD);
+		// // remove duplicates
+		//// list.removeAll(spellsKnown);
+		// // keep
+		// for (Spell el : Sorcery.getSpellsOfSchool(1, School.ABJURATION))
+		// System.out.println(el.toString());
+		//
+		// list.retainAll(Sorcery.getSpellsOfSchool(1,
+		// Fighter.ELDRITCH_KNIGHT_SCHOOLS));
+
 		// FileLoader.parseSpells("spells.csv");
 
 		// testSkewEvil();

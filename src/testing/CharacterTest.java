@@ -1,21 +1,28 @@
 package testing;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 
 public class CharacterTest {
 	//
 	private static final int NUMBER_TO_GENERATE = 10;
+
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 	private static final Background BACKGROUND = Background.SOLDIER;
 	private static final DnDClass CLAZZ = DnDClass.DRUID;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
+
+	//
+	private static final School[] SCHOOLS = { School.ABJURATION, School.EVOCATION };
 
 	/*
 	 * ALIGNMENT TESTING
@@ -261,6 +268,15 @@ public class CharacterTest {
 		n = array[2];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
 		System.out.printf("%-10s %s\n", "% Clerics", s);
+	}
+
+	/*
+	 * MAGIC TESTING
+	 */
+	@Test
+	public void testSchoolFilter() {
+		for (Iterator<Spell> it = Sorcery.getSpellsOfSchool(SCHOOLS).iterator(); it.hasNext();)
+			System.out.println(it.next().toString());
 	}
 
 	/*

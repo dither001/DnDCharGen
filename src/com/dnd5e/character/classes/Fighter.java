@@ -17,7 +17,7 @@ public abstract class Fighter extends JobClass {
 
 	//
 	private static final DnDClass CASTING_CLASS;
-	private static final School[] ELDRITCH_KNIGHT_SCHOOLS;
+	public static final School[] ELDRITCH_KNIGHT_SCHOOLS;
 
 	//
 	private static final ClassFeature[] FIGHTING_STYLE;
@@ -32,7 +32,7 @@ public abstract class Fighter extends JobClass {
 		//
 		CASTING_CLASS = DnDClass.WIZARD;
 		ELDRITCH_KNIGHT_SCHOOLS = new School[] { School.ABJURATION, School.EVOCATION };
-
+		
 		//
 		FIGHTING_STYLE = new ClassFeature[] { ClassFeature.STYLE_ARCHERY, ClassFeature.STYLE_DEFENSE,
 				ClassFeature.STYLE_DUELING, ClassFeature.STYLE_GREAT_WEAPON, ClassFeature.STYLE_PROTECTION,
@@ -67,7 +67,7 @@ public abstract class Fighter extends JobClass {
 		switch (level) {
 		case 1:
 			features.add(ClassFeature.FIGHTING_STYLE);
-			features.add(Misc.randomFromArray(FIGHTING_STYLE));
+			Misc.tryToAdd(FIGHTING_STYLE, features);
 			features.add(ClassFeature.SECOND_WIND);
 
 			break;
@@ -76,7 +76,6 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 3:
-
 			/*
 			 * MARTIAL ARCHETYPE
 			 */
@@ -84,14 +83,15 @@ public abstract class Fighter extends JobClass {
 				features.add(ClassFeature.IMPROVED_CRITICAL);
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
-				Misc.tryToAdd(3, MANEUVERS, actor.getClassFeatures());
 				features.add(ClassFeature.COMBAT_SUPERIORITY);
 				features.add(ClassFeature.SUPERIORITY_D8);
 				features.add(ClassFeature.SUPERIORITY_DICE_4);
+				Misc.tryToAdd(3, MANEUVERS, features);
 				features.add(ClassFeature.STUDENT_OF_WAR);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
 				features.add(ClassFeature.WEAPON_BOND);
+				Spell.addCantrip(2, CASTING_CLASS, actor.getCantripsKnown());
 				addEldritchKnightSpell(3, 1, actor.getSpellsKnown());
 
 			}
@@ -108,8 +108,14 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 5:
+			features.add(ClassFeature.EXTRA_ATTACK_1);
+
 			break;
 		case 6:
+			// ABILTIY SCORE IMPROVEMENT
+			features.add(ClassFeature.ABILITY_BONUS_6);
+			improveAbility(actor);
+
 			break;
 		case 7:
 
@@ -121,7 +127,7 @@ public abstract class Fighter extends JobClass {
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_DICE_5);
-				// TODO - fighter maneuver
+				Misc.tryToAdd(2, MANEUVERS, features);
 				features.add(ClassFeature.KNOW_YOUR_ENEMY);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
@@ -146,30 +152,31 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 10:
-
 			/*
 			 * MARTIAL ARCHETYPE
 			 */
 			if (subclass.equals(Subclass.CHAMPION)) {
 				features.add(ClassFeature.ADDITIONAL_FIGHTING_STYLE);
-				// TODO - extra fighting style
+				Misc.tryToAdd(FIGHTING_STYLE, features);
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_D10);
-				// TODO - 2 fighter maneuvers
+				Misc.tryToAdd(2, MANEUVERS, features);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
 				features.add(ClassFeature.ELDRITCH_STRIKE);
-				// TODO - cantrip
-				// TODO - new spell
+				Spell.addCantrip(CASTING_CLASS, actor.getCantripsKnown());
+				addEldritchKnightSpell(1, 2, actor.getSpellsKnown());
 
 			}
 
 			break;
 		case 11:
-			features.add(ClassFeature.EXTRA_ATTACK_2);
+			// ELDRITCH KNIGHT SPELL
+			if (subclass.equals(Subclass.ELDRITCH_KNIGHT))
+				addEldritchKnightSpell(1, 2, actor.getSpellsKnown());
 
-			// TODO -eldritch knight spell
+			features.add(ClassFeature.EXTRA_ATTACK_2);
 
 			break;
 		case 12:
@@ -179,17 +186,21 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 13:
-			features.add(ClassFeature.INDOMITABLE_2);
+			// ELDRITCH KNIGHT SPELL
+			if (subclass.equals(Subclass.ELDRITCH_KNIGHT))
+				addEldritchKnightSpell(1, 3, actor.getSpellsKnown());
 
-			// TODO - eldritch knight spell
+			features.add(ClassFeature.INDOMITABLE_2);
 
 			break;
 		case 14:
-			// TODO - eldritch knight spell
-
 			// ELDRITCH KNIGHT FREEBIE
 			if (subclass.equals(Subclass.ELDRITCH_KNIGHT))
 				Spell.addSpell(3, CASTING_CLASS, actor.getSpellsKnown());
+
+			// ABILTIY SCORE IMPROVEMENT
+			features.add(ClassFeature.ABILITY_BONUS_14);
+			improveAbility(actor);
 
 			break;
 		case 15:
@@ -202,7 +213,7 @@ public abstract class Fighter extends JobClass {
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_DICE_6);
-				// TODO - 2 maneuvers
+				Misc.tryToAdd(MANEUVERS, features);
 				features.add(ClassFeature.RELENTLESS_FIGHTER);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
@@ -212,7 +223,9 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 16:
-			// TODO - eldritch knight spell
+			// ELDRITCH KNIGHT SPELL
+			if (subclass.equals(Subclass.ELDRITCH_KNIGHT))
+				addEldritchKnightSpell(1, 3, actor.getSpellsKnown());
 
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_16);
@@ -225,7 +238,6 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 18:
-
 			/*
 			 * MARTIAL ARCHETYPE
 			 */
@@ -242,7 +254,9 @@ public abstract class Fighter extends JobClass {
 
 			break;
 		case 19:
-			// TODO - eldritch knight spell
+			// ELDRITCH KNIGHT SPELL
+			if (subclass.equals(Subclass.ELDRITCH_KNIGHT))
+				addEldritchKnightSpell(1, 4, actor.getSpellsKnown());
 
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_19);
@@ -273,8 +287,10 @@ public abstract class Fighter extends JobClass {
 		// keep
 		list.retainAll(Sorcery.getSpellsOfSchool(level, ELDRITCH_KNIGHT_SCHOOLS));
 
-		Collections.shuffle(list);
-		for (int i = 0; i < n; ++i)
-			spellsKnown.add(list.get(0));
+		if (list.size() > 0) {
+			Collections.shuffle(list);
+			for (int i = 0; i < n; ++i)
+				spellsKnown.add(list.get(0));
+		}
 	}
 }

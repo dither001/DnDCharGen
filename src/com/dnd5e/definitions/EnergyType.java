@@ -35,7 +35,7 @@ public enum EnergyType {
 				return el;
 		}
 
-		throw new ParserException();
+		throw new ParserException(s);
 	}
 
 	public static int[] randomVulnerabilities() {

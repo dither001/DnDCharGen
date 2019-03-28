@@ -95,7 +95,7 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 		this.commonSkills = EnumSet.noneOf(Skill.class);
 		this.specialSkills = EnumSet.noneOf(Skill.class);
 		this.armorSkills = EnumSet.noneOf(Skill.class);
-		this.weaponSkills = EnumSet.noneOf(Skill.class);
+		this.weaponSkills = EnumSet.of(Skill.NATURAL);
 
 		this.cantripsKnown = EnumSet.noneOf(Spell.class);
 		this.spellsKnown = EnumSet.noneOf(Spell.class);

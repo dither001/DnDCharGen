@@ -2,6 +2,7 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
+import com.dnd5e.character.classes.Adventurer;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
@@ -295,9 +296,27 @@ public interface Creature {
 
 	public default int getProficiencyBonus() {
 		int bonus = 2;
-		int hitDice = getHitDice().length;
 
-		if (hitDice > 16)
+		boolean isAdventurer = false;
+		Adventurer adv = null;
+		for (Class<?> el : this.getClass().getInterfaces()) {
+			if (el.equals(Adventurer.class)) {
+				isAdventurer = true;
+				adv = (Adventurer) this;
+			}
+		}
+
+		int hitDice = isAdventurer ? adv.getLevel() : getHitDice().length;
+
+		if (hitDice > 32)
+			bonus = 10;
+		else if (hitDice > 28)
+			bonus = 9;
+		else if (hitDice > 24)
+			bonus = 8;
+		else if (hitDice > 20)
+			bonus = 7;
+		else if (hitDice > 16)
 			bonus = 6;
 		else if (hitDice > 12)
 			bonus = 5;

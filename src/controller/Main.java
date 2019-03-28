@@ -11,13 +11,9 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
-import com.dnd5e.monsters.Cornerstone;
-import com.dnd5e.monsters.Encounter;
-import com.dnd5e.monsters.Monster;
+import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
-import com.worldgen.planet.Grid;
-import com.worldgen.terrain.Terrain;
 
 public class Main {
 	public static final boolean TESTING_MESSAGES_ON = false;
@@ -26,32 +22,8 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		
-		Encounter.redistribute(new Monster[19]);
-		
-		
 
-		// List<Spell> list = Spell.spellsList(DnDClass.WIZARD);
-		// // remove duplicates
-		//// list.removeAll(spellsKnown);
-		// // keep
-		// for (Spell el : Sorcery.getSpellsOfSchool(1, School.ABJURATION))
-		// System.out.println(el.toString());
-		//
-		// list.retainAll(Sorcery.getSpellsOfSchool(1,
-		// Fighter.ELDRITCH_KNIGHT_SCHOOLS));
-
-		// FileLoader.parseSpells("spells.csv");
-
-		// testSkewEvil();
-		// testSkewHuman();
-		// testRandomRogues();
-		// testRandomCharacters(50);
-
-		// testRandomCharacters(50);
-		// testRandomChaoticCharacters(10);
-		// testRandomCharactersOfAlignment(10, Alignment.CHAOTIC_EVIL);
-		// testRandomCharactersOfClass(10, DnDClass.CLERIC);
+//		Encounter.redistribute(new Monster[19]);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);
@@ -60,37 +32,16 @@ public class Main {
 		// testFactionOfJob(5, DnDClass.FIGHTER);
 		// testFaction(5);
 
-		// Armor.getArmorClone(Skill.PADDED_ARMOR);
-		// Weapon.get(Skill.SLING);
-
 		/*
 		 * (force these objects to initialize)
 		 */
-		// FileLoader.parseMonsters("monsters.csv");
+//		 FileLoader.parseMonsters("monsters.csv");
+		// FileLoader.parseSpells("spells.csv");
 
-	}
 
-	/*
-	 * PLANET GENERATION
-	 */
-	public static void testWorldGen(int size) {
-		// "maximum" normal size is probably about 8
-		Grid grid;
-
-		/*
-		 * FIXME - numerous problems, untested nonsense
-		 */
-		try {
-			grid = Grid.build(size);
-
-			for (int i = 0; i < grid.tiles.length; ++i)
-				System.out.println(grid.tiles[i].toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Terrain.build(size);
+		for (Monster el : Monster.monsterMap.values())
+			System.out.println(el.toStringVerbose());
+		 
 	}
 
 	/*

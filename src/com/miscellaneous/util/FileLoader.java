@@ -63,8 +63,22 @@ public class FileLoader {
 
 				if (values.length > 12) {
 					++counter; // attack
-					++counter; // damage
-					++counter; // type
+					// ++counter; // damage
+					// ++counter; // name
+
+					Weapon weapon = new Weapon();
+					String[] damageDice = values[counter++].split("d");
+					int[] dice = new int[2];
+
+					dice[0] = Integer.valueOf(damageDice[0]);
+					dice[1] = Integer.valueOf(damageDice[1]);
+					weapon.setDamageDice(dice); // damage
+					weapon.setName(values[counter++]); // name
+					weapon.setSkills(new Skill[] { Skill.NATURAL });
+					weapon.setTraits(new WeaponTrait[] { WeaponTrait.FINESSE });
+
+					// currently adds only one weapon
+					monster.setNaturalWeapons(new Weapon[] { weapon });
 				}
 
 				map.put(monster.getName(), monster);

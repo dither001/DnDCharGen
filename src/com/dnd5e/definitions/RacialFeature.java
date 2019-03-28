@@ -57,12 +57,10 @@ public enum RacialFeature {
 
 		EnumSet<Language> languages = actor.getLanguages();
 		EnumSet<RacialFeature> features = actor.getFeatures();
-		// EnumSet<Skill> skills = actor.getCommonSkills();
 
 		languages.add(Language.COMMON);
 
 		Race race = actor.getRace();
-
 		switch (race) {
 		case BLACKSCALE:
 		case BLUESCALE:
@@ -233,7 +231,7 @@ public enum RacialFeature {
 			actor.setIntelligence(actor.getIntelligence() + 1);
 			actor.setWisdom(actor.getWisdom() + 1);
 			actor.setCharisma(actor.getCharisma() + 1);
-			// TODO - add language
+			Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
 
 			break;
 		case LIGHTFOOT_HALFLING:

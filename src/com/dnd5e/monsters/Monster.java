@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dnd5e.character.definitions.*;
+import com.dnd4e.definitions.BasicAttack;
+import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.miscellaneous.util.*;
 
 public class Monster extends Actor {
@@ -17,11 +19,47 @@ public class Monster extends Actor {
 
 	}
 
+	protected Weapon[] naturalWeapons;
+
 	/*
 	 * CONSTRUCTORS
 	 */
 	public Monster() {
 		super();
+
+		this.naturalWeapons = new Weapon[0];
+	}
+
+	/*
+	 * INSTANCE METHODS
+	 */
+	public String toStringVerbose() {
+		String s = "";
+
+		s += String.format("%s %s %s\n", name, size.toString(), creatureType.toString());
+		s += abilityArrayToString() + "\n";
+		
+		for (Attack el : getNaturalWeaponAttackList())
+			s += el + "\n";
+
+		return s;
+	}
+
+	public Weapon[] getNaturalWeapons() {
+		return naturalWeapons;
+	}
+
+	public void setNaturalWeapons(Weapon[] naturalWeapons) {
+		this.naturalWeapons = naturalWeapons;
+	}
+
+	public List<Attack> getNaturalWeaponAttackList() {
+		List<Attack> list = new ArrayList<Attack>();
+
+		for (Weapon el : naturalWeapons)
+			list.add(BasicAttack.build(el, this));
+
+		return list;
 	}
 
 	/*

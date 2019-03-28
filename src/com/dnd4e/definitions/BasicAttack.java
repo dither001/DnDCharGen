@@ -106,9 +106,10 @@ public class BasicAttack implements Attack {
 		/*
 		 * attack bonus calculation
 		 */
+		boolean useDexterity = weapon.isRangedOnly() || (weapon.usesDexterity() && actor.prefersFinesse());
 		boolean proficientUser = false;
 		for (Skill el : weapon.getSkills()) {
-			if (actor.getCommonSkills().contains(el))
+			if (actor.getWeaponSkills().contains(el))
 				proficientUser = true;
 		}
 
@@ -116,8 +117,9 @@ public class BasicAttack implements Attack {
 
 		// proficiency
 		attackBonus += proficientUser ? actor.getProficiencyBonus() : 0;
+
 		// ability modifier
-		if (weapon.isRangedOnly() || (weapon.usesDexterity() && actor.prefersFinesse())) {
+		if (useDexterity) {
 			attackBonus += actor.getDexterityModifier();
 
 		} else {
@@ -127,7 +129,18 @@ public class BasicAttack implements Attack {
 
 		b.weapon = weapon;
 		b.setAttackBonus(attackBonus);
-		b.setAverageDamage(weapon.getAverageDamage());
+
+		int averageDamage = weapon.getAverageDamage();
+		// ability modifier
+		if (useDexterity) {
+			averageDamage += actor.getDexterityModifier();
+
+		} else {
+			averageDamage += actor.getStrengthModifier();
+
+		}
+
+		b.setAverageDamage(averageDamage);
 		b.setDamageType(weapon.getDamageType());
 
 		if (weapon.uses(Skill.UNARMED)) {

@@ -2,8 +2,6 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.definitions.*;
-
 import controller.*;
 
 public abstract class JobClass {
@@ -40,7 +38,7 @@ public abstract class JobClass {
 
 	@SuppressWarnings("unused")
 	public static void apply(int level, Hero actor) {
-		EnumSet<ClassFeature> classFeatures = actor.getClassFeatures();
+		EnumSet<ClassFeature> features = actor.getClassFeatures();
 
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
@@ -52,7 +50,7 @@ public abstract class JobClass {
 			break;
 		case 4:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_4);
+			features.add(ClassFeature.ABILITY_BONUS_4);
 			improveAbility(actor);
 
 			break;
@@ -64,7 +62,7 @@ public abstract class JobClass {
 			break;
 		case 8:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_8);
+			features.add(ClassFeature.ABILITY_BONUS_8);
 			improveAbility(actor);
 
 			break;
@@ -76,7 +74,7 @@ public abstract class JobClass {
 			break;
 		case 12:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_12);
+			features.add(ClassFeature.ABILITY_BONUS_12);
 			improveAbility(actor);
 
 			break;
@@ -88,7 +86,7 @@ public abstract class JobClass {
 			break;
 		case 16:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_16);
+			features.add(ClassFeature.ABILITY_BONUS_16);
 			improveAbility(actor);
 
 			break;
@@ -98,7 +96,7 @@ public abstract class JobClass {
 			break;
 		case 19:
 			// ABILTIY SCORE IMPROVEMENT
-			classFeatures.add(ClassFeature.ABILITY_BONUS_19);
+			features.add(ClassFeature.ABILITY_BONUS_19);
 			improveAbility(actor);
 
 			break;
@@ -106,7 +104,7 @@ public abstract class JobClass {
 			break;
 		}
 
-		actor.setClassFeatures(classFeatures);
+		actor.setClassFeatures(features);
 	}
 
 	public static void improveAbility(Hero actor) {

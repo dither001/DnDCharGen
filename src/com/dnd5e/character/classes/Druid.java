@@ -6,7 +6,7 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
-public class Druid extends JobClass {
+public abstract class Druid extends JobClass {
 	private static final DnDClass CLAZZ;
 	private static final RacialFeature[] SAVING_THROWS;
 	private static final Skill[] CLASS_SKILLS;

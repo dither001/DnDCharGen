@@ -226,12 +226,10 @@ public enum ClassFeature {
 			Fighter.setup(actor);
 			break;
 		case MONK:
-			// FIXME
-			JobClass.setup(actor);
+			Monk.setup(actor);
 			break;
 		case PALADIN:
-			// FIXME
-			JobClass.setup(actor);
+			Paladin.setup(actor);
 			break;
 		case RANGER:
 			// FIXME
@@ -274,12 +272,10 @@ public enum ClassFeature {
 			Fighter.apply(level, actor);
 			break;
 		case MONK:
-			// FIXME
-			JobClass.apply(level, actor);
+			Monk.apply(level, actor);
 			break;
 		case PALADIN:
-			// FIXME
-			JobClass.apply(level, actor);
+			Paladin.apply(level, actor);
 			break;
 		case RANGER:
 			// FIXME

@@ -2,9 +2,9 @@ package com.dnd5e.definitions;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.classes.Hero;
+import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.*;
-import com.dnd5e.magic.Spell;
+import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
 public enum RacialFeature {

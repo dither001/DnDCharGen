@@ -23,7 +23,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-//		Encounter.redistribute(new Monster[19]);
+		// Encounter.redistribute(new Monster[19]);
 
 		// testFactionOfAlignment(5, Alignment.CHAOTIC_EVIL);
 		// testFactionOfGod(5, God.ASMODEUS);
@@ -35,13 +35,18 @@ public class Main {
 		/*
 		 * (force these objects to initialize)
 		 */
-//		 FileLoader.parseMonsters("monsters.csv");
+		// FileLoader.parseMonsters("monsters.csv");
 		// FileLoader.parseSpells("spells.csv");
 
+		List<Monster> list = new ArrayList<Monster>();
+		for (Monster el : Monster.monsterMap.values()) {
+			if (el.getNaturalWeapons().length == 0)
+				list.add(el);
+		}
 
-		for (Monster el : Monster.monsterMap.values())
-			System.out.println(el.toStringVerbose());
-		 
+		for (Monster el : list)
+			System.out.println(el);
+
 	}
 
 	/*

@@ -288,8 +288,20 @@ public interface Creature {
 	public default void updateHitPoints() {
 		int hp = 0, conMod = getConstitutionModifier();
 
-		for (int el : getHitDice())
-			hp += el + conMod;
+		boolean isAdventurer = false;
+		Adventurer adv = null;
+		for (Class<?> el : this.getClass().getInterfaces()) {
+			if (el.equals(Adventurer.class)) {
+				isAdventurer = true;
+				adv = (Adventurer) this;
+			}
+		}
+
+		int level = isAdventurer ? adv.getLevel() : getHitDice().length;
+
+		int[] hitDice = getHitDice();
+		for (int i = 0; i < level; ++i)
+			hp += hitDice[i] + conMod;
 
 		setMaximumHitPoints(hp);
 	}

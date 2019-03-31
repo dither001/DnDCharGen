@@ -19,8 +19,8 @@ public class CharacterTest {
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.FIGHTER;
-	private static final Subclass SUBCLASS = Subclass.ELDRITCH_KNIGHT;
+	private static final DnDClass CLAZZ = DnDClass.MONK;
+	private static final Subclass SUBCLASS = Subclass.FOUR_ELEMENTS;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
 

@@ -1,6 +1,7 @@
 package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.Spell;
@@ -39,6 +40,7 @@ public abstract class Monk extends JobClass {
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
 		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAdd(Skill.getInstrumentsAndProfessions(), actor.getSpecialSkills());
 
 		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
 		actor.getWeaponSkills().add(Skill.SHORTSWORD);

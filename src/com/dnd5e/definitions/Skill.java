@@ -347,6 +347,25 @@ public enum Skill {
 		return Misc.arrayToList(INSTRUMENT_SKILLS);
 	}
 
+	public static List<Skill> getProfessionalSkills() {
+		return Misc.arrayToList(PROFESSION_SKILLS);
+	}
+
+	public static List<Skill> getInstrumentsAndProfessions() {
+		int length = INSTRUMENT_SKILLS.length + PROFESSION_SKILLS.length;
+		Skill[] array = new Skill[length];
+
+		for (int i = 0; i < length; ++i) {
+			if (i < INSTRUMENT_SKILLS.length)
+				array[i] = INSTRUMENT_SKILLS[i];
+			else
+				array[i] = PROFESSION_SKILLS[i - INSTRUMENT_SKILLS.length];
+
+		}
+
+		return Misc.arrayToList(array);
+	}
+
 	/*
 	 * ARMOR & WEAPONS
 	 */

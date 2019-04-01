@@ -232,12 +232,10 @@ public enum ClassFeature {
 			Paladin.setup(actor);
 			break;
 		case RANGER:
-			// FIXME
-			JobClass.setup(actor);
+			Ranger.setup(actor);
 			break;
 		case ROGUE:
-			// FIXME
-			JobClass.setup(actor);
+			Rogue.setup(actor);
 			break;
 		case SORCERER:
 			// FIXME
@@ -278,12 +276,10 @@ public enum ClassFeature {
 			Paladin.apply(level, actor);
 			break;
 		case RANGER:
-			// FIXME
-			JobClass.apply(level, actor);
+			Ranger.apply(level, actor);
 			break;
 		case ROGUE:
-			// FIXME
-			JobClass.apply(level, actor);
+			Rogue.apply(level, actor);
 			break;
 		case SORCERER:
 			// FIXME

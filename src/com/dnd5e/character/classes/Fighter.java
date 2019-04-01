@@ -32,7 +32,7 @@ public abstract class Fighter extends JobClass {
 		//
 		CASTING_CLASS = DnDClass.WIZARD;
 		ELDRITCH_KNIGHT_SCHOOLS = new School[] { School.ABJURATION, School.EVOCATION };
-		
+
 		//
 		FIGHTING_STYLE = new ClassFeature[] { ClassFeature.STYLE_ARCHERY, ClassFeature.STYLE_DEFENSE,
 				ClassFeature.STYLE_DUELING, ClassFeature.STYLE_GREAT_WEAPON, ClassFeature.STYLE_PROTECTION,
@@ -290,7 +290,7 @@ public abstract class Fighter extends JobClass {
 		if (list.size() > 0) {
 			Collections.shuffle(list);
 			for (int i = 0; i < n; ++i)
-				spellsKnown.add(list.get(0));
+				spellsKnown.add(list.get(i));
 		}
 	}
 }

@@ -1,11 +1,14 @@
 package com.dnd5e.character.classes;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
-import com.dnd5e.definitions.RacialFeature;
-import com.dnd5e.definitions.Skill;
-import com.dnd5e.magic.Spell;
-import com.miscellaneous.util.Misc;
+import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
+import com.dnd5e.magic.*;
+import com.miscellaneous.util.*;
 
 public abstract class Wizard extends JobClass {
 	private static final DnDClass CLAZZ;
@@ -91,10 +94,13 @@ public abstract class Wizard extends JobClass {
 		actor.getWeaponSkills().addAll(Skill.wizardWeapons());
 
 		Spell.addCantrip(3, CLAZZ, actor.getCantripsKnown());
+		actor.getInventory().addSpellbook(Spellbook.build());
 	}
 
 	public static void apply(int level, Hero actor) {
 		EnumSet<ClassFeature> features = actor.getClassFeatures();
+		int numberOfSpells = 2;
+		int spellLevel = level < 18 ? (level + 1) / 2 : 9;
 
 		Subclass subclass = actor.getSubclass();
 		switch (level) {
@@ -103,6 +109,9 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 2:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			/*
 			 * ARCANE TRADITION
 			 */
@@ -142,8 +151,14 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 3:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 4:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// NEW CANTRIP
 			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
 
@@ -153,8 +168,14 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 5:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 6:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			/*
 			 * ARCANE TRADITION
 			 */
@@ -186,16 +207,28 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 7:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 8:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_8);
 			improveAbility(actor);
 
 			break;
 		case 9:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 10:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// NEW CANTRIP
 			Spell.addCantrip(CLAZZ, actor.getCantripsKnown());
 
@@ -230,16 +263,28 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 11:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 12:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_12);
 			improveAbility(actor);
 
 			break;
 		case 13:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 14:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			/*
 			 * ARCANE TRADITION
 			 */
@@ -271,28 +316,119 @@ public abstract class Wizard extends JobClass {
 
 			break;
 		case 15:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 16:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_16);
 			improveAbility(actor);
 
 			break;
 		case 17:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			break;
 		case 18:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
+			features.add(ClassFeature.SPELL_MASTERY);
+			spellMastery(actor);
+
 			break;
 		case 19:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_19);
 			improveAbility(actor);
 
 			break;
 		case 20:
+			// UPDATE SPELLBOOK
+			updateSpellbook(numberOfSpells, spellLevel, actor);
+
+			features.add(ClassFeature.SIGNATURE_SPELL);
+			signatureSpell(actor);
+
 			break;
 		}
 
 		actor.setClassFeatures(features);
 	}
 
+	/*
+	 * PRIVATE METHODS
+	 */
+	private static void updateSpellbook(int n, int level, Hero actor) {
+		List<Spell> list = Spell.spellsList(level, CLAZZ);
+
+		// remove known spells
+		try {
+			list.removeAll(actor.getInventory().getSpellbookSpells());
+
+			if (list.size() >= n) {
+				int[] levels = Misc.initializeArray(n, level);
+				Spell[] spells = new Spell[n];
+
+				Collections.shuffle(list);
+				for (int i = 0; i < n; ++i)
+					spells[i] = list.get(i);
+
+				actor.getInventory().updateSpellbook(levels, spells);
+			}
+
+		} catch (ItemNotPresentException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void spellMastery(Hero actor) {
+		List<Spell>[] array = null;
+		List<Spell> innateSpells = null;
+
+		try {
+			array = actor.getInventory().getSpellbookSpellsByLevel();
+			innateSpells = new ArrayList<Spell>(actor.getInnateSpells().getSpellsList());
+
+			List<Spell> firstLevelSpells = array[1];
+			firstLevelSpells.removeAll(innateSpells);
+			actor.getInnateSpells().add(1, Misc.randomFromList(firstLevelSpells));
+
+			List<Spell> secondLevelSpells = array[2];
+			secondLevelSpells.removeAll(innateSpells);
+			actor.getInnateSpells().add(2, Misc.randomFromList(secondLevelSpells));
+
+		} catch (ItemNotPresentException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void signatureSpell(Hero actor) {
+		int spellLevel = 3;
+		List<Spell> innateSpells = null, spells = null;
+
+		try {
+			innateSpells = new ArrayList<Spell>(actor.getInnateSpells().getSpellsList());
+			spells = actor.getInventory().getSpellbookSpellsByLevel(spellLevel);
+
+			// remove existing
+			spells.removeAll(innateSpells);
+			Collections.shuffle(spells);
+
+			actor.getInnateSpells().add(1, spells.get(0));
+			actor.getInnateSpells().add(1, spells.get(1));
+
+		} catch (ItemNotPresentException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

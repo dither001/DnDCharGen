@@ -245,8 +245,7 @@ public enum ClassFeature {
 			Warlock.setup(actor);
 			break;
 		case WIZARD:
-			// FIXME
-			JobClass.setup(actor);
+			Wizard.setup(actor);
 			break;
 		}
 	}
@@ -287,8 +286,7 @@ public enum ClassFeature {
 			Warlock.apply(level, actor);
 			break;
 		case WIZARD:
-			// FIXME
-			JobClass.apply(level, actor);
+			Wizard.apply(level, actor);
 			break;
 		}
 	}

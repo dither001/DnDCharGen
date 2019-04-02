@@ -1,12 +1,12 @@
 package com.dnd5e.character.definitions;
 
-import com.dnd5e.character.classes.ClassFeature;
-import com.dnd5e.character.classes.DnDClass;
-import com.dnd5e.character.classes.Hero;
-import com.dnd5e.character.classes.Subclass;
+import java.util.List;
+
+import com.dnd5e.character.classes.*;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
-import com.dnd5e.gear.equipment.InventoryBuilder;
+import com.dnd5e.gear.equipment.*;
+import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
@@ -33,6 +33,15 @@ public class DnDCharacter extends Hero {
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
 
+		int spellbookSize = 0;
+		List<Spell> spellbookSpells = null;
+		try {
+			spellbookSize = inventory.getSpellbookSpells().size();
+			spellbookSpells = inventory.getSpellbookSpells();
+		} catch (ItemNotPresentException e) {
+			e.printStackTrace();
+		}
+
 		s += languages.toString() + "\n";
 		s += String.format("%s%n", commonSkills.toString());
 		s += specialSkills.size() > 0 ? String.format("%s %n", specialSkills.toString()) : "";
@@ -42,6 +51,7 @@ public class DnDCharacter extends Hero {
 		s += innateSpells.size() > 0 ? String.format("%10s %s %n", "Innate:", innateSpells.toString()) : "";
 		s += cantripsKnown.size() > 0 ? String.format("%10s %s %n", "Cantrips:", cantripsKnown.toString()) : "";
 		s += spellsKnown.size() > 0 ? String.format("(x%2d) %s %n", spellsKnown.size(), spellsKnown.toString()) : "";
+		s += spellbookSize > 0 ? String.format("%10s %s %n", "Spellbook:", spellbookSpells.toString()) : "";
 		s += String.format("(x%2d) %s %n", classFeatures.size(), classFeatures.toString());
 
 		s += inventory.toString() + "\n";

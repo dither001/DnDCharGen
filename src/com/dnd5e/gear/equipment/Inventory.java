@@ -7,6 +7,8 @@ import java.util.List;
 import com.dnd4e.definitions.*;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.magic.*;
+import com.miscellaneous.util.*;
 
 public class Inventory {
 
@@ -18,6 +20,7 @@ public class Inventory {
 	protected ArrayList<Armor> armorList;
 	protected ArrayList<Shield> shieldList;
 	protected ArrayList<Weapon> weaponList;
+	protected ArrayList<Spellbook> spellbookList;
 
 	public Inventory(Creature owner) {
 		this.owner = owner;
@@ -25,6 +28,8 @@ public class Inventory {
 		this.armorList = new ArrayList<Armor>();
 		this.shieldList = new ArrayList<Shield>();
 		this.weaponList = new ArrayList<Weapon>();
+
+		this.spellbookList = new ArrayList<Spellbook>();
 	}
 
 	/*
@@ -81,8 +86,58 @@ public class Inventory {
 		return shieldList;
 	}
 
+	protected List<Spellbook> getSpellbookList() {
+		return spellbookList;
+	}
+
 	protected List<Weapon> getWeaponList() {
 		return weaponList;
+	}
+
+	/*
+	 * SPELLBOOK METHODS
+	 */
+	public void addSpellbook(Spellbook spellbook) {
+		spellbookList.add(spellbook);
+	}
+
+	public List<Spell> getSpellbookSpells() throws ItemNotPresentException {
+		if (spellbookList.size() > 0) {
+			int book = 0;
+			return spellbookList.get(book).getSpellsList();
+		}
+
+		throw new ItemNotPresentException("spellbook");
+	}
+
+	public List<Spell> getSpellbookSpellsByLevel(int level) throws ItemNotPresentException {
+		if (spellbookList.size() > 0) {
+			int book = 0;
+			return spellbookList.get(book).getSpellsOfLevel(level);
+		}
+
+		throw new ItemNotPresentException("spellbook");
+	}
+
+	public List<Spell>[] getSpellbookSpellsByLevel() throws ItemNotPresentException {
+		if (spellbookList.size() > 0) {
+			int book = 0;
+			return spellbookList.get(book).getSpellsByLevel();
+		}
+
+		throw new ItemNotPresentException("spellbook");
+	}
+
+	public void updateSpellbook(int[] levels, Spell[] spells) throws ItemNotPresentException {
+		if (spellbookList.size() > 0) {
+			int book = 0;
+			for (int i = 0; i < spells.length; ++i)
+				spellbookList.get(book).add(levels[i], spells[i]);
+		} else {
+			// you can't update a spellbook you don't have
+			throw new ItemNotPresentException("spellbook");
+
+		}
 	}
 
 	/*

@@ -19,7 +19,7 @@ public class CharacterTest {
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.SORCERER;
+	private static final DnDClass CLAZZ = DnDClass.WIZARD;
 	private static final Subclass SUBCLASS = Subclass.ARCANE_TRICKSTER;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
@@ -114,6 +114,17 @@ public class CharacterTest {
 	/*
 	 * CLASS TESTING
 	 */
+	@Test
+	public void oneMillionCharacters() {
+		DnDCharacter toon = null;
+		for (int i = 1; i <= 1000000; ++i) {
+			toon = DnDCharacter.random();
+
+			if (i % 100000 == 0)
+				System.out.println(i);
+		}
+	}
+
 	@Test
 	public void testRandomCharacters() {
 		randomCharacter(NUMBER_TO_GENERATE);

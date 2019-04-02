@@ -9,6 +9,25 @@ import java.util.Set;
 public abstract class Misc {
 
 	/*
+	 * A - ARRAY METHODS
+	 */
+	public static int[] initializeArray(int size, int value) {
+		int[] array = new int[size];
+		for (int i = 0; i < size; ++i)
+			array[i] = value;
+
+		return array;
+	}
+
+	public static int[] initializeArray(int size, int[] values) {
+		int[] array = new int[size];
+		for (int i = 0; i < size; ++i)
+			array[i] = values[i];
+
+		return array;
+	}
+
+	/*
 	 * H - HIT DICE
 	 */
 	public static int[] setupHitDice(int n, int size) {
@@ -77,6 +96,16 @@ public abstract class Misc {
 		T choice = array[Dice.roll(array.length) - 1];
 
 		return choice;
+	}
+
+	public static <T> T randomFromList(List<T> list) {
+		Collections.shuffle(list);
+
+		return list.get(0);
+	}
+
+	public static <T> T randomFromSet(Set<T> set) {
+		return randomFromList(new ArrayList<T>(set));
 	}
 
 	/*

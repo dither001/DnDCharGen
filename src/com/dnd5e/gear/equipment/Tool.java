@@ -1,6 +1,6 @@
 package com.dnd5e.gear.equipment;
 
-import com.dnd5e.definitions.Skill;
+import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
 
 public class Tool extends Item implements Usable {

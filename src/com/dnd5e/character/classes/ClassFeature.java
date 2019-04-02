@@ -151,6 +151,7 @@ public enum ClassFeature {
 	// metamagic
 	CAREFUL_SPELL, DISTANCE_SPELL, EMPOWERED_SPELL, EXTENDED_SPELL, HEIGHTENED_SPELL, QUICKENED_SPELL, SUBTLE_SPELL, TWINNED_SPELL,
 	// draconic
+	ANCESTRY_RED, ANCESTRY_BLACK, ANCESTRY_BLUE, ANCESTRY_GREEN, ANCESTRY_WHITE, ANCESTRY_GOLD, ANCESTRY_SILVER, ANCESTRY_BRONZE, ANCESTRY_COPPER, ANCESTRY_BRASS, //
 	ANCESTRY_FIRE, ANCESTRY_COLD, ANCESTRY_LIGHTNING, ANCESTRY_ACID, ANCESTRY_POISON, DRACONIC_RESILIENCE, ELEMENTAL_AFFINITY, DRAGON_WINGS, DRACONIC_PRESENCE,
 	// wild magic
 	WILD_MAGIC_SURGE, TIDES_OF_CHAOS, BEND_LUCK, CONTROLLED_CHAOS, SPELL_BOMBARDMENT,
@@ -238,12 +239,10 @@ public enum ClassFeature {
 			Rogue.setup(actor);
 			break;
 		case SORCERER:
-			// FIXME
-			JobClass.setup(actor);
+			Sorcerer.setup(actor);
 			break;
 		case WARLOCK:
-			// FIXME
-			JobClass.setup(actor);
+			Warlock.setup(actor);
 			break;
 		case WIZARD:
 			// FIXME
@@ -282,12 +281,10 @@ public enum ClassFeature {
 			Rogue.apply(level, actor);
 			break;
 		case SORCERER:
-			// FIXME
-			JobClass.apply(level, actor);
+			Sorcerer.apply(level, actor);
 			break;
 		case WARLOCK:
-			// FIXME
-			JobClass.apply(level, actor);
+			Warlock.apply(level, actor);
 			break;
 		case WIZARD:
 			// FIXME

@@ -27,20 +27,23 @@ public class DnDCharacter extends Hero {
 	public String toStringVerbose() {
 		String s = "";
 
-		s += String.format("%s- %s %s %s %s %d (%s) %s \n", name, alignment.abbreviation(), isFemale ? "female" : "male",
-				race.abbreviation(), job.toString(), level, subclass.toString(), background.toString());
+		s += String.format("%s- %s %s %s %s %d (%s) %s \n", name, alignment.abbreviation(),
+				isFemale ? "female" : "male", race.abbreviation(), job.toString(), level, subclass.toString(),
+				background.toString());
 		s += "worships " + god.toString() + "\n";
 		s += abilityArrayToString() + "\n";
 
 		s += languages.toString() + "\n";
-		s += commonSkills.toString() + "\n";
-		s += specialSkills.size() > 0 ? specialSkills.toString() + "\n" : "";
-		s += armorSkills.size() > 0 ? armorSkills.toString() + "\n" : "";
-		s += weaponSkills.size() > 0 ? weaponSkills.toString() + "\n" : "";
-		s += features.toString() + "\n";
-		s += cantripsKnown.size() > 0 ? cantripsKnown.toString() + "\n" : "";
-		s += spellsKnown.size() > 0 ? spellsKnown.toString() + "\n" : "";
-		s += classFeatures.toString() + "\n";
+		s += String.format("(x%2d) %s%n", commonSkills.size(), commonSkills.toString());
+		s += specialSkills.size() > 0 ? String.format("(x%2d) %s %n", specialSkills.size(), specialSkills.toString())
+				: "";
+		s += armorSkills.size() > 0 ? String.format("(x%2d) %s %n", armorSkills.size(), armorSkills.toString()) : "";
+		s += weaponSkills.size() > 0 ? String.format("(x%2d) %s %n", weaponSkills.size(), weaponSkills.toString()) : "";
+		s += String.format("(x%2d) %s %n", features.size(), features.toString());
+		s += cantripsKnown.size() > 0 ? String.format("(x%2d) %s %n", cantripsKnown.size(), cantripsKnown.toString())
+				: "";
+		s += spellsKnown.size() > 0 ? String.format("(x%2d) %s %n", spellsKnown.size(), spellsKnown.toString()) : "";
+		s += String.format("(x%2d) %s %n", classFeatures.size(), classFeatures.toString());
 
 		s += inventory.toString() + "\n";
 

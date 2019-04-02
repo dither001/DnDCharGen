@@ -1,8 +1,6 @@
 package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
-import java.util.List;
-
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.Spell;
 import com.miscellaneous.util.*;

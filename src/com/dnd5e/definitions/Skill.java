@@ -431,6 +431,11 @@ public enum Skill {
 		return Misc.arrayToList(array);
 	}
 
+	public static List<Skill> wizardWeapons() {
+		Skill[] array = new Skill[] { Skill.DAGGER, Skill.DART, Skill.SLING, Skill.QUARTERSTAFF, Skill.LIGHT_CROSSBOW };
+		return Misc.arrayToList(array);
+	}
+
 	public static List<Skill> allWeaponList() {
 		return Misc.arrayToList(ALL_WEAPONS);
 	}

@@ -270,7 +270,8 @@ public enum RacialFeature {
 			features.add(DARKVISION_60);
 			features.add(HELLISH_RESISTANCE);
 			features.add(INFERNAL_LEGACY);
-			// TODO - add spell-like ability
+			// TODO - add innate spell casting
+			actor.getInnateSpells().add(1, Spell.HELLISH_REBUKE);
 
 			break;
 		}

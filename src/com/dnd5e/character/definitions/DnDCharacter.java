@@ -34,14 +34,13 @@ public class DnDCharacter extends Hero {
 		s += abilityArrayToString() + "\n";
 
 		s += languages.toString() + "\n";
-		s += String.format("(x%2d) %s%n", commonSkills.size(), commonSkills.toString());
-		s += specialSkills.size() > 0 ? String.format("(x%2d) %s %n", specialSkills.size(), specialSkills.toString())
-				: "";
-		s += armorSkills.size() > 0 ? String.format("(x%2d) %s %n", armorSkills.size(), armorSkills.toString()) : "";
-		s += weaponSkills.size() > 0 ? String.format("(x%2d) %s %n", weaponSkills.size(), weaponSkills.toString()) : "";
-		s += String.format("(x%2d) %s %n", features.size(), features.toString());
-		s += cantripsKnown.size() > 0 ? String.format("(x%2d) %s %n", cantripsKnown.size(), cantripsKnown.toString())
-				: "";
+		s += String.format("%s%n", commonSkills.toString());
+		s += specialSkills.size() > 0 ? String.format("%s %n", specialSkills.toString()) : "";
+		s += armorSkills.size() > 0 ? String.format("%s %n", armorSkills.toString()) : "";
+		s += weaponSkills.size() > 0 ? String.format("%s %n", weaponSkills.toString()) : "";
+		s += String.format("%s %n", features.toString());
+		s += innateSpells.size() > 0 ? String.format("%10s %s %n", "Innate:", innateSpells.toString()) : "";
+		s += cantripsKnown.size() > 0 ? String.format("%10s %s %n", "Cantrips:", cantripsKnown.toString()) : "";
 		s += spellsKnown.size() > 0 ? String.format("(x%2d) %s %n", spellsKnown.size(), spellsKnown.toString()) : "";
 		s += String.format("(x%2d) %s %n", classFeatures.size(), classFeatures.toString());
 

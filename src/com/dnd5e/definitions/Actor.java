@@ -43,6 +43,7 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 	/*
 	 * MAGIC USE
 	 */
+	protected InnateSpellcasting innateSpells;
 	protected EnumSet<Spell> cantripsKnown;
 	protected EnumSet<Spell> spellsKnown;
 
@@ -97,6 +98,7 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 		this.armorSkills = EnumSet.noneOf(Skill.class);
 		this.weaponSkills = EnumSet.of(Skill.NATURAL);
 
+		this.innateSpells = new InnateSpellcasting();
 		this.cantripsKnown = EnumSet.noneOf(Spell.class);
 		this.spellsKnown = EnumSet.noneOf(Spell.class);
 
@@ -314,6 +316,14 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 	/*
 	 * MAGIC-USER METHODS
 	 */
+	public InnateSpellcasting getInnateSpells() {
+		return innateSpells;
+	};
+
+	public void setInnateSpells(InnateSpellcasting innateSpells) {
+		this.innateSpells = innateSpells;
+	};
+
 	@Override
 	public EnumSet<Spell> getCantripsKnown() {
 		return cantripsKnown;

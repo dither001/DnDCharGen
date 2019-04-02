@@ -70,6 +70,10 @@ public interface Creature {
 	public EnumSet<Skill> getWeaponSkills();
 
 	public void setWeaponSkills(EnumSet<Skill> weaponSkills);
+	
+	public InnateSpellcasting getInnateSpells();
+	
+	public void setInnateSpells(InnateSpellcasting innateSpells);
 
 	public EnumSet<Spell> getCantripsKnown();
 

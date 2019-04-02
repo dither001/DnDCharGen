@@ -1,6 +1,9 @@
 package com.dnd5e.character.classes;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.*;
@@ -16,11 +19,35 @@ public abstract class Warlock extends JobClass {
 	private static final ClassFeature[] PACTS;
 	private static final ClassFeature[][] RANDOM_INVOCATIONS; // no requirements
 
+	private static final Spell[][] SPELL_LIST;
+
 	static {
 		CLAZZ = DnDClass.WARLOCK;
 		SAVING_THROWS = DnDClass.getSavingThrows(CLAZZ);
 		CLASS_SKILLS = Skill.getClassSkills(CLAZZ);
 		NUMBER_OF_SKILLS = DnDClass.getNumberOfSkills(CLAZZ);
+
+		//
+		SPELL_LIST = new Spell[][] {
+				{ Spell.BLADE_WARD, Spell.CHILL_TOUCH, Spell.ELDRITCH_BLAST, Spell.FRIENDS, Spell.MAGE_HAND,
+						Spell.MINOR_ILLUSION, Spell.POISON_SPRAY, Spell.PRESTIDIGITATION, Spell.TRUE_STRIKE },
+				{ Spell.ARMOR_OF_AGATHYS, Spell.ARMS_OF_HADAR, Spell.CHARM_PERSON, Spell.COMPREHEND_LANGUAGES,
+						Spell.EXPEDITIOUS_RETREAT, Spell.HELLISH_REBUKE, Spell.HEX, Spell.ILLUSORY_SCRIPT,
+						Spell.PROTECTION_FROM_EVIL, Spell.UNSEEN_SERVANT, Spell.WITCH_BOLT },
+				{ Spell.CLOUD_OF_DAGGERS, Spell.CROWN_OF_MADNESS, Spell.DARKNESS, Spell.ENTHRALL, Spell.HOLD_PERSON,
+						Spell.INVISIBILITY, Spell.MIRROR_IMAGE, Spell.MISTY_STEP, Spell.RAY_OF_ENFEEBLEMENT,
+						Spell.SHATTER, Spell.SPIDER_CLIMB, Spell.SUGGESTION },
+				{ Spell.COUNTERSPELL, Spell.DISPEL_MAGIC, Spell.FEAR, Spell.FLY, Spell.GASEOUS_FORM,
+						Spell.HUNGER_OF_HADAR, Spell.HYPNOTIC_PATTERN, Spell.MAGIC_CIRCLE, Spell.MAJOR_IMAGE,
+						Spell.REMOVE_CURSE, Spell.TONGUES, Spell.VAMPIRIC_TOUCH },
+				{ Spell.BANISHMENT, Spell.BLIGHT, Spell.DIMENSION_DOOR, Spell.HALLUCINATORY_TERRAIN },
+				{ Spell.CONTACT_OTHER_PLANE, Spell.DREAM, Spell.HOLD_MONSTER, Spell.SCRYING },
+				{ Spell.ARCANE_GATE, Spell.CIRCLE_OF_DEATH, Spell.CONJURE_FEY, Spell.CREATE_UNDEAD, Spell.EYEBITE,
+						Spell.FLESH_TO_STONE, Spell.MASS_SUGGESTION, Spell.TRUE_SEEING },
+				{ Spell.ETHEREALNESS, Spell.FINGER_OF_DEATH, Spell.FORCECAGE, Spell.PLANE_SHIFT },
+				{ Spell.DEMIPLANE, Spell.DOMINATE_MONSTER, Spell.FEEBLEMIND, Spell.GLIBNESS, Spell.POWER_WORD_STUN },
+				{ Spell.ASTRAL_PROJECTION, Spell.FORESIGHT, Spell.IMPRISONMENT, Spell.POWER_WORD_KILL,
+						Spell.TRUE_POLYMORPH } };
 
 		//
 		PACTS = new ClassFeature[] { ClassFeature.PACT_OF_THE_BLADE, ClassFeature.PACT_OF_THE_CHAIN,
@@ -179,10 +206,10 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 11:
 			// SPELLS KNOWN
-			// Spell.addSpell(6, CLAZZ, actor.getSpellsKnown());
+			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_11);
-			// TODO - arcanum
+			actor.getInnateSpells().add(1, addMysticArcanum(6, actor));
 			features.add(ClassFeature.WARLOCK_SLOT_3);
 
 			break;
@@ -197,10 +224,10 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 13:
 			// SPELLS KNOWN
-			// Spell.addSpell(7, CLAZZ, actor.getSpellsKnown());
+			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_13);
-			// TODO - arcanum
+			actor.getInnateSpells().add(1, addMysticArcanum(7, actor));
 
 			break;
 		case 14:
@@ -221,10 +248,10 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 15:
 			// SPELLS KNOWN
-			// Spell.addSpell(8, CLAZZ, actor.getSpellsKnown());
+			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_15);
-			// TODO - arcanum
+			actor.getInnateSpells().add(1, addMysticArcanum(8, actor));
 
 			// ADD INVOCATION
 			addWarlockInvocations(1, actor);
@@ -238,10 +265,11 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 17:
 			// SPELLS KNOWN
-			// Spell.addSpell(9, CLAZZ, actor.getSpellsKnown());
+			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_17);
-			// TODO - arcanum
+			actor.getInnateSpells().add(1, addMysticArcanum(9, actor));
+			features.add(ClassFeature.WARLOCK_SLOT_4);
 
 			break;
 		case 18:
@@ -250,6 +278,9 @@ public abstract class Warlock extends JobClass {
 
 			break;
 		case 19:
+			// SPELLS KNOWN
+			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_19);
 			improveAbility(actor);
@@ -264,9 +295,54 @@ public abstract class Warlock extends JobClass {
 		actor.setClassFeatures(features);
 	}
 
+	public static List<Spell> getSpellsList() {
+		int n = 0;
+		for (Spell[] el : SPELL_LIST)
+			n += el.length;
+
+		List<Spell> list = new ArrayList<Spell>(n);
+		for (Spell[] el : SPELL_LIST) {
+			for (Spell em : el)
+				list.add(em);
+		}
+
+		return list;
+	}
+
+	public static List<Spell> getSpellsInRange(int start, int end) {
+		List<Spell> list = new ArrayList<Spell>();
+		for (int i = start; i < end; ++i) {
+			for (Spell em : SPELL_LIST[i])
+				list.add(em);
+		}
+
+		return list;
+	}
+
 	/*
-	 * PRIVATE MATHODS
+	 * PRIVATE METHODS
 	 */
+	private static List<Spell> getListOfAvailableSpellsToLearn(Hero actor) {
+		EnumSet<Spell> spells = actor.getSpellsKnown();
+
+		List<Spell> list = getSpellsInRange(1, 5);
+		// remove all spells known
+		list.removeAll(spells);
+
+		return list;
+	}
+
+	private static Spell addMysticArcanum(int level, Hero actor) {
+		List<Spell> list = new ArrayList<Spell>();
+		for (Spell el : SPELL_LIST[level])
+			list.add(el);
+
+		list.removeAll(actor.getInnateSpells().getSpellsList());
+
+		Collections.shuffle(list);
+		return list.get(0);
+	}
+
 	private static void addWarlockInvocations(int n, Hero actor) {
 		int level = actor.getLevel(), added = 0;
 

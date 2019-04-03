@@ -150,6 +150,60 @@ public class FileLoader {
 		return map;
 	}
 
+	public static HashMap<String, Tool> parseGear(String filename) {
+		HashMap<String, Tool> map = new HashMap<String, Tool>();
+		BufferedReader input = null;
+
+		String line = "";
+		String comma = ",";
+
+		try {
+			input = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
+			// skips first character if '?'
+			input.mark(1);
+			if (input.read() != 0xFEFF)
+				input.reset();
+
+			Tool tool = null;
+			Skill skill = null;
+			int counter = 0;
+			while ((line = input.readLine()) != null) {
+				counter = 0;
+				String[] values = line.split(comma);
+
+				tool = new Tool();
+				tool.setName(values[counter++]);
+				tool.setMaterial(Material.parse(values[counter++]));
+				tool.setCostCP(Integer.valueOf(values[counter++]));
+				tool.setWeightOz(Integer.valueOf(values[counter++]));
+
+				tool.setQuantity(Integer.valueOf(values[counter++]));
+				tool.setSizeOfStack(Integer.valueOf(values[counter++]));
+
+				if (tool.getQuantity() > 1)
+					tool.setIsStackable(true);
+				else
+					tool.setIsStackable(false);
+
+				tool.setHanded(Handed.parse(values[counter++]));
+
+				// skill parser
+				skill = Skill.parseTools(values[counter++]);
+				tool.setSkills(new Skill[] { skill });
+
+				map.put(tool.getName(), tool);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserException e) {
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+
 	public static HashMap<Skill, Weapon> parseWeapons(String filename) {
 		HashMap<Skill, Weapon> map = new HashMap<Skill, Weapon>();
 		BufferedReader input = null;

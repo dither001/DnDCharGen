@@ -39,7 +39,7 @@ public class DnDCharacter extends Hero {
 			spellbookSize = inventory.getSpellbookSpells().size();
 			spellbookSpells = inventory.getSpellbookSpells();
 		} catch (ItemNotPresentException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 		s += languages.toString() + "\n";

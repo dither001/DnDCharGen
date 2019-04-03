@@ -21,6 +21,7 @@ public class Inventory {
 	protected ArrayList<Shield> shieldList;
 	protected ArrayList<Weapon> weaponList;
 	protected ArrayList<Spellbook> spellbookList;
+	protected ArrayList<Tool> gearList;
 
 	public Inventory(Creature owner) {
 		this.owner = owner;
@@ -30,6 +31,7 @@ public class Inventory {
 		this.weaponList = new ArrayList<Weapon>();
 
 		this.spellbookList = new ArrayList<Spellbook>();
+		this.gearList = new ArrayList<Tool>();
 	}
 
 	/*
@@ -42,6 +44,7 @@ public class Inventory {
 		list.addAll(armorList);
 		list.addAll(shieldList);
 		list.addAll(weaponList);
+		list.addAll(gearList);
 
 		Item item = null;
 		int total = 0;
@@ -183,6 +186,37 @@ public class Inventory {
 		return added;
 	}
 
+	protected boolean addGear(int quantity, String s) {
+		boolean added = false;
+		Tool tool = Tool.get(s);
+
+		// FIXME
+		// if (tool.getIsStackable()) {
+		// int index = containsWeapon(skill);
+		//
+		// if (index > -1) {
+		// // stack the stackable
+		// Tool w = gearList.get(index);
+		// int q = w.getQuantity();
+		// w.setQuantity(quantity + q);
+		// added = true;
+		// } else {
+		// added = gearList.add(tool);
+		// tool.setQuantity(quantity);
+		// added = true;
+		// }
+		//
+		// } else {
+		// added = gearList.add(tool);
+		// tool.setQuantity(quantity);
+		// }
+
+		added = gearList.add(tool);
+		tool.setQuantity(quantity);
+
+		return added;
+	}
+
 	protected void randomSimpleHelper() {
 		Skill weapon = Skill.randomSimpleWeapon();
 		if (weapon.equals(Skill.DART) != true)
@@ -204,7 +238,7 @@ public class Inventory {
 	protected void addAmmunition(Skill weapon) {
 		switch (weapon) {
 		case BLOWGUN:
-			addWeapon(50, Skill.NEEDLE);
+			addGear(50, "blowgun needle");
 			break;
 		case DART:
 			addWeapon(10, Skill.DART);
@@ -212,14 +246,14 @@ public class Inventory {
 		case HAND_CROSSBOW:
 		case HEAVY_CROSSBOW:
 		case LIGHT_CROSSBOW:
-			addWeapon(20, Skill.BOLT);
+			addGear(20, "crossbow bolt");
 			break;
 		case LONGBOW:
 		case SHORTBOW:
-			addWeapon(20, Skill.ARROW);
+			addGear(20, "arrow");
 			break;
 		case SLING:
-			addWeapon(20, Skill.BULLET);
+			addGear(20, "sling bullet");
 			break;
 		}
 	}

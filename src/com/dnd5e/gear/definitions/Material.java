@@ -3,10 +3,15 @@ package com.dnd5e.gear.definitions;
 import com.miscellaneous.util.*;
 
 public enum Material {
-	CLOTH, PAPER, ROPE, CRYSTAL, GLASS, ICE, WOOD, BONE, STONE, IRON, STEEL, MITHRAL, ADAMANTINE;
+	CLOTH, PAPER, ROPE, CRYSTAL, GLASS, ICE, WOOD, BONE, STONE, IRON, STEEL, MITHRAL, ADAMANTINE,
+	// SUPPLEMENTAL
+	CHALK, CERAMIC, COPPER, FEATHER, FOOD, GOLD, LEAD, PLATINUM, SILVER, SOAP, TIN, WAX;
 
-	private static final Material[] MATERIALS = { ADAMANTINE, BONE, CLOTH, CRYSTAL, GLASS, ICE, IRON, MITHRAL, PAPER,
-			ROPE, STEEL, STONE, WOOD };
+	private static final Material[] MATERIALS = {
+			// DUNGEON MASTER'S GUIDE
+			CLOTH, PAPER, ROPE, CRYSTAL, GLASS, ICE, WOOD, BONE, STONE, IRON, STEEL, MITHRAL, ADAMANTINE,
+			// SUPPLEMENTAL
+			CHALK, CERAMIC, COPPER, FEATHER, FOOD, GOLD, LEAD, PLATINUM, SILVER, SOAP, TIN, WAX };
 
 	/*
 	 * INSTANCE METHODS
@@ -16,20 +21,16 @@ public enum Material {
 	}
 
 	public int getArmorClass() {
-		int armorClass = 10;
+		int armorClass = 11;
 
 		switch (this) {
 		case ADAMANTINE:
 			armorClass = 23;
 			break;
 		case BONE:
+		case CERAMIC:
 		case WOOD:
 			armorClass = 15;
-			break;
-		case CLOTH:
-		case PAPER:
-		case ROPE:
-			armorClass = 11;
 			break;
 		case CRYSTAL:
 		case GLASS:
@@ -45,6 +46,8 @@ public enum Material {
 			break;
 		case STONE:
 			armorClass = 17;
+			break;
+		default:
 			break;
 		}
 
@@ -64,6 +67,6 @@ public enum Material {
 				return el;
 		}
 
-		throw new ParserException();
+		throw new ParserException(s);
 	}
 }

@@ -1,9 +1,19 @@
 package com.dnd5e.gear.equipment;
 
+import java.util.HashMap;
+
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
+import com.miscellaneous.util.FileLoader;
 
-public class Tool extends Item implements Usable {
+public class Tool extends Item implements Cloneable, Usable {
+	private static HashMap<String, Tool> gearMap;
+
+	static {
+		gearMap = FileLoader.parseGear("gear.csv");
+
+	}
+
 	/*
 	 * INSTANCE FIELDS
 	 */
@@ -13,7 +23,29 @@ public class Tool extends Item implements Usable {
 	public Tool() {
 		super();
 		this.handed = Handed.HEAVY;
-		this.skills = new Skill[] { Skill.UNSKILLED };
+		this.skills = new Skill[] { Skill.IMPROVISED };
+	}
+
+	/*
+	 * CLONE
+	 */
+	@Override
+	public Object clone() {
+		Tool tool = new Tool();
+
+		tool.setName(name);
+		tool.setMaterial(material);
+		tool.setCostCP(cost);
+		tool.setWeightOz(weight);
+
+		tool.setIsStackable(isStackable);
+		tool.setQuantity(quantity);
+		tool.setSizeOfStack(sizeOfStack);
+
+		tool.setHanded(handed);
+		tool.setSkills(skills);
+
+		return tool;
 	}
 
 	/*
@@ -37,6 +69,13 @@ public class Tool extends Item implements Usable {
 	@Override
 	public void setSkills(Skill[] skills) {
 		this.skills = skills;
+	}
+
+	/*
+	 * STATIC METHODS
+	 */
+	public static Tool get(String s) {
+		return (Tool) gearMap.get(s).clone();
 	}
 
 }

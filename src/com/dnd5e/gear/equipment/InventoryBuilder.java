@@ -17,12 +17,12 @@ public abstract class InventoryBuilder {
 			DnDCharacter actor = (DnDCharacter) owner;
 			EnumSet<Skill> skills = actor.getCommonSkills();
 			Inventory inv = actor.getInventory();
-	
+
 			int dice, strength, dexterity;
 			DnDClass job = actor.getJob();
 			switch (job) {
 			case BARBARIAN:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (actor.isMedium() && dice == 1) {
@@ -30,7 +30,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.randomMilitaryMelee());
 				}
-	
+
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -39,15 +39,15 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.randomSimpleWeapon());
 				}
-	
+
 				// TODO - add explorer's pack
-	
+
 				// 4 javelins
 				inv.addWeapon(4, Skill.JAVELIN);
-	
+
 				break;
 			case BARD:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(3);
 				if (dice == 1) {
@@ -56,29 +56,28 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.LONGSWORD);
 				} else {
 					// random simple weapon
-					Skill skill = Skill.randomSimpleWeapon();
-					inv.addWeapon(skill);
+					inv.addWeapon(Skill.randomSimpleWeapon());
 				}
-	
+
 				// TODO - add diplomat's or entertainer's pack
 				// TODO - add lute or any instrument
-	
-				// receive leather armor + dagger
+
+				// leather armor + dagger
 				inv.addArmor(Skill.LEATHER_ARMOR);
 				inv.addWeapon(Skill.DAGGER);
-	
+
 				break;
 			case CLERIC:
 				strength = actor.getStrength();
 				dexterity = actor.getDexterity();
-	
+
 				// FIRST CHOICE
 				if (skills.contains(Skill.WARHAMMER)) {
 					inv.addWeapon(Skill.WARHAMMER);
 				} else {
 					inv.addWeapon(Skill.MACE);
 				}
-	
+
 				// SECOND CHOICE
 				if (dexterity > 15) {
 					inv.addArmor(Skill.LEATHER_ARMOR);
@@ -87,7 +86,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addArmor(Skill.SCALE_MAIL);
 				}
-	
+
 				// THIRD CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -96,14 +95,14 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// TODO - add priest's or explorer's pack
 				// TODO - receive shield + holy symbol
 				inv.addShield();
-	
+
 				break;
 			case DRUID:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -111,7 +110,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addShield();
 				}
-	
+
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -119,15 +118,15 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.randomSimpleMelee());
 				}
-	
+
 				// TODO - receive explorer's pack + druid focus
 				inv.addArmor(Skill.LEATHER_ARMOR);
-	
+
 				break;
 			case FIGHTER:
 				strength = actor.getStrength();
 				dexterity = actor.getDexterity();
-	
+
 				// FIRST CHOICE
 				if (strength < 13 || dexterity > 15) {
 					inv.addArmor(Skill.LEATHER_ARMOR);
@@ -136,7 +135,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addArmor(Skill.CHAIN_MAIL);
 				}
-	
+
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -145,7 +144,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// THIRD CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -155,12 +154,12 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.HANDAXE);
 					inv.addWeapon(Skill.HANDAXE);
 				}
-	
+
 				// TODO - add dungeoneer's or explorer's pack
-	
+
 				break;
 			case MONK:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -168,14 +167,14 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// TODO - add dungeoneer's or explorer's pack
 				// TODO - receive 10 darts
 				inv.addAmmunition(Skill.DART);
-	
+
 				break;
 			case PALADIN:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -185,7 +184,7 @@ public abstract class InventoryBuilder {
 					inv.randomMilitaryHelper();
 					inv.randomMilitaryHelper();
 				}
-	
+
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -193,22 +192,22 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// TODO - add priest's or explorer's pack
 				// TODO - receive holy symbol
 				inv.addArmor(Skill.CHAIN_MAIL);
-	
+
 				break;
 			case RANGER:
 				dexterity = actor.getDexterity();
-	
+
 				// FIRST CHOICE
 				if (dexterity > 15) {
 					inv.addArmor(Skill.LEATHER_ARMOR);
 				} else {
 					inv.addArmor(Skill.SCALE_MAIL);
 				}
-	
+
 				dice = Dice.roll(2);
 				if (dice == 1) {
 					inv.addWeapon(Skill.SHORTSWORD);
@@ -217,17 +216,17 @@ public abstract class InventoryBuilder {
 					inv.randomSimpleHelper();
 					inv.randomSimpleHelper();
 				}
-	
+
 				// THIRD CHOICE
 				// TODO - add dungeoneer's or explorer's pack
-	
+
 				// TODO - receive longbow + 20 arrows
 				inv.addWeapon(Skill.LONGBOW);
 				inv.addAmmunition(Skill.LONGBOW);
-	
+
 				break;
 			case ROGUE:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -235,7 +234,7 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.SHORTSWORD);
 				}
-	
+
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -244,16 +243,16 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.SHORTSWORD);
 				}
-	
+
 				// TODO - add burglar's or dungeoneer's or explorer's pack
 				// TODO - receive thieves' tool
 				inv.addArmor(Skill.LEATHER_ARMOR);
 				inv.addWeapon(Skill.DAGGER);
 				inv.addWeapon(Skill.DAGGER);
-	
+
 				break;
 			case SORCERER:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -262,15 +261,15 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// TODO - component pouch or arcane focus
 				// TODO - add dungeoneer's or explorer's pack
 				inv.addWeapon(Skill.DAGGER);
 				inv.addWeapon(Skill.DAGGER);
-	
+
 				break;
 			case WARLOCK:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -279,17 +278,17 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.randomSimpleHelper();
 				}
-	
+
 				// TODO - component pouch or arcane focus
 				// TODO - add dungeoneer's or scholar's pack
 				inv.addArmor(Skill.LEATHER_ARMOR);
 				inv.randomSimpleHelper();
 				inv.addWeapon(Skill.DAGGER);
 				inv.addWeapon(Skill.DAGGER);
-	
+
 				break;
 			case WIZARD:
-	
+
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
@@ -297,17 +296,17 @@ public abstract class InventoryBuilder {
 				} else {
 					inv.addWeapon(Skill.DAGGER);
 				}
-	
+
 				// TODO - component pouch or arcane focus
 				// TODO - add scholar's or explorer's pack
 				// TODO - receive spellbook
-	
+
 				break;
 			}
-	
+
 			actor.setInventory(inv);
 		}
-	
+
 	}
 
 }

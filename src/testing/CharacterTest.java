@@ -13,13 +13,13 @@ import com.dnd5e.worlds.*;
 
 public class CharacterTest {
 	//
-	private static final int NUMBER_TO_GENERATE = 10;
+	private static final int NUMBER_TO_GENERATE = 100;
 
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.DRUID;
+	private static final DnDClass CLAZZ = DnDClass.RANGER;
 	private static final Subclass SUBCLASS = Subclass.ARCANE_TRICKSTER;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;

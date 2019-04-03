@@ -64,6 +64,23 @@ public class Inventory {
 	/*
 	 * 
 	 */
+	protected int containsGear(String s) {
+		int index = -1;
+
+		for (int i = 0; i < gearList.size(); ++i) {
+			Skill[] array = gearList.get(i).getSkills();
+			for (Skill el : array) {
+				if (el.name().equalsIgnoreCase(s))
+					index = i;
+			}
+
+			if (index != -1)
+				break;
+		}
+
+		return index;
+	}
+
 	protected int containsWeapon(Skill skill) {
 		int index = -1;
 
@@ -191,29 +208,28 @@ public class Inventory {
 		Tool tool = Tool.get(s);
 
 		// FIXME
-		// if (tool.getIsStackable()) {
-		// int index = containsWeapon(skill);
-		//
-		// if (index > -1) {
-		// // stack the stackable
-		// Tool w = gearList.get(index);
-		// int q = w.getQuantity();
-		// w.setQuantity(quantity + q);
-		// added = true;
-		// } else {
-		// added = gearList.add(tool);
-		// tool.setQuantity(quantity);
-		// added = true;
-		// }
-		//
-		// } else {
-		// added = gearList.add(tool);
-		// tool.setQuantity(quantity);
-		// }
+		if (tool.getIsStackable()) {
+			int index = containsGear(tool.name);
 
-		added = gearList.add(tool);
-		tool.setQuantity(quantity);
+			if (index > -1) {
+				// stack the stackable
+				Tool w = gearList.get(index);
+				int q = w.getQuantity();
+				w.setQuantity(quantity + q);
+				added = true;
+			} else {
+				added = gearList.add(tool);
+				tool.setQuantity(quantity);
+				added = true;
+			}
 
+		} else {
+			added = gearList.add(tool);
+			tool.setQuantity(quantity);
+		}
+
+		if (!(added))
+			System.out.println("Failed to add");
 		return added;
 	}
 

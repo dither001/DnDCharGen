@@ -1,4 +1,4 @@
-package com.dnd5e.character.classes;
+package com.dnd5e.character.definitions;
 
 import java.util.EnumSet;
 

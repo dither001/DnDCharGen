@@ -1,6 +1,5 @@
 package com.dnd5e.combat.definitions;
 
-import com.dnd5e.character.classes.Adventurer;
 import com.dnd5e.character.definitions.*;
 
 public enum Difficulty {

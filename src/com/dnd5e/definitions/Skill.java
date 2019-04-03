@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.dnd5e.character.classes.*;
+import com.dnd5e.character.definitions.DnDClass;
 import com.miscellaneous.util.*;
 
 public enum Skill {

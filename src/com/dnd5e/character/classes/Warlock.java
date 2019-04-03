@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.dnd5e.character.definitions.ClassFeature;
+import com.dnd5e.character.definitions.DnDClass;
+import com.dnd5e.character.definitions.Hero;
+import com.dnd5e.character.definitions.Subclass;
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;

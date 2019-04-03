@@ -1,9 +1,21 @@
-package com.dnd5e.character.classes;
+package com.dnd5e.character.definitions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.dnd5e.character.classes.Barbarian;
+import com.dnd5e.character.classes.Bard;
+import com.dnd5e.character.classes.Cleric;
+import com.dnd5e.character.classes.Druid;
+import com.dnd5e.character.classes.Fighter;
+import com.dnd5e.character.classes.Monk;
+import com.dnd5e.character.classes.Paladin;
+import com.dnd5e.character.classes.Ranger;
+import com.dnd5e.character.classes.Rogue;
+import com.dnd5e.character.classes.Sorcerer;
+import com.dnd5e.character.classes.Warlock;
+import com.dnd5e.character.classes.Wizard;
 import com.dnd5e.definitions.*;
 import com.miscellaneous.util.*;
 

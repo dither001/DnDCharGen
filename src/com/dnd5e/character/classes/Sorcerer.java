@@ -46,6 +46,7 @@ public abstract class Sorcerer extends JobClass {
 
 		Spell.addCantrip(4, CLAZZ, actor.getCantripsKnown());
 		Spell.addSpell(2, 1, CLAZZ, actor.getSpellsKnown());
+		actor.getSpecialSkills().add(Skill.ARCANE_FOCUS);
 	}
 
 	public static void apply(int level, Hero actor) {

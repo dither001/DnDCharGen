@@ -45,6 +45,7 @@ public abstract class Cleric extends JobClass {
 		// MAGIC SETUP
 		Spell.addCantrip(3, CLAZZ, actor.getCantripsKnown());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_CLERIC);
+		actor.getSpecialSkills().add(Skill.HOLY_SYMBOL);
 	}
 
 	public static void apply(int level, Hero actor) {

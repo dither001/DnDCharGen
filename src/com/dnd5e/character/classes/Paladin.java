@@ -35,6 +35,8 @@ public abstract class Paladin extends JobClass {
 		actor.getArmorSkills().addAll(Skill.allArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
 		actor.getWeaponSkills().addAll(Skill.allWeaponList());
+
+		actor.getSpecialSkills().add(Skill.HOLY_SYMBOL);
 	}
 
 	public static void apply(int level, Hero actor) {

@@ -31,7 +31,8 @@ public abstract class Bard extends JobClass {
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
 		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
-		Misc.tryToAdd(3, Skill.getInstruments(), actor.getSpecialSkills());
+		Misc.tryToAdd(3, Skill.getInstrumentSkillsList(), actor.getSpecialSkills());
+
 		//
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
 		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
@@ -41,6 +42,7 @@ public abstract class Bard extends JobClass {
 		Spell.addCantrip(2, CLAZZ, actor.getCantripsKnown());
 		Spell.addSpell(4, 1, CLAZZ, actor.getSpellsKnown());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_BARD);
+		actor.getSpecialSkills().add(Skill.MUSIC_FOCUS);
 	}
 
 	public static void apply(int level, Hero actor) {

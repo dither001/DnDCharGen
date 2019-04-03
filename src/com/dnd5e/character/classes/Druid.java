@@ -40,6 +40,8 @@ public abstract class Druid extends JobClass {
 		// MAGIC SETUP
 		Spell.addCantrip(2, CLAZZ, actor.getCantripsKnown());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_DRUID);
+		Misc.tryToAdd(Skill.DRUID_FOCUS, actor.getSpecialSkills());
+		actor.getSpecialSkills().add(Skill.DRUID_FOCUS);
 	}
 
 	public static void apply(int level, Hero actor) {

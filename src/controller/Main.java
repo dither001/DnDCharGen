@@ -19,13 +19,19 @@ import view.NPCFrame;
 
 public class Main {
 	public static final boolean TESTING_MESSAGES_ON = false;
+	
+	private static NPCFrame frame;
+	
+	static {
+		frame = new NPCFrame();
+	}
 
 	/*
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		new NPCFrame().setVisible(true);
-
+//		frame.addMouseListener(null);
+		frame.setVisible(true);
 	}
 
 	private static void testing() {

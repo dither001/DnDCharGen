@@ -17,7 +17,7 @@ public class Warband implements Ensemble {
 	/*
 	 * CONSTRUCTOR
 	 */
-	public Warband() {
+	private Warband() {
 		this.members = new ArrayList<Member>();
 		this.foundation = Foundation.ALIGNMENT;
 		this.morale = 11;

@@ -2,7 +2,6 @@ package com.dnd5e.character.definitions;
 
 import java.util.List;
 
-import com.dnd5e.character.classes.*;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;

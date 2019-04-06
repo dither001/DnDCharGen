@@ -68,9 +68,8 @@ public class Inventory {
 		int index = -1;
 
 		for (int i = 0; i < gearList.size(); ++i) {
-			Skill[] array = gearList.get(i).getSkills();
-			for (Skill el : array) {
-				if (el.name().equalsIgnoreCase(s))
+			for (Tool el : gearList) {
+				if (el.getName().equalsIgnoreCase(s))
 					index = i;
 			}
 

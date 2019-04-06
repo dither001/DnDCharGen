@@ -2,7 +2,6 @@ package com.dnd5e.character.definitions;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 
 public abstract class Hero extends Actor implements Adventurer {

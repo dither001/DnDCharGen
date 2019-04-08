@@ -4,16 +4,14 @@ import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
-import com.miscellaneous.util.*;
 
 public class Weapon extends Tool implements Armable, Cloneable {
 	private static HashMap<Skill, Weapon> weaponMap;
 
 	static {
-		weaponMap = FileLoader.parseWeapons("weapons.csv");
-		
+		weaponMap = new HashMap<Skill, Weapon>();
 	}
-
+	
 	/*
 	 * INSTANCE FIELDS
 	 */
@@ -164,4 +162,11 @@ public class Weapon extends Tool implements Armable, Cloneable {
 		return (Weapon) weaponMap.get(skill).clone();
 	}
 
+	public static void setupWeapons(HashMap<Skill, Weapon> weaponMap) {
+		Weapon.weaponMap = weaponMap;
+	}
+	
+	public static int mapSize() {
+		return weaponMap.size();
+	}
 }

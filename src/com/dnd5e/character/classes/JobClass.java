@@ -36,7 +36,7 @@ public abstract class JobClass {
 	 */
 	public static void setup(Hero actor) {
 
-		if (Main.TESTING_MESSAGES_ON)
+		if (Main.TESTING_MESSAGES)
 			System.out.println("Not implemented.");
 	}
 

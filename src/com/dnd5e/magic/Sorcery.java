@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.miscellaneous.util.*;
-
 public class Sorcery {
 	private static HashMap<Spell, Sorcery> spellMap;
-
+	
 	static {
-		spellMap = FileLoader.parseSpells("spells.csv");
-
+		spellMap = new HashMap<Spell, Sorcery>();
 	}
 
 	/*
@@ -194,5 +191,9 @@ public class Sorcery {
 		}
 
 		return list;
+	}
+	
+	public static void setupSpells(HashMap<Spell, Sorcery> spellMap) {
+		Sorcery.spellMap = spellMap;
 	}
 }

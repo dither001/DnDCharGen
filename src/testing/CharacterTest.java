@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.magic.*;
@@ -120,8 +119,10 @@ public class CharacterTest {
 		for (int i = 1; i <= 1000000; ++i) {
 			toon = DnDCharacter.random();
 
-			if (i % 100000 == 0)
+			if (i % 100000 == 0) {
 				System.out.println(i);
+				toon.getName();
+			}
 		}
 	}
 

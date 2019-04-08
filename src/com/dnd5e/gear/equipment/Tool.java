@@ -4,14 +4,12 @@ import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
-import com.miscellaneous.util.FileLoader;
 
 public class Tool extends Item implements Cloneable, Usable {
 	private static HashMap<String, Tool> gearMap;
-
+	
 	static {
-		gearMap = FileLoader.parseGear("gear.csv");
-
+		gearMap = new HashMap<String, Tool>();
 	}
 
 	/*
@@ -78,4 +76,7 @@ public class Tool extends Item implements Cloneable, Usable {
 		return (Tool) gearMap.get(s).clone();
 	}
 
+	public static void setupTools(HashMap<String, Tool> gearMap) {
+		Tool.gearMap = gearMap;
+	}
 }

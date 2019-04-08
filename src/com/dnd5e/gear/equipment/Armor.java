@@ -4,15 +4,14 @@ import java.util.HashMap;
 
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.definitions.*;
-import com.miscellaneous.util.*;
 
 public class Armor extends Tool implements Wearable, Cloneable {
 	private static HashMap<Skill, Armor> armorMap;
-	
+
 	static {
-		armorMap = FileLoader.parseArmor("armor.csv");
+		armorMap = new HashMap<Skill, Armor>();
 	}
-	
+
 	/*
 	 * INSTANCE FIELDS
 	 */
@@ -75,5 +74,9 @@ public class Armor extends Tool implements Wearable, Cloneable {
 	 */
 	public static Armor getArmorClone(Skill skill) {
 		return (Armor) armorMap.get(skill).clone();
+	}
+
+	public static void setupArmor(HashMap<Skill, Armor> armorMap) {
+		Armor.armorMap = armorMap;
 	}
 }

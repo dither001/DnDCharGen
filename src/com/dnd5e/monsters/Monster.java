@@ -5,18 +5,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dnd4e.definitions.BasicAttack;
+import com.dnd4e.definitions.*;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
-import com.miscellaneous.util.*;
 
 public class Monster extends Actor {
-	public static HashMap<String, Monster> monsterMap;
-
+	private static HashMap<String, Monster> monsterMap;
+	
 	static {
-		monsterMap = FileLoader.parseMonsters("monsters.csv");
-
+		monsterMap = new HashMap<String, Monster>(); 
 	}
 
 	protected Weapon[] naturalWeapons;
@@ -38,7 +36,7 @@ public class Monster extends Actor {
 
 		s += String.format("%s %s %s\n", name, size.toString(), creatureType.toString());
 		s += abilityArrayToString() + "\n";
-		
+
 		for (Attack el : getNaturalWeaponAttackList())
 			s += el + "\n";
 
@@ -78,4 +76,7 @@ public class Monster extends Actor {
 		return list;
 	}
 
+	public static void setupMonsters(HashMap<String, Monster> monsterMap) {
+		Monster.monsterMap = monsterMap;
+	}
 }

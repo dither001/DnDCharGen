@@ -111,20 +111,28 @@ public abstract class Misc {
 	/*
 	 * S - SET METHODS
 	 */
-	public static <T> boolean tryToAdd(T el, Set<T> set) {
-		return set.add(el);
+	public static <T> int tryToAdd(T el, Set<T> set) {
+		return set.add(el) ? 0 : 1;
 	}
 
-	public static <T> boolean tryToAdd(T[] array, Set<T> set) {
-		return tryToAdd(1, array, set);
+	public static <T> int tryToAddOne(T[] array, Set<T> set) {
+		return tryToAddN(1, array, set);
 	}
 
-	public static <T> boolean tryToAdd(List<T> array, Set<T> set) {
-		return tryToAdd(1, array, set);
+	public static <T> int tryToAddOne(List<T> list, Set<T> set) {
+		return tryToAddN(1, list, set);
 	}
 
-	public static <T> boolean tryToAdd(int n, T[] array, Set<T> set) {
-		boolean added = false;
+	public static <T> int tryToAddAll(T[] array, Set<T> set) {
+		return tryToAddN(array.length, array, set);
+	}
+
+	public static <T> int tryToAddAll(List<T> list, Set<T> set) {
+		return tryToAddN(list.size(), list, set);
+	}
+
+	public static <T> int tryToAddN(int n, T[] array, Set<T> set) {
+		int added = 0;
 		List<T> list = new ArrayList<T>();
 
 		for (T el : array) {
@@ -135,17 +143,18 @@ public abstract class Misc {
 		if (list.size() > n - 1) {
 			Collections.shuffle(list);
 
-			for (int i = 0; i < n; ++i)
+			for (int i = 0; i < n; ++i) {
 				set.add(list.get(i));
+				++added;
+			}
 
-			added = true;
 		}
 
-		return added;
+		return n - added;
 	}
 
-	public static <T> boolean tryToAdd(int n, List<T> array, Set<T> set) {
-		boolean added = false;
+	public static <T> int tryToAddN(int n, List<T> array, Set<T> set) {
+		int added = 0;
 		List<T> list = new ArrayList<T>();
 
 		for (T el : array) {
@@ -156,13 +165,13 @@ public abstract class Misc {
 		if (list.size() > n - 1) {
 			Collections.shuffle(list);
 
-			for (int i = 0; i < n; ++i)
+			for (int i = 0; i < n; ++i) {
 				set.add(list.get(i));
-
-			added = true;
+				++added;
+			}
 		}
 
-		return added;
+		return n - added;
 	}
 
 }

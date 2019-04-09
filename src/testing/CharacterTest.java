@@ -6,19 +6,23 @@ import org.junit.Test;
 
 import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.Armor;
+import com.dnd5e.gear.equipment.Tool;
+import com.dnd5e.gear.equipment.Weapon;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
+import com.miscellaneous.util.FileLoader;
 
 public class CharacterTest {
 	//
-	private static final int NUMBER_TO_GENERATE = 100;
+	private static final int NUMBER_TO_GENERATE = 10;
 
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;
 
 	private static final Background BACKGROUND = Background.SOLDIER;
-	private static final DnDClass CLAZZ = DnDClass.RANGER;
+	private static final DnDClass CLAZZ = DnDClass.BARBARIAN;
 	private static final Subclass SUBCLASS = Subclass.ARCANE_TRICKSTER;
 	private static final God GOD = God.ASMODEUS;
 	private static final Race RACE = Race.HALF_ORC;
@@ -27,6 +31,14 @@ public class CharacterTest {
 
 	//
 	private static final School[] SCHOOLS = { School.ABJURATION, School.EVOCATION };
+
+	private static void loadFiles() {
+		Armor.setupArmor(FileLoader.parseArmor("resources/armor.csv"));
+		Monster.setupMonsters(FileLoader.parseMonsters("resources/monsters.csv"));
+		Sorcery.setupSpells(FileLoader.parseSpells("resources/spells.csv"));
+		Tool.setupTools(FileLoader.parseGear("resources/gear.csv"));
+		Weapon.setupWeapons(FileLoader.parseWeapons("resources/weapons.csv"));
+	}
 
 	/*
 	 * ALIGNMENT TESTING
@@ -115,6 +127,8 @@ public class CharacterTest {
 	 */
 	@Test
 	public void oneMillionCharacters() {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 1; i <= 1000000; ++i) {
 			toon = DnDCharacter.random();
@@ -197,10 +211,34 @@ public class CharacterTest {
 
 	}
 
+	@Test
+	public void testSkewClass() {
+		loadFiles();
+
+		int[] array = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+		for (int i = 0; i < NUMBER_TO_GENERATE; ++i) {
+			++array[DnDCharacter.random().getJob().indexOf()];
+		}
+
+		int n = 0;
+		String s = null;
+		for (int i = 0; i < array.length; ++i) {
+			n = array[i];
+			s = String.format("(%4.1f %%)", 1.0 * n / NUMBER_TO_GENERATE * 100);
+			System.out.printf("%6d %-8s %-16s\n", n, s, DnDClass.get(i));
+		}
+
+		System.out.printf("\n");
+		printClassArray(NUMBER_TO_GENERATE, array);
+	}
+
 	/*
 	 * 
 	 */
 	private void characterOfAlignment(int n, Alignment ali) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -212,6 +250,8 @@ public class CharacterTest {
 	}
 
 	private void characterOfBackground(int n, Background job) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -223,6 +263,8 @@ public class CharacterTest {
 	}
 
 	private void characterOfClass(int n, DnDClass job) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -234,6 +276,8 @@ public class CharacterTest {
 	}
 
 	private void characterOfSubclass(int n, Subclass job) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -245,6 +289,8 @@ public class CharacterTest {
 	}
 
 	private void characterOfGod(int n, God god) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -256,6 +302,8 @@ public class CharacterTest {
 	}
 
 	private void characterOfRace(int n, Race race) {
+		loadFiles();
+
 		DnDCharacter toon = null;
 		for (int i = 0; i < n; ++i) {
 			do {
@@ -267,6 +315,8 @@ public class CharacterTest {
 	}
 
 	private void randomCharacter(int n) {
+		loadFiles();
+
 		for (int i = 0; i < n; ++i) {
 			System.out.println(DnDCharacter.random().toStringVerbose());
 			System.out.println();
@@ -284,41 +334,41 @@ public class CharacterTest {
 
 		n = array[1] + array[9] + array[10];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Charisma", s);
+		System.out.printf("%-16s %s\n", "% Charisma", s);
 
 		n = array[2] + array[3] + array[5];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Wisdom", s);
+		System.out.printf("%-16s %s\n", "% Wisdom", s);
 
 		// n = array[11];
 		// s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		// System.out.printf("%-10s %s\n", "% Intelligence", s);
+		// System.out.printf("%-16s %s\n", "% Intelligence", s);
 
 		n = array[7];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Dexterity", s);
+		System.out.printf("%-16s %s\n", "% Dexterity", s);
 
 		n = array[0] + array[4] + array[6];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Strength", s);
+		System.out.printf("%-16s %s\n", "% Strength", s);
 
 		System.out.printf("\n");
 
 		n = array[8];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Rogues", s);
+		System.out.printf("%-16s %s\n", "% Rogues", s);
 
 		n = array[4];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Fighters", s);
+		System.out.printf("%-16s %s\n", "% Fighters", s);
 
 		n = array[3] + array[11];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Druid+Wizard", s);
+		System.out.printf("%-16s %s\n", "% Druid+Wizard", s);
 
 		n = array[2];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
-		System.out.printf("%-10s %s\n", "% Clerics", s);
+		System.out.printf("%-16s %s\n", "% Clerics", s);
 	}
 
 	/*
@@ -326,6 +376,8 @@ public class CharacterTest {
 	 */
 	@Test
 	public void testSchoolFilter() {
+		loadFiles();
+
 		for (Iterator<Spell> it = Sorcery.getSpellsOfSchool(SCHOOLS).iterator(); it.hasNext();)
 			System.out.println(it.next().toString());
 	}
@@ -335,6 +387,8 @@ public class CharacterTest {
 	 */
 	@Test
 	public void getCornerstone() {
+		loadFiles();
+
 		for (Monster el : Monster.getCornerstone(CORNERSTONE))
 			System.out.println(el.toStringVerbose());
 

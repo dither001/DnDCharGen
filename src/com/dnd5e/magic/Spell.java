@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.dnd5e.character.classes.*;
 import com.dnd5e.character.definitions.DnDClass;
 import com.miscellaneous.util.*;
 
@@ -496,20 +495,20 @@ public enum Spell {
 		return Misc.arrayToList(array);
 	}
 
-	public static boolean addCantrip(DnDClass job, Set<Spell> set) {
+	public static int addCantrip(DnDClass job, Set<Spell> set) {
 		return addCantrip(1, job, set);
 	}
 
-	public static boolean addCantrip(int n, DnDClass job, Set<Spell> set) {
-		return Misc.tryToAdd(n, spellsList(0, job), set);
+	public static int addCantrip(int n, DnDClass job, Set<Spell> set) {
+		return Misc.tryToAddN(n, spellsList(0, job), set);
 	}
 
-	public static boolean addSpell(int level, DnDClass job, Set<Spell> set) {
+	public static int addSpell(int level, DnDClass job, Set<Spell> set) {
 		return addSpell(1, level, job, set);
 	}
 
-	public static boolean addSpell(int n, int level, DnDClass job, Set<Spell> set) {
-		return Misc.tryToAdd(n, spellsList(level, job), set);
+	public static int addSpell(int n, int level, DnDClass job, Set<Spell> set) {
+		return Misc.tryToAddN(n, spellsList(level, job), set);
 	}
 
 	public static void addMagicalSecret(int n, int level, Set<Spell> spellsKnown) {

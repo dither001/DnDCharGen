@@ -98,12 +98,12 @@ public enum RacialFeature {
 			if (race.equals(Race.HIGH_ELF)) {
 				actor.setIntelligence(actor.getIntelligence() + 1);
 				features.add(DARKVISION_60);
-				Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
+				Misc.tryToAddOne(Language.COMMON_LANGUAGES, actor.getLanguages());
 				//
 				features.add(ELF_WEAPON_TRAINING);
 				actor.getWeaponSkills().addAll(Misc.arrayToList(ELF_WEAPONS));
 				//
-				Misc.tryToAdd(Spell.CANTRIPS, actor.getCantripsKnown());
+				Misc.tryToAddOne(Spell.CANTRIPS, actor.getCantripsKnown());
 
 			} else if (race.equals(Race.WOOD_ELF)) {
 				actor.setWisdom(actor.getWisdom() + 1);
@@ -168,9 +168,9 @@ public enum RacialFeature {
 			features.add(DARKVISION_60);
 			features.add(FEY_ANCESTRY);
 			languages.add(Language.ELVISH);
-			Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
+			Misc.tryToAddOne(Language.COMMON_LANGUAGES, actor.getLanguages());
 			//
-			Misc.tryToAdd(2, Skill.getCommonSkills(), actor.getCommonSkills());
+			Misc.tryToAddN(2, Skill.getCommonSkills(), actor.getCommonSkills());
 
 			break;
 		case HALF_ORC:
@@ -231,7 +231,7 @@ public enum RacialFeature {
 			actor.setIntelligence(actor.getIntelligence() + 1);
 			actor.setWisdom(actor.getWisdom() + 1);
 			actor.setCharisma(actor.getCharisma() + 1);
-			Misc.tryToAdd(Language.COMMON_LANGUAGES, actor.getLanguages());
+			Misc.tryToAddOne(Language.COMMON_LANGUAGES, actor.getLanguages());
 
 			break;
 		case LIGHTFOOT_HALFLING:

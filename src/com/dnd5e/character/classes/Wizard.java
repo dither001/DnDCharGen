@@ -59,8 +59,12 @@ public abstract class Wizard extends JobClass {
 
 		// TODO - component pouch or arcane focus
 		// TODO - add scholar's or explorer's pack
-		// TODO - receive spellbook
-		inv.addSpellbook(Spellbook.build());
+
+		// spellbook
+		Spellbook spellbook = Spellbook.build();
+		spellbook.setName(actor.getName() + "'s " + "spellbook");
+
+		inv.addSpellbook(spellbook);
 
 		// FINAL STEP
 		actor.setInventory(inv);

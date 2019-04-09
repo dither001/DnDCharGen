@@ -44,6 +44,7 @@ public class Inventory {
 		list.addAll(armorList);
 		list.addAll(shieldList);
 		list.addAll(weaponList);
+		list.addAll(spellbookList);
 		list.addAll(gearList);
 
 		Item item = null;

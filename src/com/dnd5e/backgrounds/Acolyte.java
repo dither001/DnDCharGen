@@ -35,7 +35,6 @@ public class Acolyte {
 		Inventory inv = actor.getInventory();
 
 		// TODO - need "holy symbol builder"
-		inv.addGear(1, "holy symbol");
 		// TODO - need "book builder"
 		inv.addGear(1, "book");
 		// TODO - need x5 "incense"

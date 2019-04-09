@@ -85,6 +85,7 @@ public class DnDCharacter extends Hero {
 		toon.setGod(God.selectGod(toon));
 
 		RacialFeature.setup(toon);
+		Background.apply(toon);
 		ClassFeature.setup(toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));

@@ -7,7 +7,7 @@ import com.dnd5e.gear.definitions.*;
 
 public class Tool extends Item implements Cloneable, Usable {
 	private static HashMap<String, Tool> gearMap;
-	
+
 	static {
 		gearMap = new HashMap<String, Tool>();
 	}
@@ -73,7 +73,12 @@ public class Tool extends Item implements Cloneable, Usable {
 	 * STATIC METHODS
 	 */
 	public static Tool get(String s) {
-		return (Tool) gearMap.get(s).clone();
+		Tool tool = (Tool) gearMap.get(s);
+
+		if (tool == null)
+			System.out.println("Failed to fetch " + s);
+
+		return tool;
 	}
 
 	public static void setupTools(HashMap<String, Tool> gearMap) {

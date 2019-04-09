@@ -1,5 +1,6 @@
 package com.dnd5e.character.definitions;
 
+import com.dnd5e.backgrounds.Acolyte;
 import com.miscellaneous.util.*;
 
 public enum Background implements Opposite, Similar {
@@ -82,6 +83,43 @@ public enum Background implements Opposite, Similar {
 	/*
 	 * STATIC METHODS
 	 */
+	public static void apply(Hero actor) {
+		Background bg = actor.getBackground();
+
+		switch (bg) {
+		case ACOLYTE:
+			Acolyte.setup(actor);
+			break;
+		case CHARLATAN:
+			break;
+		case CRIMINAL:
+			break;
+		case ENTERTAINER:
+			break;
+		case FOLK_HERO:
+			break;
+		case GUILD_ARTISAN:
+			break;
+		case HERMIT:
+			break;
+		case NOBLE:
+			break;
+		case OUTLANDER:
+			break;
+		case SAGE:
+			break;
+		case SAILOR:
+			break;
+		case SOLDIER:
+			break;
+		case URCHIN:
+			break;
+		default:
+			break;
+		}
+
+	}
+
 	public static Background parse(String s) throws ParserException {
 		for (Background el : BACKGROUNDS) {
 			if (el.toString().compareToIgnoreCase(s) == 0)

@@ -7,6 +7,7 @@ import com.dnd5e.character.definitions.DnDClass;
 import com.dnd5e.character.definitions.Hero;
 import com.dnd5e.character.definitions.Subclass;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.Inventory;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -34,7 +35,7 @@ public abstract class Druid extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 		Misc.tryToAdd(Skill.HERBALISM_KIT, actor.getSpecialSkills());
 
 		actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
@@ -46,6 +47,39 @@ public abstract class Druid extends JobClass {
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_DRUID);
 		Misc.tryToAdd(Skill.DRUID_FOCUS, actor.getSpecialSkills());
 		actor.getSpecialSkills().add(Skill.DRUID_FOCUS);
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.randomSimpleHelper();
+
+		} else {
+			inv.addShield();
+
+		}
+
+		// SECOND CHOICE
+		dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.SCIMITAR);
+
+		} else {
+			inv.addWeapon(Skill.randomSimpleMelee());
+
+		}
+
+		// TODO - receive explorer's pack + druid focus
+		inv.addArmor(Skill.LEATHER_ARMOR);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {

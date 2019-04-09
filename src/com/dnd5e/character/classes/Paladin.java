@@ -2,11 +2,10 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
+import com.miscellaneous.util.Dice;
 import com.miscellaneous.util.Misc;
 
 public abstract class Paladin extends JobClass {
@@ -34,7 +33,7 @@ public abstract class Paladin extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.allArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
@@ -43,6 +42,42 @@ public abstract class Paladin extends JobClass {
 		actor.getSpecialSkills().add(Skill.HOLY_SYMBOL);
 	}
 
+	public static void setupStartingGear(Hero actor) {
+		/*
+		* INVENTORY
+		*/
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.randomMilitaryHelper();
+			inv.addShield();
+
+		} else {
+			inv.randomMilitaryHelper();
+			inv.randomMilitaryHelper();
+
+		}
+
+		// SECOND CHOICE
+		dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(5, Skill.JAVELIN);
+
+		} else {
+			inv.randomSimpleHelper();
+
+		}
+
+		// TODO - add priest's or explorer's pack
+		// TODO - receive holy symbol
+		inv.addArmor(Skill.CHAIN_MAIL);
+
+		// FINAL STEP
+		actor.setInventory(inv);
+		}
+	
 	public static void apply(int level, Hero actor) {
 		EnumSet<ClassFeature> features = actor.getClassFeatures();
 
@@ -55,7 +90,7 @@ public abstract class Paladin extends JobClass {
 			break;
 		case 2:
 			features.add(ClassFeature.DIVINE_SMITE);
-			Misc.tryToAdd(FIGHTING_STYLE, features);
+			Misc.tryToAddOne(FIGHTING_STYLE, features);
 
 			break;
 		case 3:

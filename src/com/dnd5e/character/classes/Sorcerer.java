@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -44,13 +42,39 @@ public abstract class Sorcerer extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getWeaponSkills().addAll(Skill.wizardWeapons());
 
 		Spell.addCantrip(4, CLAZZ, actor.getCantripsKnown());
 		Spell.addSpell(2, 1, CLAZZ, actor.getSpellsKnown());
 		actor.getSpecialSkills().add(Skill.ARCANE_FOCUS);
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
+
+		} else {
+			inv.randomSimpleHelper();
+
+		}
+
+		// TODO - component pouch or arcane focus
+		// TODO - add dungeoneer's or explorer's pack
+		inv.addWeapon(Skill.DAGGER);
+		inv.addWeapon(Skill.DAGGER);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -92,7 +116,7 @@ public abstract class Sorcerer extends JobClass {
 			Spell.addSpell(2, CLAZZ, actor.getSpellsKnown());
 
 			// METAMAGIC
-			Misc.tryToAdd(2, METAMAGIC, features);
+			Misc.tryToAddN(2, METAMAGIC, features);
 
 			break;
 		case 4:
@@ -149,7 +173,7 @@ public abstract class Sorcerer extends JobClass {
 			Spell.addSpell(5, CLAZZ, actor.getSpellsKnown());
 
 			// METAMAGIC
-			Misc.tryToAdd(METAMAGIC, features);
+			Misc.tryToAddOne(METAMAGIC, features);
 
 			break;
 		case 11:
@@ -197,7 +221,7 @@ public abstract class Sorcerer extends JobClass {
 			Spell.addSpell(9, CLAZZ, actor.getSpellsKnown());
 
 			// METAMAGIC
-			Misc.tryToAdd(METAMAGIC, features);
+			Misc.tryToAddOne(METAMAGIC, features);
 
 			break;
 		case 18:

@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.Spell;
 import com.miscellaneous.util.*;
 
@@ -42,11 +40,35 @@ public abstract class Monk extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
-		Misc.tryToAdd(Skill.getInstrumentsAndProfessions(), actor.getSpecialSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddOne(Skill.getInstrumentsAndProfessions(), actor.getSpecialSkills());
 
 		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
 		actor.getWeaponSkills().add(Skill.SHORTSWORD);
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.SHORTSWORD);
+
+		} else {
+			inv.randomSimpleHelper();
+
+		}
+
+		// TODO - add dungeoneer's or explorer's pack
+		// TODO - receive 10 darts
+		inv.addWeapon(10, Skill.DART);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -82,7 +104,7 @@ public abstract class Monk extends JobClass {
 
 			} else if (subclass.equals(Subclass.FOUR_ELEMENTS)) {
 				features.add(ClassFeature.ELEMENTAL_ATTUNEMENT);
-				Misc.tryToAdd(ELEMENTAL_DISCIPLINE[0], features);
+				Misc.tryToAddOne(ELEMENTAL_DISCIPLINE[0], features);
 
 			}
 
@@ -115,7 +137,7 @@ public abstract class Monk extends JobClass {
 				features.add(ClassFeature.SHADOW_STEP);
 
 			} else if (subclass.equals(Subclass.FOUR_ELEMENTS)) {
-				Misc.tryToAdd(ELEMENTAL_DISCIPLINE[1], features);
+				Misc.tryToAddOne(ELEMENTAL_DISCIPLINE[1], features);
 
 			}
 
@@ -153,7 +175,7 @@ public abstract class Monk extends JobClass {
 				features.add(ClassFeature.SHADOW_CLOAK);
 
 			} else if (subclass.equals(Subclass.FOUR_ELEMENTS)) {
-				Misc.tryToAdd(ELEMENTAL_DISCIPLINE[2], features);
+				Misc.tryToAddOne(ELEMENTAL_DISCIPLINE[2], features);
 
 			}
 
@@ -196,7 +218,7 @@ public abstract class Monk extends JobClass {
 				features.add(ClassFeature.OPPORTUNIST);
 
 			} else if (subclass.equals(Subclass.FOUR_ELEMENTS)) {
-				Misc.tryToAdd(ELEMENTAL_DISCIPLINE[3], features);
+				Misc.tryToAddOne(ELEMENTAL_DISCIPLINE[3], features);
 
 			}
 			break;

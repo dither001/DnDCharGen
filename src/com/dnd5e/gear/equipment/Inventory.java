@@ -162,20 +162,20 @@ public class Inventory {
 	/*
 	 * HELPER METHODS
 	 */
-	protected boolean addArmor(Skill skill) {
+	public boolean addArmor(Skill skill) {
 		return armorList.add(Armor.getArmorClone(skill));
 	}
 
-	protected boolean addShield() {
+	public boolean addShield() {
 		return shieldList.add(Shield.get(Skill.SHIELD));
 	}
 
-	protected boolean addWeapon(Skill skill) {
+	public boolean addWeapon(Skill skill) {
 		// OVERLOADS addWeapon()
 		return addWeapon(1, skill);
 	}
 
-	protected boolean addWeapon(int quantity, Skill skill) {
+	public boolean addWeapon(int quantity, Skill skill) {
 		boolean added = false;
 		Weapon weapon = Weapon.get(skill);
 
@@ -202,7 +202,7 @@ public class Inventory {
 		return added;
 	}
 
-	protected boolean addGear(int quantity, String s) {
+	public boolean addGear(int quantity, String s) {
 		boolean added = false;
 		Tool tool = Tool.get(s);
 
@@ -232,7 +232,7 @@ public class Inventory {
 		return added;
 	}
 
-	protected void randomSimpleHelper() {
+	public void randomSimpleHelper() {
 		Skill weapon = Skill.randomSimpleWeapon();
 		if (weapon.equals(Skill.DART) != true)
 			addWeapon(weapon);
@@ -241,7 +241,7 @@ public class Inventory {
 			addAmmunition(weapon);
 	}
 
-	protected void randomMilitaryHelper() {
+	public void randomMilitaryHelper() {
 		Skill weapon = Skill.randomMilitaryWeapon();
 		addWeapon(weapon);
 
@@ -250,7 +250,7 @@ public class Inventory {
 	}
 
 	@SuppressWarnings("incomplete-switch")
-	protected void addAmmunition(Skill weapon) {
+	public void addAmmunition(Skill weapon) {
 		switch (weapon) {
 		case BLOWGUN:
 			addGear(50, "blowgun needle");

@@ -5,11 +5,9 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -78,7 +76,7 @@ public abstract class Warlock extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
 
@@ -87,6 +85,34 @@ public abstract class Warlock extends JobClass {
 		Spell.addCantrip(2, CLAZZ, actor.getCantripsKnown());
 		Spell.addSpell(2, 1, CLAZZ, actor.getSpellsKnown());
 		actor.getSpecialSkills().add(Skill.ARCANE_FOCUS);
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
+
+		} else {
+			inv.randomSimpleHelper();
+
+		}
+
+		// TODO - component pouch or arcane focus
+		// TODO - add dungeoneer's or scholar's pack
+		inv.addArmor(Skill.LEATHER_ARMOR);
+		inv.randomSimpleHelper();
+		inv.addWeapon(Skill.DAGGER);
+		inv.addWeapon(Skill.DAGGER);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -211,7 +237,7 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 11:
 			// SPELLS KNOWN
-			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+			Misc.tryToAddOne(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_11);
 			actor.getInnateSpells().add(1, addMysticArcanum(6, actor));
@@ -229,7 +255,7 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 13:
 			// SPELLS KNOWN
-			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+			Misc.tryToAddOne(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_13);
 			actor.getInnateSpells().add(1, addMysticArcanum(7, actor));
@@ -253,7 +279,7 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 15:
 			// SPELLS KNOWN
-			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+			Misc.tryToAddOne(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_15);
 			actor.getInnateSpells().add(1, addMysticArcanum(8, actor));
@@ -270,7 +296,7 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 17:
 			// SPELLS KNOWN
-			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+			Misc.tryToAddOne(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			features.add(ClassFeature.MYSTIC_ARCANUM_17);
 			actor.getInnateSpells().add(1, addMysticArcanum(9, actor));
@@ -284,7 +310,7 @@ public abstract class Warlock extends JobClass {
 			break;
 		case 19:
 			// SPELLS KNOWN
-			Misc.tryToAdd(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
+			Misc.tryToAddOne(getListOfAvailableSpellsToLearn(actor), actor.getSpellsKnown());
 
 			// ABILTIY SCORE IMPROVEMENT
 			features.add(ClassFeature.ABILITY_BONUS_19);
@@ -366,35 +392,48 @@ public abstract class Warlock extends JobClass {
 			int dice = Dice.roll(6);
 
 			// 50% chance to add agonizing blast w/eldritch blast
-			added += dice < 3 && Misc.tryToAdd(ClassFeature.AGONIZING_BLAST, features) ? 1 : 0;
+			if (added < n && dice < 3)
+				added += Misc.tryToAdd(ClassFeature.AGONIZING_BLAST, features);
 
 			// 12% chance to add eldritch spear w/eldritch blast
-			added += dice == 3 && Misc.tryToAdd(ClassFeature.ELDRITCH_SPEAR, features) ? 1 : 0;
+			if (added < n && dice == 3)
+				added += Misc.tryToAdd(ClassFeature.ELDRITCH_SPEAR, features);
 
 			// 12% chance to add repelling blast w/eldritch blast
-			added += dice == 4 && Misc.tryToAdd(ClassFeature.REPELLING_BLAST, features) ? 1 : 0;
+			if (added < n && dice == 4)
+				added += Misc.tryToAdd(ClassFeature.REPELLING_BLAST, features);
 		}
 
 		if (blade) {
+			int dice = Dice.roll(5);
+
 			// 20% chance of lifedrinker w/pact of blade
-			added += level >= 12 && Dice.roll(5) == 1 && Misc.tryToAdd(ClassFeature.LIFEDRINKER_12, features) ? 1 : 0;
+			if (level >= 12 && dice == 1)
+				added += Misc.tryToAdd(ClassFeature.LIFEDRINKER_12, features);
 
 			// 20% chance of thirsting blade w/pact of blade
-			added += level >= 5 && Dice.roll(5) == 1 && Misc.tryToAdd(ClassFeature.THIRSTING_BLADE_5, features) ? 1 : 0;
+			if (level >= 5 && dice == 2)
+				added += Misc.tryToAdd(ClassFeature.THIRSTING_BLADE_5, features);
 		}
 
 		if (chain) {
+			int dice = Dice.roll(5);
+
 			// 20% chance of chains of carceri w/pact of chain
-			added += level >= 15 && Dice.roll(5) == 1 && Misc.tryToAdd(ClassFeature.CHAINS_OF_CARCERI_15, features) ? 1
-					: 0;
+			if (level >= 15 && dice == 1)
+				added += Misc.tryToAdd(ClassFeature.CHAINS_OF_CARCERI_15, features);
 
 			// 20% chance of voice of chain master w/ chain pact
-			added += Dice.roll(5) == 1 && Misc.tryToAdd(ClassFeature.VOICE_OF_THE_CHAIN_MASTER, features) ? 1 : 0;
+			if (level >= 15 && dice == 2)
+				added += Misc.tryToAdd(ClassFeature.VOICE_OF_THE_CHAIN_MASTER, features);
 		}
 
 		if (tome) {
+			int dice = Dice.roll(5);
+
 			// 20% chance of book of ancient secrets w/ tome pact
-			added += Dice.roll(5) == 1 && Misc.tryToAdd(ClassFeature.BOOK_OF_ANCIENT_SECRETS, features) ? 1 : 0;
+			if (level >= 15 && dice == 1)
+				added += Misc.tryToAdd(ClassFeature.BOOK_OF_ANCIENT_SECRETS, features);
 		}
 
 		// choose array for random invocation
@@ -411,7 +450,7 @@ public abstract class Warlock extends JobClass {
 
 		if (n - added > 0) {
 			// after random chances to add req-locked invocations
-			Misc.tryToAdd(n - added, array, features);
+			Misc.tryToAddN(n - added, array, features);
 		}
 
 		actor.setClassFeatures(features);

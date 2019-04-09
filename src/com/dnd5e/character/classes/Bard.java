@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -34,8 +32,8 @@ public abstract class Bard extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
-		Misc.tryToAdd(3, Skill.getInstrumentSkillsList(), actor.getSpecialSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(3, Skill.getInstrumentSkillsList(), actor.getSpecialSkills());
 
 		//
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
@@ -47,6 +45,37 @@ public abstract class Bard extends JobClass {
 		Spell.addSpell(4, 1, CLAZZ, actor.getSpellsKnown());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_BARD);
 		actor.getSpecialSkills().add(Skill.MUSIC_FOCUS);
+
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(3);
+		if (dice == 1) {
+			inv.addWeapon(Skill.RAPIER);
+
+		} else if (dice == 2) {
+			inv.addWeapon(Skill.LONGSWORD);
+
+		} else {
+			// random simple weapon
+			inv.addWeapon(Skill.randomSimpleWeapon());
+		}
+
+		// TODO - add diplomat's or entertainer's pack
+		// TODO - add lute or any instrument
+
+		// leather armor + dagger
+		inv.addArmor(Skill.LEATHER_ARMOR);
+		inv.addWeapon(Skill.DAGGER);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -73,7 +102,7 @@ public abstract class Bard extends JobClass {
 			 * BARD COLLEGE
 			 */
 			if (subclass.equals(Subclass.LORE_COLLEGE)) {
-				Misc.tryToAdd(3, Skill.getCommonSkills(), actor.getCommonSkills());
+				Misc.tryToAddN(3, Skill.getCommonSkills(), actor.getCommonSkills());
 				features.add(ClassFeature.CUTTING_WORDS);
 
 			} else if (subclass.equals(Subclass.VALOR_COLLEGE)) {

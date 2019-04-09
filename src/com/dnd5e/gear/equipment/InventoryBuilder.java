@@ -24,26 +24,26 @@ public abstract class InventoryBuilder {
 			case BARBARIAN:
 
 				// FIRST CHOICE
-				dice = Dice.roll(2);
-				if (actor.isMedium() && dice == 1) {
-					inv.addWeapon(Skill.GREATAXE);
-				} else {
-					inv.addWeapon(Skill.randomMilitaryMelee());
-				}
-
-				// SECOND CHOICE
-				dice = Dice.roll(2);
-				if (dice == 1) {
-					inv.addWeapon(Skill.HANDAXE);
-					inv.addWeapon(Skill.HANDAXE);
-				} else {
-					inv.addWeapon(Skill.randomSimpleWeapon());
-				}
-
-				// TODO - add explorer's pack
-
-				// 4 javelins
-				inv.addWeapon(4, Skill.JAVELIN);
+//				dice = Dice.roll(2);
+//				if (actor.isMedium() && dice == 1) {
+//					inv.addWeapon(Skill.GREATAXE);
+//				} else {
+//					inv.addWeapon(Skill.randomMilitaryMelee());
+//				}
+//
+//				// SECOND CHOICE
+//				dice = Dice.roll(2);
+//				if (dice == 1) {
+//					inv.addWeapon(Skill.HANDAXE);
+//					inv.addWeapon(Skill.HANDAXE);
+//				} else {
+//					inv.addWeapon(Skill.randomSimpleWeapon());
+//				}
+//
+//				// TODO - add explorer's pack
+//
+//				// 4 javelins
+//				inv.addWeapon(4, Skill.JAVELIN);
 
 				break;
 			case BARD:

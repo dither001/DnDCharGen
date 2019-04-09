@@ -2,6 +2,7 @@ package com.dnd5e.character.definitions;
 
 import java.util.List;
 
+import com.dnd5e.character.classes.JobClass;
 import com.dnd5e.combat.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
@@ -38,7 +39,7 @@ public class DnDCharacter extends Hero {
 			spellbookSize = inventory.getSpellbookSpells().size();
 			spellbookSpells = inventory.getSpellbookSpells();
 		} catch (ItemNotPresentException e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 		s += languages.toString() + "\n";
@@ -87,7 +88,7 @@ public class DnDCharacter extends Hero {
 		ClassFeature.setup(toon);
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
-		InventoryBuilder.setupStartingGear(toon);
+		JobClass.setupStartingGear(toon);
 
 		return toon;
 	}

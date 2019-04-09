@@ -5,11 +5,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -45,12 +43,49 @@ public abstract class Rogue extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 		actor.getSpecialSkills().add(Skill.THIEVES_TOOLS);
 
 		actor.getArmorSkills().addAll(Skill.lightArmorList());
 		actor.getWeaponSkills().addAll(Skill.simpleWeaponList());
 		actor.getWeaponSkills().addAll(Skill.rogueWeapons());
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.RAPIER);
+
+		} else {
+			inv.addWeapon(Skill.SHORTSWORD);
+
+		}
+
+		// SECOND CHOICE
+		dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.SHORTBOW);
+			inv.addAmmunition(Skill.SHORTBOW);
+
+		} else {
+			inv.addWeapon(Skill.SHORTSWORD);
+
+		}
+
+		// TODO - add burglar's or dungeoneer's or explorer's pack
+		// TODO - receive thieves' tool
+		inv.addArmor(Skill.LEATHER_ARMOR);
+		inv.addWeapon(Skill.DAGGER);
+		inv.addWeapon(Skill.DAGGER);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -78,7 +113,7 @@ public abstract class Rogue extends JobClass {
 				features.add(ClassFeature.SECOND_STORY_WORK);
 
 			} else if (subclass.equals(Subclass.ASSASSIN)) {
-				Misc.tryToAdd(ASSASSIN_SKILLS, actor.getSpecialSkills());
+				Misc.tryToAddAll(ASSASSIN_SKILLS, actor.getSpecialSkills());
 				features.add(ClassFeature.ASSASSINATE);
 
 			} else if (subclass.equals(Subclass.ARCANE_TRICKSTER)) {

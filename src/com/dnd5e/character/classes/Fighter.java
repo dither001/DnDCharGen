@@ -5,11 +5,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -57,11 +55,54 @@ public abstract class Fighter extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.allArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
 		actor.getWeaponSkills().addAll(Skill.allWeaponList());
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		int strength = actor.getStrength();
+		int dexterity = actor.getDexterity();
+
+		// FIRST CHOICE
+		if (strength < 13 || dexterity > 15) {
+			inv.addArmor(Skill.LEATHER_ARMOR);
+			inv.addWeapon(Skill.LONGBOW);
+			inv.addAmmunition(Skill.LONGBOW);
+		} else {
+			inv.addArmor(Skill.CHAIN_MAIL);
+		}
+
+		// SECOND CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.randomMilitaryHelper();
+			inv.addShield();
+		} else {
+			inv.randomSimpleHelper();
+		}
+
+		// THIRD CHOICE
+		dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
+		} else {
+			inv.addWeapon(Skill.HANDAXE);
+			inv.addWeapon(Skill.HANDAXE);
+		}
+
+		// TODO - add dungeoneer's or explorer's pack
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -71,7 +112,7 @@ public abstract class Fighter extends JobClass {
 		switch (level) {
 		case 1:
 			features.add(ClassFeature.FIGHTING_STYLE);
-			Misc.tryToAdd(FIGHTING_STYLE, features);
+			Misc.tryToAddOne(FIGHTING_STYLE, features);
 			features.add(ClassFeature.SECOND_WIND);
 
 			break;
@@ -90,7 +131,7 @@ public abstract class Fighter extends JobClass {
 				features.add(ClassFeature.COMBAT_SUPERIORITY);
 				features.add(ClassFeature.SUPERIORITY_D8);
 				features.add(ClassFeature.SUPERIORITY_DICE_4);
-				Misc.tryToAdd(3, MANEUVERS, features);
+				Misc.tryToAddN(3, MANEUVERS, features);
 				features.add(ClassFeature.STUDENT_OF_WAR);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
@@ -131,7 +172,7 @@ public abstract class Fighter extends JobClass {
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_DICE_5);
-				Misc.tryToAdd(2, MANEUVERS, features);
+				Misc.tryToAddN(2, MANEUVERS, features);
 				features.add(ClassFeature.KNOW_YOUR_ENEMY);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
@@ -161,11 +202,11 @@ public abstract class Fighter extends JobClass {
 			 */
 			if (subclass.equals(Subclass.CHAMPION)) {
 				features.add(ClassFeature.ADDITIONAL_FIGHTING_STYLE);
-				Misc.tryToAdd(FIGHTING_STYLE, features);
+				Misc.tryToAddOne(FIGHTING_STYLE, features);
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_D10);
-				Misc.tryToAdd(2, MANEUVERS, features);
+				Misc.tryToAddN(2, MANEUVERS, features);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {
 				features.add(ClassFeature.ELDRITCH_STRIKE);
@@ -217,7 +258,7 @@ public abstract class Fighter extends JobClass {
 
 			} else if (subclass.equals(Subclass.BATTLE_MASTER)) {
 				features.add(ClassFeature.SUPERIORITY_DICE_6);
-				Misc.tryToAdd(MANEUVERS, features);
+				Misc.tryToAddOne(MANEUVERS, features);
 				features.add(ClassFeature.RELENTLESS_FIGHTER);
 
 			} else if (subclass.equals(Subclass.ELDRITCH_KNIGHT)) {

@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.miscellaneous.util.*;
 
 public abstract class Barbarian extends JobClass {
@@ -33,12 +31,48 @@ public abstract class Barbarian extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
 		actor.getWeaponSkills().addAll(Skill.allWeaponList());
 
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (actor.isMedium() && dice == 1) {
+			inv.addWeapon(Skill.GREATAXE);
+
+		} else {
+			inv.addWeapon(Skill.randomMilitaryMelee());
+
+		}
+
+		// SECOND CHOICE
+		dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.HANDAXE);
+			inv.addWeapon(Skill.HANDAXE);
+
+		} else {
+			inv.addWeapon(Skill.randomSimpleWeapon());
+
+		}
+
+		// TODO - add explorer's pack
+
+		// 4 javelins
+		inv.addWeapon(4, Skill.JAVELIN);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {

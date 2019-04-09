@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -40,7 +38,7 @@ public abstract class Cleric extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
@@ -50,6 +48,53 @@ public abstract class Cleric extends JobClass {
 		Spell.addCantrip(3, CLAZZ, actor.getCantripsKnown());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_CLERIC);
 		actor.getSpecialSkills().add(Skill.HOLY_SYMBOL);
+
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+		int strength = actor.getStrength();
+		int dexterity = actor.getDexterity();
+
+		// FIRST CHOICE
+		if (actor.getWeaponSkills().contains(Skill.WARHAMMER)) {
+			inv.addWeapon(Skill.WARHAMMER);
+
+		} else {
+			inv.addWeapon(Skill.MACE);
+
+		}
+
+		// SECOND CHOICE
+		if (dexterity > 15) {
+			inv.addArmor(Skill.LEATHER_ARMOR);
+
+		} else if (actor.getArmorSkills().contains(Skill.CHAIN_MAIL) && strength > 12) {
+			inv.addArmor(Skill.CHAIN_MAIL);
+
+		} else {
+			inv.addArmor(Skill.SCALE_MAIL);
+
+		}
+
+		// THIRD CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
+		} else {
+			inv.randomSimpleHelper();
+		}
+
+		// TODO - add priest's or explorer's pack
+		// TODO - receive shield + holy symbol
+		inv.addShield();
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -74,8 +119,8 @@ public abstract class Cleric extends JobClass {
 				features.add(ClassFeature.DIVINE_DOMAIN_KNOWLEDGE);
 				features.add(ClassFeature.BLESSINGS_OF_KNOWLEDGE);
 				//
-				Misc.tryToAdd(2, Language.NONSECRET_LANGUAGES, actor.getLanguages());
-				Misc.tryToAdd(2, KNOWLEDGE_DOMAIN, actor.getCommonSkills());
+				Misc.tryToAddN(2, Language.NONSECRET_LANGUAGES, actor.getLanguages());
+				Misc.tryToAddN(2, KNOWLEDGE_DOMAIN, actor.getCommonSkills());
 
 				break;
 			case LIFE:
@@ -266,7 +311,7 @@ public abstract class Cleric extends JobClass {
 			break;
 		case 10:
 			// NEW CANTRIP
-			Misc.tryToAdd(Spell.CLERIC_SPELLS[0], actor.getCantripsKnown());
+			Misc.tryToAddOne(Spell.CLERIC_SPELLS[0], actor.getCantripsKnown());
 			//
 			features.add(ClassFeature.DIVINE_INTERVENTION_10);
 

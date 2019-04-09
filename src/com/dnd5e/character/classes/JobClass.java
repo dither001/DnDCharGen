@@ -2,9 +2,7 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 
 import controller.*;
 
@@ -38,6 +36,50 @@ public abstract class JobClass {
 
 		if (Main.TESTING_MESSAGES)
 			System.out.println("Not implemented.");
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		DnDClass job = actor.getJob();
+		switch (job) {
+		case BARBARIAN:
+			Barbarian.setupStartingGear(actor);
+			break;
+		case BARD:
+			Bard.setupStartingGear(actor);
+			break;
+		case CLERIC:
+			Cleric.setupStartingGear(actor);
+			break;
+		case DRUID:
+			Druid.setupStartingGear(actor);
+			break;
+		case FIGHTER:
+			Fighter.setupStartingGear(actor);
+			break;
+		case MONK:
+			Monk.setupStartingGear(actor);
+			break;
+		case PALADIN:
+			Paladin.setupStartingGear(actor);
+			break;
+		case RANGER:
+			Ranger.setupStartingGear(actor);
+			break;
+		case ROGUE:
+			Rogue.setupStartingGear(actor);
+			break;
+		case SORCERER:
+			Sorcerer.setupStartingGear(actor);
+			break;
+		case WARLOCK:
+			Warlock.setupStartingGear(actor);
+			break;
+		case WIZARD:
+			Wizard.setupStartingGear(actor);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@SuppressWarnings("unused")

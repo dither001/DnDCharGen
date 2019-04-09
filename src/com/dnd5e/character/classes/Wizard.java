@@ -5,10 +5,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
 import com.dnd5e.magic.*;
@@ -35,14 +32,38 @@ public abstract class Wizard extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getWeaponSkills().addAll(Skill.wizardWeapons());
 
 		Spell.addCantrip(3, CLAZZ, actor.getCantripsKnown());
-		actor.getInventory().addSpellbook(Spellbook.build());
 		actor.getClassFeatures().add(ClassFeature.RITUAL_CASTING_WIZARD);
 		actor.getSpecialSkills().add(Skill.ARCANE_FOCUS);
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		// FIRST CHOICE
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.QUARTERSTAFF);
+
+		} else {
+			inv.addWeapon(Skill.DAGGER);
+
+		}
+
+		// TODO - component pouch or arcane focus
+		// TODO - add scholar's or explorer's pack
+		// TODO - receive spellbook
+		inv.addSpellbook(Spellbook.build());
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {

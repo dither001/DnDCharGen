@@ -2,11 +2,9 @@ package com.dnd5e.character.classes;
 
 import java.util.EnumSet;
 
-import com.dnd5e.character.definitions.ClassFeature;
-import com.dnd5e.character.definitions.DnDClass;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.character.definitions.Subclass;
+import com.dnd5e.character.definitions.*;
 import com.dnd5e.definitions.*;
+import com.dnd5e.gear.equipment.*;
 import com.miscellaneous.util.*;
 
 public abstract class Ranger extends JobClass {
@@ -54,11 +52,51 @@ public abstract class Ranger extends JobClass {
 		actor.getFeatures().addAll(Misc.arrayToList(SAVING_THROWS));
 
 		// SKILLS & WEAPON/ARMOR PROFICIENCY
-		Misc.tryToAdd(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
+		Misc.tryToAddN(NUMBER_OF_SKILLS, CLASS_SKILLS, actor.getCommonSkills());
 
 		actor.getArmorSkills().addAll(Skill.lightAndMediumArmorList());
 		actor.getArmorSkills().add(Skill.SHIELD);
 		actor.getWeaponSkills().addAll(Skill.allWeaponList());
+	}
+
+	public static void setupStartingGear(Hero actor) {
+		/*
+		 * INVENTORY
+		 */
+		Inventory inv = actor.getInventory();
+
+		int strength = actor.getDexterity();
+		int dexterity = actor.getDexterity();
+
+		// FIRST CHOICE
+		if (dexterity > 15 || strength < 10) {
+			inv.addArmor(Skill.LEATHER_ARMOR);
+
+		} else {
+			inv.addArmor(Skill.SCALE_MAIL);
+
+		}
+
+		int dice = Dice.roll(2);
+		if (dice == 1) {
+			inv.addWeapon(Skill.SHORTSWORD);
+			inv.addWeapon(Skill.SHORTSWORD);
+
+		} else {
+			inv.randomSimpleHelper();
+			inv.randomSimpleHelper();
+
+		}
+
+		// THIRD CHOICE
+		// TODO - add dungeoneer's or explorer's pack
+
+		// TODO - receive longbow + 20 arrows
+		inv.addWeapon(Skill.LONGBOW);
+		inv.addAmmunition(Skill.LONGBOW);
+
+		// FINAL STEP
+		actor.setInventory(inv);
 	}
 
 	public static void apply(int level, Hero actor) {
@@ -68,12 +106,12 @@ public abstract class Ranger extends JobClass {
 		switch (level) {
 		case 1:
 			// FAVORED ENEMY & TERRAIN
-			Misc.tryToAdd(RANGER_ENEMY, features);
-			Misc.tryToAdd(RANGER_TERRAIN, features);
+			Misc.tryToAddOne(RANGER_ENEMY, features);
+			Misc.tryToAddOne(RANGER_TERRAIN, features);
 
 			break;
 		case 2:
-			Misc.tryToAdd(FIGHTING_STYLE, features);
+			Misc.tryToAddOne(FIGHTING_STYLE, features);
 
 			break;
 		case 3:
@@ -83,7 +121,7 @@ public abstract class Ranger extends JobClass {
 			 * RANGER ARCHETYPE
 			 */
 			if (subclass.equals(Subclass.HUNTER)) {
-				Misc.tryToAdd(HUNTER_TECHNIQUES[0], features);
+				Misc.tryToAddOne(HUNTER_TECHNIQUES[0], features);
 
 			} else if (subclass.equals(Subclass.BEAST_MASTER)) {
 				features.add(ClassFeature.RANGERS_COMPANION);
@@ -103,8 +141,8 @@ public abstract class Ranger extends JobClass {
 			break;
 		case 6:
 			// FAVORED ENEMY & TERRAIN
-			Misc.tryToAdd(RANGER_ENEMY, features);
-			Misc.tryToAdd(RANGER_TERRAIN, features);
+			Misc.tryToAddOne(RANGER_ENEMY, features);
+			Misc.tryToAddOne(RANGER_TERRAIN, features);
 
 			break;
 		case 7:
@@ -113,7 +151,7 @@ public abstract class Ranger extends JobClass {
 			 * RANGER ARCHETYPE
 			 */
 			if (subclass.equals(Subclass.HUNTER)) {
-				Misc.tryToAdd(HUNTER_TECHNIQUES[1], features);
+				Misc.tryToAddOne(HUNTER_TECHNIQUES[1], features);
 
 			} else if (subclass.equals(Subclass.BEAST_MASTER)) {
 				features.add(ClassFeature.BEAST_TRAINING);
@@ -133,7 +171,7 @@ public abstract class Ranger extends JobClass {
 			break;
 		case 10:
 			// FAVORED TERRAIN
-			Misc.tryToAdd(RANGER_TERRAIN, features);
+			Misc.tryToAddOne(RANGER_TERRAIN, features);
 
 			break;
 		case 11:
@@ -142,7 +180,7 @@ public abstract class Ranger extends JobClass {
 			 * RANGER ARCHETYPE
 			 */
 			if (subclass.equals(Subclass.HUNTER)) {
-				Misc.tryToAdd(HUNTER_TECHNIQUES[2], features);
+				Misc.tryToAddOne(HUNTER_TECHNIQUES[2], features);
 
 			} else if (subclass.equals(Subclass.BEAST_MASTER)) {
 				features.add(ClassFeature.BESTIAL_FURY);
@@ -160,7 +198,7 @@ public abstract class Ranger extends JobClass {
 			break;
 		case 14:
 			// FAVORED ENEMY
-			Misc.tryToAdd(RANGER_ENEMY, features);
+			Misc.tryToAddOne(RANGER_ENEMY, features);
 
 			features.add(ClassFeature.VANISH);
 
@@ -171,7 +209,7 @@ public abstract class Ranger extends JobClass {
 			 * RANGER ARCHETYPE
 			 */
 			if (subclass.equals(Subclass.HUNTER)) {
-				Misc.tryToAdd(HUNTER_TECHNIQUES[3], features);
+				Misc.tryToAddOne(HUNTER_TECHNIQUES[3], features);
 
 			} else if (subclass.equals(Subclass.BEAST_MASTER)) {
 				features.add(ClassFeature.SHARE_SPELLS);

@@ -5,7 +5,7 @@ import com.dnd5e.definitions.*;
 import com.dnd5e.gear.equipment.*;
 import com.miscellaneous.util.*;
 
-public class Acolyte {
+public abstract class Acolyte {
 	private static final Background BACKGROUND;
 	private static final Skill[] SKILLS;
 
@@ -26,8 +26,10 @@ public class Acolyte {
 
 		// SKILLS
 		int r = Misc.tryToAddAll(SKILLS, actor.getCommonSkills());
-		if (r > 0)
-			Misc.tryToAddN(r, Skill.getCommonSkills(), actor.getCommonSkills());
+		if (r > 0) {
+			// ensure the N/PC gets the requisite number of skills
+			Misc.tryToAddN(r, Skill.getCommonSkills(), actor.getCommonSkills());			
+		}
 
 		/*
 		 * INVENTORY

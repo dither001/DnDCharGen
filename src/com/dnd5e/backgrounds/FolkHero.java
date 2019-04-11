@@ -1,8 +1,8 @@
 package com.dnd5e.backgrounds;
 
-import com.dnd5e.character.definitions.*;
-import com.dnd5e.definitions.*;
-import com.dnd5e.gear.equipment.Inventory;
+import com.dnd5e.characters.*;
+import com.dnd5e.definitions.rules.*;
+import com.dnd5e.equipment.Inventory;
 import com.miscellaneous.util.Misc;
 
 public abstract class FolkHero {

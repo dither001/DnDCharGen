@@ -1,8 +1,10 @@
 package com.dnd4e.definitions;
 
-import com.dnd5e.combat.definitions.*;
-import com.dnd5e.definitions.*;
-import com.dnd5e.gear.equipment.*;
+import com.dnd5e.characters.Creature;
+import com.dnd5e.characters.Skill;
+import com.dnd5e.definitions.combat.*;
+import com.dnd5e.definitions.rules.*;
+import com.dnd5e.equipment.*;
 
 public class BasicAttack implements Attack {
 	protected Creature attacker;

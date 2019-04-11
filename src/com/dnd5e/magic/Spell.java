@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.dnd5e.character.definitions.DnDClass;
+import com.dnd5e.characters.DnDClass;
 import com.miscellaneous.util.*;
 
 public enum Spell {

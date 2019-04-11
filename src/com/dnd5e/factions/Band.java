@@ -2,7 +2,8 @@ package com.dnd5e.factions;
 
 import java.util.Collection;
 
-import com.dnd5e.definitions.*;
+import com.dnd5e.characters.Creature;
+import com.dnd5e.definitions.rules.*;
 
 public interface Band extends Ensemble {
 

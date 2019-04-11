@@ -7,9 +7,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import com.dnd5e.definitions.*;
-import com.dnd5e.gear.definitions.*;
-import com.dnd5e.gear.equipment.*;
+import com.dnd5e.characters.Skill;
+import com.dnd5e.definitions.gear.*;
+import com.dnd5e.definitions.rules.*;
+import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 

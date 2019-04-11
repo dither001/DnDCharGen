@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.dnd5e.character.definitions.*;
-import com.dnd5e.definitions.*;
-import com.dnd5e.gear.equipment.Armor;
-import com.dnd5e.gear.equipment.Tool;
-import com.dnd5e.gear.equipment.Weapon;
+import com.dnd5e.characters.*;
+import com.dnd5e.definitions.rules.*;
+import com.dnd5e.equipment.Armor;
+import com.dnd5e.equipment.Tool;
+import com.dnd5e.equipment.Weapon;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;

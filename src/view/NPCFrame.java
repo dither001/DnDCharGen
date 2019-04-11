@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.dnd5e.character.definitions.*;
+import com.dnd5e.characters.*;
 
 import controller.Main;
 import model.*;

@@ -1,9 +1,9 @@
 package com.dnd5e.backgrounds;
 
-import com.dnd5e.character.definitions.Background;
-import com.dnd5e.character.definitions.Hero;
-import com.dnd5e.definitions.Skill;
-import com.dnd5e.gear.equipment.Inventory;
+import com.dnd5e.characters.Background;
+import com.dnd5e.characters.Hero;
+import com.dnd5e.characters.Skill;
+import com.dnd5e.equipment.Inventory;
 import com.miscellaneous.util.Misc;
 
 public abstract class Urchin {

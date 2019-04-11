@@ -4,27 +4,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dnd5e.gear.equipment.Armor;
-import com.dnd5e.gear.equipment.Tool;
-import com.dnd5e.gear.equipment.Weapon;
 import com.dnd5e.magic.Sorcery;
 import com.dnd5e.monsters.Monster;
 import com.miscellaneous.util.FileLoader;
-
-//import java.util.Iterator;
-//import java.util.List;
-//
-//import com.dnd4e.definitions.*;
-//import com.dnd5e.character.classes.*;
-import com.dnd5e.character.definitions.*;
-//import com.dnd5e.definitions.*;
-//import com.dnd5e.factions.*;
-//import com.dnd5e.gear.equipment.*;
-//import com.dnd5e.magic.*;
-//import com.dnd5e.monsters.*;
-//import com.dnd5e.worlds.*;
-//import com.miscellaneous.util.*;
-import com.dnd5e.definitions.Skill;
+import com.dnd5e.characters.*;
+import com.dnd5e.equipment.Armor;
+import com.dnd5e.equipment.Tool;
+import com.dnd5e.equipment.Weapon;
 
 import view.NPCFrame;
 

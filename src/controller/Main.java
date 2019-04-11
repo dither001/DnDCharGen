@@ -24,6 +24,7 @@ import com.dnd5e.character.definitions.*;
 //import com.dnd5e.monsters.*;
 //import com.dnd5e.worlds.*;
 //import com.miscellaneous.util.*;
+import com.dnd5e.definitions.Skill;
 
 import view.NPCFrame;
 
@@ -40,7 +41,7 @@ public class Main {
 		TESTING_MESSAGES = false;
 
 		NPCS_TO_ROLL = 25;
-		
+
 		Armor.setupArmor(FileLoader.parseArmor("resources/armor.csv"));
 		Monster.setupMonsters(FileLoader.parseMonsters("resources/monsters.csv"));
 		Sorcery.setupSpells(FileLoader.parseSpells("resources/spells.csv"));
@@ -52,35 +53,21 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
-		// frame.addMouseListener(null);
-		loadFiles();
-		npcList = rollCharacters(NPCS_TO_ROLL);
 
-		frame = new NPCFrame();
-		frame.setVisible(true);
-	}
-
-	public static void loadFiles() {
-//		Armor.setupArmor(FileLoader.parseArmor("resources/armor.csv"));
-//		Monster.setupMonsters(FileLoader.parseMonsters("resources/monsters.csv"));
-//		Sorcery.setupSpells(FileLoader.parseSpells("resources/spells.csv"));
-//		Tool.setupTools(FileLoader.parseGear("resources/gear.csv"));
-//		Weapon.setupWeapons(FileLoader.parseWeapons("resources/weapons.csv"));
-
-		// List<Monster> list = new ArrayList<Monster>();
-		// for (Monster el : Monster.monsterMap.values()) {
-		// if (el.getNaturalWeapons().length == 0)
-		// list.add(el);
-		// }
+		// for (Skill el : Skill.getInstrumentSkillsList())
+		// System.out.println(el.toString().replace("_", " ").toLowerCase());
 		//
-		// for (Monster el : list)
-		// System.out.println(el);
+		// for (Skill el : Skill.getInstrumentSkillsList())
+		// System.out.println(el.toString());
 
-		// Encounter.redistribute(new Monster[19]);
+		// frame.addMouseListener(null);
 
 		/*
-		 * (force these objects to initialize)
+		 * START
 		 */
+		npcList = rollCharacters(NPCS_TO_ROLL);
+		frame = new NPCFrame();
+		frame.setVisible(true);
 	}
 
 	public static List<DnDCharacter> rollCharacters(int n) {

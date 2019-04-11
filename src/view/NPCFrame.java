@@ -103,27 +103,25 @@ public class NPCFrame extends JFrame {
 
 	private static void launchCharacterDetail() {
 		if (npcTable.getRowCount() > 0) {
+			StringBuilder sb = new StringBuilder();
+
+			/*
+			 * Gets character instance from selected row; validation step to ensure that
+			 * sorting the table hasn't altered the index (of the character instance)
+			 */
+			int index = npcTable.getSelectedRow();
+			if (index >= 0)
+				sb.append(tableModel.getInstance(npcTable.convertRowIndexToModel(index)).toStringVerbose());
+
 			if (detail.isVisible()) {
-				StringBuilder sb = new StringBuilder();
-
-				int index = npcTable.convertRowIndexToModel(npcTable.getSelectedRow());
-				sb.append(tableModel.getInstance(index).toStringVerbose());
-
 				pane.setText(sb.toString());
 				detail.setContentPane(pane);
 
 			} else {
-				detail = new NPCDetailFrame();
-
-				StringBuilder sb = new StringBuilder();
-				// sb.append(tableModel.getInstance(npcTable.getSelectedRow()).toStringVerbose());
-				int index = npcTable.convertRowIndexToModel(npcTable.getSelectedRow());
-				sb.append(tableModel.getInstance(index).toStringVerbose());
-
 				pane = new JTextPane();
 				pane.setText(sb.toString());
-
 				detail.setContentPane(pane);
+
 				detail.setVisible(true);
 
 			}

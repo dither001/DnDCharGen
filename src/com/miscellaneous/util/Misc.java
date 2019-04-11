@@ -89,6 +89,13 @@ public abstract class Misc {
 		return list;
 	}
 
+	public static <T> List<T> filterSetFor(List<T> array, Set<T> set) {
+		List<T> list = new ArrayList<T>(set);
+		list.retainAll(array);
+
+		return list;
+	}
+
 	/*
 	 * R - RANDOM METHODS
 	 */

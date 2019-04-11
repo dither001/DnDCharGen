@@ -332,10 +332,10 @@ public enum ClassFeature {
 		// remove duplicates
 		list.removeAll(Misc.filterSetFor(EXPERTISE, actor.getClassFeatures()));
 
-		if (list.size() > 0) {
+		if (list.size() >= n) {
 			Collections.shuffle(list);
 			for (int i = 0; i < n; ++i)
-				actor.getClassFeatures().add(list.get(0));
+				actor.getClassFeatures().add(list.get(i));
 		}
 	}
 

@@ -1,6 +1,6 @@
 package com.dnd5e.character.definitions;
 
-import com.dnd5e.backgrounds.Acolyte;
+import com.dnd5e.backgrounds.*;
 import com.miscellaneous.util.*;
 
 public enum Background implements Opposite, Similar {
@@ -91,28 +91,40 @@ public enum Background implements Opposite, Similar {
 			Acolyte.setup(actor);
 			break;
 		case CHARLATAN:
+			Charlatan.setup(actor);
 			break;
 		case CRIMINAL:
+			Criminal.setup(actor);
 			break;
 		case ENTERTAINER:
+			Entertainer.setup(actor);
 			break;
 		case FOLK_HERO:
+			FolkHero.setup(actor);
 			break;
 		case GUILD_ARTISAN:
+			GuildArtisan.setup(actor);
 			break;
 		case HERMIT:
+			Hermit.setup(actor);
 			break;
 		case NOBLE:
+			Noble.setup(actor);
 			break;
 		case OUTLANDER:
+			Outlander.setup(actor);
 			break;
 		case SAGE:
+			Sage.setup(actor);
 			break;
 		case SAILOR:
+			Sailor.setup(actor);
 			break;
 		case SOLDIER:
+			Soldier.setup(actor);
 			break;
 		case URCHIN:
+			Urchin.setup(actor);
 			break;
 		default:
 			break;

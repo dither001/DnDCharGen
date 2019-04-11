@@ -64,7 +64,7 @@ public abstract class Sorcerer extends JobClass {
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 
 		}
 

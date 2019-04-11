@@ -86,7 +86,7 @@ public abstract class Cleric extends JobClass {
 			inv.addWeapon(Skill.LIGHT_CROSSBOW);
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 		}
 
 		// TODO - add priest's or explorer's pack

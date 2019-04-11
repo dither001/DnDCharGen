@@ -80,6 +80,7 @@ public abstract class Rogue extends JobClass {
 
 		// TODO - add burglar's or dungeoneer's or explorer's pack
 		// TODO - receive thieves' tool
+		inv.addGear(1, "thieves tools");
 		inv.addArmor(Skill.LEATHER_ARMOR);
 		inv.addWeapon(Skill.DAGGER);
 		inv.addWeapon(Skill.DAGGER);

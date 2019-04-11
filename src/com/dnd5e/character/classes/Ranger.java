@@ -83,8 +83,8 @@ public abstract class Ranger extends JobClass {
 			inv.addWeapon(Skill.SHORTSWORD);
 
 		} else {
-			inv.randomSimpleHelper();
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
+			inv.randomSimpleWeapon();
 
 		}
 

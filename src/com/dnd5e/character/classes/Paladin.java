@@ -51,12 +51,12 @@ public abstract class Paladin extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.randomMilitaryHelper();
+			inv.randomMilitaryWeapon();
 			inv.addShield();
 
 		} else {
-			inv.randomMilitaryHelper();
-			inv.randomMilitaryHelper();
+			inv.randomMilitaryWeapon();
+			inv.randomMilitaryWeapon();
 
 		}
 
@@ -66,7 +66,7 @@ public abstract class Paladin extends JobClass {
 			inv.addWeapon(5, Skill.JAVELIN);
 
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 
 		}
 

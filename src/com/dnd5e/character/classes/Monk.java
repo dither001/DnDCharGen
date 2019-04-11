@@ -59,7 +59,7 @@ public abstract class Monk extends JobClass {
 			inv.addWeapon(Skill.SHORTSWORD);
 
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 
 		}
 

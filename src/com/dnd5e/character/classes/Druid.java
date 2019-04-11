@@ -58,7 +58,7 @@ public abstract class Druid extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 
 		} else {
 			inv.addShield();

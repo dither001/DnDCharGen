@@ -68,7 +68,9 @@ public abstract class Bard extends JobClass {
 		}
 
 		// TODO - add diplomat's or entertainer's pack
-		// TODO - add lute or any instrument
+
+		// musical instrument
+		inv.randomInstrument();
 
 		// leather armor + dagger
 		inv.addArmor(Skill.LEATHER_ARMOR);

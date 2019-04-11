@@ -100,14 +100,14 @@ public abstract class Warlock extends JobClass {
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 
 		}
 
 		// TODO - component pouch or arcane focus
 		// TODO - add dungeoneer's or scholar's pack
 		inv.addArmor(Skill.LEATHER_ARMOR);
-		inv.randomSimpleHelper();
+		inv.randomSimpleWeapon();
 		inv.addWeapon(Skill.DAGGER);
 		inv.addWeapon(Skill.DAGGER);
 

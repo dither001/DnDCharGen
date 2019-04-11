@@ -83,10 +83,10 @@ public abstract class Fighter extends JobClass {
 		// SECOND CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.randomMilitaryHelper();
+			inv.randomMilitaryWeapon();
 			inv.addShield();
 		} else {
-			inv.randomSimpleHelper();
+			inv.randomSimpleWeapon();
 		}
 
 		// THIRD CHOICE

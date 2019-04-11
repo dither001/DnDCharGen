@@ -26,7 +26,7 @@ public enum Skill {
 	SHIELD,
 
 	// SPELL FOCUS
-	ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS, 
+	ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS,
 
 	// ARMOR
 	PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT, SCALE_MAIL, BREASTPLATE, HALF_PLATE, RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL,
@@ -64,7 +64,7 @@ public enum Skill {
 			//
 			SHIELD,
 			//
-			ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS, 
+			ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS,
 			//
 			PADDED_ARMOR, LEATHER_ARMOR, STUDDED_LEATHER, HIDE_ARMOR, CHAIN_SHIRT, SCALE_MAIL, BREASTPLATE, HALF_PLATE,
 			RING_MAIL, CHAIN_MAIL, SPLINT_MAIL, PLATE_MAIL,
@@ -98,7 +98,7 @@ public enum Skill {
 			//
 			SHIELD,
 			//
-			ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS, 
+			ARCANE_FOCUS, DRUID_FOCUS, HOLY_SYMBOL, MUSIC_FOCUS,
 			//
 			ALCHEMY_TOOLS, BREWING_TOOLS, CALLIGRAPHY_TOOLS, CARPENTER_TOOLS, CARTOGRAPHY_TOOLS, COBBLER_TOOLS,
 			MESS_KIT, GLASSBLOWER_TOOLS, JEWELER_TOOLS, LEATHERWORKING_TOOLS, MASONRY_TOOLS, NAVIGATOR_TOOLS,
@@ -391,6 +391,10 @@ public enum Skill {
 		return Misc.arrayToList(COMMON_SKILLS);
 	}
 
+	public static List<Skill> getGamingSkills() {
+		return Misc.arrayToList(GAMING_SKILLS);
+	}
+
 	public static List<Skill> getInstrumentSkillsList() {
 		return Misc.arrayToList(INSTRUMENT_SKILLS);
 	}
@@ -412,6 +416,18 @@ public enum Skill {
 		}
 
 		return Misc.arrayToList(array);
+	}
+
+	public static List<Skill> getToolSkills() {
+		return Misc.arrayToList(TOOL_SKILLS);
+	}
+
+	public static List<Skill> getLandVehicles() {
+		return Misc.arrayToList(LAND_VEHICLES);
+	}
+
+	public static List<Skill> getWaterVehicles() {
+		return Misc.arrayToList(WATER_VEHICLES);
 	}
 
 	/*

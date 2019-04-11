@@ -115,6 +115,18 @@ public class Inventory {
 	}
 
 	/*
+	 * COMBAT RELATED INVENTORY
+	 */
+	public List<Attack> weaponAttackList() {
+		List<Attack> list = new ArrayList<Attack>();
+
+		for (Weapon el : weaponList)
+			list.add(BasicAttack.build(el, owner));
+
+		return list;
+	}
+
+	/*
 	 * SPELLBOOK METHODS
 	 */
 	public void addSpellbook(Spellbook spellbook) {
@@ -181,23 +193,25 @@ public class Inventory {
 		Weapon weapon = Weapon.get(skill);
 
 		if (weapon.getIsStackable()) {
+			// stack the stackable
 			int index = containsWeapon(skill);
 
-			if (index > -1) {
-				// stack the stackable
+			if (index >= 0) {
+				added = true;
 				Weapon w = weaponList.get(index);
 				int q = w.getQuantity();
 				w.setQuantity(quantity + q);
-				added = true;
 			} else {
+				added = true;
 				added = weaponList.add(weapon);
 				weapon.setQuantity(quantity);
-				added = true;
 			}
 
 		} else {
-			added = weaponList.add(weapon);
-			weapon.setQuantity(quantity);
+			// else, simply add
+			added = true;
+			for (int i = 0; i < quantity; ++i)
+				added = weaponList.add(weapon);
 		}
 
 		return added;
@@ -209,23 +223,25 @@ public class Inventory {
 
 		// FIXME
 		if (tool.getIsStackable()) {
+			// stack the stackable
 			int index = containsGear(tool.name);
 
-			if (index > -1) {
-				// stack the stackable
+			if (index >= 0) {
+				added = true;
 				Tool w = gearList.get(index);
 				int q = w.getQuantity();
 				w.setQuantity(quantity + q);
-				added = true;
 			} else {
+				added = true;
 				added = gearList.add(tool);
 				tool.setQuantity(quantity);
-				added = true;
 			}
 
 		} else {
-			added = gearList.add(tool);
-			tool.setQuantity(quantity);
+			// else, simply add
+			added = true;
+			for (int i = 0; i < quantity; ++i)
+				added = gearList.add(tool);
 		}
 
 		if (!(added))
@@ -233,31 +249,11 @@ public class Inventory {
 		return added;
 	}
 
-	public void randomSimpleHelper() {
-		Skill weapon = Skill.randomSimpleWeapon();
-		if (weapon.equals(Skill.DART) != true)
-			addWeapon(weapon);
-
-		if (weapon.usesAmmunition())
-			addAmmunition(weapon);
-	}
-
-	public void randomMilitaryHelper() {
-		Skill weapon = Skill.randomMilitaryWeapon();
-		addWeapon(weapon);
-
-		if (weapon.usesAmmunition())
-			addAmmunition(weapon);
-	}
-
 	@SuppressWarnings("incomplete-switch")
 	public void addAmmunition(Skill weapon) {
 		switch (weapon) {
 		case BLOWGUN:
 			addGear(50, "blowgun needle");
-			break;
-		case DART:
-			addWeapon(10, Skill.DART);
 			break;
 		case HAND_CROSSBOW:
 		case HEAVY_CROSSBOW:
@@ -275,15 +271,35 @@ public class Inventory {
 	}
 
 	/*
-	 * 
+	 * RANDOM METHODS
 	 */
-	public List<Attack> weaponAttackList() {
-		List<Attack> list = new ArrayList<Attack>();
 
-		for (Weapon el : weaponList)
-			list.add(BasicAttack.build(el, owner));
+	public void randomSimpleWeapon() {
+		Skill weapon = Skill.randomSimpleWeapon();
+		if (weapon.equals(Skill.DART) != true)
+			addWeapon(weapon);
 
-		return list;
+		if (weapon.usesAmmunition())
+			addAmmunition(weapon);
 	}
 
+	public void randomMilitaryWeapon() {
+		Skill weapon = Skill.randomMilitaryWeapon();
+		addWeapon(weapon);
+
+		if (weapon.usesAmmunition())
+			addAmmunition(weapon);
+	}
+
+	public void randomArtisanTool() {
+		List<Skill> list = Misc.filterSetFor(Skill.getProfessionalSkillsList(), owner.getSpecialSkills());
+		if (list.size() > 0)
+			addGear(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
+	}
+
+	public void randomInstrument() {
+		List<Skill> list = Misc.filterSetFor(Skill.getInstrumentSkillsList(), owner.getSpecialSkills());
+		if (list.size() > 0)
+			addGear(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
+	}
 }

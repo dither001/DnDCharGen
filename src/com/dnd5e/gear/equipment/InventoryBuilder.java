@@ -93,7 +93,7 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.LIGHT_CROSSBOW);
 					inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// TODO - add priest's or explorer's pack
@@ -106,7 +106,7 @@ public abstract class InventoryBuilder {
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				} else {
 					inv.addShield();
 				}
@@ -139,10 +139,10 @@ public abstract class InventoryBuilder {
 				// SECOND CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
-					inv.randomMilitaryHelper();
+					inv.randomMilitaryWeapon();
 					inv.addShield();
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// THIRD CHOICE
@@ -165,7 +165,7 @@ public abstract class InventoryBuilder {
 				if (dice == 1) {
 					inv.addWeapon(Skill.SHORTSWORD);
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// TODO - add dungeoneer's or explorer's pack
@@ -178,11 +178,11 @@ public abstract class InventoryBuilder {
 				// FIRST CHOICE
 				dice = Dice.roll(2);
 				if (dice == 1) {
-					inv.randomMilitaryHelper();
+					inv.randomMilitaryWeapon();
 					inv.addShield();
 				} else {
-					inv.randomMilitaryHelper();
-					inv.randomMilitaryHelper();
+					inv.randomMilitaryWeapon();
+					inv.randomMilitaryWeapon();
 				}
 
 				// SECOND CHOICE
@@ -190,7 +190,7 @@ public abstract class InventoryBuilder {
 				if (dice == 1) {
 					inv.addWeapon(5, Skill.JAVELIN);
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// TODO - add priest's or explorer's pack
@@ -213,8 +213,8 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.SHORTSWORD);
 					inv.addWeapon(Skill.SHORTSWORD);
 				} else {
-					inv.randomSimpleHelper();
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
+					inv.randomSimpleWeapon();
 				}
 
 				// THIRD CHOICE
@@ -259,7 +259,7 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.LIGHT_CROSSBOW);
 					inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// TODO - component pouch or arcane focus
@@ -276,13 +276,13 @@ public abstract class InventoryBuilder {
 					inv.addWeapon(Skill.LIGHT_CROSSBOW);
 					inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 				} else {
-					inv.randomSimpleHelper();
+					inv.randomSimpleWeapon();
 				}
 
 				// TODO - component pouch or arcane focus
 				// TODO - add dungeoneer's or scholar's pack
 				inv.addArmor(Skill.LEATHER_ARMOR);
-				inv.randomSimpleHelper();
+				inv.randomSimpleWeapon();
 				inv.addWeapon(Skill.DAGGER);
 				inv.addWeapon(Skill.DAGGER);
 

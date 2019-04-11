@@ -10,6 +10,7 @@ public class Tool extends Item implements Cloneable, Usable {
 
 	static {
 		gearMap = new HashMap<String, Tool>();
+
 	}
 
 	/*
@@ -84,4 +85,5 @@ public class Tool extends Item implements Cloneable, Usable {
 	public static void setupTools(HashMap<String, Tool> gearMap) {
 		Tool.gearMap = gearMap;
 	}
+
 }

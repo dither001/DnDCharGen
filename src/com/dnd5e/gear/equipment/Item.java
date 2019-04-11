@@ -66,7 +66,10 @@ public class Item implements Portable {
 
 	@Override
 	public int getWeightOz() {
-		return weight;
+		if (isStackable)
+			return quantity / sizeOfStack * weight;
+		else
+			return weight;
 	}
 
 	@Override

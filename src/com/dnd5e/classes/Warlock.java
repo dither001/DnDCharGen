@@ -96,7 +96,7 @@ public abstract class Warlock extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addWeaponHelper(Skill.LIGHT_CROSSBOW);
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 
 		} else {
@@ -106,10 +106,10 @@ public abstract class Warlock extends JobClass {
 
 		// TODO - component pouch or arcane focus
 		// TODO - add dungeoneer's or scholar's pack
-		inv.addArmor(Skill.LEATHER_ARMOR);
+		inv.addArmorHelper(Skill.LEATHER_ARMOR);
 		inv.randomSimpleWeapon();
-		inv.addWeapon(Skill.DAGGER);
-		inv.addWeapon(Skill.DAGGER);
+		inv.addWeaponHelper(Skill.DAGGER);
+		inv.addWeaponHelper(Skill.DAGGER);
 
 		// FINAL STEP
 		actor.setInventory(inv);

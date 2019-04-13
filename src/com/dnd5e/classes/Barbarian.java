@@ -48,28 +48,28 @@ public abstract class Barbarian extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (actor.isMedium() && dice == 1) {
-			inv.addWeapon(Skill.GREATAXE);
+			inv.addWeaponHelper(Skill.GREATAXE);
 
 		} else {
-			inv.addWeapon(Skill.randomMilitaryMelee());
+			inv.addWeaponHelper(Skill.randomMilitaryMelee());
 
 		}
 
 		// SECOND CHOICE
 		dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.HANDAXE);
-			inv.addWeapon(Skill.HANDAXE);
+			inv.addWeaponHelper(Skill.HANDAXE);
+			inv.addWeaponHelper(Skill.HANDAXE);
 
 		} else {
-			inv.addWeapon(Skill.randomSimpleWeapon());
+			inv.addWeaponHelper(Skill.randomSimpleWeapon());
 
 		}
 
 		// TODO - add explorer's pack
 
 		// 4 javelins
-		inv.addWeapon(4, Skill.JAVELIN);
+		inv.addWeaponHelper(4, Skill.JAVELIN);
 
 		// FINAL STEP
 		actor.setInventory(inv);

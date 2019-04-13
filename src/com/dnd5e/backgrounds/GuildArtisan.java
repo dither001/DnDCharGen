@@ -52,12 +52,12 @@ public abstract class GuildArtisan {
 		Inventory inv = actor.getInventory();
 
 		// x1 artisan tool
-		inv.addGear(1, guildSkill.toString().replace("_", " ").toLowerCase());
+		inv.addGearHelper(1, guildSkill.toString().replace("_", " ").toLowerCase());
 
 		// TODO - letter of introduction from guild
 
 		// x1 traveler clothes
-		inv.addGear(1, "traveler clothes");
+		inv.addGearHelper(1, "traveler clothes");
 
 		// TODO - "belt pouch"
 		// TODO - 15 gp

@@ -61,29 +61,29 @@ public abstract class Cleric extends JobClass {
 
 		// FIRST CHOICE
 		if (actor.getWeaponSkills().contains(Skill.WARHAMMER)) {
-			inv.addWeapon(Skill.WARHAMMER);
+			inv.addWeaponHelper(Skill.WARHAMMER);
 
 		} else {
-			inv.addWeapon(Skill.MACE);
+			inv.addWeaponHelper(Skill.MACE);
 
 		}
 
 		// SECOND CHOICE
 		if (dexterity > 15) {
-			inv.addArmor(Skill.LEATHER_ARMOR);
+			inv.addArmorHelper(Skill.LEATHER_ARMOR);
 
 		} else if (actor.getArmorSkills().contains(Skill.CHAIN_MAIL) && strength > 12) {
-			inv.addArmor(Skill.CHAIN_MAIL);
+			inv.addArmorHelper(Skill.CHAIN_MAIL);
 
 		} else {
-			inv.addArmor(Skill.SCALE_MAIL);
+			inv.addArmorHelper(Skill.SCALE_MAIL);
 
 		}
 
 		// THIRD CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addWeaponHelper(Skill.LIGHT_CROSSBOW);
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 		} else {
 			inv.randomSimpleWeapon();
@@ -91,7 +91,7 @@ public abstract class Cleric extends JobClass {
 
 		// TODO - add priest's or explorer's pack
 		// TODO - receive shield + holy symbol
-		inv.addShield();
+		inv.addShieldHelper();
 
 		// FINAL STEP
 		actor.setInventory(inv);

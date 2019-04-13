@@ -43,12 +43,12 @@ public abstract class Sage {
 		// TODO - bottle of ink
 
 		// x1 "small knife"
-		inv.addWeapon(Skill.DAGGER);
+		inv.addWeaponHelper(Skill.DAGGER);
 
 		// TODO - letter from dead colleague posing unanswered question
 
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - belt pouch
 		// TODO - 10 gp

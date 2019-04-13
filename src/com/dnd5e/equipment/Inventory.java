@@ -5,10 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.dnd4e.definitions.*;
-import com.dnd5e.characters.Creature;
-import com.dnd5e.characters.Skill;
+import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
-import com.dnd5e.definitions.rules.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -177,20 +175,20 @@ public class Inventory {
 	/*
 	 * HELPER METHODS
 	 */
-	public boolean addArmor(Skill skill) {
+	public boolean addArmorHelper(Skill skill) {
 		return armorList.add(Armor.getArmorClone(skill));
 	}
 
-	public boolean addShield() {
+	public boolean addShieldHelper() {
 		return shieldList.add(Shield.get(Skill.SHIELD));
 	}
 
-	public boolean addWeapon(Skill skill) {
+	public boolean addWeaponHelper(Skill skill) {
 		// OVERLOADS addWeapon()
-		return addWeapon(1, skill);
+		return addWeaponHelper(1, skill);
 	}
 
-	public boolean addWeapon(int quantity, Skill skill) {
+	public boolean addWeaponHelper(int quantity, Skill skill) {
 		boolean added = false;
 		Weapon weapon = Weapon.get(skill);
 
@@ -219,7 +217,24 @@ public class Inventory {
 		return added;
 	}
 
-	public boolean addGear(int quantity, String s) {
+	public boolean addGear(Tool tool) {
+		boolean added = false;
+
+		if (tool.getIsStackable()) {
+			int index = containsGear(tool.name);
+
+			if (index >= 0) {
+				added = true;
+				Tool w = gearList.get(index);
+				int q = w.getQuantity();
+				w.setQuantity(tool.getQuantity() + q);
+			} else {
+				added = gearList.add(tool);
+			}
+		}
+	}
+
+	public boolean addGearHelper(int quantity, String s) {
 		boolean added = false;
 		Tool tool = Tool.get(s);
 
@@ -234,7 +249,6 @@ public class Inventory {
 				int q = w.getQuantity();
 				w.setQuantity(quantity + q);
 			} else {
-				added = true;
 				added = gearList.add(tool);
 				tool.setQuantity(quantity);
 			}
@@ -255,19 +269,19 @@ public class Inventory {
 	public void addAmmunition(Skill weapon) {
 		switch (weapon) {
 		case BLOWGUN:
-			addGear(50, "blowgun needle");
+			addGearHelper(50, "blowgun needle");
 			break;
 		case HAND_CROSSBOW:
 		case HEAVY_CROSSBOW:
 		case LIGHT_CROSSBOW:
-			addGear(20, "crossbow bolt");
+			addGearHelper(20, "crossbow bolt");
 			break;
 		case LONGBOW:
 		case SHORTBOW:
-			addGear(20, "arrow");
+			addGearHelper(20, "arrow");
 			break;
 		case SLING:
-			addGear(20, "sling bullet");
+			addGearHelper(20, "sling bullet");
 			break;
 		}
 	}
@@ -279,7 +293,7 @@ public class Inventory {
 	public void randomSimpleWeapon() {
 		Skill weapon = Skill.randomSimpleWeapon();
 		if (weapon.equals(Skill.DART) != true)
-			addWeapon(weapon);
+			addWeaponHelper(weapon);
 
 		if (weapon.usesAmmunition())
 			addAmmunition(weapon);
@@ -287,7 +301,7 @@ public class Inventory {
 
 	public void randomMilitaryWeapon() {
 		Skill weapon = Skill.randomMilitaryWeapon();
-		addWeapon(weapon);
+		addWeaponHelper(weapon);
 
 		if (weapon.usesAmmunition())
 			addAmmunition(weapon);
@@ -296,12 +310,12 @@ public class Inventory {
 	public void randomArtisanTool() {
 		List<Skill> list = Misc.filterSetFor(Skill.getProfessionalSkillsList(), owner.getSpecialSkills());
 		if (list.size() > 0)
-			addGear(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
+			addGearHelper(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
 	}
 
 	public void randomInstrument() {
 		List<Skill> list = Misc.filterSetFor(Skill.getInstrumentSkillsList(), owner.getSpecialSkills());
 		if (list.size() > 0)
-			addGear(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
+			addGearHelper(1, Misc.randomFromList(list).name().replace("_", " ").toLowerCase());
 	}
 }

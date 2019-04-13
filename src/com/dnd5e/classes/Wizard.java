@@ -50,10 +50,10 @@ public abstract class Wizard extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.QUARTERSTAFF);
+			inv.addWeaponHelper(Skill.QUARTERSTAFF);
 
 		} else {
-			inv.addWeapon(Skill.DAGGER);
+			inv.addWeaponHelper(Skill.DAGGER);
 
 		}
 

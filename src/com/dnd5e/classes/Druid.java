@@ -63,22 +63,22 @@ public abstract class Druid extends JobClass {
 			inv.randomSimpleWeapon();
 
 		} else {
-			inv.addShield();
+			inv.addShieldHelper();
 
 		}
 
 		// SECOND CHOICE
 		dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.SCIMITAR);
+			inv.addWeaponHelper(Skill.SCIMITAR);
 
 		} else {
-			inv.addWeapon(Skill.randomSimpleMelee());
+			inv.addWeaponHelper(Skill.randomSimpleMelee());
 
 		}
 
 		// TODO - receive explorer's pack + druid focus
-		inv.addArmor(Skill.LEATHER_ARMOR);
+		inv.addArmorHelper(Skill.LEATHER_ARMOR);
 
 		// FINAL STEP
 		actor.setInventory(inv);

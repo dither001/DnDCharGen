@@ -51,11 +51,11 @@ public abstract class Hermit {
 		// TODO - scroll case of notes from studies/prayers
 
 		// x1 "winter" blanket
-		inv.addGear(1, "blanket");
+		inv.addGearHelper(1, "blanket");
 		// x1 traveler clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 		// x1 traveler clothes
-		inv.addGear(1, "herbalism kit");
+		inv.addGearHelper(1, "herbalism kit");
 
 		// TODO - 5 gp
 

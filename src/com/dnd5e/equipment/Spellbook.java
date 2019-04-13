@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dnd5e.characters.DnDClass;
-import com.dnd5e.classes.*;
+import com.dnd5e.characters.*;
 import com.dnd5e.definitions.gear.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;

@@ -44,9 +44,9 @@ public abstract class Outlander {
 		Inventory inv = actor.getInventory();
 
 		// x1 staff - vague in the PHB, so chose simple weapon version
-		inv.addWeapon(Skill.QUARTERSTAFF);
+		inv.addWeaponHelper(Skill.QUARTERSTAFF);
 		// x1 traveler clothes
-		inv.addGear(1, "traveler clothes");
+		inv.addGearHelper(1, "traveler clothes");
 
 		// TODO - trophy from animal you killed
 		// TODO - belt pouch

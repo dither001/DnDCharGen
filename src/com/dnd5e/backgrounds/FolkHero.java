@@ -51,13 +51,13 @@ public abstract class FolkHero {
 		// based on skills
 		inv.randomArtisanTool();
 		// x1 shovel
-		inv.addGear(1, "shovel");
+		inv.addGearHelper(1, "shovel");
 
 		// TODO - x1 iron pot
 		// inv.addGear(1, "iron pot");
 
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - "belt pouch"
 		// TODO - 10 gp

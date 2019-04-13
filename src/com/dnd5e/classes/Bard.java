@@ -57,14 +57,14 @@ public abstract class Bard extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(3);
 		if (dice == 1) {
-			inv.addWeapon(Skill.RAPIER);
+			inv.addWeaponHelper(Skill.RAPIER);
 
 		} else if (dice == 2) {
-			inv.addWeapon(Skill.LONGSWORD);
+			inv.addWeaponHelper(Skill.LONGSWORD);
 
 		} else {
 			// random simple weapon
-			inv.addWeapon(Skill.randomSimpleWeapon());
+			inv.addWeaponHelper(Skill.randomSimpleWeapon());
 		}
 
 		// TODO - add diplomat's or entertainer's pack
@@ -73,8 +73,8 @@ public abstract class Bard extends JobClass {
 		inv.randomInstrument();
 
 		// leather armor + dagger
-		inv.addArmor(Skill.LEATHER_ARMOR);
-		inv.addWeapon(Skill.DAGGER);
+		inv.addArmorHelper(Skill.LEATHER_ARMOR);
+		inv.addWeaponHelper(Skill.DAGGER);
 
 		// FINAL STEP
 		actor.setInventory(inv);

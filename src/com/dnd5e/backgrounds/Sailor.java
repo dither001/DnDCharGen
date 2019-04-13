@@ -38,14 +38,14 @@ public abstract class Sailor {
 		Inventory inv = actor.getInventory();
 
 		// x1 "belaying pin"
-		inv.addWeapon(Skill.CLUB);
+		inv.addWeaponHelper(Skill.CLUB);
 		// x1 silk rope
-		inv.addGear(1, "silk rope");
+		inv.addGearHelper(1, "silk rope");
 
 		// TODO - lucky charm or trinket
 
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - belt pouch
 		// TODO - 10 gp

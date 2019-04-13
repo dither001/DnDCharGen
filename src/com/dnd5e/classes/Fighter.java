@@ -73,18 +73,18 @@ public abstract class Fighter extends JobClass {
 
 		// FIRST CHOICE
 		if (strength < 13 || dexterity > 15) {
-			inv.addArmor(Skill.LEATHER_ARMOR);
-			inv.addWeapon(Skill.LONGBOW);
+			inv.addArmorHelper(Skill.LEATHER_ARMOR);
+			inv.addWeaponHelper(Skill.LONGBOW);
 			inv.addAmmunition(Skill.LONGBOW);
 		} else {
-			inv.addArmor(Skill.CHAIN_MAIL);
+			inv.addArmorHelper(Skill.CHAIN_MAIL);
 		}
 
 		// SECOND CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
 			inv.randomMilitaryWeapon();
-			inv.addShield();
+			inv.addShieldHelper();
 		} else {
 			inv.randomSimpleWeapon();
 		}
@@ -92,11 +92,11 @@ public abstract class Fighter extends JobClass {
 		// THIRD CHOICE
 		dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.LIGHT_CROSSBOW);
+			inv.addWeaponHelper(Skill.LIGHT_CROSSBOW);
 			inv.addAmmunition(Skill.LIGHT_CROSSBOW);
 		} else {
-			inv.addWeapon(Skill.HANDAXE);
-			inv.addWeapon(Skill.HANDAXE);
+			inv.addWeaponHelper(Skill.HANDAXE);
+			inv.addWeaponHelper(Skill.HANDAXE);
 		}
 
 		// TODO - add dungeoneer's or explorer's pack

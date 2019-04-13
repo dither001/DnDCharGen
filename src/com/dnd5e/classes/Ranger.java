@@ -70,17 +70,17 @@ public abstract class Ranger extends JobClass {
 
 		// FIRST CHOICE
 		if (dexterity > 15 || strength < 10) {
-			inv.addArmor(Skill.LEATHER_ARMOR);
+			inv.addArmorHelper(Skill.LEATHER_ARMOR);
 
 		} else {
-			inv.addArmor(Skill.SCALE_MAIL);
+			inv.addArmorHelper(Skill.SCALE_MAIL);
 
 		}
 
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.SHORTSWORD);
-			inv.addWeapon(Skill.SHORTSWORD);
+			inv.addWeaponHelper(Skill.SHORTSWORD);
+			inv.addWeaponHelper(Skill.SHORTSWORD);
 
 		} else {
 			inv.randomSimpleWeapon();
@@ -92,7 +92,7 @@ public abstract class Ranger extends JobClass {
 		// TODO - add dungeoneer's or explorer's pack
 
 		// TODO - receive longbow + 20 arrows
-		inv.addWeapon(Skill.LONGBOW);
+		inv.addWeaponHelper(Skill.LONGBOW);
 		inv.addAmmunition(Skill.LONGBOW);
 
 		// FINAL STEP

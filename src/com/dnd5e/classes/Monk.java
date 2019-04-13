@@ -56,7 +56,7 @@ public abstract class Monk extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.SHORTSWORD);
+			inv.addWeaponHelper(Skill.SHORTSWORD);
 
 		} else {
 			inv.randomSimpleWeapon();
@@ -65,7 +65,7 @@ public abstract class Monk extends JobClass {
 
 		// TODO - add dungeoneer's or explorer's pack
 		// TODO - receive 10 darts
-		inv.addWeapon(10, Skill.DART);
+		inv.addWeaponHelper(10, Skill.DART);
 
 		// FINAL STEP
 		actor.setInventory(inv);

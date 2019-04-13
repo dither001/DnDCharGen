@@ -42,9 +42,9 @@ public abstract class Criminal {
 		Inventory inv = actor.getInventory();
 
 		// x1 crowbar
-		inv.addGear(1, "crowbar");
+		inv.addGearHelper(1, "crowbar");
 		// x1 common clothes "dark, with a hood"
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - "belt pouch"
 		// TODO - 15 gp

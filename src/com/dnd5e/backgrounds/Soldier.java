@@ -47,7 +47,7 @@ public abstract class Soldier {
 		// TODO - x1 gaming set
 
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - belt pouch
 		// TODO - 10 gp

@@ -60,30 +60,30 @@ public abstract class Rogue extends JobClass {
 		// FIRST CHOICE
 		int dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.RAPIER);
+			inv.addWeaponHelper(Skill.RAPIER);
 
 		} else {
-			inv.addWeapon(Skill.SHORTSWORD);
+			inv.addWeaponHelper(Skill.SHORTSWORD);
 
 		}
 
 		// SECOND CHOICE
 		dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(Skill.SHORTBOW);
+			inv.addWeaponHelper(Skill.SHORTBOW);
 			inv.addAmmunition(Skill.SHORTBOW);
 
 		} else {
-			inv.addWeapon(Skill.SHORTSWORD);
+			inv.addWeaponHelper(Skill.SHORTSWORD);
 
 		}
 
 		// TODO - add burglar's or dungeoneer's or explorer's pack
 		// TODO - receive thieves' tool
-		inv.addGear(1, "thieves tools");
-		inv.addArmor(Skill.LEATHER_ARMOR);
-		inv.addWeapon(Skill.DAGGER);
-		inv.addWeapon(Skill.DAGGER);
+		inv.addGearHelper(1, "thieves tools");
+		inv.addArmorHelper(Skill.LEATHER_ARMOR);
+		inv.addWeaponHelper(Skill.DAGGER);
+		inv.addWeaponHelper(Skill.DAGGER);
 
 		// FINAL STEP
 		actor.setInventory(inv);

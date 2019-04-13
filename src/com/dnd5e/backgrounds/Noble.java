@@ -40,9 +40,9 @@ public abstract class Noble {
 		Inventory inv = actor.getInventory();
 
 		// x1 fine clothes
-		inv.addGear(1, "fine clothes");
+		inv.addGearHelper(1, "fine clothes");
 		// x1 signet ring
-		inv.addGear(1, "signet ring");
+		inv.addGearHelper(1, "signet ring");
 
 		// TODO - scroll of pedigree
 		// TODO - purse

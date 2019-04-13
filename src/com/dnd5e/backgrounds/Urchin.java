@@ -39,14 +39,14 @@ public abstract class Urchin {
 		Inventory inv = actor.getInventory();
 
 		// x1 "small knife"
-		inv.addWeapon(Skill.DAGGER);
+		inv.addWeaponHelper(Skill.DAGGER);
 
 		// TODO - map of the city you grew up in
 		// TODO - pet mouse
 		// TODO - token to remember your parents
 
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 
 		// TODO - belt pouch
 		// TODO - 10 gp

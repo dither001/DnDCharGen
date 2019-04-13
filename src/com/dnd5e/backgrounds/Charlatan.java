@@ -47,7 +47,7 @@ public abstract class Charlatan {
 		Inventory inv = actor.getInventory();
 
 		// x1 fine clothes
-		inv.addGear(1, "fine clothes");
+		inv.addGearHelper(1, "fine clothes");
 		// TODO - "con tools"
 		// e.g. x10 stoppered bottles
 		// e.g. weighted dice

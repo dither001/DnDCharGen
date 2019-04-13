@@ -38,11 +38,11 @@ public abstract class Acolyte {
 
 		// TODO - need "holy symbol builder"
 		// TODO - need "book builder"
-		inv.addGear(1, "book");
+		inv.addGearHelper(1, "book");
 		// TODO - need x5 "incense"
 		// TODO - need "cleric vestments"
 		// x1 common clothes
-		inv.addGear(1, "common clothes");
+		inv.addGearHelper(1, "common clothes");
 		// TODO - "belt pouch"
 		// TODO - 15 gp
 

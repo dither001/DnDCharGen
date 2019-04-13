@@ -46,7 +46,7 @@ public abstract class Entertainer {
 		// TODO - random favor from admirer
 
 		// x1 costume
-		inv.addGear(1, "costume");
+		inv.addGearHelper(1, "costume");
 
 		// TODO - "belt pouch"
 		// TODO - 15 gp

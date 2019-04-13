@@ -52,7 +52,7 @@ public abstract class Paladin extends JobClass {
 		int dice = Dice.roll(2);
 		if (dice == 1) {
 			inv.randomMilitaryWeapon();
-			inv.addShield();
+			inv.addShieldHelper();
 
 		} else {
 			inv.randomMilitaryWeapon();
@@ -63,7 +63,7 @@ public abstract class Paladin extends JobClass {
 		// SECOND CHOICE
 		dice = Dice.roll(2);
 		if (dice == 1) {
-			inv.addWeapon(5, Skill.JAVELIN);
+			inv.addWeaponHelper(5, Skill.JAVELIN);
 
 		} else {
 			inv.randomSimpleWeapon();
@@ -72,7 +72,7 @@ public abstract class Paladin extends JobClass {
 
 		// TODO - add priest's or explorer's pack
 		// TODO - receive holy symbol
-		inv.addArmor(Skill.CHAIN_MAIL);
+		inv.addArmorHelper(Skill.CHAIN_MAIL);
 
 		// FINAL STEP
 		actor.setInventory(inv);

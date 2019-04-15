@@ -3,5 +3,9 @@
 	<classpathentry excluding="com/worldgen/math/|com/worldgen/planet/|com/worldgen/terrain/|com/worldgen/climate/|com/dnd5e/players/|com/dnd5e/equipment/InventoryBuilder.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="jogl-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

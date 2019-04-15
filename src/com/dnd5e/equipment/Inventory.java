@@ -221,6 +221,7 @@ public class Inventory {
 		boolean added = false;
 
 		if (tool.getIsStackable()) {
+			// stack the stackable
 			int index = containsGear(tool.name);
 
 			if (index >= 0) {
@@ -231,7 +232,12 @@ public class Inventory {
 			} else {
 				added = gearList.add(tool);
 			}
+		} else {
+			// else, simply add
+			added = gearList.add(tool);
 		}
+
+		return added;
 	}
 
 	public boolean addGearHelper(int quantity, String s) {

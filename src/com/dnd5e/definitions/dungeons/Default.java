@@ -40,7 +40,7 @@ public class Default {
 
 		MIDPOINT = new Point(DIMENSIONS.width / 2, DIMENSIONS.height / 2);
 
-		int width = (int) (Default.WALL_LENGTH * 0.7);
+		int width = (int) (Default.WALL_LENGTH * 0.6);
 		int height = (int) (Default.WALL_LENGTH * 0.3);
 		DOOR_SIZE = new Dimension(width, height);
 

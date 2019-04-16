@@ -42,7 +42,10 @@ public class Passage extends Segment {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
+		if (isDeadEnd)
+			g.setColor(Color.PINK);
+		else
+			g.setColor(Color.WHITE);
 		g.fillRect(x, y, width, height);
 
 		g.setColor(Color.BLACK);

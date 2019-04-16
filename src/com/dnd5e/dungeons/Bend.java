@@ -118,7 +118,6 @@ public class Bend extends Passage {
 
 				break;
 			}
-
 		}
 	}
 

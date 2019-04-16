@@ -77,7 +77,7 @@ public class Floor {
 		for (Door el : doors)
 			el.paint(g);
 
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.BLACK);
 		for (Point el : points)
 			g.fillOval(el.x, el.y, 5, 5);
 	}
@@ -148,15 +148,15 @@ public class Floor {
 	private void checkBeyondDoor(Door door) {
 		if (door.explored != true) {
 			door.setExplored(true);
-			boolean added = false;
-
 			Cardinal cardinal = door.getCardinal();
 			Point point = door.nearestLocation();
 			List<Point> loc = null;
 			Chamber c = null;
 
-			// TODO - set dice roll to 20
-			switch (8) {
+			/*
+			 * FIXME - set Dice roller to (d20)
+			 */
+			switch (Dice.roll(18)) {
 			case 1:
 			case 2:
 			case 3:
@@ -166,12 +166,13 @@ public class Floor {
 			case 7:
 			case 8:
 				/*
-				 * straight, 20-foot passage
+				 * straight, 20-foot passage (3-8)
 				 */
 				Passage p = Passage.build(cardinal, point, 20, 10);
 				p.shift(point);
 
-				added = addPassage(p);
+				if (addPassage(p) != true)
+					door.setDoorType(DoorType.FALSE_DOOR);
 				break;
 			case 9:
 			case 10:
@@ -184,7 +185,7 @@ public class Floor {
 			case 17:
 			case 18:
 				/*
-				 * CHAMBERS: determine size, location, & orientation
+				 * CHAMBERS (9-18)
 				 */
 				c = Chamber.build(cardinal, point);
 				c.shift(point);
@@ -197,15 +198,15 @@ public class Floor {
 				}
 
 				// finalize
-				added = addChamber(c);
+				if (addChamber(c) != true)
+					door.setDoorType(DoorType.FALSE_DOOR);
+				break;
 			case 19:
 			case 20:
+				door.setDoorType(DoorType.FALSE_DOOR);
 			default:
 				break;
 			}
-
-			if (added != true)
-				door.setDoorType(DoorType.FALSE_DOOR);
 		}
 	}
 
@@ -215,53 +216,236 @@ public class Floor {
 			boolean added = false;
 
 			Cardinal cardinal = passage.getCardinal();
+			Point point = null;
 			List<Point> loc = null;
 			Door door = null;
-			Passage p = null;
+			Passage p1 = null, p2 = null;
 			Bend b = null;
+			Branch br = null;
 
+			/*
+			 * FIXME - set Dice roller to (d20)
+			 */
 			switch (Dice.roll(19)) {
 			case 1:
 			case 2:
 				/*
-				 * straight, 20-foot passage
+				 * straight, 20-foot passage (1-2)
 				 */
-				p = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
-				p.shift(passage.nearestLocation());
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
 
-				added = addPassage(p);
+				if (addPassage(p1) != true)
+					passage.setDeadEnd(true);
 				break;
 			case 3:
+				/*
+				 * 40-foot passage w/door on left (3)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 40, 10);
+				p1.shift(passage.nearestLocation());
+
+				if (addPassage(p1)) {
+					point = p1.nearestLocation();
+
+					switch (cardinal) {
+					case NORTH:
+						point.translate(0, Default.WALL_LENGTH);
+						break;
+					case EAST:
+						point.translate(-2 * Default.WALL_LENGTH, 0);
+						break;
+					case SOUTH:
+						point.translate(Default.WALL_LENGTH, -2 * Default.WALL_LENGTH);
+						break;
+					case WEST:
+						point.translate(Default.WALL_LENGTH, Default.WALL_LENGTH);
+						break;
+					}
+
+					addDoor(Door.build(cardinal.counterClockwise(), point));
+				} else {
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 4:
+				/*
+				 * 40-foot passage w/door on right (4)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 40, 10);
+				p1.shift(passage.nearestLocation());
+
+				if (addPassage(p1)) {
+					point = p1.nearestLocation();
+
+					switch (cardinal) {
+					case NORTH:
+						point.translate(Default.WALL_LENGTH, Default.WALL_LENGTH);
+						break;
+					case EAST:
+						point.translate(-2 * Default.WALL_LENGTH, Default.WALL_LENGTH);
+						break;
+					case SOUTH:
+						point.translate(0, -2 * Default.WALL_LENGTH);
+						break;
+					case WEST:
+						point.translate(Default.WALL_LENGTH, 0);
+						break;
+					}
+
+					addDoor(Door.build(cardinal.clockwise(), point));
+				} else {
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 5:
+				/*
+				 * 20-foot passage ends in door (5)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
+				p1.setDeadEnd(true);
+
+				if (addPassage(p1)) {
+					addDoor(Door.build(cardinal, p1.nearestLocation()));
+
+				} else {
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 6:
 			case 7:
+				/*
+				 * RIGHT BRANCH (6-7)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
+
+				if (addPassage(p1)) {
+					br = Branch.build(false, p1);
+					br.shift(p1.nearestLocation());
+					br.setExplored(true);
+
+					if (addPassage(br)) {
+						// first follow straight passage
+						p2 = Passage.build(cardinal, br.nearestLocation(), 10, 10);
+						p2.shift(br.nearestLocation());
+
+						if (addPassage(p2) != true) {
+							br.setDeadEnd(true);
+						}
+
+						// then follow branch
+						cardinal = cardinal.clockwise();
+						p2 = Passage.build(cardinal, br.branchTo(), 10, 10);
+						p2.shift(br.branchTo());
+
+						if (addPassage(p2) != true) {
+							br.setBranchDeadEnds(true);
+						}
+
+					} else {
+						// passage leading to branch
+						p1.setDeadEnd(true);
+
+					}
+				} else {
+					// original passage before branch
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 8:
 			case 9:
+				/*
+				 * LEFT BRANCH (8-9)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
+
+				if (addPassage(p1)) {
+					br = Branch.build(true, p1);
+					br.shift(p1.nearestLocation());
+					br.setExplored(true);
+
+					if (addPassage(br)) {
+						// first follow straight passage
+						p2 = Passage.build(cardinal, br.nearestLocation(), 10, 10);
+						p2.shift(br.nearestLocation());
+
+						if (addPassage(p2) != true) {
+							br.setDeadEnd(true);
+						}
+
+						// then follow branch
+						cardinal = cardinal.counterClockwise();
+						p2 = Passage.build(cardinal, br.branchTo(), 10, 10);
+						p2.shift(br.branchTo());
+
+						if (addPassage(p2) != true) {
+							br.setBranchDeadEnds(true);
+						}
+
+					} else {
+						// passage leading to branch
+						p1.setDeadEnd(true);
+
+					}
+				} else {
+					// original passage before branch
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 10:
+				/*
+				 * dead end w/chance of secret door (10)
+				 */
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
+				p1.setDeadEnd(true);
+
+				if (addPassage(p1)) {
+					if (Dice.roll(10) == 10) {
+						addDoor(Door.build(cardinal, p1.nearestLocation(), DoorType.SECRET_DOOR));
+
+					}
+
+				} else {
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			case 11:
 			case 12:
 				/*
 				 * LEFT TURN (11-12)
 				 */
-				p = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
-				p.shift(passage.nearestLocation());
-				p.setExplored(true);
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
 
-				if (addPassage(p)) {
-					b = Bend.build(true, p);
-					b.shift(p.nearestLocation());
+				if (addPassage(p1)) {
+					b = Bend.build(true, p1);
+					b.shift(p1.nearestLocation());
 					b.setExplored(true);
 
 					if (addPassage(b)) {
 						cardinal = cardinal.counterClockwise();
-						p = Passage.build(cardinal, b);
+						p1 = Passage.build(cardinal, b);
 
-						p.shift(b.nearestLocation());
-						if (addPassage(p) != true)
+						p1.shift(b.nearestLocation());
+						if (addPassage(p1) != true)
 							b.setDeadEnd(true);
 					} else {
-						p.setDeadEnd(true);
+						p1.setDeadEnd(true);
 
 					}
 				} else {
@@ -274,24 +458,24 @@ public class Floor {
 				/*
 				 * RIGHT TURN (13-14)
 				 */
-				p = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
-				p.shift(passage.nearestLocation());
-				p.setExplored(true);
+				p1 = Passage.build(cardinal, passage.nearestLocation(), 20, 10);
+				p1.shift(passage.nearestLocation());
+				p1.setExplored(true);
 
-				if (addPassage(p)) {
-					b = Bend.build(false, p);
-					b.shift(p.nearestLocation());
+				if (addPassage(p1)) {
+					b = Bend.build(false, p1);
+					b.shift(p1.nearestLocation());
 					b.setExplored(true);
 
 					if (addPassage(b)) {
 						cardinal = cardinal.clockwise();
-						p = Passage.build(cardinal, b);
-						p.shift(b.nearestLocation());
+						p1 = Passage.build(cardinal, b);
+						p1.shift(b.nearestLocation());
 
-						if (addPassage(p) != true)
+						if (addPassage(p1) != true)
 							b.setDeadEnd(true);
 					} else {
-						p.setDeadEnd(true);
+						p1.setDeadEnd(true);
 					}
 				} else {
 					passage.setDeadEnd(true);
@@ -325,12 +509,62 @@ public class Floor {
 					addDoor(door);
 				} else {
 					passage.setDeadEnd(true);
+
 				}
 			case 20:
 				// stairs
 			default:
 				break;
 
+			}
+		}
+	}
+
+	/*
+	 * XXX - This method checks a segment for possible doors.
+	 * 
+	 */
+	private void checkRoomForDoors(int probability, Segment s) {
+		int length;
+
+		// NORTH WALL
+		length = s.width;
+		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+			if (Dice.roll(100) <= probability) {
+				Point location = new Point(s.x + i + 2, s.y - 1);
+				//
+				addDoor(Door.random(Cardinal.NORTH, location));
+			}
+		}
+
+		// EAST WALL
+		length = s.height;
+		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+			if (Dice.roll(100) <= probability) {
+				Point location = new Point(s.x + s.width - 1, s.y + i + 2);
+				//
+				addDoor(Door.random(Cardinal.EAST, location));
+			}
+		}
+
+		// SOUTH /WALL
+		length = s.width;
+		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+			if (Dice.roll(100) <= probability) {
+				Point location = new Point(s.x + i + 2, s.y + s.height - 1);
+				//
+				addDoor(Door.random(Cardinal.SOUTH, location));
+			}
+
+		}
+
+		// WEST WALL
+		length = s.height;
+		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+			if (Dice.roll(100) <= probability) {
+				Point location = new Point(s.x - 1, s.y + i + 2);
+				//
+				addDoor(Door.random(Cardinal.WEST, location));
 			}
 		}
 	}
@@ -367,7 +601,7 @@ public class Floor {
 		return list;
 	}
 
-	private void setDoors(int[] doors, Segment s) {
+	private void setDoorsOfType(int[] doors, Segment s, DoorType doorType) {
 		int length;
 
 		// NORTH WALL
@@ -376,7 +610,7 @@ public class Floor {
 			if (doors[i / Default.WALL_LENGTH] == 1) {
 				Point location = new Point(s.x + i, s.y);
 				//
-				addDoor(Door.build(Cardinal.NORTH, location));
+				addDoor(Door.build(Cardinal.NORTH, location, doorType));
 			}
 		}
 
@@ -387,7 +621,7 @@ public class Floor {
 			if (doors[index] == 1) {
 				Point location = new Point(s.x + s.width, s.y + i);
 				//
-				addDoor(Door.build(Cardinal.EAST, location));
+				addDoor(Door.build(Cardinal.EAST, location, doorType));
 			}
 		}
 
@@ -398,7 +632,7 @@ public class Floor {
 			if (doors[index] == 1) {
 				Point location = new Point(s.x + i, s.y + s.width);
 				//
-				addDoor(Door.build(Cardinal.SOUTH, location));
+				addDoor(Door.build(Cardinal.SOUTH, location, doorType));
 			}
 
 		}
@@ -410,72 +644,33 @@ public class Floor {
 			if (doors[index] == 1) {
 				Point location = new Point(s.x, s.y + i);
 				//
-				addDoor(Door.build(Cardinal.WEST, location));
-			}
-		}
-	}
-
-	private void checkForDoors(int probability, Segment s) {
-		int length;
-
-		// NORTH WALL
-		length = s.width;
-		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
-			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + i + 2, s.y - 1);
-				//
-				addDoor(Door.build(Cardinal.NORTH, location));
-			}
-		}
-
-		// EAST WALL
-		length = s.height;
-		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
-			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + s.width - 1, s.y + i + 2);
-				//
-				addDoor(Door.build(Cardinal.EAST, location));
-			}
-		}
-
-		// SOUTH /WALL
-		length = s.width;
-		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
-			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + i + 2, s.y + s.width - 1);
-				//
-				addDoor(Door.build(Cardinal.SOUTH, location));
-			}
-
-		}
-
-		// WEST WALL
-		length = s.height;
-		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
-			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x - 1, s.y + i + 2);
-				//
-				addDoor(Door.build(Cardinal.WEST, location));
+				addDoor(Door.build(Cardinal.WEST, location, doorType));
 			}
 		}
 	}
 
 	private void explore() {
-		int lastDoorOpened = 0, lastPassageExplored = 0;
+		int doorIndex = 0, roomIndex = 0, passageIndex = 0;
 
 		while (mappedArea() / Default.BOUNDARY_AREA < Default.AREA_TO_MAP) {
 			// System.out.println(mappedArea() / Default.BOUNDARY_AREA);
 
 			// advance passages
-			for (int i = lastPassageExplored; i < passages.size(); ++i) {
+			for (int i = passageIndex; i < passages.size(); ++i) {
 				checkBeyondPassage(passages.get(i));
-				lastPassageExplored = i;
+				passageIndex = i;
+			}
+
+			// check for doors
+			for (int i = roomIndex; i < chambers.size(); ++i) {
+				checkRoomForDoors(10, chambers.get(roomIndex));
+				roomIndex = i;
 			}
 
 			// open doors
-			for (int i = lastDoorOpened; i < doors.size(); ++i) {
+			for (int i = doorIndex; i < doors.size(); ++i) {
 				checkBeyondDoor(doors.get(i));
-				lastDoorOpened = i;
+				doorIndex = i;
 			}
 
 			if (allDoorsOpened() && allPassagesExplored())
@@ -485,6 +680,10 @@ public class Floor {
 		System.out.println("total chambers: " + chambers.size());
 		System.out.println("total passages: " + passages.size());
 		System.out.println("total doors: " + doors.size());
+		for (Door el : doors)
+			System.out.println(el.toStringDoorState());
+
+		System.out.println();
 		System.out.println(mappedArea() + " / " + Default.BOUNDARY_AREA);
 		System.out.printf("%.2f%%%n", 100.0 * mappedArea() / Default.BOUNDARY_AREA);
 
@@ -530,10 +729,10 @@ public class Floor {
 		for (int i = 0; i < doorLocations.length; i += (chamber.width / Default.WALL_LENGTH))
 			doorLocations[Dice.roll(2) - 1 + i] = 1;
 
-		for (int el : doorLocations)
-			System.out.print(el + ", ");
+		// for (int el : doorLocations)
+		// System.out.print(el + ", ");
 
-		setDoors(doorLocations, chamber);
+		setDoorsOfType(doorLocations, chamber, DoorType.PASSAGEWAY);
 
 		return chamber;
 	}

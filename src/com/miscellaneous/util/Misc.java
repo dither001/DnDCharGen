@@ -1,5 +1,6 @@
 package com.miscellaneous.util;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -25,6 +26,13 @@ public abstract class Misc {
 			array[i] = values[i];
 
 		return array;
+	}
+
+	/*
+	 * D - DIMENSION
+	 */
+	public static Dimension transpose(Dimension d) {
+		return new Dimension(d.height, d.width);
 	}
 
 	/*

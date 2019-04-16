@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import model.*;
 
 @SuppressWarnings("serial")
-public class TableFrame <T> extends JFrame {
+public class TableFrame<T> extends JFrame {
 	/*
 	 * INSTANCE FIELDS
 	 */
@@ -56,6 +56,7 @@ public class TableFrame <T> extends JFrame {
 	public static <T> TableFrame<T> build(EntityTableModel<T> model, List<T> contents) {
 		TableFrame<T> frame = new TableFrame<T>();
 
+		// initialize
 		frame.setLayout(new BorderLayout(5, 5));
 
 		// set model, table, & contents
@@ -68,7 +69,7 @@ public class TableFrame <T> extends JFrame {
 		model.addAll(contents);
 		frame.add(new JScrollPane(table), BorderLayout.CENTER);
 
-		//
+		// finalize
 		frame.pack();
 		frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
 

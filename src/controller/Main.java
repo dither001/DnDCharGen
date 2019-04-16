@@ -8,10 +8,13 @@ import com.dnd5e.magic.Sorcery;
 import com.dnd5e.monsters.Monster;
 import com.miscellaneous.util.FileLoader;
 import com.dnd5e.characters.*;
+import com.dnd5e.dungeons.Chamber;
+import com.dnd5e.dungeons.Floor;
 import com.dnd5e.equipment.Armor;
 import com.dnd5e.equipment.Tool;
 import com.dnd5e.equipment.Weapon;
 
+import view.DungeonFrame;
 import view.NPCFrame;
 
 public class Main {
@@ -21,6 +24,9 @@ public class Main {
 
 	private static NPCFrame frame;
 	public static List<DnDCharacter> npcList;
+
+	private static DungeonFrame dungeonFrame;
+	public static Floor dungeon;
 
 	static {
 		RELEASE = false;
@@ -51,9 +57,16 @@ public class Main {
 		/*
 		 * START
 		 */
-		npcList = rollCharacters(NPCS_TO_ROLL);
-		frame = new NPCFrame();
-		frame.setVisible(true);
+		// npcList = rollCharacters(NPCS_TO_ROLL);
+		// frame = new NPCFrame();
+		// frame.setVisible(true);
+
+		dungeon = Floor.build();
+
+		dungeonFrame = DungeonFrame.build(dungeon);
+		dungeonFrame.setVisible(true);
+		
+
 	}
 
 	public static List<DnDCharacter> rollCharacters(int n) {

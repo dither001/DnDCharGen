@@ -13,9 +13,12 @@ import com.dnd5e.definitions.dungeons.*;
 import com.miscellaneous.util.*;
 
 public class Floor {
+	private Dungeon dungeon;
+	//
 	private List<Chamber> chambers;
 	private List<Passage> passages;
 	private List<Door> doors;
+	private List<Stair> stairs;
 
 	private List<Point> points;
 
@@ -23,9 +26,12 @@ public class Floor {
 	 * CONSTRUCTORS
 	 */
 	private Floor() {
+		setDungeon(null);
+		//
 		chambers = new ArrayList<Chamber>();
 		passages = new ArrayList<Passage>();
 		doors = new ArrayList<Door>();
+		stairs = new ArrayList<Stair>();
 		//
 		points = new ArrayList<Point>();
 	}
@@ -33,6 +39,18 @@ public class Floor {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public String toString() {
+		return getClass().getSimpleName();
+	}
+
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public void setDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
+
 	public List<Chamber> getChambers() {
 		return chambers;
 	}
@@ -74,6 +92,9 @@ public class Floor {
 		for (Passage el : passages)
 			el.paint(g);
 
+		for (Stair el : stairs)
+			el.paint(g);
+
 		for (Door el : doors)
 			el.paint(g);
 
@@ -98,6 +119,47 @@ public class Floor {
 		return added;
 	}
 
+	public boolean addDoor(Door door) {
+		if (outOfBounds(door))
+			return false;
+
+		for (Door el : doors) {
+			if (el.contains(door) || el.intersects(door))
+				return false;
+		}
+
+		return doors.add(door);
+	}
+
+	public boolean addPassage(Passage passage) {
+		boolean added = false;
+
+		if (isValidLocation(passage))
+			added = passages.add(passage);
+
+		return added;
+	}
+
+	public boolean addStair(Stair stair) {
+		boolean added = false;
+
+		if (isValidLocation(stair))
+			added = stairs.add(stair);
+
+		if (added) {
+			/*
+			 * TODO - STAIR HANDLING
+			 */
+			boolean connects = dungeon.stairHandler(stair);
+
+		}
+
+		return added;
+	}
+
+	/*
+	 * PRIVATE METHODS
+	 */
 	private boolean isValidLocation(Rectangle r) {
 		if (outOfBounds(r))
 			return false;
@@ -121,42 +183,17 @@ public class Floor {
 		return true;
 	}
 
-	public boolean addPassage(Passage passage) {
-		boolean added = false;
-
-		if (isValidLocation(passage))
-			added = passages.add(passage);
-
-		return added;
-	}
-
-	public boolean addDoor(Door door) {
-		if (outOfBounds(door))
-			return false;
-
-		for (Door el : doors) {
-			if (el.contains(door) || el.intersects(door))
-				return false;
-		}
-
-		return doors.add(door);
-	}
-
 	/*
-	 * PRIVATE METHODS
+	 * XXX - This method checks what exists beyond a door.
 	 */
 	private void checkBeyondDoor(Door door) {
 		if (door.explored != true) {
 			door.setExplored(true);
-			Cardinal cardinal = door.getCardinal();
-			Point point = door.nearestLocation();
-			List<Point> loc = null;
-			Chamber c = null;
 
-			/*
-			 * FIXME - set Dice roller to (d20)
-			 */
-			switch (Dice.roll(18)) {
+			Cardinal cardinal = door.getCardinal();
+			List<Point> loc = null;
+
+			switch (Dice.roll(20)) {
 			case 1:
 			case 2:
 			case 3:
@@ -168,8 +205,8 @@ public class Floor {
 				/*
 				 * straight, 20-foot passage (3-8)
 				 */
-				Passage p = Passage.build(cardinal, point, 20, 10);
-				p.shift(point);
+				Passage p = Passage.build(cardinal, door.nearestLocation(), 20, 10);
+				p.shift(door.nearestLocation());
 
 				if (addPassage(p) != true)
 					door.setDoorType(DoorType.FALSE_DOOR);
@@ -187,8 +224,8 @@ public class Floor {
 				/*
 				 * CHAMBERS (9-18)
 				 */
-				c = Chamber.build(cardinal, point);
-				c.shift(point);
+				Chamber c = Chamber.build(cardinal, door.nearestLocation());
+				c.shift(door.nearestLocation());
 
 				// randomize location
 				loc = potentialLocations(c);
@@ -202,6 +239,12 @@ public class Floor {
 					door.setDoorType(DoorType.FALSE_DOOR);
 				break;
 			case 19:
+				Stair s = Stair.build(cardinal, door.nearestLocation());
+				s.shift(door.nearestLocation());
+
+				if (addStair(s) != true)
+					door.setDoorType(DoorType.FALSE_DOOR);
+				break;
 			case 20:
 				door.setDoorType(DoorType.FALSE_DOOR);
 			default:
@@ -210,6 +253,9 @@ public class Floor {
 		}
 	}
 
+	/*
+	 * XXX - This method checks what exists beyond the current passage.
+	 */
 	private void checkBeyondPassage(Passage passage) {
 		if (passage.explored != true) {
 			passage.setExplored(true);
@@ -531,7 +577,7 @@ public class Floor {
 		length = s.width;
 		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
 			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + i + 2, s.y - 1);
+				Point location = new Point(s.x + i, s.y);
 				//
 				addDoor(Door.random(Cardinal.NORTH, location));
 			}
@@ -541,7 +587,7 @@ public class Floor {
 		length = s.height;
 		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
 			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + s.width - 1, s.y + i + 2);
+				Point location = new Point(s.x + s.width, s.y + i);
 				//
 				addDoor(Door.random(Cardinal.EAST, location));
 			}
@@ -551,7 +597,7 @@ public class Floor {
 		length = s.width;
 		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
 			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x + i + 2, s.y + s.height - 1);
+				Point location = new Point(s.x + i, s.y + s.height);
 				//
 				addDoor(Door.random(Cardinal.SOUTH, location));
 			}
@@ -562,7 +608,7 @@ public class Floor {
 		length = s.height;
 		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
 			if (Dice.roll(100) <= probability) {
-				Point location = new Point(s.x - 1, s.y + i + 2);
+				Point location = new Point(s.x, s.y + i);
 				//
 				addDoor(Door.random(Cardinal.WEST, location));
 			}
@@ -601,6 +647,9 @@ public class Floor {
 		return list;
 	}
 
+	/*
+	 * XXX - This method sets all doors in an array to the specified type.
+	 */
 	private void setDoorsOfType(int[] doors, Segment s, DoorType doorType) {
 		int length;
 
@@ -649,12 +698,11 @@ public class Floor {
 		}
 	}
 
-	private void explore() {
+	public void explore() {
 		int doorIndex = 0, roomIndex = 0, passageIndex = 0;
+		System.out.println(addChamber(room1()));
 
 		while (mappedArea() / Default.BOUNDARY_AREA < Default.AREA_TO_MAP) {
-			// System.out.println(mappedArea() / Default.BOUNDARY_AREA);
-
 			// advance passages
 			for (int i = passageIndex; i < passages.size(); ++i) {
 				checkBeyondPassage(passages.get(i));
@@ -680,8 +728,9 @@ public class Floor {
 		System.out.println("total chambers: " + chambers.size());
 		System.out.println("total passages: " + passages.size());
 		System.out.println("total doors: " + doors.size());
-		for (Door el : doors)
-			System.out.println(el.toStringDoorState());
+
+		// for (Door el : doors)
+		// System.out.println(el.toStringDoorState());
 
 		System.out.println();
 		System.out.println(mappedArea() + " / " + Default.BOUNDARY_AREA);
@@ -740,16 +789,11 @@ public class Floor {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Floor build() {
-		Floor f = new Floor();
+	public static Floor build(Dungeon dungeon) {
+		Floor floor = new Floor();
+		floor.setDungeon(dungeon);
 
-		System.out.println(f.addChamber(f.room1()));
-
-		// f.checkForDoors(100, f.chambers.get(0));
-
-		f.explore();
-
-		return f;
+		return floor;
 	}
 
 }

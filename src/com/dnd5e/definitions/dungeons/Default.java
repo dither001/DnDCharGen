@@ -31,7 +31,7 @@ public class Default {
 		WALL_LENGTH = 10;
 
 		// DERIVED FIELDS
-		Point bTopLeft = new Point(Default.INSET, Default.INSET + 10);
+		Point bTopLeft = new Point(Default.INSET, Default.INSET);
 		int bWidth = Default.DIMENSIONS.width - 2 * Default.INSET;
 		int bHeight = Default.DIMENSIONS.height - 2 * Default.INSET;
 		Dimension bDimensions = new Dimension(bWidth, bHeight);

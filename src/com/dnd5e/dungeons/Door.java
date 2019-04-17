@@ -63,11 +63,11 @@ public class Door extends Segment {
 			doorState = new DoorState[] { state };
 		} else if (contains(state) != true) {
 			add = true;
-			DoorState[] array = new DoorState[doorState.length];
+			DoorState[] array = new DoorState[doorState.length + 1];
 			for (int i = 0; i < doorState.length; ++i)
 				array[i] = doorState[i];
 
-			array[doorState.length - 1] = state;
+			array[doorState.length] = state;
 			doorState = array;
 		}
 
@@ -206,12 +206,10 @@ public class Door extends Segment {
 		Door door = build(cardinal, p);
 
 		dice = Dice.roll(10);
-		DoorType type = null;
-		if (dice < 9)
-			type = DoorType.STANDARD;
-		else if (dice < 10)
+		DoorType type = DoorType.STANDARD;
+		if (dice == 9)
 			type = DoorType.PORTCULLIS;
-		else
+		else if (dice == 10)
 			type = DoorType.SECRET_DOOR;
 
 		door.setDoorType(type);

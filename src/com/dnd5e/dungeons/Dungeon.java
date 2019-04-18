@@ -6,6 +6,7 @@ public class Dungeon {
 	 * INSTANCE FIELDS
 	 */
 	private Floor[] floors;
+	private int currentFloor;
 
 	/*
 	 * CONSTRUCTORS
@@ -29,15 +30,63 @@ public class Dungeon {
 		this.floors = floors;
 	}
 
+	private boolean floorsUnderMapped() {
+		for (Floor el : floors) {
+			if (el.isUnderMapped())
+				return true;
+		}
+
+		return false;
+	}
+
 	public void explore() {
-		floors[0].explore();
+		floors[0].initialize();
+		currentFloor = 0;
+
+		int counter = 0;
+		while (floorsUnderMapped()) {
+			// if (floors[currentFloor].isUnderMapped())
+			floors[currentFloor].explore();
+
+			if (currentFloor < floors.length)
+				++currentFloor;
+
+			if (currentFloor == floors.length)
+				currentFloor = 0;
+
+			++counter;
+			if (counter > 999)
+				break;
+		}
 	}
 
 	public boolean stairHandler(Stair stair) {
+		boolean added = true;
 		/*
 		 * TODO - STAIR HANDLING
 		 */
-		return false;
+		int landings = stair.getFloors();
+		for (int i = 1; i <= landings; ++i) {
+			if (stair.isGoingUp() && i >= 0) {
+				Stair s = Stair.build(stair.cardinal, stair.getLocation());
+				// if (i < landings)
+				// s.setExplored(true);
+
+				if (floors[currentFloor - i].addStair(s) != true) {
+					added = false;
+					break;
+				}
+
+			} else if (stair.isGoingDown() && currentFloor + i < floors.length) {
+				Stair s = Stair.build(stair.cardinal, stair.getLocation());
+				if (floors[currentFloor + i].addStair(s) != true) {
+					added = false;
+					break;
+				}
+			}
+		}
+
+		return added;
 	}
 
 	/*

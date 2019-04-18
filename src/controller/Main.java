@@ -60,17 +60,17 @@ public class Main {
 		/*
 		 * START
 		 */
-		// npcList = rollCharacters(NPCS_TO_ROLL);
-		// frame = new NPCFrame();
-		// frame.setVisible(true);
+		 npcList = rollCharacters(NPCS_TO_ROLL);
+		 frame = new NPCFrame();
+		 frame.setVisible(true);
 
-		dungeon = Dungeon.build(Dice.roll(4) + 1);
-		dungeon.explore();
-
-		dungeonFrame = DungeonFrame.build(dungeon);
-		dungeonFrame.setVisible(true);
-
-		dungeonFrame.revalidate();
+//		dungeon = Dungeon.build(Dice.roll(2, 4) + 1);
+//		dungeon.explore();
+//
+//		dungeonFrame = DungeonFrame.build(dungeon);
+//		dungeonFrame.setVisible(true);
+//
+//		dungeonFrame.revalidate();
 	}
 
 	public static List<DnDCharacter> rollCharacters(int n) {

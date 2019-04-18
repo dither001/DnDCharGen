@@ -25,7 +25,7 @@ public class Default {
 		SHOW_GRID = true;
 
 		//
-		AREA_TO_MAP = 66.67;
+		AREA_TO_MAP = 0.34;
 		DIMENSIONS = new Dimension(440, 340);
 		INSET = 20;
 		WALL_LENGTH = 10;

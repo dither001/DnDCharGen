@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.dnd5e.definitions.dungeons.Default;
 import com.dnd5e.dungeons.*;
-import com.miscellaneous.util.Misc;
+import com.miscellaneous.util.*;
 
 import model.*;
 
@@ -55,7 +54,7 @@ public class DungeonFrame extends JFrame {
 
 	public void selectFloor() {
 		int row = floorTable.getSelectedRow();
-		System.out.println(row);
+//		System.out.println(row + " " + dungeon.getFloor(row).getTotalMappedArea() + " / " + Default.BOUNDARY_AREA + " " + dungeon.getFloor(row).isUnderMapped());
 		if (row >= 0) {
 			floorPanel.setFloor(dungeon.getFloor(row));
 			revalidate();
@@ -91,7 +90,7 @@ public class DungeonFrame extends JFrame {
 		frame.setResizable(false);
 		frame.setSize(640, 480);
 		// frame.pack();
-//		frame.setLocationRelativeTo(null);
+		// frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		return frame;

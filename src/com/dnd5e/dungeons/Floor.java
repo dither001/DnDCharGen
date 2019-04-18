@@ -22,6 +22,9 @@ public class Floor {
 
 	private List<Point> points;
 
+	// CONVENIENVE
+	private int totalMappedArea;
+
 	/*
 	 * CONSTRUCTORS
 	 */
@@ -34,6 +37,8 @@ public class Floor {
 		stairs = new ArrayList<Stair>();
 		//
 		points = new ArrayList<Point>();
+		//
+		totalMappedArea = 0;
 	}
 
 	/*
@@ -41,6 +46,10 @@ public class Floor {
 	 */
 	public String toString() {
 		return getClass().getSimpleName();
+	}
+
+	public boolean hasStairs() {
+		return stairs.size() > 0;
 	}
 
 	public Dungeon getDungeon() {
@@ -65,6 +74,10 @@ public class Floor {
 
 	public void setPassages(List<Passage> passages) {
 		this.passages = passages;
+	}
+
+	public int getTotalMappedArea() {
+		return totalMappedArea;
 	}
 
 	public void paint(Graphics g) {
@@ -103,14 +116,6 @@ public class Floor {
 			g.fillOval(el.x, el.y, 5, 5);
 	}
 
-	public boolean inBounds(Rectangle r) {
-		return Default.BOUNDARY.contains(r);
-	}
-
-	public boolean outOfBounds(Rectangle r) {
-		return Default.BOUNDARY.contains(r) != true;
-	}
-
 	public boolean addChamber(Chamber chamber) {
 		boolean added = false;
 		if (isValidLocation(chamber))
@@ -146,29 +151,89 @@ public class Floor {
 		if (isValidLocation(stair))
 			added = stairs.add(stair);
 
-		if (added) {
-			/*
-			 * TODO - STAIR HANDLING
-			 */
-			boolean connects = dungeon.stairHandler(stair);
+		return added;
+	}
 
+	public boolean isUnderMapped() {
+		return 1.0 * totalMappedArea / Default.BOUNDARY_AREA < Default.AREA_TO_MAP;
+	}
+
+	/*
+	 * XXX - This method will randomly select a starting passage.
+	 */
+	public void initialize() {
+		addChamber(room1());
+	}
+
+	/*
+	 * XXX - This method loops through unexplored passages and unopened doors.
+	 */
+	public void explore() {
+		int doorIndex = 0, roomIndex = 0, passageIndex = 0, stairIndex = 0;
+		while (unexplored() && isUnderMapped()) {
+			// advance stairs
+			for (int i = stairIndex; i < stairs.size(); ++i) {
+				checkBeyondPassage(stairs.get(stairIndex));
+				stairIndex = i;
+			}
+
+			// advance passages
+			for (int i = passageIndex; i < passages.size(); ++i) {
+				checkBeyondPassage(passages.get(i));
+				passageIndex = i;
+			}
+
+			// check for doors
+			for (int i = roomIndex; i < chambers.size(); ++i) {
+				checkRoomForDoors(10, chambers.get(roomIndex));
+				roomIndex = i;
+			}
+
+			// open doors
+			for (int i = doorIndex; i < doors.size(); ++i) {
+				checkBeyondDoor(doors.get(i));
+				doorIndex = i;
+			}
+
+			totalMappedArea = totalMappedArea();
+			if (explored())
+				break;
 		}
 
-		return added;
+		// System.out.println("total chambers: " + chambers.size());
+		// System.out.println("total passages: " + passages.size());
+		// System.out.println("total doors: " + doors.size());
+
+		// for (Door el : doors)
+		// System.out.println(el.toStringDoorState());
+
+		// System.out.println();
+		// System.out.println(mappedArea() + " / " + Default.BOUNDARY_AREA);
+		// System.out.printf("%.2f%%%n", 100.0 * mappedArea() / Default.BOUNDARY_AREA);
+
 	}
 
 	/*
 	 * PRIVATE METHODS
 	 */
+	@SuppressWarnings("unused")
+	private boolean inBounds(Rectangle r) {
+		return Default.BOUNDARY.contains(r);
+	}
+
+	private boolean outOfBounds(Rectangle r) {
+		return Default.BOUNDARY.contains(r) != true;
+	}
+
 	private boolean isValidLocation(Rectangle r) {
 		if (outOfBounds(r))
 			return false;
 
 		for (Chamber el : chambers) {
-			if (el.contains(r) || r.contains(el))
+			if (el.intersects(r) || r.intersects(el))
 				return false;
 
-			if (el.intersects(r) || r.intersects(el))
+			if (el.contains(r) || r.contains(el))
 				return false;
 		}
 
@@ -177,6 +242,57 @@ public class Floor {
 				return false;
 
 			if (el.intersects(r) || r.intersects(el))
+				return false;
+		}
+
+		for (Stair el : stairs) {
+			if (el.contains(r) || r.contains(el))
+				return false;
+
+			if (el.intersects(r) || r.intersects(el))
+				return false;
+		}
+
+		return true;
+	}
+
+	/*
+	 * XXX - Helper methods used to determine when/how to explore.
+	 */
+	private boolean unexplored() {
+		return explored() != true;
+	}
+
+	private boolean explored() {
+		// XXX - In order of importance: passages, doors, stairs
+		boolean allPassagesExplored = allPassagesExplored();
+		boolean allDoorsOpened = allDoorsOpened();
+		boolean allStairsExplored = allStairsExplored();
+
+		return allPassagesExplored && allDoorsOpened && allStairsExplored;
+	}
+
+	private boolean allDoorsOpened() {
+		for (Door el : doors) {
+			if (el.explored != true)
+				return false;
+		}
+
+		return true;
+	}
+
+	private boolean allPassagesExplored() {
+		for (Passage el : passages) {
+			if (el.explored != true)
+				return false;
+		}
+
+		return true;
+	}
+
+	private boolean allStairsExplored() {
+		for (Stair el : stairs) {
+			if (el.explored != true)
 				return false;
 		}
 
@@ -241,9 +357,13 @@ public class Floor {
 			case 19:
 				Stair s = Stair.build(cardinal, door.nearestLocation());
 				s.shift(door.nearestLocation());
+				s.setExplored(true);
 
-				if (addStair(s) != true)
+				if (addStair(s)) {
+					dungeon.stairHandler(s);
+				} else {
 					door.setDoorType(DoorType.FALSE_DOOR);
+				}
 				break;
 			case 20:
 				door.setDoorType(DoorType.FALSE_DOOR);
@@ -269,10 +389,22 @@ public class Floor {
 			Bend b = null;
 			Branch br = null;
 
-			/*
-			 * FIXME - set Dice roller to (d20)
-			 */
-			switch (Dice.roll(19)) {
+			int dice;
+			if (passage.getClass().equals(Stair.class)) {
+				/*
+				 * XXX - Stair extends Passage, therefore it uses this method to determine what
+				 * can be found "beyond." Stairs generally lead to either A) a passage, B) a
+				 * chamber, or C) a dead end. For this reason, I set the dice roller to "ignore"
+				 * the possibility of discovering more stairs beyond a set of stairs.
+				 */
+				dice = Dice.roll(19);
+
+			} else {
+				dice = Dice.roll(20);
+
+			}
+
+			switch (dice) {
 			case 1:
 			case 2:
 				/*
@@ -557,8 +689,22 @@ public class Floor {
 					passage.setDeadEnd(true);
 
 				}
+				break;
 			case 20:
-				// stairs
+				/*
+				 * STAIRS (20)
+				 */
+				Stair s = Stair.build(cardinal, passage.nearestLocation());
+				s.shift(passage.nearestLocation());
+				s.setExplored(true);
+
+				if (addStair(s)) {
+					dungeon.stairHandler(s);
+				} else {
+					passage.setDeadEnd(true);
+
+				}
+				break;
 			default:
 				break;
 
@@ -593,7 +739,7 @@ public class Floor {
 			}
 		}
 
-		// SOUTH /WALL
+		// SOUTH WALL
 		length = s.width;
 		for (int i = 0; i < length; i += Default.WALL_LENGTH) {
 			if (Dice.roll(100) <= probability) {
@@ -698,47 +844,7 @@ public class Floor {
 		}
 	}
 
-	public void explore() {
-		int doorIndex = 0, roomIndex = 0, passageIndex = 0;
-		System.out.println(addChamber(room1()));
-
-		while (mappedArea() / Default.BOUNDARY_AREA < Default.AREA_TO_MAP) {
-			// advance passages
-			for (int i = passageIndex; i < passages.size(); ++i) {
-				checkBeyondPassage(passages.get(i));
-				passageIndex = i;
-			}
-
-			// check for doors
-			for (int i = roomIndex; i < chambers.size(); ++i) {
-				checkRoomForDoors(10, chambers.get(roomIndex));
-				roomIndex = i;
-			}
-
-			// open doors
-			for (int i = doorIndex; i < doors.size(); ++i) {
-				checkBeyondDoor(doors.get(i));
-				doorIndex = i;
-			}
-
-			if (allDoorsOpened() && allPassagesExplored())
-				break;
-		}
-
-		System.out.println("total chambers: " + chambers.size());
-		System.out.println("total passages: " + passages.size());
-		System.out.println("total doors: " + doors.size());
-
-		// for (Door el : doors)
-		// System.out.println(el.toStringDoorState());
-
-		System.out.println();
-		System.out.println(mappedArea() + " / " + Default.BOUNDARY_AREA);
-		System.out.printf("%.2f%%%n", 100.0 * mappedArea() / Default.BOUNDARY_AREA);
-
-	}
-
-	private int mappedArea() {
+	private int totalMappedArea() {
 		int area = 0;
 
 		for (Chamber el : chambers)
@@ -748,24 +854,6 @@ public class Floor {
 			area += el.area();
 
 		return area;
-	}
-
-	private boolean allPassagesExplored() {
-		for (Passage el : passages) {
-			if (el.explored != true)
-				return false;
-		}
-
-		return true;
-	}
-
-	private boolean allDoorsOpened() {
-		for (Door el : doors) {
-			if (el.explored != true)
-				return false;
-		}
-
-		return true;
 	}
 
 	/*

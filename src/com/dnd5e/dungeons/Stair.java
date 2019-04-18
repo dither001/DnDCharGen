@@ -33,6 +33,10 @@ public class Stair extends Passage {
 		this.floors = floors;
 	}
 
+	public boolean isGoingDown() {
+		return goingUp != true;
+	}
+
 	public boolean isGoingUp() {
 		return goingUp;
 	}

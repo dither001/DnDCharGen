@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import com.dnd5e.definitions.dungeons.*;
+import com.miscellaneous.util.Default;
 
 @SuppressWarnings("serial")
 public class Stair extends Passage {

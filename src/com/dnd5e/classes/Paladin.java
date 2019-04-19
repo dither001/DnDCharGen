@@ -3,10 +3,8 @@ package com.dnd5e.classes;
 import java.util.EnumSet;
 
 import com.dnd5e.characters.*;
-import com.dnd5e.definitions.rules.*;
 import com.dnd5e.equipment.*;
-import com.miscellaneous.util.Dice;
-import com.miscellaneous.util.Misc;
+import com.miscellaneous.util.*;
 
 public abstract class Paladin extends JobClass {
 	private static final DnDClass CLAZZ;

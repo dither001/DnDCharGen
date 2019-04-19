@@ -1,11 +1,11 @@
 package com.dnd5e.characters;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.dnd5e.classes.JobClass;
+import com.dnd5e.classes.*;
 import com.dnd5e.definitions.combat.*;
 import com.dnd5e.definitions.rules.*;
-import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
@@ -63,6 +63,16 @@ public class DnDCharacter extends Hero {
 		return s;
 	}
 
+	@Override
+	public void updateHitPoints() {
+		int hp = 0, conMod = getConstitutionModifier();
+
+		for (int i = 0; i < level; ++i)
+			hp += hitDice[i] + conMod;
+
+		this.maximumHitPoints = hp;
+	}
+
 	/*
 	 * STATIC METHODS
 	 */
@@ -81,7 +91,7 @@ public class DnDCharacter extends Hero {
 		toon.setJob(DnDClass.selectClass(toon));
 		toon.setSubclass(Subclass.selectSubclass(toon));
 		toon.setRace(Race.randomSkewHuman());
-		toon.setBackground(Background.random());
+		toon.setBackground(Background.randomSkewMedieval());
 		toon.setGod(God.selectGod(toon));
 
 		RacialFeature.setup(toon);
@@ -94,14 +104,12 @@ public class DnDCharacter extends Hero {
 		return toon;
 	}
 
-	@Override
-	public void updateHitPoints() {
-		int hp = 0, conMod = getConstitutionModifier();
+	public static List<DnDCharacter> rollCharacters(int n) {
+		List<DnDCharacter> list = new ArrayList<DnDCharacter>(n);
+		for (int i = 0; i < n; ++i)
+			list.add(random());
 
-		for (int i = 0; i < level; ++i)
-			hp += hitDice[i] + conMod;
-
-		this.maximumHitPoints = hp;
+		return list;
 	}
 
 }

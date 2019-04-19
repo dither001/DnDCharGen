@@ -1,5 +1,7 @@
 package com.dnd5e.characters;
 
+import java.util.List;
+
 import com.dnd5e.backgrounds.*;
 import com.miscellaneous.util.*;
 
@@ -129,7 +131,14 @@ public enum Background implements Opposite, Similar {
 		default:
 			break;
 		}
+	}
 
+	public static Background get(int index) {
+		return BACKGROUNDS[index];
+	}
+
+	public static List<Background> list() {
+		return Misc.arrayToList(BACKGROUNDS);
 	}
 
 	public static Background parse(String s) throws ParserException {
@@ -144,4 +153,46 @@ public enum Background implements Opposite, Similar {
 	public static Background random() {
 		return Misc.randomFromArray(BACKGROUNDS);
 	}
+
+	public static Background randomSkewMedieval() {
+		Background background = null;
+		Background[] array = null;
+		int dice = Dice.roll(100);
+
+		if (dice < 21) {
+			// 20%
+			background = Background.GUILD_ARTISAN;
+
+		} else if (dice < 41) {
+			// 20%
+			array = new Background[] { Background.CHARLATAN, Background.CRIMINAL, Background.HERMIT,
+					Background.OUTLANDER, Background.URCHIN };
+			background = Misc.randomFromArray(array);
+
+		} else if (dice < 56) {
+			// 15%
+			background = Background.SAILOR;
+
+		} else if (dice < 71) {
+			// 15%
+			background = Background.SOLDIER;
+
+		} else if (dice < 86) {
+			// 15%
+			array = new Background[] { Background.ENTERTAINER, Background.FOLK_HERO, Background.SAGE };
+			background = Misc.randomFromArray(array);
+
+		} else if (dice < 96) {
+			//
+			background = Background.ACOLYTE;
+
+		} else {
+			//
+			background = Background.NOBLE;
+
+		}
+
+		return background;
+	}
+
 }

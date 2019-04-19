@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.dnd5e.characters.*;
-import com.dnd5e.definitions.rules.*;
 
 public class Warband implements Ensemble {
 	protected List<Member> members;

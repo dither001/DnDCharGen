@@ -28,7 +28,7 @@ public abstract class Acolyte {
 		int r = Misc.tryToAddAll(SKILLS, actor.getCommonSkills());
 		if (r > 0) {
 			// ensure the N/PC gets the requisite number of skills
-			Misc.tryToAddN(r, Skill.getCommonSkills(), actor.getCommonSkills());			
+			Misc.tryToAddN(r, Skill.getCommonSkills(), actor.getCommonSkills());
 		}
 
 		/*
@@ -48,5 +48,9 @@ public abstract class Acolyte {
 
 		// FINAL STEP
 		actor.setInventory(inv);
+	}
+
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
 	}
 }

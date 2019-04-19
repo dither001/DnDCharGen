@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.dnd5e.definitions.dungeons.Cardinal;
-import com.dnd5e.definitions.dungeons.Default;
+import com.miscellaneous.util.Default;
 
 @SuppressWarnings("serial")
 public abstract class Segment extends Rectangle {

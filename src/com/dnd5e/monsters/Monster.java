@@ -6,9 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.dnd4e.definitions.*;
-import com.dnd5e.characters.Actor;
+import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
-import com.dnd5e.definitions.rules.*;
 import com.dnd5e.equipment.*;
 
 public class Monster extends Actor {

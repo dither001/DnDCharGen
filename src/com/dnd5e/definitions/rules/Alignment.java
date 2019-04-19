@@ -1,5 +1,7 @@
 package com.dnd5e.definitions.rules;
 
+import java.util.List;
+
 import com.miscellaneous.util.*;
 
 public enum Alignment implements Opposite, Similar {
@@ -171,6 +173,10 @@ public enum Alignment implements Opposite, Similar {
 		return ALIGNMENTS[index];
 	}
 
+	public static List<Alignment> list() {
+		return Misc.arrayToList(ALIGNMENTS);
+	}
+
 	public static Alignment parse(String s) throws ParserException {
 		for (Alignment el : ALIGNMENTS) {
 			if (el.toString().compareToIgnoreCase(s) == 0)
@@ -186,26 +192,29 @@ public enum Alignment implements Opposite, Similar {
 
 	public static Alignment randomSkewEvil() {
 		Alignment a = null;
+		Alignment[] array = null;
 
 		int dice = Dice.roll(100);
-		if (dice < 11)
-			a = LAWFUL_GOOD;
-		else if (dice < 21)
-			a = LAWFUL_NEUTRAL;
-		else if (dice < 31)
-			a = NEUTRAL_GOOD;
-		else if (dice < 41)
-			a = TRUE_NEUTRAL;
-		else if (dice < 51)
-			a = NEUTRAL_EVIL;
-		else if (dice < 61)
-			a = CHAOTIC_GOOD;
-		else if (dice < 71)
-			a = CHAOTIC_NEUTRAL;
-		else if (dice < 86)
-			a = LAWFUL_EVIL;
-		else
-			a = CHAOTIC_EVIL;
+		if (dice < 36) {
+			array = new Alignment[] { Alignment.CHAOTIC_EVIL, Alignment.NEUTRAL_EVIL, Alignment.LAWFUL_EVIL };
+			a = Misc.randomFromArray(array);
+
+		} else if (dice < 56) {
+			array = new Alignment[] { Alignment.LAWFUL_EVIL, Alignment.LAWFUL_NEUTRAL, Alignment.LAWFUL_GOOD };
+			a = Misc.randomFromArray(array);
+
+		} else if (dice < 76) {
+			array = new Alignment[] { Alignment.CHAOTIC_GOOD, Alignment.NEUTRAL_GOOD, Alignment.LAWFUL_GOOD };
+			a = Misc.randomFromArray(array);
+
+		} else if (dice < 96) {
+			array = new Alignment[] { Alignment.CHAOTIC_EVIL, Alignment.CHAOTIC_NEUTRAL, Alignment.CHAOTIC_GOOD };
+			a = Misc.randomFromArray(array);
+
+		} else {
+			a = Alignment.TRUE_NEUTRAL;
+
+		}
 
 		return a;
 	}

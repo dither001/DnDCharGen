@@ -1,7 +1,8 @@
 package com.dnd5e.characters;
 
-import com.miscellaneous.util.Dice;
-import com.miscellaneous.util.Misc;
+import java.util.List;
+
+import com.miscellaneous.util.*;
 
 public enum Subclass {
 	BERSERKER, BEAR_TOTEM, EAGLE_TOTEM, WOLF_TOTEM, // barbarians
@@ -20,6 +21,26 @@ public enum Subclass {
 	/*
 	 * STATIC FIELDS
 	 */
+	private static final Subclass[] SUBCLASSES = {
+			// SRD
+			BERSERKER, LORE_COLLEGE, LIFE, LAND_CIRCLE, CHAMPION, OPEN_HAND, DEVOTION_OATH, HUNTER, THIEF,
+			DRAGON_ORIGIN, FIEND_PACT, EVOKER,
+
+			// PLAYER'S HANDBOOK + DUNGEON MASTER'S GUIDE
+			BEAR_TOTEM, EAGLE_TOTEM, WOLF_TOTEM, // barbarians
+			VALOR_COLLEGE, // bards
+			DEATH, KNOWLEDGE, LIGHT, NATURE, TEMPEST, TRICKERY, WAR, // clerics
+			MOON_CIRCLE, // druids
+			BATTLE_MASTER, ELDRITCH_KNIGHT, // fighters
+			SHADOW_WAY, FOUR_ELEMENTS, // monks
+			ANCIENTS_OATH, VENGEANCE_OATH, OATHBREAKER, // paladins
+			BEAST_MASTER, // rangers
+			ASSASSIN, ARCANE_TRICKSTER, // rogues
+			CHAOS_ORIGIN, // sorcerers
+			FEY_PACT, STAR_PACT, // warlocks
+			ABJURER, CONJUROR, DIVINER, ENCHANTER, ILLUSIONIST, NECROMANCER, TRANSMUTER // wizards
+	};
+
 	private static final Subclass[] BARBARIANS = { BERSERKER, BEAR_TOTEM, EAGLE_TOTEM, WOLF_TOTEM };
 	private static final Subclass[] BARDS = { LORE_COLLEGE, VALOR_COLLEGE };
 	private static final Subclass[] CLERICS = { DEATH, KNOWLEDGE, LIFE, LIGHT, NATURE, TEMPEST, TRICKERY, WAR };
@@ -37,6 +58,14 @@ public enum Subclass {
 	/*
 	 * STATIC METHODS
 	 */
+	public static Subclass get(int index) {
+		return SUBCLASSES[index];
+	}
+
+	public static List<Subclass> list() {
+		return Misc.arrayToList(SUBCLASSES);
+	}
+
 	public static Subclass selectSubclass(DnDCharacter actor) {
 		DnDClass job = actor.getJob();
 		Subclass subclass = null;

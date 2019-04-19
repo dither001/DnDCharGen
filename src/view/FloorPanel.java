@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.dnd5e.definitions.dungeons.*;
 import com.dnd5e.dungeons.*;
+import com.miscellaneous.util.*;
 
 @SuppressWarnings("serial")
 public class FloorPanel extends JPanel {

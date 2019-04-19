@@ -2,8 +2,7 @@ package com.dnd5e.factions;
 
 import java.util.Collection;
 
-import com.dnd5e.characters.Creature;
-import com.dnd5e.definitions.rules.*;
+import com.dnd5e.characters.*;
 
 public interface Ensemble {
 

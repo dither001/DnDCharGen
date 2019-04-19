@@ -57,4 +57,7 @@ public abstract class Sage {
 		actor.setInventory(inv);
 	}
 
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

@@ -116,4 +116,8 @@ public abstract class GuildArtisan {
 		}
 
 	}
+	
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

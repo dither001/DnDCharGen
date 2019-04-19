@@ -56,4 +56,7 @@ public abstract class Outlander {
 		actor.setInventory(inv);
 	}
 
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

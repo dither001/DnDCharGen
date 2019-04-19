@@ -3,7 +3,6 @@ package com.dnd5e.classes;
 import java.util.EnumSet;
 
 import com.dnd5e.characters.*;
-import com.dnd5e.definitions.rules.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;

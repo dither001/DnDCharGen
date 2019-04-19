@@ -63,4 +63,7 @@ public abstract class Hermit {
 		actor.setInventory(inv);
 	}
 
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

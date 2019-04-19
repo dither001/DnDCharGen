@@ -3,8 +3,7 @@ package com.dnd5e.classes;
 import java.util.EnumSet;
 
 import com.dnd5e.characters.*;
-
-import controller.*;
+import com.miscellaneous.util.*;
 
 public abstract class JobClass {
 	/*
@@ -34,7 +33,7 @@ public abstract class JobClass {
 	 */
 	public static void setup(Hero actor) {
 
-		if (Main.TESTING_MESSAGES)
+		if (Default.TESTING_MESSAGES)
 			System.out.println("Not implemented.");
 	}
 

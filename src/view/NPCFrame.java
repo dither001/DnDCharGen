@@ -11,6 +11,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.dnd5e.characters.DnDCharacter;
+import com.miscellaneous.util.Default;
+
 import controller.Main;
 import model.*;
 
@@ -63,7 +66,7 @@ public class NPCFrame extends JFrame {
 		southPanel.add(partyButton);
 		partyButton.addActionListener(e -> createAdventuringParty());
 		southPanel.add(rerollButton);
-		rerollButton.addActionListener(e -> tableModel.addAll(Main.rollCharacters(Main.NPCS_TO_ROLL)));
+		rerollButton.addActionListener(e -> tableModel.addAll(DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL)));
 		southPanel.add(clearButton);
 		clearButton.addActionListener(e -> clearCharacterDetail());
 

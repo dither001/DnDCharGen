@@ -2,8 +2,6 @@ package com.dnd5e.characters;
 
 import java.util.EnumSet;
 
-import com.dnd5e.characters.*;
-
 public interface Adventurer {
 
 	// level

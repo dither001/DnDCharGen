@@ -1,5 +1,7 @@
 package com.dnd5e.characters;
 
+import java.util.List;
+
 import com.dnd5e.definitions.rules.*;
 import com.miscellaneous.util.*;
 
@@ -96,6 +98,10 @@ public enum DnDClass implements Opposite, Similar {
 	 */
 	public static DnDClass get(int index) {
 		return CLASSES[index];
+	}
+
+	public static List<DnDClass> list() {
+		return Misc.arrayToList(CLASSES);
 	}
 
 	public static int getHitDie(DnDClass job) {

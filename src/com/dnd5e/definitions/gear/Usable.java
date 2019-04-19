@@ -1,7 +1,6 @@
 package com.dnd5e.definitions.gear;
 
-import com.dnd5e.characters.Skill;
-import com.dnd5e.definitions.rules.*;
+import com.dnd5e.characters.*;
 
 public interface Usable extends Portable {
 	public Handed getHanded();

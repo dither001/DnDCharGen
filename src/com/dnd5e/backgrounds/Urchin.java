@@ -1,10 +1,8 @@
 package com.dnd5e.backgrounds;
 
-import com.dnd5e.characters.Background;
-import com.dnd5e.characters.Hero;
-import com.dnd5e.characters.Skill;
-import com.dnd5e.equipment.Inventory;
-import com.miscellaneous.util.Misc;
+import com.dnd5e.characters.*;
+import com.dnd5e.equipment.*;
+import com.miscellaneous.util.*;
 
 public abstract class Urchin {
 	private static final Background BACKGROUND;
@@ -55,4 +53,7 @@ public abstract class Urchin {
 		actor.setInventory(inv);
 	}
 
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

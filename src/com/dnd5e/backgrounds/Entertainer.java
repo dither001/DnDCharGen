@@ -1,9 +1,8 @@
 package com.dnd5e.backgrounds;
 
 import com.dnd5e.characters.*;
-import com.dnd5e.definitions.rules.*;
-import com.dnd5e.equipment.Inventory;
-import com.miscellaneous.util.Misc;
+import com.dnd5e.equipment.*;
+import com.miscellaneous.util.*;
 
 public abstract class Entertainer {
 	private static final Background BACKGROUND;
@@ -54,5 +53,9 @@ public abstract class Entertainer {
 		// FINAL STEP
 		actor.setInventory(inv);
 
+	}
+	
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
 	}
 }

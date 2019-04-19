@@ -4,19 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.dnd5e.classes.Barbarian;
-import com.dnd5e.classes.Bard;
-import com.dnd5e.classes.Cleric;
-import com.dnd5e.classes.Druid;
-import com.dnd5e.classes.Fighter;
-import com.dnd5e.classes.Monk;
-import com.dnd5e.classes.Paladin;
-import com.dnd5e.classes.Ranger;
-import com.dnd5e.classes.Rogue;
-import com.dnd5e.classes.Sorcerer;
-import com.dnd5e.classes.Warlock;
-import com.dnd5e.classes.Wizard;
-import com.dnd5e.definitions.rules.*;
+import com.dnd5e.classes.*;
 import com.miscellaneous.util.*;
 
 public enum ClassFeature {

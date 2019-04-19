@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import com.dnd5e.definitions.dungeons.*;
 import com.dnd5e.definitions.gear.Material;
+import com.miscellaneous.util.Default;
 import com.miscellaneous.util.Dice;
 import com.miscellaneous.util.Misc;
 

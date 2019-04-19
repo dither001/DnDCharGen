@@ -1,5 +1,7 @@
 package com.dnd5e.characters;
 
+import java.util.List;
+
 import com.miscellaneous.util.*;
 
 public enum Race implements Opposite, Similar {
@@ -208,6 +210,10 @@ public enum Race implements Opposite, Similar {
 	 */
 	public static Race get(int index) {
 		return RACES[index];
+	}
+
+	public static List<Race> list() {
+		return Misc.arrayToList(RACES);
 	}
 
 	public static Race parse(String s) throws ParserException {

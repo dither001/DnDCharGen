@@ -1,5 +1,7 @@
 package com.dnd5e.worlds;
 
+import java.util.List;
+
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.magic.*;
@@ -311,33 +313,6 @@ public enum God implements Opposite, Similar {
 		return Misc.randomFromArray(GODS);
 	}
 
-	public static God selectGod(DnDCharacter actor) {
-		Alignment ali = actor.getAlignment();
-		DnDClass job = actor.getJob();
-		Race race = actor.getRace();
-
-		int dice = Dice.roll(10);
-		God god = null;
-		if (job.equals(DnDClass.CLERIC)) {
-
-			try {
-				god = deusExDomain(Domain.parseClericSubclass(actor.getSubclass()));
-			} catch (ParserException e) {
-				god = God.ERATHIS;
-			}
-		} else if (dice < 5) {
-			god = deusExAlignment(ali);
-		} else if (dice < 8) {
-			god = deusExRace(race);
-		} else if (dice < 10) {
-			god = deusExClass(job);
-		} else {
-			god = random();
-		}
-
-		return god;
-	}
-
 	public static String holySymbol(God god) {
 		String s = null;
 
@@ -406,5 +381,37 @@ public enum God implements Opposite, Similar {
 
 		return s;
 	}
+
+	public static List<God> list() {
+		return Misc.arrayToList(GODS);
+	}
+	
+	public static God selectGod(DnDCharacter actor) {
+		Alignment ali = actor.getAlignment();
+		DnDClass job = actor.getJob();
+		Race race = actor.getRace();
+
+		int dice = Dice.roll(10);
+		God god = null;
+		if (job.equals(DnDClass.CLERIC)) {
+
+			try {
+				god = deusExDomain(Domain.parseClericSubclass(actor.getSubclass()));
+			} catch (ParserException e) {
+				god = God.ERATHIS;
+			}
+		} else if (dice < 5) {
+			god = deusExAlignment(ali);
+		} else if (dice < 8) {
+			god = deusExRace(race);
+		} else if (dice < 10) {
+			god = deusExClass(job);
+		} else {
+			god = random();
+		}
+
+		return god;
+	}
+
 
 }

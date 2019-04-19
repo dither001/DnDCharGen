@@ -1,10 +1,19 @@
-package com.dnd5e.definitions.dungeons;
+package com.miscellaneous.util;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Default {
+
+	// TESTING / RELEASE
+	public static final boolean RELEASE;
+	public static final boolean TESTING_MESSAGES;
+
+	//
+	public static final int CHARACTERS_TO_ROLL;
+
+	//
 	public static boolean SHOW_BOUNDARY;
 	public static boolean SHOW_GRID;
 
@@ -20,6 +29,13 @@ public class Default {
 	public static final Point MIDPOINT;
 
 	static {
+		//
+		RELEASE = false;
+		TESTING_MESSAGES = false;
+
+		//
+		CHARACTERS_TO_ROLL = 10000;
+
 		// OPTIONS
 		SHOW_BOUNDARY = true;
 		SHOW_GRID = true;

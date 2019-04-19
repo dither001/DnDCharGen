@@ -2,15 +2,7 @@ package com.dnd5e.characters;
 
 import java.util.EnumSet;
 
-import com.dnd5e.classes.*;
-import com.dnd5e.definitions.rules.Alignment;
-import com.dnd5e.definitions.rules.Condition;
-import com.dnd5e.definitions.rules.CreatureType;
-import com.dnd5e.definitions.rules.EnergyType;
-import com.dnd5e.definitions.rules.Language;
-import com.dnd5e.definitions.rules.MovementType;
-import com.dnd5e.definitions.rules.Sense;
-import com.dnd5e.definitions.rules.Size;
+import com.dnd5e.definitions.rules.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
@@ -78,9 +70,9 @@ public interface Creature {
 	public EnumSet<Skill> getWeaponSkills();
 
 	public void setWeaponSkills(EnumSet<Skill> weaponSkills);
-	
+
 	public InnateSpellcasting getInnateSpells();
-	
+
 	public void setInnateSpells(InnateSpellcasting innateSpells);
 
 	public EnumSet<Spell> getCantripsKnown();

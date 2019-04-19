@@ -29,7 +29,7 @@ public class FileLoader {
 		String comma = ",";
 
 		try {
-			if (Main.RELEASE) {
+			if (Default.RELEASE) {
 				InputStream stream = Main.class.getResourceAsStream(filename);
 				input = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 
@@ -87,7 +87,7 @@ public class FileLoader {
 		String comma = ",";
 
 		try {
-			if (Main.RELEASE) {
+			if (Default.RELEASE) {
 				InputStream stream = Main.class.getResourceAsStream(filename);
 				input = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 
@@ -128,7 +128,7 @@ public class FileLoader {
 		String comma = ",";
 
 		try {
-			if (Main.RELEASE) {
+			if (Default.RELEASE) {
 				InputStream stream = Main.class.getResourceAsStream(filename);
 				InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
 				input = new BufferedReader(reader);
@@ -188,7 +188,7 @@ public class FileLoader {
 		String comma = ",";
 
 		try {
-			if (Main.RELEASE) {
+			if (Default.RELEASE) {
 				InputStream stream = Main.class.getResourceAsStream(filename);
 				input = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 
@@ -275,7 +275,7 @@ public class FileLoader {
 		String comma = ",";
 
 		try {
-			if (Main.RELEASE) {
+			if (Default.RELEASE) {
 				InputStream stream = Main.class.getResourceAsStream(filename);
 				input = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 

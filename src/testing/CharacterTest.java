@@ -16,7 +16,7 @@ import com.miscellaneous.util.FileLoader;
 
 public class CharacterTest {
 	//
-	private static final int NUMBER_TO_GENERATE = 10;
+	private static final int NUMBER_TO_GENERATE = 10000;
 
 	//
 	private static final Alignment ALIGNMENT = Alignment.CHAOTIC_EVIL;

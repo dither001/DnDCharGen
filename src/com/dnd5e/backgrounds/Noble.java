@@ -52,4 +52,7 @@ public abstract class Noble {
 		actor.setInventory(inv);
 	}
 
+	public static Background getEnumeratedType() {
+		return BACKGROUND;
+	}
 }

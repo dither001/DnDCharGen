@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,10 +12,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.dnd5e.characters.DnDCharacter;
-import com.miscellaneous.util.Default;
+import com.dnd5e.characters.*;
+import com.miscellaneous.util.*;
 
-import controller.Main;
 import model.*;
 
 @SuppressWarnings("serial")
@@ -40,13 +40,13 @@ public class NPCFrame extends JFrame {
 	/*
 	 * CONSTRUCTORS
 	 */
-	public NPCFrame() {
+	public NPCFrame(List<DnDCharacter> npcList) {
 		super("Character Generator");
 		setLayout(new BorderLayout(5, 5));
 
 		// adds characters to model
 		tableModel = new NPCTableModel();
-		tableModel.addAll(Main.npcList);
+		tableModel.addAll(npcList);
 
 		// hands model off to table
 		npcTable = new JTable(tableModel);

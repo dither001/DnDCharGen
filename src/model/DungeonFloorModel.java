@@ -8,7 +8,7 @@ public class DungeonFloorModel extends EntityTableModel<Floor> {
 	/*
 	 * ATTRIBUTES
 	 */
-	public final Attribute<String> NAME = new Attribute<>("Name", String.class, Floor::toString);
+	private final Attribute<String> NAME = new Attribute<>("Name", String.class, Floor::toString);
 
 	/*
 	 * CONSTRUCTORS

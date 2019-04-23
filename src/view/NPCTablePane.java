@@ -18,11 +18,17 @@ import model.*;
 
 @SuppressWarnings("serial")
 public class NPCTablePane extends JPanel {
+	
 	/*
 	 * STATIC FIELDS
 	 */
 	private static NPCDetailFrame detail;
 	private static JTextPane pane;
+
+	static {
+		detail = new NPCDetailFrame();
+	}
+
 
 	/*
 	 * INSTANCE FIELDS
@@ -31,7 +37,6 @@ public class NPCTablePane extends JPanel {
 	private JTable npcTable;
 	private TableRowSorter<TableModel> rowSorter;
 	private JScrollPane scrollPane;
-	
 
 	/*
 	 * CONSTRUCTORS
@@ -83,7 +88,7 @@ public class NPCTablePane extends JPanel {
 		detail = new NPCDetailFrame();
 		tableModel.clearInstances();
 	}
-	
+
 	private void addToParty() {
 		int[] rows = npcTable.getSelectedRows();
 
@@ -96,11 +101,11 @@ public class NPCTablePane extends JPanel {
 				System.out.println(tableModel.getInstance(el).toString());
 		}
 	}
-	
+
 	private void launchCharacterDetail() {
 		if (npcTable.getRowCount() > 0) {
 			StringBuilder sb = new StringBuilder();
-			
+
 			/*
 			 * Gets character instance from selected row; validation step to ensure that
 			 * sorting the table hasn't altered the index (of the character instance)
@@ -123,7 +128,7 @@ public class NPCTablePane extends JPanel {
 			}
 		}
 	}
-	
+
 	/*
 	 * STATIC METHODS
 	 */
@@ -140,6 +145,8 @@ public class NPCTablePane extends JPanel {
 		// setup table
 		pane.setNpcTable(new JTable(pane.tableModel));
 		pane.getNpcTable().setRowSorter(new TableRowSorter<>(pane.npcTable.getModel()));
+		pane.getNpcTable().getSelectionModel().addListSelectionListener(e -> pane.launchCharacterDetail());
+
 		pane.setScrollPane(new JScrollPane(pane.npcTable));
 		pane.add(pane.scrollPane);
 
@@ -152,7 +159,8 @@ public class NPCTablePane extends JPanel {
 		southPanel.add(partyButton);
 		partyButton.addActionListener(e -> pane.addToParty());
 		southPanel.add(rerollButton);
-		rerollButton.addActionListener(e -> pane.tableModel.addAll(DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL)));
+		rerollButton.addActionListener(
+				e -> pane.tableModel.addAll(DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL)));
 		southPanel.add(clearButton);
 		clearButton.addActionListener(e -> pane.clearCharacterDetail());
 

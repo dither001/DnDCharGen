@@ -66,7 +66,7 @@ public class TableFrame<T> extends JFrame {
 		frame.setTableContents(contents);
 
 		// pass contents to model & add to frame
-		model.addAll(contents);
+		frame.getTableModel().addAll(contents);
 		frame.add(new JScrollPane(table), BorderLayout.CENTER);
 
 		// finalize

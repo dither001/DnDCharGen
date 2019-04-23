@@ -4,15 +4,14 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import com.dnd1e.encounters.*;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.rules.*;
-import com.dnd5e.equipment.Armor;
-import com.dnd5e.equipment.Tool;
-import com.dnd5e.equipment.Weapon;
+import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
-import com.miscellaneous.util.FileLoader;
+import com.miscellaneous.util.*;
 
 public class CharacterTest {
 	//
@@ -460,5 +459,30 @@ public class CharacterTest {
 		n = array[3];
 		s = String.format("(%4.1f %%)", 1.0 * n / num * 100);
 		System.out.printf("%-10s %s\n", "% Tiefling", s);
+	}
+
+	/*
+	 * DUNGEON TESTING
+	 */
+	@Test
+	public void monsterLevel() {
+		int numberToRoll = 10000;
+
+		int floor = 1;
+		for (int j = 0; j < 17; ++j) {
+			int[] monsterLevels = Misc.initializeArray(10, 0);
+			for (int i = 1; i < numberToRoll; ++i) {
+				++monsterLevels[EncounterMatrix.monsterLevel(floor) - 1];
+			}
+
+			System.out.println("Floor number: " + floor);
+			for (int i = 0; i < monsterLevels.length; ++i) {
+				double percent = 100.0 * monsterLevels[i] / numberToRoll;
+				System.out.printf("%2d: %6d (%6.2f)%n", 1 + i, monsterLevels[i], +percent);
+			}
+
+			System.out.println();
+			++floor;
+		}
 	}
 }

@@ -8,6 +8,7 @@ import javax.swing.JTabbedPane;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.miscellaneous.util.*;
+import com.dnd1e.encounters.EncounterMatrix;
 import com.dnd5e.characters.*;
 import com.dnd5e.dungeons.*;
 import com.dnd5e.equipment.*;
@@ -40,6 +41,7 @@ public class Main {
 	 * MAIN METHOD
 	 */
 	public static void main(String[] args) {
+
 		buildTabbedPane();
 	}
 

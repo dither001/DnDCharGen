@@ -12,7 +12,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.dnd5e.characters.*;
-import com.miscellaneous.util.Default;
+import com.miscellaneous.util.*;
 
 import model.*;
 
@@ -84,7 +84,7 @@ public class NPCTablePane extends JPanel {
 		tableModel.clearInstances();
 	}
 	
-	private void createAdventuringParty() {
+	private void addToParty() {
 		int[] rows = npcTable.getSelectedRows();
 
 		if (rows.length > 0) {
@@ -145,12 +145,12 @@ public class NPCTablePane extends JPanel {
 
 		// panel for additional components (when desired)
 		JPanel southPanel = new JPanel();
-		JButton partyButton = new JButton("Create Adventuring Party");
+		JButton partyButton = new JButton("Add to Party");
 		JButton rerollButton = new JButton("Roll New Characters");
 		JButton clearButton = new JButton("Clear Characters");
 
 		southPanel.add(partyButton);
-		partyButton.addActionListener(e -> pane.createAdventuringParty());
+		partyButton.addActionListener(e -> pane.addToParty());
 		southPanel.add(rerollButton);
 		rerollButton.addActionListener(e -> pane.tableModel.addAll(DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL)));
 		southPanel.add(clearButton);

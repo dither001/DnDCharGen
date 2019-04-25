@@ -3,6 +3,7 @@ package com.dnd5e.characters;
 import java.util.List;
 
 import com.dnd5e.backgrounds.*;
+import com.dnd5e.factions.FactionType;
 import com.miscellaneous.util.*;
 
 public enum Background implements Opposite, Similar {
@@ -131,6 +132,36 @@ public enum Background implements Opposite, Similar {
 		default:
 			break;
 		}
+	}
+
+	public static FactionType getFactionType(Background bg) {
+		FactionType type = null;
+
+		switch (bg) {
+		case ACOLYTE:
+		case NOBLE:
+		case SAGE:
+			type = FactionType.CULT;
+			break;
+		case CHARLATAN:
+		case CRIMINAL:
+		case ENTERTAINER:
+		case GUILD_ARTISAN:
+			type = FactionType.RING;
+			break;
+		case FOLK_HERO:
+		case HERMIT:
+		case OUTLANDER:
+		case URCHIN:
+			type = FactionType.GANG;
+			break;
+		case SAILOR:
+		case SOLDIER:
+			type = FactionType.BAND;
+			break;
+		}
+
+		return type;
 	}
 
 	public static Background get(int index) {

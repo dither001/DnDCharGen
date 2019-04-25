@@ -14,7 +14,7 @@ import com.dnd5e.equipment.*;
 import com.dnd5e.factions.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
-import com.dnd5e.worlds.God;
+import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
 import view.*;
@@ -27,11 +27,11 @@ public abstract class Controller {
 	private static JTabbedPane tabbedPane;
 
 	// tabs
-	private static PlayerPane playerTab;
 	private static NPCTablePane npcTab;
 	private static CirclesPane circlesTab;
-	private static DungeonPane dungeonTab;
 
+	private static PlayerPane playerTab;
+	private static DungeonPane dungeonTab;
 	private static FactionPane factionTab;
 
 	//
@@ -53,7 +53,7 @@ public abstract class Controller {
 
 		//
 		players = new ArrayList<DnDCharacter>();
-		npcList = DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL);
+		npcList = Controller.rollCharacters();
 		circles = Circles.build(npcList);
 		dungeon = Dungeon.build(Dice.roll(2, 4) + 1);
 		factions = new ArrayList<Warband>();
@@ -93,6 +93,14 @@ public abstract class Controller {
 		Controller.circles = circles;
 	}
 
+	public static List<Warband> getFactions() {
+		return factions;
+	}
+
+	public static void setFactions(List<Warband> factions) {
+		Controller.factions = factions;
+	}
+
 	public static void buildTabbedPane() {
 		tabbedPane = new JTabbedPane();
 
@@ -101,6 +109,7 @@ public abstract class Controller {
 		npcTab = (NPCTablePane) tabbedPane.add("Characters", NPCTablePane.build(npcList));
 		// circlesTab = (CirclesPane) tabbedPane.add("Circles",
 		// CirclesPane.build(circles));
+		factionTab = (FactionPane) tabbedPane.add("Factions", FactionPane.build());
 		dungeonTab = (DungeonPane) tabbedPane.add("Dungeons", DungeonPane.build(dungeon));
 
 		//
@@ -113,13 +122,22 @@ public abstract class Controller {
 		frame.setVisible(true);
 	}
 
+	public static List<DnDCharacter> rollCharacters() {
+		int n = Default.CHARACTERS_TO_ROLL;
+		List<DnDCharacter> list = new ArrayList<DnDCharacter>(n);
+		for (int i = 0; i < n; ++i)
+			list.add(DnDCharacter.random());
+
+		return list;
+	}
+
 	public static void clearCharacters() {
 		// TODO
 
 	}
 
 	public static void generateFactions() {
-		if (players.size() > 0) {
+		if (players.size() > 0 && factions.size() < 1) {
 			EnumSet<Background> bgs = EnumSet.noneOf(Background.class);
 			EnumSet<Subclass> sub = EnumSet.noneOf(Subclass.class);
 			EnumSet<Race> race = EnumSet.noneOf(Race.class);
@@ -157,7 +175,7 @@ public abstract class Controller {
 				factions.add(warband);
 			}
 
-			System.out.println(factions.size());
+			update();
 		}
 	}
 
@@ -165,7 +183,11 @@ public abstract class Controller {
 		playerTab.setContents(players);
 		playerTab.updateContents();
 
+		factionTab.setContents(factions);
+		factionTab.updateContents();
+
 		tabbedPane.revalidate();
 		tabbedPane.repaint();
 	}
+
 }

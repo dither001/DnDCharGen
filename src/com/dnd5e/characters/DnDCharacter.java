@@ -1,6 +1,5 @@
 package com.dnd5e.characters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.dnd5e.classes.*;
@@ -102,14 +101,6 @@ public class DnDCharacter extends Hero {
 		JobClass.setupStartingGear(toon);
 
 		return toon;
-	}
-
-	public static List<DnDCharacter> rollCharacters(int n) {
-		List<DnDCharacter> list = new ArrayList<DnDCharacter>(n);
-		for (int i = 0; i < n; ++i)
-			list.add(random());
-
-		return list;
 	}
 
 }

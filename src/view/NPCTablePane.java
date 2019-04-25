@@ -89,7 +89,8 @@ public class NPCTablePane extends JPanel {
 		detail = new NPCDetailFrame();
 		tableModel.clearInstances();
 
-		tableModel.addAll(Controller.getPlayers());
+		if (Controller.getPlayers().size() > 0)
+			tableModel.addAll(Controller.getPlayers());
 	}
 
 	private void addToParty() {
@@ -168,8 +169,7 @@ public class NPCTablePane extends JPanel {
 		southPanel.add(partyButton);
 		partyButton.addActionListener(e -> pane.addToParty());
 		southPanel.add(rerollButton);
-		rerollButton.addActionListener(
-				e -> pane.tableModel.addAll(DnDCharacter.rollCharacters(Default.CHARACTERS_TO_ROLL)));
+		rerollButton.addActionListener(e -> pane.tableModel.addAll(Controller.rollCharacters()));
 		southPanel.add(clearButton);
 		clearButton.addActionListener(e -> pane.clearCharacterDetail());
 

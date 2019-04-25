@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.util.EnumSet;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,9 +10,8 @@ import javax.swing.JTable;
 import javax.swing.table.TableRowSorter;
 
 import com.dnd5e.characters.*;
-import com.dnd5e.worlds.*;
 
-import controller.Controller;
+import controller.*;
 import model.*;
 
 @SuppressWarnings("serial")
@@ -22,9 +20,9 @@ public class PlayerPane extends TablePane<DnDCharacter> {
 	public void updateContents() {
 		removeAll();
 
-		setContents(Controller.getPlayers());
 		setModel(new PlayerTableModel());
 		getModel().addAll(Controller.getPlayers());
+
 		setTable(new JTable(model));
 		getTable().setRowSorter(new TableRowSorter<>(getTable().getModel()));
 		setScrollpane(new JScrollPane(table));
@@ -42,9 +40,6 @@ public class PlayerPane extends TablePane<DnDCharacter> {
 		// finalize southern panel
 		southPanel.add(factionButton);
 		add(southPanel, BorderLayout.SOUTH);
-
-		revalidate();
-		repaint();
 	}
 
 	/*

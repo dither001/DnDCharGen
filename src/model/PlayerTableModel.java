@@ -5,12 +5,13 @@ import com.dnd5e.definitions.rules.*;
 import com.dnd5e.worlds.*;
 
 @SuppressWarnings("serial")
-public class NPCTableModel extends EntityTableModel<DnDCharacter> {
+public class PlayerTableModel extends EntityTableModel<DnDCharacter> {
 
 	/*
 	 * ATTRIBUTES
 	 */
 	public final Attribute<String> NAME = new Attribute<>("Name", String.class, DnDCharacter::getName);
+	public final Attribute<Integer> EXP = new Attribute<>("EXP", Integer.class, DnDCharacter::getExperience);
 	public final Attribute<Integer> LVL = new Attribute<>("Level", Integer.class, DnDCharacter::getLevel);
 
 	//
@@ -34,7 +35,8 @@ public class NPCTableModel extends EntityTableModel<DnDCharacter> {
 	 * CONSTRUCTORS
 	 */
 	@SuppressWarnings("unchecked")
-	public NPCTableModel() {
-		setColumns(NAME, LVL, ALI, RACE, SUB, CLAZZ, BGD, GOD, STR, DEX, CON, INT, WIS, CHA);
+	public PlayerTableModel() {
+		setColumns(NAME, EXP, LVL, ALI, RACE, SUB, CLAZZ, BGD, GOD, STR, DEX, CON, INT, WIS, CHA);
 	}
+
 }

@@ -11,9 +11,9 @@ public interface Band extends Ensemble {
 	 * together. Secondary method of a Band: to disband a group of creatures or
 	 * characters and retrieve the latest Collection.
 	 */
-	public void band(Ideal ideal, Collection<Creature> c);
+	public void band(Ideal ideal, Collection<Actor> c);
 
-	public Collection<Creature> disband();
+	public Collection<Actor> disband();
 
 	/*
 	 * 

@@ -9,20 +9,27 @@ public interface Ensemble {
 	/*
 	 * 
 	 */
-	public boolean add(Creature creature);
+	public String getName();
+	
+	public void setName(String name);
+	
+	/*
+	 * 
+	 */
+	public boolean add(Actor creature);
 
-	public boolean addAll(Collection<Creature> c);
+	public boolean addAll(Collection<Actor> c);
 
-	public Creature remove(Creature creature);
+	public Actor remove(Actor creature);
 
-	public Collection<Creature> removeAll(Collection<Creature> c);
+	public Collection<Actor> removeAll(Collection<Actor> c);
 
 	/*
 	 * 
 	 */
-	public Collection<Creature> getMembers();
+	public Collection<Actor> getMembers();
 
-	public void setMembers(Collection<Creature> members);
+	public void setMembers(Collection<Actor> members);
 
 	public Foundation getFoundation();
 

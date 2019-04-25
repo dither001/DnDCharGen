@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import model.EntityTableModel;
 
@@ -14,19 +16,16 @@ public class TablePane<T> extends JPanel {
 	/*
 	 * INSTANCE FIELDS
 	 */
-	private EntityTableModel<T> model;
-	private JTable table;
-	private JScrollPane scrollpane;
+	protected EntityTableModel<T> model;
+	protected JTable table;
+	protected JScrollPane scrollpane;
+	private TableRowSorter<TableModel> rowSorter;
 
-	private List<T> contents;
+	protected List<T> contents;
 
 	/*
 	 * CONSTRUCTORS
 	 */
-	private TablePane() {
-
-	}
-
 	public EntityTableModel<T> getModel() {
 		return model;
 	}
@@ -41,6 +40,14 @@ public class TablePane<T> extends JPanel {
 
 	public void setTable(JTable table) {
 		this.table = table;
+	}
+
+	public TableRowSorter<TableModel> getRowSorter() {
+		return rowSorter;
+	}
+
+	public void setRowSorter(TableRowSorter<TableModel> rowSorter) {
+		this.rowSorter = rowSorter;
 	}
 
 	public List<T> getContents() {
@@ -69,6 +76,7 @@ public class TablePane<T> extends JPanel {
 		pane.setModel(model);
 		pane.setTable(new JTable(model));
 		pane.setContents(contents);
+		pane.getTable().setRowSorter(new TableRowSorter<>(pane.getTable().getModel()));
 
 		// add contents to model & pane
 		pane.getModel().addAll(contents);
@@ -77,5 +85,4 @@ public class TablePane<T> extends JPanel {
 
 		return pane;
 	}
-
 }

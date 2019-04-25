@@ -8,6 +8,8 @@ import java.util.List;
 import com.dnd5e.characters.*;
 
 public class Warband implements Ensemble {
+	protected String name;
+
 	protected List<Member> members;
 	protected Member founder;
 	protected Foundation foundation;
@@ -16,7 +18,8 @@ public class Warband implements Ensemble {
 	/*
 	 * CONSTRUCTOR
 	 */
-	private Warband() {
+	public Warband() {
+		this.name = "Unnamed Warband";
 		this.members = new ArrayList<Member>();
 		this.foundation = Foundation.ALIGNMENT;
 		this.morale = 11;
@@ -25,7 +28,17 @@ public class Warband implements Ensemble {
 	/*
 	 * ENSEMBLE METHODS
 	 */
-	public boolean add(Creature creature) {
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean add(Actor creature) {
 		boolean added = false;
 
 		if (members.size() == 0) {
@@ -49,12 +62,12 @@ public class Warband implements Ensemble {
 		return added;
 	}
 
-	public boolean addAll(Collection<Creature> c) {
+	public boolean addAll(Collection<Actor> c) {
 		boolean added = false;
 
 		if (true) {
 			added = true;
-			for (Iterator<Creature> it = c.iterator(); it.hasNext();)
+			for (Iterator<Actor> it = c.iterator(); it.hasNext();)
 				members.add(new Member(it.next()));
 
 			foundation = biggestDifference();
@@ -64,25 +77,25 @@ public class Warband implements Ensemble {
 		return added;
 	}
 
-	public Creature remove(Creature creature) {
+	public Actor remove(Actor creature) {
 		// TODO
 		return null;
 	}
 
-	public Collection<Creature> removeAll(Collection<Creature> c) {
+	public Collection<Actor> removeAll(Collection<Actor> c) {
 		// TODO
 		return null;
 	}
 
-	public List<Creature> getMembers() {
-		ArrayList<Creature> list = new ArrayList<Creature>();
+	public List<Actor> getMembers() {
+		ArrayList<Actor> list = new ArrayList<Actor>();
 		for (Iterator<Member> it = members.iterator(); it.hasNext();)
 			list.add(it.next().creature);
 
 		return list;
 	}
 
-	public void setMembers(Collection<Creature> members) {
+	public void setMembers(Collection<Actor> members) {
 		// TODO
 	}
 
@@ -162,14 +175,14 @@ public class Warband implements Ensemble {
 	 */
 	private class Member {
 		// basic
-		Creature creature;
+		Actor creature;
 		boolean hasClass;
 		boolean active;
 
 		/*
 		 * CONSTRUCTOR
 		 */
-		Member(Creature creature) {
+		Member(Actor creature) {
 			this.creature = creature;
 
 			// classed characters
@@ -226,4 +239,5 @@ public class Warband implements Ensemble {
 		}
 
 	}
+
 }

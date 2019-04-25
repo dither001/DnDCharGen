@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -14,11 +15,12 @@ import javax.swing.table.TableRowSorter;
 import com.dnd5e.characters.*;
 import com.miscellaneous.util.*;
 
+import controller.Controller;
 import model.*;
 
 @SuppressWarnings("serial")
 public class NPCTablePane extends JPanel {
-	
+
 	/*
 	 * STATIC FIELDS
 	 */
@@ -28,7 +30,6 @@ public class NPCTablePane extends JPanel {
 	static {
 		detail = new NPCDetailFrame();
 	}
-
 
 	/*
 	 * INSTANCE FIELDS
@@ -87,6 +88,8 @@ public class NPCTablePane extends JPanel {
 		detail.setVisible(false);
 		detail = new NPCDetailFrame();
 		tableModel.clearInstances();
+
+		tableModel.addAll(Controller.getPlayers());
 	}
 
 	private void addToParty() {
@@ -97,8 +100,14 @@ public class NPCTablePane extends JPanel {
 			for (int i = 0; i < rows.length; ++i)
 				indices[i] = npcTable.convertRowIndexToModel(rows[i]);
 
-			for (int el : indices)
-				System.out.println(tableModel.getInstance(el).toString());
+			List<DnDCharacter> list = new ArrayList<DnDCharacter>(rows.length);
+			for (int el : indices) {
+				list.add(tableModel.getInstance(el));
+
+			}
+
+			Controller.addPlayers(list);
+			Controller.update();
 		}
 	}
 

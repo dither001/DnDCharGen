@@ -151,14 +151,6 @@ public abstract class Controller {
 			}
 
 			int total = bgs.size() + sub.size() + race.size() + god.size();
-			System.out.println((4 * Controller.getPlayers().size()) + " maximum number of factions");
-			System.out.println(total + " total factions");
-			System.out.println(bgs);
-			System.out.println(sub);
-			System.out.println(race);
-			System.out.println(god);
-
-			System.out.println(factions.size());
 			factions = new ArrayList<Warband>(total);
 			int dice;
 			for (Background el : bgs) {

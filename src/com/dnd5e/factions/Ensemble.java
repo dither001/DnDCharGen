@@ -13,6 +13,10 @@ public interface Ensemble {
 	
 	public void setName(String name);
 	
+	public Actor getFace();
+	
+	public void setFace(Actor face);
+	
 	/*
 	 * 
 	 */

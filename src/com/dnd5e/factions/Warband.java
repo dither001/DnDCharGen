@@ -38,43 +38,66 @@ public class Warband implements Ensemble {
 		this.name = name;
 	}
 
-	public boolean add(Actor creature) {
-		boolean added = false;
+	public String getLeaderName() {
+		return founder.creature.getName();
+	}
 
-		if (members.size() == 0) {
-			Member founder = new Member(creature);
-			this.founder = founder;
+	@Override
+	public Actor getFace() {
+		return founder.creature;
+	}
 
-			members.add(new Member(creature));
-			added = true;
+	@Override
+	public void setFace(Actor face) {
+		// TODO Auto-generated method stub
 
-		} else if (members.size() > 1) {
-			members.add(new Member(creature));
-			added = true;
-			foundation = biggestDifference();
+	}
 
+	public int size() {
+		return members.size();
+	}
+
+	public boolean add(Actor actor) {
+		if (contains(actor)) {
+			return false;
 		} else {
-			members.add(new Member(creature));
-			added = true;
+			Member add = new Member(actor);
+			if (members.size() == 0) {
+				this.founder = add;
+				members.add(add);
 
+			} else if (members.size() > 1) {
+				members.add(new Member(actor));
+
+			} else {
+				members.add(new Member(actor));
+
+			}
+
+			return true;
 		}
+	}
+
+	public boolean addAll(Collection<Actor> c) {
+		boolean added = true;
+
+		for (Iterator<Actor> it = c.iterator(); it.hasNext();) {
+			if (add(it.next()) != true)
+				added = false;
+		}
+
+		foundation = biggestDifference();
 
 		return added;
 	}
 
-	public boolean addAll(Collection<Actor> c) {
-		boolean added = false;
-
-		if (true) {
-			added = true;
-			for (Iterator<Actor> it = c.iterator(); it.hasNext();)
-				members.add(new Member(it.next()));
-
-			foundation = biggestDifference();
-
+	public boolean contains(Actor creature) {
+		for (Member el : members) {
+			if (el.equals(creature))
+				return true;
 		}
 
-		return added;
+		return false;
 	}
 
 	public Actor remove(Actor creature) {
@@ -128,6 +151,15 @@ public class Warband implements Ensemble {
 	/*
 	 * PRIVATE METHODS
 	 */
+	private Member getMember(Actor creature) {
+		for (Member el : members) {
+			if (el.creature.equals(creature))
+				return el;
+		}
+
+		return null;
+	}
+
 	private Foundation biggestDifference() {
 		Foundation foundation = Foundation.ALIGNMENT;
 		// 15, 13, 11, 9, 7

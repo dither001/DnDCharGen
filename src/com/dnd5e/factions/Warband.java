@@ -9,6 +9,8 @@ import com.dnd5e.characters.*;
 
 public class Warband implements Ensemble {
 	protected String name;
+	protected FactionType type;
+	protected String purpose;
 
 	protected List<Member> members;
 	protected Member founder;
@@ -20,6 +22,9 @@ public class Warband implements Ensemble {
 	 */
 	public Warband() {
 		this.name = "Unnamed Warband";
+		this.type = FactionType.GANG;
+
+		//
 		this.members = new ArrayList<Member>();
 		this.foundation = Foundation.ALIGNMENT;
 		this.morale = 11;
@@ -36,6 +41,22 @@ public class Warband implements Ensemble {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public FactionType getType() {
+		return type;
+	}
+
+	public void setType(FactionType type) {
+		this.type = type;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
 	public String getLeaderName() {

@@ -54,7 +54,7 @@ public abstract class Controller {
 		//
 		players = new ArrayList<DnDCharacter>();
 		npcList = Controller.rollCharacters();
-		circles = Circles.build(npcList);
+		// circles = Circles.build(npcList);
 		dungeon = Dungeon.build(Dice.roll(2, 4) + 1);
 		factions = new ArrayList<Warband>();
 	}
@@ -138,6 +138,10 @@ public abstract class Controller {
 
 	public static void generateFactions() {
 		if (players.size() > 0 && factions.size() < 1) {
+			List<DnDCharacter> l1 = new ArrayList<DnDCharacter>(npcList);
+			npcList.removeAll(players);
+			circles = Circles.build(l1);
+
 			EnumSet<Background> bgs = EnumSet.noneOf(Background.class);
 			EnumSet<Subclass> sub = EnumSet.noneOf(Subclass.class);
 			EnumSet<Race> race = EnumSet.noneOf(Race.class);
@@ -153,17 +157,76 @@ public abstract class Controller {
 			int total = bgs.size() + sub.size() + race.size() + god.size();
 			factions = new ArrayList<Warband>(total);
 			int dice;
+
+			// BACKGROUND
 			for (Background el : bgs) {
 				List<Actor> list = new ArrayList<Actor>(circles.getBackgroundMap().get(el));
 				Collections.shuffle(list);
 
-				dice = Dice.roll(4) + 5;
+				dice = Dice.roll(4) + 3;
 				if (list.size() < dice)
 					dice = list.size();
 				list = list.subList(0, dice);
 
 				Warband warband = new Warband();
 				warband.addAll(list);
+				warband.setPurpose(el.toString());
+				warband.setType(FactionType.getType(el));
+				warband.setName(warband.getLeaderName() + "'s " + warband.getPurpose() + " " + warband.getType());
+				factions.add(warband);
+			}
+
+			// SUBCLASS
+			for (Subclass el : sub) {
+				List<Actor> list = new ArrayList<Actor>(circles.getSubclassMap().get(el));
+				Collections.shuffle(list);
+
+				dice = Dice.roll(4) + 3;
+				if (list.size() < dice)
+					dice = list.size();
+				list = list.subList(0, dice);
+
+				Warband warband = new Warband();
+				warband.addAll(list);
+				warband.setPurpose(el.toString());
+				warband.setType(FactionType.random());
+				warband.setName(warband.getLeaderName() + "'s " + warband.getPurpose() + " " + warband.getType());
+				factions.add(warband);
+			}
+
+			// RACE
+			for (Race el : race) {
+				List<Actor> list = new ArrayList<Actor>(circles.getRaceMap().get(el));
+				Collections.shuffle(list);
+
+				dice = Dice.roll(4) + 3;
+				if (list.size() < dice)
+					dice = list.size();
+				list = list.subList(0, dice);
+
+				Warband warband = new Warband();
+				warband.addAll(list);
+				warband.setPurpose(el.toString());
+				warband.setType(FactionType.random());
+				warband.setName(warband.getLeaderName() + "'s " + warband.getPurpose() + " " + warband.getType());
+				factions.add(warband);
+			}
+
+			// GOD
+			for (God el : god) {
+				List<Actor> list = new ArrayList<Actor>(circles.getGodMap().get(el));
+				Collections.shuffle(list);
+
+				dice = Dice.roll(4) + 3;
+				if (list.size() < dice)
+					dice = list.size();
+				list = list.subList(0, dice);
+
+				Warband warband = new Warband();
+				warband.addAll(list);
+				warband.setPurpose(el.toString());
+				warband.setType(FactionType.random());
+				warband.setName(warband.getLeaderName() + "'s " + warband.getPurpose() + " " + warband.getType());
 				factions.add(warband);
 			}
 

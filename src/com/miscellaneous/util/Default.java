@@ -30,7 +30,7 @@ public class Default {
 
 	static {
 		//
-		RELEASE = false;
+		RELEASE = true;
 		TESTING_MESSAGES = false;
 
 		//

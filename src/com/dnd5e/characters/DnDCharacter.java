@@ -19,7 +19,7 @@ public class DnDCharacter extends Hero {
 	 * INSTANCE METHODS
 	 */
 	public String toString() {
-		return String.format("%s %s %s %s (%s) %s", alignment.abbreviation(), isFemale ? "female" : "male",
+		return String.format("%s %s %s %s %s (%s) %s", name, alignment.abbreviation(), isFemale ? "female" : "male",
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());
 	}
 

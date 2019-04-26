@@ -63,6 +63,15 @@ public class Warband implements Ensemble {
 		return founder.creature.getName();
 	}
 
+	public StringBuilder memberList() {
+		StringBuilder sb = new StringBuilder();
+
+		for (Member el : members)
+			sb.append(el.creature.toString() + "\n");
+
+		return sb;
+	}
+
 	@Override
 	public Actor getFace() {
 		return founder.creature;
@@ -76,6 +85,14 @@ public class Warband implements Ensemble {
 
 	public int size() {
 		return members.size();
+	}
+
+	public int getMorale() {
+		return morale;
+	}
+
+	public void setMorale(int morale) {
+		this.morale = morale;
 	}
 
 	public boolean add(Actor actor) {

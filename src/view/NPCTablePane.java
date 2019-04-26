@@ -13,23 +13,12 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.dnd5e.characters.*;
-import com.miscellaneous.util.*;
 
-import controller.Controller;
+import controller.*;
 import model.*;
 
 @SuppressWarnings("serial")
 public class NPCTablePane extends JPanel {
-
-	/*
-	 * STATIC FIELDS
-	 */
-	private static NPCDetailFrame detail;
-	private static JTextPane pane;
-
-	static {
-		detail = new NPCDetailFrame();
-	}
 
 	/*
 	 * INSTANCE FIELDS
@@ -85,8 +74,8 @@ public class NPCTablePane extends JPanel {
 	 * PRIVATE METHODS
 	 */
 	private void clearCharacterDetail() {
-		detail.setVisible(false);
-		detail = new NPCDetailFrame();
+		Controller.detail.setVisible(false);
+		Controller.detail = new NPCDetailFrame();
 		tableModel.clearInstances();
 
 		if (Controller.getPlayers().size() > 0)
@@ -113,29 +102,26 @@ public class NPCTablePane extends JPanel {
 	}
 
 	private void launchCharacterDetail() {
+		/*
+		 * Gets character instance from selected row; validation step to ensure that
+		 * sorting the table hasn't altered the index (of the character instance)
+		 */
+		int index = npcTable.getSelectedRow();
+		StringBuilder sb = new StringBuilder();
+
+		if (index >= 0)
+			sb.append(tableModel.getInstance(npcTable.convertRowIndexToModel(index)).toStringVerbose());
+
 		if (npcTable.getRowCount() > 0) {
-			StringBuilder sb = new StringBuilder();
 
-			/*
-			 * Gets character instance from selected row; validation step to ensure that
-			 * sorting the table hasn't altered the index (of the character instance)
-			 */
-			int index = npcTable.getSelectedRow();
-			if (index >= 0)
-				sb.append(tableModel.getInstance(npcTable.convertRowIndexToModel(index)).toStringVerbose());
+			JTextPane panel = new JTextPane();
+			panel.setText(sb.toString());
+			Controller.detail.setContentPane(panel);
+			Controller.detail.revalidate();
 
-			if (detail.isVisible()) {
-				pane.setText(sb.toString());
-				detail.setContentPane(pane);
+			if (Controller.detail.isVisible() != true)
+				Controller.detail.setVisible(true);
 
-			} else {
-				pane = new JTextPane();
-				pane.setText(sb.toString());
-				detail.setContentPane(pane);
-
-				detail.setVisible(true);
-
-			}
 		}
 	}
 

@@ -25,6 +25,7 @@ public abstract class Controller {
 	 * STATIC FIELDS
 	 */
 	private static JTabbedPane tabbedPane;
+	public static NPCDetailFrame detail;
 
 	// tabs
 	private static NPCTablePane npcTab;
@@ -50,6 +51,9 @@ public abstract class Controller {
 		Sorcery.setupSpells(FileLoader.parseSpells("resources/spells.csv"));
 		Tool.setupTools(FileLoader.parseGear("resources/gear.csv"));
 		Weapon.setupWeapons(FileLoader.parseWeapons("resources/weapons.csv"));
+
+		//
+		detail = new NPCDetailFrame();
 
 		//
 		players = new ArrayList<DnDCharacter>();

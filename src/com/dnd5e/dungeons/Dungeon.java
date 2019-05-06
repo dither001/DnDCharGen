@@ -1,5 +1,7 @@
 package com.dnd5e.dungeons;
 
+import java.awt.Rectangle;
+
 public class Dungeon {
 
 	/*
@@ -43,20 +45,27 @@ public class Dungeon {
 		floors[0].initialize();
 		currentFloor = 0;
 
-		int counter = 0;
-		while (floorsUnderMapped()) {
-			// if (floors[currentFloor].isUnderMapped())
-			floors[currentFloor].explore();
+		for (Floor el : floors)
+			el.explore();
 
-			if (currentFloor < floors.length)
-				++currentFloor;
+		// int counter = 0;
+		// while (floorsUnderMapped()) {
+		// floors[currentFloor].explore();
+		//
+		// if (currentFloor < floors.length)
+		// ++currentFloor;
+		//
+		// if (currentFloor == floors.length)
+		// currentFloor = 0;
+		//
+		// ++counter;
+		// if (counter > 999)
+		// break;
+		// }
 
-			if (currentFloor == floors.length)
-				currentFloor = 0;
-
-			++counter;
-			if (counter > 999)
-				break;
+		for (Floor el : floors) {
+			Rectangle r = new Rectangle(MaximalRectangle.findMaximalRectangle(el));
+			el.test.add(r);
 		}
 	}
 
@@ -66,11 +75,14 @@ public class Dungeon {
 		 * TODO - STAIR HANDLING
 		 */
 		int landings = stair.getFloors();
+
 		for (int i = 1; i <= landings; ++i) {
-			if (stair.isGoingUp() && i >= 0) {
+			if (stair.isGoingUp() && currentFloor - i >= 0) {
 				Stair s = Stair.build(stair.cardinal, stair.getLocation());
-				// if (i < landings)
-				// s.setExplored(true);
+
+				// FIXME - testing
+				if (i < landings)
+					s.setExplored(true);
 
 				if (floors[currentFloor - i].addStair(s) != true) {
 					added = false;
@@ -79,6 +91,7 @@ public class Dungeon {
 
 			} else if (stair.isGoingDown() && currentFloor + i < floors.length) {
 				Stair s = Stair.build(stair.cardinal, stair.getLocation());
+
 				if (floors[currentFloor + i].addStair(s) != true) {
 					added = false;
 					break;

@@ -52,7 +52,7 @@ public class Chamber extends Segment {
 	}
 
 	/*
-	 * INSTANCE METHODS
+	 * INSTANCE FIELDS
 	 */
 	private boolean isLargeRoom;
 
@@ -61,6 +61,14 @@ public class Chamber extends Segment {
 	 */
 	public boolean isLargeRoom() {
 		return isLargeRoom;
+	}
+
+	public boolean isRoomCircular() {
+		return isRoomCircular;
+	}
+
+	public void setRoomCircular(boolean isRoomCircular) {
+		this.isRoomCircular = isRoomCircular;
 	}
 
 	public void paint(Graphics g) {
@@ -103,6 +111,38 @@ public class Chamber extends Segment {
 		chamber.setSize(dimension);
 
 		return chamber;
+	}
+
+	public static int randomNumberOfExits(Chamber c) {
+		int dice = Dice.roll(20), exits = 0;
+
+		if (c.isLargeRoom() && dice > 3) {
+			if (dice >= 4 && dice <= 8)
+				exits = 1;
+			else if (dice >= 9 && dice <= 13)
+				exits = 2;
+			else if (dice >= 14 && dice <= 17)
+				exits = 3;
+			else if (dice == 18)
+				exits = 4;
+			else if (dice == 19)
+				exits = 5;
+			else if (dice == 20)
+				exits = 6;
+
+		} else {
+			if (dice >= 6 && dice <= 11)
+				exits = 1;
+			else if (dice >= 12 && dice <= 15)
+				exits = 2;
+			else if (dice >= 16 && dice <= 18)
+				exits = 3;
+			else if (dice >= 19)
+				exits = 4;
+
+		}
+
+		return exits;
 	}
 
 	public static Dimension randomDimension() {
@@ -162,14 +202,6 @@ public class Chamber extends Segment {
 		}
 
 		return d;
-	}
-
-	public boolean isRoomCircular() {
-		return isRoomCircular;
-	}
-
-	public void setRoomCircular(boolean isRoomCircular) {
-		this.isRoomCircular = isRoomCircular;
 	}
 
 }

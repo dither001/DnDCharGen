@@ -20,6 +20,7 @@ public class Floor {
 	private List<Door> doors;
 	private List<Stair> stairs;
 
+	protected List<Rectangle> test;
 	private List<Point> points;
 
 	// CONVENIENVE
@@ -36,6 +37,7 @@ public class Floor {
 		doors = new ArrayList<Door>();
 		stairs = new ArrayList<Stair>();
 		//
+		test = new ArrayList<Rectangle>();
 		points = new ArrayList<Point>();
 		//
 		totalMappedArea = 0;
@@ -99,6 +101,11 @@ public class Floor {
 			g.drawRect(Default.BOUNDARY.x, Default.BOUNDARY.y, Default.BOUNDARY.width, Default.BOUNDARY.height);
 		}
 
+		for (Rectangle el : test) {
+			g.setColor(Color.ORANGE);
+			g.fillRect(el.x, el.y, el.width, el.height);
+		}
+
 		for (Chamber el : chambers)
 			el.paint(g);
 
@@ -129,7 +136,10 @@ public class Floor {
 			return false;
 
 		for (Door el : doors) {
-			if (el.contains(door) || el.intersects(door))
+			if (el.contains(door) || door.contains(el))
+				return false;
+
+			if (el.intersects(door) || door.intersects(el))
 				return false;
 		}
 
@@ -169,8 +179,8 @@ public class Floor {
 	 * XXX - This method loops through unexplored passages and unopened doors.
 	 */
 	public void explore() {
-		int doorIndex = 0, roomIndex = 0, passageIndex = 0, stairIndex = 0;
-		while (unexplored() && isUnderMapped()) {
+		int doorIndex = 0, passageIndex = 0, stairIndex = 0;
+		while (unexplored()) {
 			// advance stairs
 			for (int i = stairIndex; i < stairs.size(); ++i) {
 				checkBeyondPassage(stairs.get(stairIndex));
@@ -181,12 +191,6 @@ public class Floor {
 			for (int i = passageIndex; i < passages.size(); ++i) {
 				checkBeyondPassage(passages.get(i));
 				passageIndex = i;
-			}
-
-			// check for doors
-			for (int i = roomIndex; i < chambers.size(); ++i) {
-				checkRoomForDoors(10, chambers.get(roomIndex));
-				roomIndex = i;
 			}
 
 			// open doors
@@ -217,7 +221,7 @@ public class Floor {
 	 * PRIVATE METHODS
 	 */
 	@SuppressWarnings("unused")
-	private boolean inBounds(Rectangle r) {
+	public boolean inBounds(Rectangle r) {
 		return Default.BOUNDARY.contains(r);
 	}
 
@@ -225,7 +229,22 @@ public class Floor {
 		return Default.BOUNDARY.contains(r) != true;
 	}
 
-	private boolean isValidLocation(Rectangle r) {
+	private boolean validDoorLocation(Rectangle r) {
+		if (outOfBounds(r))
+			return false;
+
+		for (Door el : doors) {
+			if (el.intersects(r) || r.intersects(el))
+				return false;
+
+			if (el.contains(r) || r.contains(el))
+				return false;
+		}
+
+		return true;
+	}
+
+	protected boolean isValidLocation(Rectangle r) {
 		if (outOfBounds(r))
 			return false;
 
@@ -325,7 +344,7 @@ public class Floor {
 				p.shift(door.nearestLocation());
 
 				if (addPassage(p) != true)
-					door.setDoorType(DoorType.FALSE_DOOR);
+					door.setDoorType(DoorType.DEAD);
 				break;
 			case 9:
 			case 10:
@@ -350,22 +369,32 @@ public class Floor {
 					c.setLocation(loc.get(0));
 				}
 
-				// finalize
-				if (addChamber(c) != true)
-					door.setDoorType(DoorType.FALSE_DOOR);
+				// finalize / add exits
+				if (addChamber(c)) {
+					setupRoomExits(c);
+
+				} else {
+					door.setDoorType(DoorType.DEAD);
+
+				}
+
 				break;
 			case 19:
-				Stair s = Stair.build(cardinal, door.nearestLocation());
+				Stair s = Stair.random(cardinal, door.nearestLocation());
+				// Stair s = Stair.build(cardinal, door.nearestLocation());
 				s.shift(door.nearestLocation());
 				s.setExplored(true);
 
 				if (addStair(s)) {
 					dungeon.stairHandler(s);
 				} else {
-					door.setDoorType(DoorType.FALSE_DOOR);
+					door.setDoorType(DoorType.DEAD);
 				}
 				break;
 			case 20:
+				/*
+				 * TODO - FALSE DOOR w/TRAP
+				 */
 				door.setDoorType(DoorType.FALSE_DOOR);
 			default:
 				break;
@@ -379,7 +408,7 @@ public class Floor {
 	private void checkBeyondPassage(Passage passage) {
 		if (passage.explored != true) {
 			passage.setExplored(true);
-			boolean added = false;
+			// boolean added = false;
 
 			Cardinal cardinal = passage.getCardinal();
 			Point point = null;
@@ -392,10 +421,10 @@ public class Floor {
 			int dice;
 			if (passage.getClass().equals(Stair.class)) {
 				/*
-				 * XXX - Stair extends Passage, therefore it uses this method to determine what
-				 * can be found "beyond." Stairs generally lead to either A) a passage, B) a
-				 * chamber, or C) a dead end. For this reason, I set the dice roller to "ignore"
-				 * the possibility of discovering more stairs beyond a set of stairs.
+				 * FIXME - Stair extends Passage, therefore it uses this method to determine
+				 * what can be found "beyond." Stairs generally lead to either A) a passage, B)
+				 * a chamber, or C) a dead end. For this reason, I set the dice roller to
+				 * "ignore" the possibility of discovering more stairs beyond a set of stairs.
 				 */
 				dice = Dice.roll(19);
 
@@ -678,13 +707,16 @@ public class Floor {
 					c.setLocation(loc.get(0));
 				}
 
-				// finalize
-				added = addChamber(c);
-				if (added) {
+				// finalize / add exits
+				if (addChamber(c)) {
+					// adds the room entrance
 					door = Door.build(cardinal, passage.nearestLocation());
 					door.setDoorType(DoorType.PASSAGEWAY);
 					door.setExplored(true);
 					addDoor(door);
+					// setup room exits
+					setupRoomExits(c);
+
 				} else {
 					passage.setDeadEnd(true);
 
@@ -694,7 +726,8 @@ public class Floor {
 				/*
 				 * STAIRS (20)
 				 */
-				Stair s = Stair.build(cardinal, passage.nearestLocation());
+				Stair s = Stair.random(cardinal, passage.getLocation());
+				// Stair s = Stair.build(cardinal, passage.nearestLocation());
 				s.shift(passage.nearestLocation());
 				s.setExplored(true);
 
@@ -716,7 +749,62 @@ public class Floor {
 	 * XXX - This method checks a segment for possible doors.
 	 * 
 	 */
-	private void checkRoomForDoors(int probability, Segment s) {
+	private void setupRoomExits(Chamber c) {
+		int noExits = Chamber.randomNumberOfExits(c);
+
+		if (noExits > 0) {
+			Cardinal[] array = exitOrientations(noExits, c.cardinal);
+
+			for (int i = 0; i < noExits; ++i) {
+				List<Point> loc = potentialExits(array[i], c);
+
+				if (loc.size() > 0) {
+					Collections.shuffle(loc);
+					initializeExit(array[i], loc.get(0));
+				}
+			}
+		}
+	}
+
+	private Cardinal[] exitOrientations(int n, Cardinal c) {
+		Cardinal[] array = new Cardinal[n];
+
+		Cardinal same = c;
+		Cardinal left = c.counterClockwise();
+		Cardinal right = c.clockwise();
+		Cardinal across = c.clockwise().clockwise();
+
+		int dice;
+		for (int i = 0; i < n; ++i) {
+			dice = Dice.roll(20);
+			array[i] = dice <= 7 ? across : dice <= 12 ? left : dice <= 17 ? right : same;
+		}
+
+		return array;
+	}
+
+	private void initializeExit(Cardinal c, Point p) {
+		DoorType type = (Dice.roll(2) == 1) ? DoorType.STANDARD : DoorType.PASSAGEWAY;
+		/*
+		 * FIXME
+		 */
+		// DoorType type = DoorType.TEST;
+
+		Door d = Door.build(c, p, type);
+		addDoor(d);
+
+		if (type.equals(DoorType.PASSAGEWAY)) {
+			d.setExplored(true);
+			Passage pass = Passage.build(c, d.nearestLocation(), 10, 10);
+
+			if (addPassage(pass) != true) {
+				d.setDoorType(DoorType.DEAD);
+				pass.setDeadEnd(true);
+			}
+		}
+	}
+
+	private void checkForSecretDoors(int probability, Segment s) {
 		int length;
 
 		// NORTH WALL
@@ -725,7 +813,7 @@ public class Floor {
 			if (Dice.roll(100) <= probability) {
 				Point location = new Point(s.x + i, s.y);
 				//
-				addDoor(Door.random(Cardinal.NORTH, location));
+				addDoor(Door.build(Cardinal.NORTH, location, DoorType.SECRET_DOOR));
 			}
 		}
 
@@ -735,7 +823,7 @@ public class Floor {
 			if (Dice.roll(100) <= probability) {
 				Point location = new Point(s.x + s.width, s.y + i);
 				//
-				addDoor(Door.random(Cardinal.EAST, location));
+				addDoor(Door.build(Cardinal.EAST, location, DoorType.SECRET_DOOR));
 			}
 		}
 
@@ -745,7 +833,7 @@ public class Floor {
 			if (Dice.roll(100) <= probability) {
 				Point location = new Point(s.x + i, s.y + s.height);
 				//
-				addDoor(Door.random(Cardinal.SOUTH, location));
+				addDoor(Door.build(Cardinal.SOUTH, location, DoorType.SECRET_DOOR));
 			}
 
 		}
@@ -756,9 +844,63 @@ public class Floor {
 			if (Dice.roll(100) <= probability) {
 				Point location = new Point(s.x, s.y + i);
 				//
-				addDoor(Door.random(Cardinal.WEST, location));
+				addDoor(Door.build(Cardinal.WEST, location, DoorType.SECRET_DOOR));
 			}
 		}
+	}
+
+	private List<Point> potentialExits(Cardinal c, Chamber chamber) {
+		List<Point> list = new ArrayList<Point>();
+		Point startingPoint = chamber.getLocation();
+		Door door = Door.build(c, startingPoint);
+
+		int length;
+		// NORTH WALL
+		if (c.isNorth()) {
+			length = chamber.width;
+			for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+				Point location = new Point(chamber.x + i, chamber.y);
+				Rectangle r = new Rectangle(location, door.getSize());
+
+				if (validDoorLocation(r))
+					list.add(location);
+			}
+
+		} else if (c.isEast()) {
+			// EAST WALL
+			length = chamber.height;
+			for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+				Point location = new Point(chamber.x + chamber.width, chamber.y + i);
+				Rectangle r = new Rectangle(location, door.getSize());
+
+				if (validDoorLocation(r))
+					list.add(location);
+			}
+
+		} else if (c.isSouth()) {
+			// SOUTH WALL
+			length = chamber.width;
+			for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+				Point location = new Point(chamber.x + i, chamber.y + chamber.height);
+				Rectangle r = new Rectangle(location, door.getSize());
+
+				if (validDoorLocation(r))
+					list.add(location);
+			}
+
+		} else if (c.isWest()) {
+			// WEST WALL
+			length = chamber.height;
+			for (int i = 0; i < length; i += Default.WALL_LENGTH) {
+				Point location = new Point(chamber.x, chamber.y + i);
+				Rectangle r = new Rectangle(location, door.getSize());
+
+				if (validDoorLocation(r))
+					list.add(location);
+			}
+		}
+
+		return list;
 	}
 
 	private List<Point> potentialLocations(Chamber chamber) {

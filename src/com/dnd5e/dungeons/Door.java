@@ -131,6 +131,12 @@ public class Door extends Segment {
 			g.fillRect(x, y, width, height);
 			return;
 
+		} else if (doorType.equals(DoorType.DEAD)) {
+			g.setColor(Color.RED);
+
+		} else if (doorType.equals(DoorType.TEST)) {
+			g.setColor(Color.ORANGE);
+
 		} else if (doorType.equals(DoorType.FALSE_DOOR)) {
 			g.setColor(Color.BLUE);
 

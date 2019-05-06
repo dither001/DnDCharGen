@@ -111,10 +111,12 @@ public abstract class Controller {
 		// add tabs
 		playerTab = (PlayerPane) tabbedPane.add("Players", PlayerPane.build(players));
 		npcTab = (NPCTablePane) tabbedPane.add("Characters", NPCTablePane.build(npcList));
-		// circlesTab = (CirclesPane) tabbedPane.add("Circles",
-		// CirclesPane.build(circles));
 		factionTab = (FactionPane) tabbedPane.add("Factions", FactionPane.build());
 		dungeonTab = (DungeonPane) tabbedPane.add("Dungeons", DungeonPane.build(dungeon));
+
+		//
+		// circlesTab = (CirclesPane) tabbedPane.add("Circles",
+		// CirclesPane.build(circles));
 
 		//
 		JFrame frame = new JFrame("World Serpent");

@@ -1,11 +1,12 @@
 package com.worldgen.planet;
 
 import com.worldgen.climate.Climate;
+import com.worldgen.terrain.Terrain;
 
 public class Planet {
-	Grid grid;
-	Terrain terrain;
-	Climate climate;
+	public Grid grid;
+	public Terrain terrain;
+	public Climate climate;
 
 	/*
 	 * 
@@ -18,17 +19,11 @@ public class Planet {
 	/*
 	 * 
 	 */
-	public static Planet build() {
+	public static Planet build(int size) {
 		Planet planet = new Planet();
 
-		// TODO - I'm sure I need to fix some stuff later
-		try {
-			planet.grid = Grid.build(0);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		planet.terrain = new Terrain();
+		planet.grid = Grid.build(size);
+		planet.terrain = Terrain.build(planet.grid);
 		planet.climate = new Climate();
 
 		return planet;

@@ -21,7 +21,7 @@ public class Grid {
 	/*
 	 * 
 	 */
-	int size;
+	public int size;
 
 	public GridTile[] tiles;
 	public GridCorner[] corners;
@@ -96,12 +96,10 @@ public class Grid {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Grid build(int size) throws Exception {
+	public static Grid build(int size) {
 		if (size == 0)
 			return sizeZeroGrid();
-		else if (size > 8) {
-			throw new Exception("Make a smaller world.");
-		} else
+		else
 			return subdivide(build(size - 1));
 	}
 

@@ -4,7 +4,7 @@ import com.jogamp.opengl.math.VectorUtil;
 
 public class GridCorner {
 	int id;
-	float[] v;
+	public float[] v;
 
 	GridTile[] tiles;
 	GridCorner[] corners;

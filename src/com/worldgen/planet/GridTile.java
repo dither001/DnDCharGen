@@ -8,7 +8,7 @@ public class GridTile {
 	GridCorner[] corners;
 	GridEdge[] edges;
 
-	float[] v;
+	public float[] v;
 
 	/*
 	 * CONSTRUCTORS

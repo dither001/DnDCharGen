@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import com.dnd5e.definitions.dungeons.*;
 import com.miscellaneous.util.Default;
+import com.miscellaneous.util.Dice;
 
 @SuppressWarnings("serial")
 public class Stair extends Passage {
@@ -73,6 +74,24 @@ public class Stair extends Passage {
 		stair.setLocation(location);
 
 		return stair;
+	}
+
+	public static Stair random(Cardinal c, Point p) {
+		Stair s = build(c, p);
+
+		int dice = Dice.roll(10);
+		if (dice > 7) {
+			// GOING UP
+			s.setGoingUp(true);
+
+		} else {
+			// GOING DOWN
+			dice = Dice.roll(10);
+			s.floors = (dice == 10) ? 3 : (dice == 9) ? 2 : 1;
+
+		}
+
+		return s;
 	}
 
 }

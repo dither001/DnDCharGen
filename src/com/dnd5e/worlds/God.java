@@ -3,6 +3,7 @@ package com.dnd5e.worlds;
 import java.util.List;
 
 import com.dnd5e.characters.*;
+import com.dnd5e.definitions.magic.Domain;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;

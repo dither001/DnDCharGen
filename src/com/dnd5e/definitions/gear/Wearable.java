@@ -1,6 +1,7 @@
 package com.dnd5e.definitions.gear;
 
 import com.dnd5e.characters.*;
+import com.dnd5e.definitions.skills.Skill;
 
 public interface Wearable extends Usable {
 	public int getArmorClass();

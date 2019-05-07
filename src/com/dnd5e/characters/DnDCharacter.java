@@ -3,7 +3,9 @@ package com.dnd5e.characters;
 import java.util.List;
 
 import com.dnd5e.classes.*;
+import com.dnd5e.combat.CombatBlock;
 import com.dnd5e.definitions.combat.*;
+import com.dnd5e.definitions.magic.Spell;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
@@ -99,6 +101,7 @@ public class DnDCharacter extends Hero {
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		JobClass.setupStartingGear(toon);
+		toon.setCombatBlock(CombatBlock.build(toon));
 
 		return toon;
 	}

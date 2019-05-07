@@ -2,9 +2,9 @@ package com.dnd5e.equipment;
 
 import java.util.HashMap;
 
-import com.dnd5e.characters.Skill;
 import com.dnd5e.definitions.gear.*;
 import com.dnd5e.definitions.rules.*;
+import com.dnd5e.definitions.skills.Skill;
 
 public class Weapon extends Tool implements Armable, Cloneable {
 	private static HashMap<Skill, Weapon> weaponMap;

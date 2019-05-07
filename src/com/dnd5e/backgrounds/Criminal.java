@@ -1,6 +1,7 @@
 package com.dnd5e.backgrounds;
 
 import com.dnd5e.characters.*;
+import com.dnd5e.definitions.skills.Skill;
 import com.dnd5e.equipment.*;
 import com.miscellaneous.util.*;
 

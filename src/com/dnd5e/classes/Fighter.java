@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.dnd5e.characters.*;
+import com.dnd5e.definitions.magic.School;
+import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.skills.Skill;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;

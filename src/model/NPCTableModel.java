@@ -12,6 +12,8 @@ public class NPCTableModel extends EntityTableModel<DnDCharacter> {
 	 */
 	private final Attribute<String> NAME = new Attribute<>("Name", String.class, DnDCharacter::getName);
 	private final Attribute<Integer> LVL = new Attribute<>("Level", Integer.class, DnDCharacter::getLevel);
+	private final Attribute<Integer> CR = new Attribute<>("CR", Integer.class, DnDCharacter::getChallengeRating);
+	private final Attribute<Integer> EXP = new Attribute<>("XP", Integer.class, DnDCharacter::getExperienceValue);
 
 	//
 	private final Attribute<Alignment> ALI = new Attribute<>("Alignment", Alignment.class, DnDCharacter::getAlignment);
@@ -25,8 +27,10 @@ public class NPCTableModel extends EntityTableModel<DnDCharacter> {
 	//
 	private final Attribute<Integer> STR = new Attribute<>("Strength", Integer.class, DnDCharacter::getStrength);
 	private final Attribute<Integer> DEX = new Attribute<>("Dexterity", Integer.class, DnDCharacter::getDexterity);
-	private final Attribute<Integer> CON = new Attribute<>("Constitution", Integer.class, DnDCharacter::getConstitution);
-	private final Attribute<Integer> INT = new Attribute<>("Intelligence", Integer.class, DnDCharacter::getIntelligence);
+	private final Attribute<Integer> CON = new Attribute<>("Constitution", Integer.class,
+			DnDCharacter::getConstitution);
+	private final Attribute<Integer> INT = new Attribute<>("Intelligence", Integer.class,
+			DnDCharacter::getIntelligence);
 	private final Attribute<Integer> WIS = new Attribute<>("Wisdom", Integer.class, DnDCharacter::getWisdom);
 	private final Attribute<Integer> CHA = new Attribute<>("Charisma", Integer.class, DnDCharacter::getCharisma);
 
@@ -35,6 +39,6 @@ public class NPCTableModel extends EntityTableModel<DnDCharacter> {
 	 */
 	@SuppressWarnings("unchecked")
 	public NPCTableModel() {
-		setColumns(NAME, LVL, ALI, RACE, SUB, CLAZZ, BGD, GOD, STR, DEX, CON, INT, WIS, CHA);
+		setColumns(CR, EXP, NAME, LVL, ALI, RACE, SUB, CLAZZ, BGD, GOD, STR, DEX, CON, INT, WIS, CHA);
 	}
 }

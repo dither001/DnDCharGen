@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.dnd5e.definitions.magic.*;
+
 public class Sorcery {
 	private static HashMap<Spell, Sorcery> spellMap;
 	

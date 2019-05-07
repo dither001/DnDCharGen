@@ -1,7 +1,8 @@
-package com.dnd5e.characters;
+package com.dnd5e.definitions.skills;
 
 import java.util.List;
 
+import com.dnd5e.characters.DnDClass;
 import com.miscellaneous.util.*;
 
 public enum Skill {
@@ -186,7 +187,7 @@ public enum Skill {
 	/*
 	 * MISCELLANEOUS
 	 */
-	protected static final Skill[] DWARF_TOOLS = { BREWING_TOOLS, MASONRY_TOOLS, SMITHING_TOOLS };
+	private static final Skill[] DWARF_TOOLS = { BREWING_TOOLS, MASONRY_TOOLS, SMITHING_TOOLS };
 
 	/*
 	 * INSTANCE METHODS
@@ -518,6 +519,10 @@ public enum Skill {
 
 	public static Skill randomSimpleWeapon() {
 		return Misc.randomFromArray(SIMPLE_WEAPONS);
+	}
+
+	public static Skill[] getDwarfTools() {
+		return DWARF_TOOLS;
 	}
 
 }

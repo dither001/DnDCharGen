@@ -2,7 +2,10 @@ package com.dnd5e.characters;
 
 import java.util.EnumSet;
 
+import com.dnd5e.combat.*;
+import com.dnd5e.definitions.magic.Spell;
 import com.dnd5e.definitions.rules.*;
+import com.dnd5e.definitions.skills.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
@@ -49,27 +52,11 @@ public interface Creature {
 	public void setLanguages(EnumSet<Language> Languages);
 
 	/*
-	 * FEATURES & SKILLS
+	 * FEATURES
 	 */
 	public EnumSet<RacialFeature> getFeatures();
 
 	public void setFeatures(EnumSet<RacialFeature> features);
-
-	public EnumSet<Skill> getCommonSkills();
-
-	public void setCommonSkills(EnumSet<Skill> commonSkills);
-
-	public EnumSet<Skill> getSpecialSkills();
-
-	public void setSpecialSkills(EnumSet<Skill> specialSkills);
-
-	public EnumSet<Skill> getArmorSkills();
-
-	public void setArmorSkills(EnumSet<Skill> armorSkills);
-
-	public EnumSet<Skill> getWeaponSkills();
-
-	public void setWeaponSkills(EnumSet<Skill> weaponSkills);
 
 	public InnateSpellcasting getInnateSpells();
 
@@ -86,6 +73,14 @@ public interface Creature {
 	/*
 	 * COMBAT STATS
 	 */
+	public CombatBlock getCombatBlock();
+
+	public void setCombatBlock(CombatBlock block);
+	
+	public int getChallengeRating();
+	
+	public int getExperienceValue();
+
 	public int getCurrentHitPoints();
 
 	public void setCurrentHitPoints(int currentHitPoints);

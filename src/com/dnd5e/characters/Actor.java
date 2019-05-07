@@ -2,21 +2,19 @@ package com.dnd5e.characters;
 
 import java.util.EnumSet;
 
-import com.dnd5e.definitions.rules.Alignment;
-import com.dnd5e.definitions.rules.Condition;
-import com.dnd5e.definitions.rules.CreatureType;
-import com.dnd5e.definitions.rules.EnergyType;
-import com.dnd5e.definitions.rules.Language;
-import com.dnd5e.definitions.rules.MovementType;
-import com.dnd5e.definitions.rules.Sense;
-import com.dnd5e.definitions.rules.Size;
+import com.dnd5e.combat.*;
+import com.dnd5e.definitions.combat.*;
+import com.dnd5e.definitions.magic.MagicUser;
+import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.rules.*;
+import com.dnd5e.definitions.skills.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
 
-public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
+public abstract class Actor implements Creature, MagicUser, SkillUser, Persistent, Taxis {
 
 	/*
 	 * PERSISTENT FIELDS
@@ -63,6 +61,7 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 	/*
 	 * COMBAT STATS
 	 */
+	protected CombatBlock block;
 	protected int currentHitPoints;
 	protected int maximumHitPoints;
 	protected int[] hitDice;
@@ -355,6 +354,26 @@ public abstract class Actor implements Creature, MagicUser, Persistent, Taxis {
 	/*
 	 * COMBAT METHODS
 	 */
+	@Override
+	public int getChallengeRating() {
+		return block.getChallengeRating();
+	}
+
+	@Override
+	public int getExperienceValue() {
+		return ChallengeRating.challengeToXP(block.getChallengeRating());
+	}
+
+	@Override
+	public CombatBlock getCombatBlock() {
+		return block;
+	}
+
+	@Override
+	public void setCombatBlock(CombatBlock block) {
+		this.block = block;
+	}
+
 	@Override
 	public int getCurrentHitPoints() {
 		return currentHitPoints;

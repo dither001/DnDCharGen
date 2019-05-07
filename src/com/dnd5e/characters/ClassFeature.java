@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.dnd5e.classes.*;
+import com.dnd5e.definitions.skills.Skill;
 import com.miscellaneous.util.*;
 
 public enum ClassFeature {

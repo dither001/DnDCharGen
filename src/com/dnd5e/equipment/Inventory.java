@@ -7,6 +7,8 @@ import java.util.List;
 import com.dnd4e.definitions.*;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
+import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.skills.*;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -15,15 +17,22 @@ public class Inventory {
 	/*
 	 * INSTANCE FIELDS
 	 */
-	protected Creature owner;
+	protected Actor owner;
+	protected Armor bodyArmor;
+	protected Weapon mainHand;
+	protected Weapon offHand;
 
+	//
 	protected ArrayList<Armor> armorList;
 	protected ArrayList<Shield> shieldList;
 	protected ArrayList<Weapon> weaponList;
 	protected ArrayList<Spellbook> spellbookList;
 	protected ArrayList<Tool> gearList;
 
-	public Inventory(Creature owner) {
+	/*
+	 * CONSTRUCTORS
+	 */
+	public Inventory(Actor owner) {
 		this.owner = owner;
 
 		this.armorList = new ArrayList<Armor>();
@@ -62,8 +71,56 @@ public class Inventory {
 		return s + "] (" + total + " lbs.)";
 	}
 
+	public boolean isWearingArmor() {
+		return bodyArmor != null;
+	}
+
+	public boolean isUsingShield() {
+		/*
+		 * FIXME - HACK
+		 */
+		if (mainHand != null && mainHand.getClass().equals(Shield.class))
+			return true;
+
+		if (offHand != null && offHand.getClass().equals(Shield.class))
+			return true;
+
+		return false;
+	}
+
 	/*
-	 * 
+	 * PRIVATE METHODS
+	 */
+	private boolean clearEquipment() {
+		boolean clear = true;
+
+		if (bodyArmor != null) {
+			bodyArmor = null;
+		} else {
+			clear = false;
+
+		}
+
+		if (mainHand != null) {
+			mainHand = null;
+
+		} else {
+			clear = false;
+
+		}
+
+		if (offHand != null) {
+			offHand = null;
+
+		} else {
+			clear = false;
+		}
+
+		return clear;
+	}
+
+	/*
+	 * XXX - old methods due for revision / rewrites
 	 */
 	protected int containsGear(String s) {
 		int index = -1;

@@ -1,11 +1,11 @@
-package com.dnd5e.magic;
+package com.dnd5e.definitions.magic;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.dnd5e.characters.DnDClass;
+import com.dnd5e.characters.*;
 import com.miscellaneous.util.*;
 
 public enum Spell {

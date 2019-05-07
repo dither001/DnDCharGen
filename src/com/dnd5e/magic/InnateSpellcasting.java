@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.dnd5e.definitions.magic.*;
+
 public class InnateSpellcasting implements Cloneable {
 	private HashMap<Spell, Integer> spellMap;
 

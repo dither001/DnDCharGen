@@ -1,4 +1,4 @@
-package com.dnd5e.magic;
+package com.dnd5e.definitions.magic;
 
 import java.util.EnumSet;
 

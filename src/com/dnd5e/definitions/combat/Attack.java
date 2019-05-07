@@ -1,16 +1,17 @@
 package com.dnd5e.definitions.combat;
 
+import com.dnd5e.characters.Actor;
 import com.dnd5e.characters.Creature;
 import com.dnd5e.definitions.rules.*;
 
 public interface Attack {
-	public Creature getAttacker();
+	public Actor getAttacker();
 
-	public void setAttacker(Creature attacker);
+	public void setAttacker(Actor attacker);
 
 	public Creature getTarget();
 
-	public void setTarget(Creature target);
+	public void setTarget(Actor target);
 
 	public int getAttackBonus();
 

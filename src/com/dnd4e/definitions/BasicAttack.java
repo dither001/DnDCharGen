@@ -1,14 +1,14 @@
 package com.dnd4e.definitions;
 
-import com.dnd5e.characters.Creature;
-import com.dnd5e.characters.Skill;
+import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
 import com.dnd5e.definitions.rules.*;
+import com.dnd5e.definitions.skills.*;
 import com.dnd5e.equipment.*;
 
 public class BasicAttack implements Attack {
-	protected Creature attacker;
-	protected Creature target;
+	protected Actor attacker;
+	protected Actor target;
 
 	protected Weapon weapon;
 
@@ -50,22 +50,22 @@ public class BasicAttack implements Attack {
 	 * ATTACK METHODS
 	 */
 	@Override
-	public Creature getAttacker() {
+	public Actor getAttacker() {
 		return attacker;
 	}
 
 	@Override
-	public void setAttacker(Creature attacker) {
+	public void setAttacker(Actor attacker) {
 		this.attacker = attacker;
 	}
 
 	@Override
-	public Creature getTarget() {
+	public Actor getTarget() {
 		return target;
 	}
 
 	@Override
-	public void setTarget(Creature target) {
+	public void setTarget(Actor target) {
 		this.target = target;
 	}
 
@@ -102,7 +102,7 @@ public class BasicAttack implements Attack {
 	/*
 	 * STATIC METHODS
 	 */
-	public static BasicAttack build(Weapon weapon, Creature actor) {
+	public static BasicAttack build(Weapon weapon, Actor actor) {
 		BasicAttack b = new BasicAttack();
 
 		/*

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.gear.*;
+import com.dnd5e.definitions.skills.Skill;
 
 public class Tool extends Item implements Cloneable, Usable {
 	private static HashMap<String, Tool> gearMap;

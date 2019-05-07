@@ -2,7 +2,9 @@ package com.dnd5e.characters;
 
 import java.util.EnumSet;
 
+import com.dnd5e.definitions.magic.Spell;
 import com.dnd5e.definitions.rules.*;
+import com.dnd5e.definitions.skills.Skill;
 import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
@@ -201,7 +203,7 @@ public enum RacialFeature {
 			features.add(DWARF_WEAPON_TRAINING);
 			actor.getWeaponSkills().addAll(Misc.arrayToList(DWARF_WEAPONS));
 			//
-			actor.getSpecialSkills().add(Misc.randomFromArray(Skill.DWARF_TOOLS));
+			actor.getSpecialSkills().add(Misc.randomFromArray(Skill.getDwarfTools()));
 			features.add(RacialFeature.STONECUNNING);
 			//
 			languages.add(Language.DWARVISH);

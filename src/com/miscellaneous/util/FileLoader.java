@@ -231,7 +231,7 @@ public class FileLoader {
 				++counter; // Armor Class
 				hitDice = Integer.valueOf(values[counter++]);
 				hdSize = monster.getCreatureSize().hitDieSize();
-				monster.setHitDice(Misc.setupHitDice(hitDice, hdSize));
+				monster.setHitDice(Misc.setupAverageHitPoints(hitDice, hdSize));
 
 				if (values.length > 12) {
 					++counter; // attack

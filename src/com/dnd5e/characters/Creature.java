@@ -3,6 +3,7 @@ package com.dnd5e.characters;
 import java.util.EnumSet;
 
 import com.dnd5e.combat.*;
+import com.dnd5e.definitions.combat.ChallengeRating;
 import com.dnd5e.definitions.magic.Spell;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.definitions.skills.*;
@@ -76,10 +77,6 @@ public interface Creature {
 	public CombatBlock getCombatBlock();
 
 	public void setCombatBlock(CombatBlock block);
-	
-	public int getChallengeRating();
-	
-	public int getExperienceValue();
 
 	public int getCurrentHitPoints();
 
@@ -279,6 +276,17 @@ public interface Creature {
 
 	public default int getCharismaModifier() {
 		return getAbilityModifier(5);
+	}
+
+	/*
+	 * COMBAT METHODS
+	 */
+	public default int getChallengeRating() {
+		return getCombatBlock().getChallengeRating();
+	}
+
+	public default int getExperienceValue() {
+		return ChallengeRating.getEXPReward(getCombatBlock().getChallengeRating());
 	}
 
 	/*

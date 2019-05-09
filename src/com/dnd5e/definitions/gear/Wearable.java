@@ -1,9 +1,13 @@
 package com.dnd5e.definitions.gear;
 
-import com.dnd5e.characters.*;
-import com.dnd5e.definitions.skills.Skill;
+import com.dnd3e.gear.definitions.*;
+import com.dnd5e.definitions.skills.*;
 
 public interface Wearable extends Usable {
+	public ItemSlot[] getItemSlots();
+	
+	public void setItemSlots(ItemSlot[] itemSlots);
+	
 	public int getArmorClass();
 
 	public void setArmorClass(int armorClass);
@@ -15,6 +19,22 @@ public interface Wearable extends Usable {
 	/*
 	 * DEFAULT METHODS
 	 */
+	public default int calculateArmorClass(int dexterityModifier) {
+		int armorClass;
+
+		if (isHeavyArmor()) {
+			armorClass = getArmorClass();
+
+		} else {
+			int cap = getDexterityBonus();
+
+			armorClass = getArmorClass();
+			armorClass += dexterityModifier > cap ? cap : dexterityModifier;
+		}
+
+		return armorClass;
+	}
+
 	public default boolean isLightArmor() {
 		boolean isLightArmor = false;
 		Skill[] skills = getSkills();

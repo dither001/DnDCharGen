@@ -58,8 +58,8 @@ public class DnDCharacter extends Hero {
 		s += inventory.toString() + "\n";
 
 		// attack options
-		for (Attack el : inventory.weaponAttackList())
-			s += el + "\n";
+		// for (Attack el : inventory.weaponAttackList())
+		// s += el + "\n";
 
 		return s;
 	}
@@ -68,8 +68,12 @@ public class DnDCharacter extends Hero {
 	public void updateHitPoints() {
 		int hp = 0, conMod = getConstitutionModifier();
 
-		for (int i = 0; i < level; ++i)
-			hp += hitDice[i] + conMod;
+		for (int i = 0; i < level; ++i) {
+			if (hitDice[i] + conMod < 1)
+				hp += 1;
+			else
+				hp += hitDice[i] + conMod;
+		}
 
 		this.maximumHitPoints = hp;
 	}
@@ -101,6 +105,11 @@ public class DnDCharacter extends Hero {
 
 		toon.setName(CharacterName.randomName(toon.isFemale, toon.race));
 		JobClass.setupStartingGear(toon);
+
+		// finalize
+		toon.inventory.optimize();
+		toon.setHitDice(Misc.rollHitPoints(20, DnDClass.getHitDie(toon.job)));
+		toon.updateHitPoints();
 		toon.setCombatBlock(CombatBlock.build(toon));
 
 		return toon;

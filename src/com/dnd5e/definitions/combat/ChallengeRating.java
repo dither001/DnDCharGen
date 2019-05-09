@@ -1,13 +1,25 @@
 package com.dnd5e.definitions.combat;
 
 public abstract class ChallengeRating {
-	
+
 	/*
 	 * 
 	 */
-	private static final int[] REWARDS = { 10, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900,
-			7200, 8400, 10000, 11500, 13000, 15000, 18000, 20000, 22000, 25000, 33000, 41000, 50000, 62000, 75000,
-			90000, 105000, 120000, 135000, 155000 };
+	private static final int[] DMG_THRESHOLDS;
+	private static final int[] HP_THRESHOLDS;
+
+	private static final int[] REWARDS;
+
+	static {
+		DMG_THRESHOLDS = new int[] { 0, 3, 5, 8, 14, 20, 26, 32, 38, 44, 50, 56, 62, 68, 74, 80, 86, 92, 98, 104, 110, 116, 122,
+				140, 158, 176, 194, 212, 230, 248, 266, 284, 302, 320 };
+		HP_THRESHOLDS = new int[] { 6, 35, 49, 70, 85, 100, 115, 130, 145, 160, 175, 190, 205, 220, 235, 250, 265, 280, 295,
+				310, 325, 340, 355, 400, 445, 490, 535, 580, 625, 670, 715, 760, 805, 850 };
+		
+		REWARDS = new int[] { 10, 25, 50, 100, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 7200, 8400,
+				10000, 11500, 13000, 15000, 18000, 20000, 22000, 25000, 33000, 41000, 50000, 62000, 75000, 90000,
+				105000, 120000, 135000, 155000 };
+	}
 
 	/*
 	 * STATIC METHODS
@@ -24,8 +36,13 @@ public abstract class ChallengeRating {
 		return finalRating;
 	}
 
+	public static int getEXPReward(int challengeRating) {
+		int exp = (challengeRating < -3) ? 0 : (challengeRating > 30) ? REWARDS[30] : REWARDS[challengeRating + 3];
+		return exp;
+	}
+
 	/*
-	 * HELPER METHODS
+	 * PRIVATE METHODS
 	 */
 	private static int defensiveCR(int hp, int ac) {
 		int defenseRating = hitPointsToCR(hp);
@@ -48,13 +65,11 @@ public abstract class ChallengeRating {
 
 	private static int hitPointsToCR(int hp) {
 		int rating = 31;
-		int[] hitPoints = { 6, 35, 49, 70, 85, 100, 115, 130, 145, 160, 175, 190, 205, 220, 235, 250, 265, 280, 295,
-				310, 325, 340, 355, 400, 445, 490, 535, 580, 625, 670, 715, 760, 805, 850 };
-
-		for (int i = 0; i < hitPoints.length; ++i) {
+		
+		for (int i = 0; i < HP_THRESHOLDS.length; ++i) {
 			if (hp > 850) {
 				break;
-			} else if (hp <= hitPoints[i]) {
+			} else if (hp <= HP_THRESHOLDS[i]) {
 				rating = i - 3;
 				break;
 			}
@@ -108,7 +123,7 @@ public abstract class ChallengeRating {
 		return rating;
 	}
 
-	public static int offensiveCR(int dmg, int atk) {
+	private static int offensiveCR(int dmg, int atk) {
 		int offensiveCR = damageToCR(dmg);
 		int attackRating = attackToCR(atk);
 		int damageAttack = damageToAttack(dmg);
@@ -128,13 +143,11 @@ public abstract class ChallengeRating {
 
 	private static int damageToCR(int dmg) {
 		int rating = 31;
-		int[] damage = { 0, 3, 5, 8, 14, 20, 26, 32, 38, 44, 50, 56, 62, 68, 74, 80, 86, 92, 98, 104, 110, 116, 122,
-				140, 158, 176, 194, 212, 230, 248, 266, 284, 302, 320 };
 
-		for (int i = 0; i < damage.length; ++i) {
+		for (int i = 0; i < DMG_THRESHOLDS.length; ++i) {
 			if (dmg > 320) {
 				break;
-			} else if (dmg <= damage[i]) {
+			} else if (dmg <= DMG_THRESHOLDS[i]) {
 				rating = i - 3;
 				break;
 			}
@@ -204,11 +217,6 @@ public abstract class ChallengeRating {
 		}
 
 		return rating;
-	}
-
-	public static int challengeToXP(int rating) {
-		int exp = (rating < -3) ? 0 : (rating > 30) ? REWARDS[30] : REWARDS[rating + 3];
-		return exp;
 	}
 
 }

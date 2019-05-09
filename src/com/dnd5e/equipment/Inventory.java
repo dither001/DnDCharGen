@@ -7,9 +7,8 @@ import java.util.List;
 import com.dnd4e.definitions.*;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
-import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.magic.*;
 import com.dnd5e.definitions.skills.*;
-import com.dnd5e.magic.*;
 import com.miscellaneous.util.*;
 
 public class Inventory {
@@ -71,6 +70,57 @@ public class Inventory {
 		return s + "] (" + total + " lbs.)";
 	}
 
+	public int getArmorClass() {
+		int armorClass = 10, dexMod = owner.getDexterityModifier();
+
+		boolean canUseShield = owner.getWeaponSkills().contains(Skill.SHIELD);
+		if (isWearingArmor()) {
+			armorClass = bodyArmor.calculateArmorClass(dexMod);
+
+		} else if (owner.getClass().equals(DnDCharacter.class)) {
+			DnDCharacter c = (DnDCharacter) owner;
+
+			/*
+			 * FIXME - this is hacky; work out how to do BARBARIAN / MONK / MAGE
+			 */
+			if (c.getJob().equals(DnDClass.BARBARIAN)) {
+				armorClass = 10 + owner.getConstitutionModifier() + dexMod;
+
+			} else if (c.getJob().equals(DnDClass.MONK)) {
+				canUseShield = false;
+				armorClass = 10 + owner.getWisdomModifier() + dexMod;
+
+			}
+
+		} else {
+			armorClass = armorClass + dexMod;
+
+		}
+
+		if (canUseShield && isUsingShield()) {
+			armorClass += getShieldBonus();
+		}
+
+		return armorClass;
+	}
+
+	public int getShieldBonus() {
+		/*
+		 * FIXME - HACK
+		 */
+		if (mainHand != null && mainHand.getClass().equals(Shield.class)) {
+			Object o = mainHand;
+			return ((Shield) o).getArmorClass();
+		}
+
+		if (offHand != null && offHand.getClass().equals(Shield.class)) {
+			Object o = offHand;
+			return ((Shield) o).getArmorClass();
+		}
+
+		return 0;
+	}
+
 	public boolean isWearingArmor() {
 		return bodyArmor != null;
 	}
@@ -89,34 +139,79 @@ public class Inventory {
 	}
 
 	/*
+	 * XXX - This is the method that will update equipment according to how best the
+	 * character can make use of it.
+	 */
+	public void optimize() {
+		optimizeArmor();
+	}
+
+	/*
 	 * PRIVATE METHODS
 	 */
 	private boolean clearEquipment() {
 		boolean clear = true;
 
-		if (bodyArmor != null) {
+		clear = clearArmor() ? clear : false;
+		clear = clearHands() ? clear : false;
+
+		return clear;
+	}
+
+	private boolean clearArmor() {
+		boolean clear = false;
+
+		if (bodyArmor != null && bodyArmor.isCursed() != true) {
+			clear = true;
 			bodyArmor = null;
+
 		} else {
 			clear = false;
 
 		}
 
-		if (mainHand != null) {
+		return clear;
+
+	}
+
+	private boolean clearHands() {
+		boolean clear = true;
+
+		if (mainHand != null && mainHand.isCursed() != true) {
 			mainHand = null;
-
 		} else {
 			clear = false;
-
 		}
 
-		if (offHand != null) {
+		if (offHand != null && offHand.isCursed() != true) {
 			offHand = null;
-
 		} else {
 			clear = false;
 		}
 
 		return clear;
+
+	}
+
+	private boolean equipArmor(Armor armor) {
+		boolean equip = false;
+
+		if (bodyArmor != null && bodyArmor.isCursed() != true) {
+			equip = true;
+			bodyArmor = armor;
+		}
+
+		return equip;
+	}
+
+	private void optimizeArmor() {
+		/*
+		 * FIXME - should actually sort armor or something
+		 */
+		if (clearArmor() && armorList.size() > 0) {
+			equipArmor(armorList.get(0));
+
+		}
 	}
 
 	/*

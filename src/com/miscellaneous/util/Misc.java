@@ -38,11 +38,20 @@ public abstract class Misc {
 	/*
 	 * H - HIT DICE
 	 */
-	public static int[] setupHitDice(int n, int size) {
+	public static int[] setupAverageHitPoints(int n, int size) {
 		int[] array = new int[n];
 
 		for (int i = 0; i < array.length; ++i)
 			array[i] = (int) (0.5 * size);
+
+		return array;
+	}
+
+	public static int[] rollHitPoints(int n, int size) {
+		int[] array = new int[n];
+
+		for (int i = 0; i < array.length; ++i)
+			array[i] = Dice.roll(size);
 
 		return array;
 	}

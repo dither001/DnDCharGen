@@ -2,7 +2,7 @@ package com.dnd5e.equipment;
 
 import java.util.HashMap;
 
-import com.dnd5e.characters.*;
+import com.dnd3e.gear.definitions.*;
 import com.dnd5e.definitions.gear.*;
 import com.dnd5e.definitions.skills.Skill;
 
@@ -16,17 +16,19 @@ public class Armor extends Tool implements Wearable, Cloneable {
 	/*
 	 * INSTANCE FIELDS
 	 */
+	protected ItemSlot[] itemSlots;
 	protected int armorClass;
 	protected int dexterityBonus;
 
 	public Armor() {
 		super();
+		this.itemSlots = new ItemSlot[0];
 		this.armorClass = 10;
 		this.dexterityBonus = 10;
 	}
 
 	/*
-	 * INSTANCE METHODS
+	 * CLONE METHOD
 	 */
 	@Override
 	public Object clone() {
@@ -48,6 +50,19 @@ public class Armor extends Tool implements Wearable, Cloneable {
 		armor.setDexterityBonus(dexterityBonus);
 
 		return armor;
+	}
+
+	/*
+	 * INSTANCE METHODS
+	 */
+	@Override
+	public ItemSlot[] getItemSlots() {
+		return itemSlots;
+	}
+
+	@Override
+	public void setItemSlots(ItemSlot[] itemSlots) {
+		this.itemSlots = itemSlots;
 	}
 
 	@Override
@@ -80,4 +95,5 @@ public class Armor extends Tool implements Wearable, Cloneable {
 	public static void setupArmor(HashMap<Skill, Armor> armorMap) {
 		Armor.armorMap = armorMap;
 	}
+
 }

@@ -3,9 +3,7 @@ package com.dnd5e.characters;
 import java.util.EnumSet;
 
 import com.dnd5e.combat.*;
-import com.dnd5e.definitions.combat.*;
-import com.dnd5e.definitions.magic.MagicUser;
-import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.magic.*;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.definitions.skills.*;
 import com.dnd5e.equipment.*;
@@ -354,16 +352,6 @@ public abstract class Actor implements Creature, MagicUser, SkillUser, Persisten
 	/*
 	 * COMBAT METHODS
 	 */
-	@Override
-	public int getChallengeRating() {
-		return block.getChallengeRating();
-	}
-
-	@Override
-	public int getExperienceValue() {
-		return ChallengeRating.challengeToXP(block.getChallengeRating());
-	}
-
 	@Override
 	public CombatBlock getCombatBlock() {
 		return block;

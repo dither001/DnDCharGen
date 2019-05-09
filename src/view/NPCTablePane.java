@@ -109,14 +109,18 @@ public class NPCTablePane extends JPanel {
 		int index = npcTable.getSelectedRow();
 		StringBuilder sb = new StringBuilder();
 
-		if (index >= 0)
-			sb.append(tableModel.getInstance(npcTable.convertRowIndexToModel(index)).toStringVerbose());
+		if (index >= 0) {
+			DnDCharacter c = tableModel.getInstance(npcTable.convertRowIndexToModel(index));
+
+			sb.append(c.toStringVerbose() + "\n---\n");
+			sb.append(c.getCombatBlock().toStringVerbose());
+		}
 
 		if (npcTable.getRowCount() > 0) {
 
 			JTextPane panel = new JTextPane();
 			panel.setText(sb.toString());
-			Controller.detail.setContentPane(panel);
+			Controller.detail.setContentPane(new JScrollPane(panel));
 			Controller.detail.revalidate();
 
 			if (Controller.detail.isVisible() != true)

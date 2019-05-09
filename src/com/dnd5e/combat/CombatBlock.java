@@ -10,7 +10,7 @@ import com.dnd5e.equipment.*;
 public class CombatBlock {
 
 	// basic
-	private Creature owner;
+	private Actor owner;
 	private Inventory inv;
 	private int challengeRating;
 
@@ -35,14 +35,27 @@ public class CombatBlock {
 		this.setAttacks(new ArrayList<Attack>());
 	}
 
+	public String toStringVerbose() {
+		String s = "";
+
+		int exp = ChallengeRating.getEXPReward(challengeRating);
+		s = String.format("AC %2s (%s) ||  %s hp || CR %s (%s exp)%n", armorClass, "", maximumHitPoints,
+				challengeRating, exp);
+
+		for (Attack el : inv.weaponAttackList())
+			s += el + "\n";
+
+		return s;
+	}
+
 	/*
 	 * INSTANCE METHODS
 	 */
-	public Creature getOwner() {
+	public Actor getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Creature owner) {
+	public void setOwner(Actor owner) {
 		this.owner = owner;
 	}
 
@@ -110,7 +123,7 @@ public class CombatBlock {
 	/*
 	 * STATIC METHODS
 	 */
-	public static CombatBlock build(Creature actor) {
+	public static CombatBlock build(Actor actor) {
 		CombatBlock block = new CombatBlock();
 
 		//
@@ -122,9 +135,10 @@ public class CombatBlock {
 		block.setCurrentHitPoints(actor.getCurrentHitPoints());
 
 		//
+		block.setArmorClass(actor.getInventory().getArmorClass());
 		block.setAttacks(block.inv.weaponAttackList());
 
-		//
+		// finalize
 		block.evaluateChallengeRating();
 
 		return block;

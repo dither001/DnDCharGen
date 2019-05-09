@@ -33,6 +33,15 @@ public abstract class Hero extends Actor implements Adventurer {
 	/*
 	 * INSTANCE METHODS
 	 */
+	public boolean readyToAdvance() {
+		boolean ready = false;
+
+		if (Experience.getLevelForEXP(experience) > level)
+			ready = true;
+
+		return ready;
+	}
+
 	public void advance() {
 		/*
 		 * FIXME - need to check experience values somewhere; need to apply racial

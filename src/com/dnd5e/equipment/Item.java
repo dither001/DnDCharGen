@@ -1,12 +1,16 @@
 package com.dnd5e.equipment;
 
 import com.dnd5e.definitions.gear.*;
+import com.dnd5e.definitions.magic.*;
 
-public class Item implements Portable {
+public class Item implements Portable, Enchantable {
 	/*
 	 * INSTANCE FIELDS
 	 */
 	protected String name;
+	private boolean isBlessed;
+	private boolean isCursed;
+
 	protected Material material;
 	protected int cost;
 	protected int weight;
@@ -17,6 +21,9 @@ public class Item implements Portable {
 
 	public Item() {
 		this.name = "Unnamed Item";
+		this.setBlessed(false);
+		this.setCursed(false);
+
 		this.material = null;
 		this.cost = 0;
 		this.isStackable = false;
@@ -42,6 +49,24 @@ public class Item implements Portable {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public boolean isBlessed() {
+		return isBlessed;
+	}
+
+	public void setBlessed(boolean isBlessed) {
+		this.isBlessed = isBlessed;
+	}
+
+	@Override
+	public boolean isCursed() {
+		return isCursed;
+	}
+
+	public void setCursed(boolean isCursed) {
+		this.isCursed = isCursed;
 	}
 
 	@Override

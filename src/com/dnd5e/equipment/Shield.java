@@ -2,6 +2,7 @@ package com.dnd5e.equipment;
 
 import java.util.HashMap;
 
+import com.dnd3e.gear.definitions.*;
 import com.dnd5e.definitions.gear.*;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.definitions.skills.Skill;
@@ -17,6 +18,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	/*
 	 * INSTANCE FIELDS
 	 */
+	protected ItemSlot[] itemSlots;
 	protected int armorClass;
 	protected int dexterityBonus;
 
@@ -30,6 +32,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 
 	public Shield() {
 		super();
+		this.itemSlots = new ItemSlot[] { ItemSlot.ARMS };
 		this.armorClass = 10;
 		this.dexterityBonus = 10;
 
@@ -61,6 +64,7 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 		shield.setHanded(handed);
 		shield.setSkills(skills);
 
+		shield.setItemSlots(new ItemSlot[] { ItemSlot.ARMS });
 		shield.setArmorClass(armorClass);
 		shield.setDexterityBonus(dexterityBonus);
 
@@ -78,6 +82,16 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 	/*
 	 * ARMOR METHODS
 	 */
+	@Override
+	public ItemSlot[] getItemSlots() {
+		return itemSlots;
+	}
+
+	@Override
+	public void setItemSlots(ItemSlot[] itemSlots) {
+		this.itemSlots = itemSlots;
+	}
+
 	@Override
 	public int getArmorClass() {
 		return armorClass;
@@ -187,4 +201,5 @@ public class Shield extends Tool implements Armable, Cloneable, Wearable {
 
 		return shield;
 	}
+
 }

@@ -307,8 +307,12 @@ public interface Creature {
 		int level = isAdventurer ? adv.getLevel() : getHitDice().length;
 
 		int[] hitDice = getHitDice();
-		for (int i = 0; i < level; ++i)
-			hp += hitDice[i] + conMod;
+		for (int i = 0; i < level; ++i) {
+			if (hitDice[i] + conMod < 1)
+				hp += 1;
+			else
+				hp += hitDice[i] + conMod;
+		}
 
 		setMaximumHitPoints(hp);
 	}

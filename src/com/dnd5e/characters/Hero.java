@@ -50,6 +50,7 @@ public abstract class Hero extends Actor implements Adventurer {
 		++level;
 		ClassFeature.apply(level, this);
 
+		updateHitPoints();
 	}
 
 	/*

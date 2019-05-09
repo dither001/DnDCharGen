@@ -42,8 +42,11 @@ public class CombatBlock {
 		s = String.format("AC %2s (%s) ||  %s hp || CR %s (%s exp)%n", armorClass, "", maximumHitPoints,
 				challengeRating, exp);
 
-		for (Attack el : inv.weaponAttackList())
+		List<Attack> attackList = inv.weaponAttackList();
+		for (int i = 0; i < 3 && i < attackList.size(); ++i) {
+			Attack el = attackList.get(i);
 			s += el + "\n";
+		}
 
 		return s;
 	}
@@ -108,6 +111,15 @@ public class CombatBlock {
 
 	public void setAttacks(List<Attack> attacks) {
 		this.attacks = attacks;
+	}
+
+	public void update() {
+		setMaximumHitPoints(owner.getMaximumHitPoints());
+		setCurrentHitPoints(owner.getCurrentHitPoints());
+		setArmorClass(inv.getArmorClass());
+		setAttacks(inv.weaponAttackList());
+
+		setChallengeRating(ChallengeRating.evaluateCR(attacks.get(0), maximumHitPoints, armorClass));
 	}
 
 	/*

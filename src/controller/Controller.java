@@ -132,8 +132,15 @@ public abstract class Controller {
 	public static List<DnDCharacter> rollCharacters() {
 		int n = Default.CHARACTERS_TO_ROLL;
 		List<DnDCharacter> list = new ArrayList<DnDCharacter>(n);
-		for (int i = 0; i < n; ++i)
-			list.add(DnDCharacter.random());
+		for (int i = 0; i < n; ++i) {
+			DnDCharacter d = DnDCharacter.random();
+			
+			for (int j = 0 ; j < 19; ++j)
+				d.advance();
+			
+			d.updateHitPoints();
+			list.add(d);
+		}
 
 		return list;
 	}

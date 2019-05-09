@@ -9,7 +9,7 @@ import com.dnd5e.definitions.magic.*;
 
 public class Sorcery {
 	private static HashMap<Spell, Sorcery> spellMap;
-	
+
 	static {
 		spellMap = new HashMap<Spell, Sorcery>();
 	}
@@ -22,12 +22,20 @@ public class Sorcery {
 	protected School school;
 	protected int level;
 
+	//
+	protected boolean isRitual;
+	protected boolean usesConcentration;
+
 	/*
 	 * CONSTRUCTORS
 	 */
 	public Sorcery() {
 		this.school = School.ABJURATION;
 		this.level = 1;
+
+		//
+		this.setRitual(false);
+		this.setUsesConcentration(false);
 	}
 
 	/*
@@ -63,6 +71,22 @@ public class Sorcery {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public boolean isRitual() {
+		return isRitual;
+	}
+
+	public void setRitual(boolean isRitual) {
+		this.isRitual = isRitual;
+	}
+
+	public boolean usesConcentration() {
+		return usesConcentration;
+	}
+
+	public void setUsesConcentration(boolean usesConcentration) {
+		this.usesConcentration = usesConcentration;
 	}
 
 	/*
@@ -194,8 +218,9 @@ public class Sorcery {
 
 		return list;
 	}
-	
+
 	public static void setupSpells(HashMap<Spell, Sorcery> spellMap) {
 		Sorcery.spellMap = spellMap;
 	}
+
 }

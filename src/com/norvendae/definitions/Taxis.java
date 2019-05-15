@@ -1,4 +1,4 @@
-package com.dnd5e.monsters;
+package com.norvendae.definitions;
 
 public interface Taxis {
 	public Cornerstone getCornerstone();

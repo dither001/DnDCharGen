@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.dnd5e.classes.*;
 import com.dnd5e.combat.*;
-import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.magic.*;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
@@ -18,6 +18,9 @@ public class DnDCharacter extends Hero {
 	/*
 	 * INSTANCE METHODS
 	 */
+	
+	
+	
 	public String toString() {
 		return String.format("%s %s %s %s %s (%s) %s", name, alignment.abbreviation(), isFemale ? "female" : "male",
 				race.abbreviation(), job.toString(), subclass.toString(), background.toString());

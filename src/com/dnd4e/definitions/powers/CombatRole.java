@@ -1,4 +1,4 @@
-package com.dnd4e.definitions;
+package com.dnd4e.definitions.powers;
 
 import com.miscellaneous.util.*;
 

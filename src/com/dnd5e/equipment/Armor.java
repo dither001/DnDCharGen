@@ -2,7 +2,7 @@ package com.dnd5e.equipment;
 
 import java.util.HashMap;
 
-import com.dnd3e.gear.definitions.*;
+import com.dnd3e.definitions.gear.*;
 import com.dnd5e.definitions.gear.*;
 import com.dnd5e.definitions.skills.Skill;
 

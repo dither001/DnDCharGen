@@ -15,6 +15,7 @@ import com.dnd5e.definitions.skills.Skill;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
+import com.norvendae.definitions.Cornerstone;
 
 import controller.*;
 

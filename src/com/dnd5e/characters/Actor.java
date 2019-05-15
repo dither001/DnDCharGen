@@ -11,6 +11,8 @@ import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
+import com.norvendae.definitions.Cornerstone;
+import com.norvendae.definitions.Taxis;
 
 public abstract class Actor implements Creature, MagicUser, SkillUser, Persistent, Taxis {
 

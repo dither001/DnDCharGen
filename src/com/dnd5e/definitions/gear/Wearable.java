@@ -1,6 +1,6 @@
 package com.dnd5e.definitions.gear;
 
-import com.dnd3e.gear.definitions.*;
+import com.dnd3e.definitions.gear.*;
 import com.dnd5e.definitions.skills.*;
 
 public interface Wearable extends Usable {

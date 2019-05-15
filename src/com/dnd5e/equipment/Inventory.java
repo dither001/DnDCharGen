@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.dnd4e.definitions.*;
+import com.dnd4e.definitions.powers.*;
 import com.dnd5e.characters.*;
 import com.dnd5e.definitions.combat.*;
 import com.dnd5e.definitions.magic.*;

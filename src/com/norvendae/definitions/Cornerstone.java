@@ -1,4 +1,4 @@
-package com.dnd5e.monsters;
+package com.norvendae.definitions;
 
 import com.miscellaneous.util.*;
 

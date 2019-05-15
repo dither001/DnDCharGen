@@ -1,4 +1,4 @@
-package com.dnd3e.gear.definitions;
+package com.dnd3e.definitions.gear;
 
 /*
  * This class uses Magic of Incarnum as the basis for its limited body slots. 

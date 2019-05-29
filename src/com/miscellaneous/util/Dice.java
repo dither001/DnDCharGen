@@ -13,6 +13,10 @@ public abstract class Dice {
 	/*
 	 * STATIC METHODS
 	 */
+	public static int nextInt(int start, int end) {
+		return RAND.nextInt(end - start) + start;
+	}
+
 	public static int roll(int faces) {
 		return roll(1, faces);
 	}

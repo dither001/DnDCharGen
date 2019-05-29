@@ -1,8 +1,10 @@
-package com.norvendae.definitions.towns;
+package com.dnd3e.definitions.towns;
 
 /*
  * Settlement sizes and descriptions adapted from Dungeon Master's Guide (Third Edition).
  */
+
+import com.miscellaneous.util.*;
 
 public enum SettlementType {
 	THORP, HAMLET, VILLAGE, TOWN, CITY, METROPOLIS;
@@ -65,5 +67,15 @@ public enum SettlementType {
 
 	public static int populationCapacity(SettlementType type) {
 		return POPULATION_THRESHOLD[indexOf(type)];
+	}
+
+	// random methods
+	public static int randomPopulation(SettlementType type) {
+		int ts = POPULATION_THRESHOLD[indexOf(type)];
+		return Dice.nextInt(ts, ts * 2);
+	}
+
+	public static SettlementType randomType() {
+		return Misc.randomFromArray(TYPES);
 	}
 }

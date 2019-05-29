@@ -19,6 +19,6 @@ public enum ItemSlot {
 	// upper: hands, arms, mantle
 	// lower: feet, legs, waist
 	// body: chest, brow, crown
-	// misc: charm (amulet, rings, accessory)
+	// misc: charm ("soul", amulet, rings)
 
 }

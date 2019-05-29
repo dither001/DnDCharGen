@@ -3,10 +3,9 @@ package com.dnd5e.characters;
 import java.util.EnumSet;
 
 import com.dnd5e.combat.*;
-import com.dnd5e.definitions.combat.ChallengeRating;
-import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.combat.*;
+import com.dnd5e.definitions.magic.*;
 import com.dnd5e.definitions.rules.*;
-import com.dnd5e.definitions.skills.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.worlds.*;
@@ -296,15 +295,14 @@ public interface Creature {
 		int hp = 0, conMod = getConstitutionModifier();
 
 		boolean isAdventurer = false;
-		Adventurer adv = null;
-		for (Class<?> el : this.getClass().getInterfaces()) {
-			if (el.equals(Adventurer.class)) {
-				isAdventurer = true;
-				adv = (Adventurer) this;
-			}
+		Hero adv = null;
+		if (getClass().equals(DnDCharacter.class)) {
+			isAdventurer = true;
+			adv = (Hero) this;
 		}
 
 		int level = isAdventurer ? adv.getLevel() : getHitDice().length;
+		// System.out.println(isAdventurer);
 
 		int[] hitDice = getHitDice();
 		for (int i = 0; i < level; ++i) {
@@ -321,15 +319,14 @@ public interface Creature {
 		int bonus = 2;
 
 		boolean isAdventurer = false;
-		Adventurer adv = null;
-		for (Class<?> el : this.getClass().getInterfaces()) {
-			if (el.equals(Adventurer.class)) {
-				isAdventurer = true;
-				adv = (Adventurer) this;
-			}
+		Hero adv = null;
+		if (getClass().equals(DnDCharacter.class)) {
+			isAdventurer = true;
+			adv = (Hero) this;
 		}
 
 		int hitDice = isAdventurer ? adv.getLevel() : getHitDice().length;
+		// System.out.println(isAdventurer);
 
 		if (hitDice > 32)
 			bonus = 10;

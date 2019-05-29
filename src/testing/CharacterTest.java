@@ -6,15 +6,14 @@ import org.junit.Test;
 
 import com.dnd1e.encounters.*;
 import com.dnd5e.characters.*;
-import com.dnd5e.definitions.magic.School;
-import com.dnd5e.definitions.magic.Spell;
+import com.dnd5e.definitions.magic.*;
 import com.dnd5e.definitions.rules.*;
 import com.dnd5e.equipment.*;
 import com.dnd5e.magic.*;
 import com.dnd5e.monsters.*;
 import com.dnd5e.worlds.*;
 import com.miscellaneous.util.*;
-import com.norvendae.definitions.Cornerstone;
+import com.norvendae.definitions.*;
 
 public class CharacterTest {
 	//
@@ -40,6 +39,23 @@ public class CharacterTest {
 		Sorcery.setupSpells(FileLoader.parseSpells("resources/spells.csv"));
 		Tool.setupTools(FileLoader.parseGear("resources/gear.csv"));
 		Weapon.setupWeapons(FileLoader.parseWeapons("resources/weapons.csv"));
+	}
+
+	/*
+	 * MISCELLANEOUS
+	 */
+	@Test
+	public void aTest() {
+		Settlement s = Settlement.buildRandom();
+		// Settlement.build(SettlementType.METROPOLIS);
+		Townies t = Townies.build(s.getType());
+
+		System.out.println(s.toStringVerbose());
+		System.out.println(t.getMap().toString() + "\n");
+
+		int peeps = t.size(), pops = s.getPopulation();
+		System.out.printf("Total classed NPCs: %d (%.1f%%)", peeps, 100.0 * peeps / pops);
+
 	}
 
 	/*
@@ -488,4 +504,16 @@ public class CharacterTest {
 			++floor;
 		}
 	}
+
+	/*
+	 * SETTLEMENT TESTING
+	 */
+	@Test
+	public void randomSettlement() {
+		int numberToRoll = 10;
+
+		for (int i = 0; i < numberToRoll; ++i)
+			System.out.println(Settlement.buildRandom().toStringVerbose());
+	}
+
 }

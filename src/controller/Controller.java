@@ -44,6 +44,9 @@ public abstract class Controller {
 	private static List<Warband> factions;
 	private static Dungeon dungeon;
 
+	/*
+	 * INITIALIZATION
+	 */
 	static {
 
 		Armor.setupArmor(FileLoader.parseArmor("resources/armor.csv"));
@@ -131,13 +134,14 @@ public abstract class Controller {
 
 	public static List<DnDCharacter> rollCharacters() {
 		int n = Default.CHARACTERS_TO_ROLL;
+
 		List<DnDCharacter> list = new ArrayList<DnDCharacter>(n);
 		for (int i = 0; i < n; ++i) {
 			DnDCharacter d = DnDCharacter.random();
-			
-			for (int j = 0 ; j < 19; ++j)
-				d.advance();
-			
+
+			// for (int j = 0 ; j < 19; ++j)
+			// d.advance();
+
 			d.updateHitPoints();
 			list.add(d);
 		}

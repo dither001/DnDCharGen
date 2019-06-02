@@ -1,7 +1,8 @@
 package com.worldgen.terrain;
 
 public class TerrainWater {
-	float depth, surface;
+	public float depth;
+	float surface;
 
 	public TerrainWater() {
 		depth = 0;

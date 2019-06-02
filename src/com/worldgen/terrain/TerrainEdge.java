@@ -4,9 +4,9 @@ import com.worldgen.planet.*;
 
 public class TerrainEdge {
 
-	GridEdge gridEdge;
+	Edge gridEdge;
 
-	public TerrainEdge(GridEdge gridEdge) {
+	public TerrainEdge(Edge gridEdge) {
 		this.gridEdge = gridEdge;
 	}
 

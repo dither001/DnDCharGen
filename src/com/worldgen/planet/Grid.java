@@ -23,9 +23,9 @@ public class Grid {
 	 */
 	public int size;
 
-	public GridTile[] tiles;
-	public GridCorner[] corners;
-	public GridEdge[] edges;
+	public Tile[] tiles;
+	public Corner[] corners;
+	public Edge[] edges;
 
 	private Grid(int size) {
 		this.size = size;
@@ -34,17 +34,17 @@ public class Grid {
 		int cornerSize = cornerCount(size);
 		int edgeSize = edgeCount(size);
 
-		tiles = new GridTile[tileSize];
+		tiles = new Tile[tileSize];
 		for (int i = 0; i < tileSize; ++i)
-			tiles[i] = new GridTile(i, i < 12 ? 5 : 6);
+			tiles[i] = new Tile(i, i < 12 ? 5 : 6);
 
-		corners = new GridCorner[cornerSize];
+		corners = new Corner[cornerSize];
 		for (int i = 0; i < cornerSize; ++i)
-			corners[i] = new GridCorner(i);
+			corners[i] = new Corner(i);
 
-		edges = new GridEdge[edgeSize];
+		edges = new Edge[edgeSize];
 		for (int i = 0; i < edgeSize; ++i)
-			edges[i] = new GridEdge(i);
+			edges[i] = new Edge(i);
 
 	}
 
@@ -52,22 +52,22 @@ public class Grid {
 	 * INSTANCE METHODS
 	 */
 	public void addCorner(int index, int t1, int t2, int t3) {
-		corners[index].addCorner(new GridTile[] { tiles[t1], tiles[t2], tiles[t3] });
+		corners[index].addCorner(new Tile[] { tiles[t1], tiles[t2], tiles[t3] });
 	}
 
 	public void addEdge(int index, int t1, int t2) {
-		edges[index].addEdge(new GridTile[] { tiles[t1], tiles[t2] });
+		edges[index].addEdge(new Tile[] { tiles[t1], tiles[t2] });
 	}
 
-	public GridTile getTile(int index) {
+	public Tile getTile(int index) {
 		return tiles[index];
 	}
 
-	public GridCorner getCorner(int index) {
+	public Corner getCorner(int index) {
 		return corners[index];
 	}
 
-	public GridEdge getEdge(int index) {
+	public Edge getEdge(int index) {
 		return edges[index];
 	}
 
@@ -129,8 +129,8 @@ public class Grid {
 
 		// NEW CORNERS
 		int next_corner_id = 0;
-		for (GridTile n : prev.tiles) {
-			GridTile t = grid.tiles[n.id];
+		for (Tile n : prev.tiles) {
+			Tile t = grid.tiles[n.id];
 			for (int k = 0; k < t.edgeCount; k++) {
 				grid.addCorner(next_corner_id, t.id, t.tiles[(k + t.edgeCount - 1) % t.edgeCount].id, t.tiles[k].id);
 				++next_corner_id;
@@ -138,7 +138,7 @@ public class Grid {
 		}
 
 		// CONNECT CORNERS
-		for (GridCorner c : grid.corners) {
+		for (Corner c : grid.corners) {
 			for (int k = 0; k < 3; k++) {
 				c.corners[k] = c.tiles[k].corners[(position(c.tiles[k], c) + 1) % (c.tiles[k].edgeCount)];
 			}
@@ -146,7 +146,7 @@ public class Grid {
 
 		// NEW EDGES
 		int next_edge_id = 0;
-		for (GridTile t : grid.tiles) {
+		for (Tile t : grid.tiles) {
 			for (int k = 0; k < t.edgeCount; k++) {
 				if (t.edges[k] == null) {
 					grid.addEdge(next_edge_id, t.id, t.tiles[k].id);
@@ -161,7 +161,7 @@ public class Grid {
 	private static Grid sizeZeroGrid() {
 		Grid grid = new Grid(0);
 
-		for (GridTile el : grid.tiles) {
+		for (Tile el : grid.tiles) {
 			el.v = ICOSAHEDRON_VECTORS[el.id];
 
 			for (int i = 0; i < 5; ++i)
@@ -186,14 +186,14 @@ public class Grid {
 		grid.addCorner(19, 4, 8, 1);
 
 		// ADD CORNERS TO CORNERS
-		for (GridCorner el : grid.corners) {
+		for (Corner el : grid.corners) {
 			for (int i = 0; i < 3; i++)
 				el.corners[i] = el.tiles[i].corners[(position(el.tiles[i], el) + 1) % 5];
 		}
 
 		// NEW EDGES
 		int nextId = 0;
-		for (GridTile el : grid.tiles) {
+		for (Tile el : grid.tiles) {
 			for (int i = 0; i < 5; i++) {
 				if (el.edges[i] == null) {
 					grid.addEdge(nextId, el.id, ICOSAHEDRON_IDS[el.id][i]);
@@ -221,7 +221,7 @@ public class Grid {
 	/*
 	 * RELATIVE POSITION FINDERS
 	 */
-	static int position(GridTile t, GridTile n) {
+	static int position(Tile t, Tile n) {
 		for (int i = 0; i < t.edgeCount; i++) {
 			if (t.tiles[i].equals(n))
 				return i;
@@ -230,7 +230,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridTile t, GridCorner c) {
+	static int position(Tile t, Corner c) {
 		for (int i = 0; i < t.edgeCount; i++) {
 			if (t.corners[i].equals(c))
 				return i;
@@ -239,7 +239,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridTile t, GridEdge e) {
+	static int position(Tile t, Edge e) {
 		for (int i = 0; i < t.edgeCount; i++) {
 			if (t.edges[i].equals(e))
 				return i;
@@ -248,7 +248,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridCorner c, GridTile t) {
+	static int position(Corner c, Tile t) {
 		for (int i = 0; i < 3; i++) {
 			if (c.tiles[i].equals(t))
 				return i;
@@ -257,7 +257,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridCorner c, GridCorner n) {
+	public static int position(Corner c, Corner n) {
 		for (int i = 0; i < 3; i++) {
 			if (c.corners[i].equals(n))
 				return i;
@@ -266,7 +266,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridCorner c, GridEdge e) {
+	static int position(Corner c, Edge e) {
 		for (int i = 0; i < 3; i++) {
 			if (c.edges[i].equals(e))
 				return i;
@@ -275,7 +275,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridEdge e, GridTile t) {
+	static int position(Edge e, Tile t) {
 		if (e.tiles[0].equals(t))
 			return 0;
 		else if (e.tiles[1].equals(t))
@@ -284,7 +284,7 @@ public class Grid {
 		return -1;
 	}
 
-	static int position(GridEdge e, GridCorner c) {
+	static int position(Edge e, Corner c) {
 		if (e.corners[0].equals(c))
 			return 0;
 		else if (e.corners[1].equals(c))

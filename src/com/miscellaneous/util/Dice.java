@@ -64,8 +64,8 @@ public abstract class Dice {
 	 * Returns random point on a unit sphere (uniform distribution).
 	 */
 	private static float[] uniformPoint() {
-		double theta = 2 * Math.PI * RAND.nextInt();
-		double phi = Math.acos(1 - 2 * RAND.nextInt());
+		double theta = 2 * Math.PI * RAND.nextDouble();
+		double phi = Math.acos(1 - 2 * RAND.nextDouble());
 		float x = (float) (Math.sin(phi) * Math.cos(theta));
 		float y = (float) (Math.sin(phi) * Math.sin(theta));
 		float z = (float) (Math.cos(phi));

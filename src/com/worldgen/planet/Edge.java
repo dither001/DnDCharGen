@@ -1,19 +1,27 @@
 package com.worldgen.planet;
 
-public class GridEdge {
+import com.worldgen.terrain.LandType;
+
+public class Edge implements UsesTerrain {
 	int id;
 
-	GridTile[] tiles;
-	GridCorner[] corners;
+	public Tile[] tiles;
+	Corner[] corners;
+
+	// terrain fields
+	public LandType type;
 
 	/*
-	 * 
+	 * CONSTRUCTORS
 	 */
-	public GridEdge(int id) {
+	public Edge(int id) {
 		this.id = id;
 
-		tiles = new GridTile[2];
-		corners = new GridCorner[2];
+		tiles = new Tile[2];
+		corners = new Corner[2];
+		
+		//
+		type = LandType.LAND;
 	}
 
 	/*
@@ -23,9 +31,9 @@ public class GridEdge {
 		return "(" + tiles[0].id + "," + tiles[1].id + ")";
 	}
 	
-	void addEdge(GridTile[] t) {
+	void addEdge(Tile[] t) {
 		// TODO - untested
-		GridCorner[] c = { //
+		Corner[] c = { //
 				t[0].corners[Grid.position(t[0], t[1])], //
 				t[0].corners[(Grid.position(t[0], t[1]) + 1) % t[0].edgeCount] //
 		};
@@ -36,5 +44,15 @@ public class GridEdge {
 			c[i].edges[Grid.position(c[i], c[(i + 1) % 2])] = this;
 			corners[i] = c[i];
 		}
+	}
+
+	@Override
+	public LandType getLandType() {
+		return type;
+	}
+
+	@Override
+	public void setLandType(LandType type) {
+		this.type = type;
 	}
 }

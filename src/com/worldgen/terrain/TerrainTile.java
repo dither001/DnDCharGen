@@ -4,7 +4,7 @@ import com.worldgen.planet.*;
 
 public class TerrainTile {
 
-	GridTile gridTile;
+	Tile gridTile;
 	float elevation;
 	LandType type;
 
@@ -13,7 +13,7 @@ public class TerrainTile {
 	/*
 	 * CONSTRUCTORS
 	 */
-	public TerrainTile(GridTile gridTile) {
+	public TerrainTile(Tile gridTile) {
 		this.gridTile = gridTile;
 		elevation = 0;
 		type = LandType.LAND;

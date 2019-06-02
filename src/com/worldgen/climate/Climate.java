@@ -19,21 +19,21 @@ public class Climate {
 
 	}
 
-	float freezing_point() {
+	public static float freezing_point() {
 		return 273.15f;
 	}
 
-	float temperature_lapse_rate() {
+	public static float temperature_lapse_rate() {
 		return 9.8e-3f;
 	}
 
 	// LAPSE OF ELEVATION
-	float temperature_lapse(float height) {
+	public static float temperature_lapse(float height) {
 		return height * temperature_lapse_rate();
 	}
 
 	// SATURATION AT TEMPERATURE
-	float saturation_humidity(float temperature) {
+	public static float saturation_humidity(float temperature) {
 		double c = 4.6e-9;
 		double k = 0.05174;
 
@@ -41,9 +41,10 @@ public class Climate {
 	}
 
 	// ARIDITY AT TEMPERATURE
-	float aridity(float potential_evapotranspiration) {
+	public static float aridity(float potential_evapotranspiration) {
 		float index_base_temperature = 10 + freezing_point();
 
 		return potential_evapotranspiration / saturation_humidity(index_base_temperature);
 	}
+
 }

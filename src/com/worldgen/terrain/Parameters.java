@@ -3,11 +3,16 @@ package com.worldgen.terrain;
 import com.jogamp.opengl.math.VectorUtil;
 
 public abstract class Parameters {
+	
+	// terrain parameters
 	public static int grid_size;
 	public static float[] axis;
 	public String seed;
 	public static int iterations;
 	public static double water_ratio;
+	
+	// climate parameters
+	
 
 	static {
 		grid_size = 6;
@@ -30,10 +35,8 @@ public abstract class Parameters {
 
 		if (VectorUtil.isVec3Zero(axis, 0)) {
 			axis = new float[] { 0, 0, 1 };
-
 		} else {
 			axis = VectorUtil.normalizeVec3(axis);
-
 		}
 
 		iterations = Math.max(0, grid_size);

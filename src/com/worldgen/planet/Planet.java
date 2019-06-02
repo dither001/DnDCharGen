@@ -19,13 +19,20 @@ public class Planet {
 	/*
 	 * 
 	 */
-	public static Planet build(int size) {
-		Planet planet = new Planet();
+	public static Planet build(int size) throws Exception {
+		if (size < 9) {
+			Planet planet = new Planet();
 
-		planet.grid = Grid.build(size);
-		planet.terrain = Terrain.build(planet.grid);
-		planet.climate = new Climate();
+			planet.grid = Grid.build(size);
+			planet.terrain = Terrain.build(planet.grid);
+			planet.climate = new Climate();
 
-		return planet;
+			return planet;
+			
+		} 
+		
+		throw new Exception("Please enter smaller size.");
 	}
+	
+	
 }

@@ -4,10 +4,10 @@ import com.worldgen.planet.*;
 
 public class TerrainCorner {
 	
-	GridCorner gridCorner;
+	Corner gridCorner;
 	float elevation;
 	
-	public TerrainCorner(GridCorner gridCorner) {
+	public TerrainCorner(Corner gridCorner) {
 		this.gridCorner = gridCorner;
 	}
 

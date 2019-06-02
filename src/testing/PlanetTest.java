@@ -22,20 +22,20 @@ public class PlanetTest {
 		try {
 			p = Planet.build(6);
 
-			for (Tile el : p.grid.tiles) {
-				if (el.elevation > p.terrain.getSeaLevel()) {
+			for (Tile el : p.getGrid().tiles) {
+				if (el.elevation > p.getSeaLevel()) {
 					// System.out.printf("%s%n", el.getElevation());
 					++counter;
 				}
 			}
 
-			for (Corner el : p.grid.corners) {
+			for (Corner el : p.getGrid().corners) {
 				if (el.distanceToSea > longestRiver)
 					longestRiver = el.distanceToSea;
 			}
 
-			System.out.println("Sea Level: " + p.terrain.getSeaLevel());
-			System.out.println("Tiles: " + p.grid.tiles.length);
+			System.out.println("Sea Level: " + p.getSeaLevel());
+			System.out.println("Tiles: " + p.getGrid().tiles.length);
 			System.out.println("Longest River: " + longestRiver);
 
 		} catch (Exception e) {

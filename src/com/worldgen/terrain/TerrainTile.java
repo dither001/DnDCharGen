@@ -8,7 +8,7 @@ public class TerrainTile {
 	float elevation;
 	LandType type;
 
-	TerrainWater water;
+	Water water;
 
 	/*
 	 * CONSTRUCTORS

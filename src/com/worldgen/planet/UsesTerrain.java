@@ -1,7 +1,5 @@
 package com.worldgen.planet;
 
-import com.worldgen.terrain.LandType;
-
 public interface UsesTerrain {
 
 	public LandType getLandType();

@@ -1,8 +1,5 @@
 package com.worldgen.planet;
 
-import com.worldgen.terrain.LandType;
-import com.worldgen.terrain.TerrainWater;
-
 public class Tile implements UsesTerrain {
 	public int id;
 	int edgeCount;
@@ -16,8 +13,14 @@ public class Tile implements UsesTerrain {
 	// terrain fields
 	public float elevation;
 	public LandType type;
+	public Water water;
 
-	public TerrainWater water;
+	// climate fields
+	public Wind wind;
+	private float latitude;
+	public double temperature;
+	private float humidity;
+	private float precipitation;
 
 	/*
 	 * CONSTRUCTORS
@@ -34,35 +37,14 @@ public class Tile implements UsesTerrain {
 		// terrain fields
 		elevation = 0;
 		type = LandType.LAND;
-		water = new TerrainWater();
-	}
+		water = new Water();
 
-	/*
-	 * 
-	 */
-	private String vToString() {
-		String s = "(";
-
-		s += v[0] + ", ";
-		s += v[1] + ", ";
-		s += v[2] + ")";
-
-		return s;
-	}
-
-	public String toString() {
-		String s = "";
-
-		// for (GridTile el : tiles)
-		// s += el.id + ", ";
-
-		// for (GridCorner el : corners)
-		// s += el.id + ", ";
-
-		// for (GridEdge el : edges)
-		// s += el.toString() + ", ";
-
-		return "" + id;
+		// climate fields
+		wind = new Wind();
+		latitude = 0;
+		temperature = 0;
+		humidity = 0;
+		precipitation = 0;
 	}
 
 	/*

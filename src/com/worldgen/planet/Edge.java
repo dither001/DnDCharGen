@@ -1,7 +1,5 @@
 package com.worldgen.planet;
 
-import com.worldgen.terrain.LandType;
-
 public class Edge implements UsesTerrain {
 	int id;
 
@@ -11,6 +9,10 @@ public class Edge implements UsesTerrain {
 	// terrain fields
 	public LandType type;
 
+	// climate fields
+	float river_flow;
+	float wind_velocity;
+
 	/*
 	 * CONSTRUCTORS
 	 */
@@ -19,9 +21,13 @@ public class Edge implements UsesTerrain {
 
 		tiles = new Tile[2];
 		corners = new Corner[2];
-		
-		//
+
+		// terrain fields
 		type = LandType.LAND;
+
+		// climate fields
+		river_flow = 0;
+		wind_velocity = 0;
 	}
 
 	/*
@@ -30,7 +36,7 @@ public class Edge implements UsesTerrain {
 	public String toString() {
 		return "(" + tiles[0].id + "," + tiles[1].id + ")";
 	}
-	
+
 	void addEdge(Tile[] t) {
 		// TODO - untested
 		Corner[] c = { //

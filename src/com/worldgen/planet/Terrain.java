@@ -1,4 +1,4 @@
-package com.worldgen.terrain;
+package com.worldgen.planet;
 
 /*
  * So, let's talk a little bit about the Terrain Generation method used in 
@@ -39,7 +39,6 @@ import java.util.function.DoubleSupplier;
 import com.jogamp.opengl.math.VectorUtil;
 
 import com.miscellaneous.util.*;
-import com.worldgen.planet.*;
 
 public class Terrain {
 
@@ -51,35 +50,15 @@ public class Terrain {
 	float[] axis;
 	double axial_tilt;
 	double radius;
-	private double seaLevel;
+	protected double seaLevel;
 
 	Grid grid;
-	// public TerrainTile[] tiles;
-	// public TerrainCorner[] corners;
-	// public TerrainEdge[] edges;
 
 	/*
 	 * CONSTRUCTORS
 	 */
-	private Terrain(int size) {
-		int tileSize = Grid.tileCount(size);
-		int cornerSize = Grid.cornerCount(size);
-		int edgeSize = Grid.edgeCount(size);
+	private Terrain() {
 
-		// tiles = new TerrainTile[tileSize];
-		// corners = new TerrainCorner[cornerSize];
-		// edges = new TerrainEdge[edgeSize];
-
-		//
-
-	}
-
-	public double getSeaLevel() {
-		return seaLevel;
-	}
-
-	public void setSeaLevel(double seaLevel) {
-		this.seaLevel = seaLevel;
 	}
 
 	/*
@@ -87,20 +66,6 @@ public class Terrain {
 	 */
 	private void initializeTerrain(Grid grid) {
 		this.grid = grid;
-
-		int tileSize = grid.tileSize();
-		int cornerSize = grid.cornerSize();
-		int edgeSize = grid.edgeSize();
-
-		// for (int i = 0; i < tileSize; ++i)
-		// tiles[i] = new TerrainTile(grid.tiles[i]);
-
-		// for (int i = 0; i < cornerSize; ++i)
-		// corners[i] = new TerrainCorner(grid.corners[i]);
-
-		// for (int i = 0; i < edgeSize; ++i)
-		// edges[i] = new TerrainEdge(grid.edges[i]);
-
 	}
 
 	private void setElevation() {
@@ -222,7 +187,7 @@ public class Terrain {
 			}
 		}
 
-		setSeaLevel(seaLevel);
+		this.seaLevel = seaLevel;
 	}
 
 	private Tile lowestTile() {
@@ -322,7 +287,7 @@ public class Terrain {
 	 * STATIC METHODS
 	 */
 	public static Terrain build(Grid grid) {
-		Terrain terrain = new Terrain(grid.size);
+		Terrain terrain = new Terrain();
 
 		// clear(planet)
 		// set_grid_size(planet, parameters.grid_size)
@@ -342,31 +307,4 @@ public class Terrain {
 
 		return terrain;
 	}
-
-	/*
-	 * Returns inverse-sine of z-coordinate
-	 */
-	public static double latitude(float[] vector3) {
-		return Math.asin(vector3[2]);
-	}
-
-	/*
-	 * Checks if x and y are 0; returns inverse-tangent of y, x
-	 */
-	public static double longitude(float[] vector3) {
-		int x = (int) vector3[0];
-		int y = (int) vector3[1];
-		if (x == 0 && y == 0)
-			return 0;
-
-		return Math.atan2(vector3[1], vector3[0]);
-	}
-
-	public static double latitude(Planet p, float[] vector3) {
-		/*
-		 * FIXME - subtracts (angle between planet's axis and vector3)
-		 */
-		return Math.PI / 2 - VectorUtil.angleVec3(null, vector3);
-	}
-
 }

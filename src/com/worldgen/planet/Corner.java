@@ -1,7 +1,6 @@
 package com.worldgen.planet;
 
 import com.jogamp.opengl.math.VectorUtil;
-import com.worldgen.terrain.LandType;
 
 public class Corner implements UsesTerrain {
 	int id;
@@ -17,6 +16,10 @@ public class Corner implements UsesTerrain {
 
 	public int riverDirection;
 	public int distanceToSea;
+
+	// climate fields
+	float river_flow;
+	float river_float_increase;
 
 	/*
 	 * CONSTRUCTORS
@@ -35,6 +38,10 @@ public class Corner implements UsesTerrain {
 		elevation = 0;
 		riverDirection = -1;
 		distanceToSea = -1;
+
+		// climate fields
+		river_flow = 0;
+		river_float_increase = 0;
 	}
 
 	/*

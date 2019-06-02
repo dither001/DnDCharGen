@@ -1,4 +1,4 @@
-package com.worldgen.terrain;
+package com.worldgen.planet;
 
 public enum LandType {
 	LAND, WATER, COAST;

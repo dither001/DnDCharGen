@@ -1,5 +1,6 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
+import com.jogamp.opengl.math.Quaternion;
 import com.jogamp.opengl.math.VectorUtil;
 
 public class Planet {
@@ -42,8 +43,65 @@ public class Planet {
 	/*
 	 * 
 	 */
+	public double area(Tile t) {
+		double a = 0.0;
+
+		int e = t.edgeCount;
+		for (int i = 0; i < e; ++i) {
+			float[] u = new float[3];
+			float[] v = new float[3];
+
+			VectorUtil.normalizeVec3(VectorUtil.subVec3(u, t.v, t.corners[i].v));
+			VectorUtil.normalizeVec2(VectorUtil.subVec3(v, t.v, t.corners[(i + 1) % e].v));
+
+			double angle = Math.acos(VectorUtil.dotVec3(u, v));
+			a += 0.5 * Math.sin(angle) * VectorUtil.distVec3(t.v, t.corners[i].v)
+					* VectorUtil.distVec3(t.v, t.corners[(i + 1) % e].v);
+		}
+
+		return a * Math.pow(terrain.radius, 2.0);
+	}
+
+	public double edgeLength(Edge e) {
+		return VectorUtil.distVec3(e.corners[0].v, e.corners[1].v) * terrain.radius;
+	}
+
+	public float[] defaultAxis() {
+		return new float[] { 0, 0, 1 };
+	}
+
+	public Quaternion rotation() {
+		// return Quaternion(default_axis(), axis(p));
+		return PlanetUtil.fromTwoVec3(defaultAxis(), Parameters.axis);
+	}
+
+	public Quaternion rotationToDefault() {
+		/*
+		 * XXX - I'm pissed off because this C++ code makes no goddamn sense: what does
+		 * C++ do if you give it to returns, one line after another?
+		 */
+
+		// return conjugate(rotation(p));
+		// return Quaternion(axis(p), default_axis());
+		return rotation().conjugate();
+	}
+
 	public double getSeaLevel() {
 		return terrain.seaLevel;
+	}
+
+	/*
+	 * XXX - This method presumably returns "north" relative to the parameter Tile.
+	 */
+	public double north(Tile tile) {
+		// Vector3 v = reference_rotation(t, rotation_to_default(p)) *
+		// vector(nth_tile(t, 0));
+		float x = tile.v[0], y = tile.v[1], z = tile.v[2];
+		float[] v = new float[] { x, y, z };
+		v = PlanetUtil.referenceRotation(v, rotationToDefault()).rotateVector(v, 0, v, 0);
+
+		// return pi - atan2(v.y, v.x);
+		return Math.PI - Math.atan2(v[1], v[0]);
 	}
 
 	/*
@@ -53,8 +111,8 @@ public class Planet {
 		if (size < 9) {
 			Planet planet = new Planet();
 
-			planet.grid = Grid.build(size);
-			planet.terrain = Terrain.build(planet.grid);
+			planet.setGrid(Grid.build(size));
+			planet.setTerrain(Terrain.build(planet.grid));
 			planet.setClimate(Climate.build(planet));
 
 			return planet;
@@ -66,11 +124,11 @@ public class Planet {
 	/*
 	 * XXX - default is set to "24 hours"
 	 */
-	public double angularVelocity(Planet p) {
+	public static double angularVelocity(Planet p) {
 		return 2.0 * Math.PI / (24 * 60 * 60);
 	}
 
-	public double coriolisCoeeficient(Planet p, double latitude) {
+	public static double coriolisCoeeficient(Planet p, double latitude) {
 		return 2.0 * angularVelocity(p) * Math.sin(latitude);
 	}
 
@@ -100,7 +158,7 @@ public class Planet {
 		return Math.asin(vector3[2]);
 	}
 
-	public static float[] pressureGradiaentForce(double tropicalEquator, double latitude) {
+	public static float[] pressureGradientForce(double tropicalEquator, double latitude) {
 		double pressure_derivate;
 		double pressure_deviation = 20.0 / 15000;
 

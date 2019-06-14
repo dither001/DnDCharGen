@@ -1,4 +1,4 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 public class Edge implements UsesTerrain {
 	int id;
@@ -61,4 +61,14 @@ public class Edge implements UsesTerrain {
 	public void setLandType(LandType type) {
 		this.type = type;
 	}
+
+	public int sign(Tile t) {
+		if (tiles[0].equals(t))
+			return 1;
+		else if (tiles[1].equals(t))
+			return -1;
+		else
+			return 0;
+	}
+	
 }

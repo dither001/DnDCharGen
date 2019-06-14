@@ -1,4 +1,4 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 public class Climate {
 
@@ -52,17 +52,14 @@ public class Climate {
 	 */
 	public static Climate build(Planet planet) {
 		Climate climate = new Climate();
-		
-		//
 		climate.planet = planet;
 
 		// clear_climate(planet);
 		// m_terrain(planet).var.axial_tilt = par.axial_tilt;
 
 		// m_climate(planet).var.season_count = par.seasons;
-		climate.seasons = new Season[Parameters.seasons];
-
 		// generate_season(planet, par, (float)i/par.seasons);
+		climate.seasons = new Season[Parameters.seasons];
 		climate.generateSeasons();
 
 		return climate;
@@ -82,18 +79,18 @@ public class Climate {
 	}
 
 	// SATURATION AT TEMPERATURE
-	public static float saturation_humidity(double index_base_temperature) {
+	public static float saturationHumidity(double temperature) {
 		double c = 4.6e-9;
 		double k = 0.05174;
-
-		return (float) (c * Math.pow(k, index_base_temperature));
+		
+		return (float) (c * Math.pow(k, temperature));
 	}
 
 	// ARIDITY AT TEMPERATURE
 	public static double aridity(double potential_evapotranspiration) {
 		double index_base_temperature = 10 + freezingPoint();
 
-		return potential_evapotranspiration / saturation_humidity(index_base_temperature);
+		return potential_evapotranspiration / saturationHumidity(index_base_temperature);
 	}
 
 }

@@ -1,8 +1,11 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 import com.jogamp.opengl.math.VectorUtil;
 
 public abstract class Parameters {
+
+	// misc parameters
+	public static final float EPSILON = 0.0001f;
 
 	// terrain parameters
 	public static int grid_size;

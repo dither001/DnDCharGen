@@ -1,12 +1,12 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 public class Tile implements UsesTerrain {
 	public int id;
 	int edgeCount;
 
 	public Tile[] tiles;
-	Corner[] corners;
-	Edge[] edges;
+	public Corner[] corners;
+	public Edge[] edges;
 
 	public float[] v;
 
@@ -19,8 +19,8 @@ public class Tile implements UsesTerrain {
 	public Wind wind;
 	private float latitude;
 	public double temperature;
-	private float humidity;
-	private float precipitation;
+	public float humidity;
+	public float precipitation;
 
 	/*
 	 * CONSTRUCTORS
@@ -40,11 +40,17 @@ public class Tile implements UsesTerrain {
 		water = new Water();
 
 		// climate fields
-		wind = new Wind();
 		latitude = 0;
 		temperature = 0;
 		humidity = 0;
 		precipitation = 0;
+	}
+
+	/*
+	 * 
+	 */
+	public double north(Planet p) {
+		return p.north(this);
 	}
 
 	/*

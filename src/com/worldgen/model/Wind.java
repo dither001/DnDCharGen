@@ -1,9 +1,11 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 import com.jogamp.opengl.math.VectorUtil;
+import com.worldgen.math.Matrix2;
 
 public class Wind {
-	double direction, speed;
+	double direction;
+	public double speed;
 
 	/*
 	 * CONSTRUCTORS
@@ -44,17 +46,23 @@ public class Wind {
 	/*
 	 * STATIC METHODS
 	 */
-	public static Wind prevailingWind(float[] pressureGradientForce, double coriolisCoefficient,
-			double frictionCoefficient) {
-		double angleOffset = Math.atan2(coriolisCoefficient, frictionCoefficient);
-		float[] divisor = new float[] { (float) coriolisCoefficient, (float) frictionCoefficient };
-		double speed = VectorUtil.normVec2(pressureGradientForce) / VectorUtil.normVec2(divisor);
 
-		// Vector2 v = rotation_matrix(angle(pressure_gradient_force) - angle_offset) *
-		// Vector2(1.0, 0.0);
-		float[] v = new float[] {};
-
+	/*
+	 * Prevailing Wind
+	 * 
+	 * @param pressure gradient force, Coriolis coefficient, friction coefficient
+	 */
+	public static Wind prevailingWind(float[] pgf, double cc, double fc) {
+		// calculate wind direction
+		double angleOffset = Math.atan2(cc, fc);
+		Matrix2 m = Matrix2.rotationMatrix(Math.atan2(pgf[1], pgf[0]) - angleOffset);
+		float[] v = m.mulByVec2(new float[] { 1.0f, 0.0f });
 		double direction = Math.atan2(v[1], v[0]);
+
+		// calculate wind speed
+		float[] divisor = new float[] { (float) cc, (float) fc };
+		double speed = VectorUtil.normVec2(pgf) / VectorUtil.normVec2(divisor);
+
 		return new Wind(direction, speed);
 	}
 }

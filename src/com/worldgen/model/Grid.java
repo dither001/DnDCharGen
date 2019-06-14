@@ -1,4 +1,4 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 public class Grid {
 	private static final float X_POS = -0.525731112119133606f;

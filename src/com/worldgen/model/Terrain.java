@@ -1,4 +1,4 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 /*
  * So, let's talk a little bit about the Terrain Generation method used in 
@@ -47,8 +47,8 @@ public class Terrain {
 	/*
 	 * 
 	 */
-	float[] axis;
-	double axial_tilt;
+	private float[] axis;
+	private double axial_tilt;
 	double radius;
 	protected double seaLevel;
 

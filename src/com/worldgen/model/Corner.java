@@ -1,4 +1,4 @@
-package com.worldgen.planet;
+package com.worldgen.model;
 
 import com.jogamp.opengl.math.VectorUtil;
 

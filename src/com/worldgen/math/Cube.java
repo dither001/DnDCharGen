@@ -19,50 +19,91 @@ public class Cube implements GLEventListener {
 	private GLU glu = new GLU();
 	private float rquad = 0.0f;
 
+	private final float[][] COLORS = { //
+			{ 1f, 0f, 0f }, // RED
+			{ 0f, 1f, 0f }, // GREEN
+			{ 0f, 0f, 1f }, // BLUE
+			{ 1f, 1f, 0f }, // YELLOW (red + green)
+			{ 1f, 0f, 1f }, // PURPLE (red + blue)
+			{ 0f, 1f, 1f } // SKY BLUE (blue + green)
+	};
+
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		final GL2 gl = drawable.getGL().getGL2();
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
-		gl.glTranslatef(0f, 0f, -5.0f);
+		gl.glTranslatef(0f, 0f, -10.0f);
 		gl.glRotatef(rquad, 1.0f, 1.0f, 1.0f); // Rotate The Cube On X, Y & Z
 
 		// giving different colors to different sides
 		gl.glBegin(GL2.GL_QUADS); // Start Drawing The Cube
-		gl.glColor3f(1f, 0f, 0f); // red color
-		gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Top)
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Bottom Left Of The Quad (Top)
-		gl.glVertex3f(1.0f, 1.0f, 1.0f); // Bottom Right Of The Quad (Top)
-		gl.glColor3f(0f, 1f, 0f); // green color
-		gl.glVertex3f(1.0f, -1.0f, 1.0f); // Top Right Of The Quad
-		gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Top Left Of The Quad
-		gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
-		gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
-		gl.glColor3f(0f, 0f, 1f); // blue color
+
+		// gl.glColor3f(1f, 0f, 0f); // red color
+		DrawUtil.glColor3f(gl, COLORS[0]);
+		float[][] f = new float[][] { { 1.0f, 1.0f, -1.0f }, { -1.0f, 1.0f, -1.0f }, { -1.0f, 1.0f, 1.0f },
+				{ 1.0f, 1.0f, 1.0f } };
+
+		for (float[] el : f)
+			DrawUtil.glVertex3f(gl, el);
+
+		// DrawUtil.glVertex3f(gl, f[0]);
+		// DrawUtil.glVertex3f(gl, f[1]);
+		// DrawUtil.glVertex3f(gl, f[2]);
+		// DrawUtil.glVertex3f(gl, f[3]);
+
+		// gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
+		// gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Top)
+		// gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Bottom Left Of The Quad (Top)
+		// gl.glVertex3f(1.0f, 1.0f, 1.0f); // Bottom Right Of The Quad (Top)
+
+		// gl.glColor3f(0f, 1f, 0f); // green color
+		DrawUtil.glColor3f(gl, COLORS[1]);
+		f = new float[][] { { 1.0f, -1.0f, 1.0f }, { -1.0f, -1.0f, 1.0f }, { -1.0f, -1.0f, -1.0f },
+				{ 1.0f, -1.0f, -1.0f } };
+
+		for (float[] el : f)
+			DrawUtil.glVertex3f(gl, el);
+
+		// gl.glVertex3f(1.0f, -1.0f, 1.0f); // Top Right Of The Quad
+		// gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Top Left Of The Quad
+		// gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
+		// gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
+
+		// gl.glColor3f(0f, 0f, 1f); // blue color
+		DrawUtil.glColor3f(gl, COLORS[2]);
 		gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Front)
 		gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Front)
 		gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad
 		gl.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad
-		gl.glColor3f(1f, 1f, 0f); // yellow (red + green)
+
+		// gl.glColor3f(1f, 1f, 0f); // yellow (red + green)
+		DrawUtil.glColor3f(gl, COLORS[3]);
 		gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
 		gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
 		gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Back)
 		gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Back)
-		gl.glColor3f(1f, 0f, 1f); // purple (red + green)
+
+		// gl.glColor3f(1f, 0f, 1f); // purple (red + green)
+		DrawUtil.glColor3f(gl, COLORS[4]);
 		gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Left)
 		gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Left)
 		gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
 		gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad
-		gl.glColor3f(0f, 1f, 1f); // sky blue (blue +green)
+
+		// gl.glColor3f(0f, 1f, 1f); // sky blue (blue +green)
+		DrawUtil.glColor3f(gl, COLORS[5]);
 		gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Right)
 		gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Left Of The Quad
 		gl.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad
 		gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
+
+		//
 		gl.glEnd(); // Done Drawing The Quad
 		gl.glFlush();
 
-		rquad -= 0.15f;
+		// rquad -= 0.15f;
+		rquad -= 01.5f;
 	}
 
 	@Override

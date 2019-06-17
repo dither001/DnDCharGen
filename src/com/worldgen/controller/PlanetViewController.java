@@ -10,7 +10,7 @@ import com.worldgen.model.Corner;
 import com.worldgen.model.Planet;
 import com.worldgen.model.Tile;
 //import com.worldgen.math.Cube;
-import com.worldgen.view.PlanetView;
+import com.worldgen.view.OldPlanetView;
 
 public class PlanetViewController {
 
@@ -63,7 +63,7 @@ public class PlanetViewController {
 		// the canvas
 		final GLCanvas glcanvas = new GLCanvas(capabilities);
 		// Cube cube = new Cube();
-		PlanetView view = new PlanetView();
+		OldPlanetView view = new OldPlanetView();
 		glcanvas.addGLEventListener(view);
 		glcanvas.setSize(400, 400);
 

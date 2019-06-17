@@ -2,15 +2,23 @@ package testing;
 
 import org.junit.Test;
 
+import com.worldgen.math.Sphere;
 import com.worldgen.model.Corner;
 import com.worldgen.model.Planet;
 import com.worldgen.model.Tile;
+import com.worldgen.view.PlanetColor;
 
 public class PlanetTest {
 
 	@Test
+	public void testSphere() {
+		Sphere sphere = new Sphere();
+	}
+
+	@Test
 	public void testElevation() {
 		Planet p;
+		PlanetColor c = new PlanetColor();
 		int tileCount = 0;
 		int counter = 0;
 		int longestRiver = 0;
@@ -21,6 +29,9 @@ public class PlanetTest {
 		float precipitation = 0.0f;
 
 		try {
+			/*
+			 * PLANET GENERATION
+			 */
 			p = Planet.build(6);
 			tileCount = p.getGrid().tiles.length;
 
@@ -48,6 +59,11 @@ public class PlanetTest {
 			System.out.printf("Average wind speed: %.2f %n", 1.0 * windSpeed / tileCount);
 			System.out.printf("Average humidity: %e %n", 1.0 * humidity / tileCount);
 			System.out.printf("Average rainfall: %e %n", 1.0 * precipitation / tileCount);
+
+			/*
+			 * COLOR
+			 */
+			c.colorTopography(p);
 
 		} catch (Exception e) {
 			e.printStackTrace();

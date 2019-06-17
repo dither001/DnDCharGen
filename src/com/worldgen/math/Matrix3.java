@@ -45,10 +45,6 @@ public class Matrix3 {
 				this.m[i][j] = other.m[i][j];
 		}
 	}
-	
-	public void set(Quaternion q) {
-		
-	}
 
 	public float[] multVec3(float[] v3) {
 		return new float[] { v3[0] * m[0][0] + v3[1] * m[0][1] + v3[2] * m[0][2],

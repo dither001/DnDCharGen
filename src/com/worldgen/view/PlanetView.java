@@ -1,9 +1,6 @@
 package com.worldgen.view;
 
-import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.GLEventListener;
-
-public class PlanetView implements GLEventListener {
+public class PlanetView {
 
 	public static final double DEFAULT_SIZE = 600;
 
@@ -42,32 +39,4 @@ public class PlanetView implements GLEventListener {
 	public float[] toCoordinates(float[] vec2) {
 		return new float[] { 0, 0, 0 };
 	}
-
-	/*
-	 * 
-	 */
-	@Override
-	public void display(GLAutoDrawable arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose(GLAutoDrawable arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void init(GLAutoDrawable arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

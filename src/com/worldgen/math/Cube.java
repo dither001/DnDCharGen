@@ -4,6 +4,7 @@ import java.awt.DisplayMode;
 
 import javax.swing.JFrame;
 
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -19,7 +20,7 @@ public class Cube implements GLEventListener {
 	private GLU glu = new GLU();
 	private float rquad = 0.0f;
 
-	private final float[][] COLORS = { //
+	private float[][] COLORS = { //
 			{ 1f, 0f, 0f }, // RED
 			{ 0f, 1f, 0f }, // GREEN
 			{ 0f, 0f, 1f }, // BLUE
@@ -28,6 +29,22 @@ public class Cube implements GLEventListener {
 			{ 0f, 1f, 1f } // SKY BLUE (blue + green)
 	};
 
+	public Cube(float[][] colors) {
+		for (int i = 0; i < COLORS.length; ++i)
+			this.COLORS[i] = colors[i];
+
+	}
+
+	private void drawFace(float[][] face, float[] color, GL2 gl) {
+		gl.glBegin(GL2.GL_QUADS); // Start Drawing The Cube
+		JO.glColor3f(gl, color);
+
+		for (float[] el : face)
+			JO.glVertex3f(gl, el);
+
+		gl.glEnd();
+	}
+
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		final GL2 gl = drawable.getGL().getGL2();
@@ -35,71 +52,39 @@ public class Cube implements GLEventListener {
 		gl.glLoadIdentity();
 		gl.glTranslatef(0f, 0f, -10.0f);
 		gl.glRotatef(rquad, 1.0f, 1.0f, 1.0f); // Rotate The Cube On X, Y & Z
+		gl.glFrontFace(GL.GL_CCW);
 
 		// giving different colors to different sides
-		gl.glBegin(GL2.GL_QUADS); // Start Drawing The Cube
+		// gl.glBegin(GL2.GL_QUADS); // Start Drawing The Cube
 
-		// gl.glColor3f(1f, 0f, 0f); // red color
-		JO.glColor3f(gl, COLORS[0]);
 		float[][] f = new float[][] { { 1.0f, 1.0f, -1.0f }, { -1.0f, 1.0f, -1.0f }, { -1.0f, 1.0f, 1.0f },
 				{ 1.0f, 1.0f, 1.0f } };
 
-		for (float[] el : f)
-			JO.glVertex3f(gl, el);
+		drawFace(f, COLORS[0], gl);
 
-		// DrawUtil.glVertex3f(gl, f[0]);
-		// DrawUtil.glVertex3f(gl, f[1]);
-		// DrawUtil.glVertex3f(gl, f[2]);
-		// DrawUtil.glVertex3f(gl, f[3]);
-
-		// gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
-		// gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Top)
-		// gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Bottom Left Of The Quad (Top)
-		// gl.glVertex3f(1.0f, 1.0f, 1.0f); // Bottom Right Of The Quad (Top)
-
-		// gl.glColor3f(0f, 1f, 0f); // green color
-		JO.glColor3f(gl, COLORS[1]);
 		f = new float[][] { { 1.0f, -1.0f, 1.0f }, { -1.0f, -1.0f, 1.0f }, { -1.0f, -1.0f, -1.0f },
 				{ 1.0f, -1.0f, -1.0f } };
+		drawFace(f, COLORS[1], gl);
 
-		for (float[] el : f)
-			JO.glVertex3f(gl, el);
+		f = new float[][] { { 1.0f, 1.0f, 1.0f }, { -1.0f, 1.0f, 1.0f }, { -1.0f, -1.0f, 1.0f },
+				{ 1.0f, -1.0f, 1.0f } };
+		drawFace(f, COLORS[2], gl);
 
-		// gl.glVertex3f(1.0f, -1.0f, 1.0f); // Top Right Of The Quad
-		// gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Top Left Of The Quad
-		// gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
-		// gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
+		f = new float[][] { { 1.0f, -1.0f, -1.0f }, { -1.0f, -1.0f, -1.0f }, { -1.0f, 1.0f, -1.0f },
+				{ 1.0f, 1.0f, -1.0f } };
+		drawFace(f, COLORS[3], gl);
 
-		// gl.glColor3f(0f, 0f, 1f); // blue color
-		JO.glColor3f(gl, COLORS[2]);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Front)
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Front)
-		gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad
-		gl.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad
+		f = new float[][] { { -1.0f, 1.0f, 1.0f }, { -1.0f, 1.0f, -1.0f }, { -1.0f, -1.0f, -1.0f },
+				{ -1.0f, -1.0f, 1.0f } };
+		drawFace(f, COLORS[4], gl);
 
-		// gl.glColor3f(1f, 1f, 0f); // yellow (red + green)
-		JO.glColor3f(gl, COLORS[3]);
-		gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
-		gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Back)
-		gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Back)
-
-		// gl.glColor3f(1f, 0f, 1f); // purple (red + green)
-		JO.glColor3f(gl, COLORS[4]);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Left)
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Left)
-		gl.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
-		gl.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad
-
-		// gl.glColor3f(0f, 1f, 1f); // sky blue (blue +green)
-		JO.glColor3f(gl, COLORS[5]);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Right)
-		gl.glVertex3f(1.0f, 1.0f, 1.0f); // Top Left Of The Quad
-		gl.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad
-		gl.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
+		f = new float[][] { { 1.0f, 1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, -1.0f, 1.0f },
+				{ 1.0f, -1.0f, -1.0f } };
+		drawFace(f, COLORS[5], gl);
 
 		//
-		gl.glEnd(); // Done Drawing The Quad
+		// gl.glEnd(); // Done Drawing The Quad
+
 		gl.glFlush();
 
 		// rquad -= 0.15f;
@@ -139,25 +124,25 @@ public class Cube implements GLEventListener {
 		gl.glLoadIdentity();
 	}
 
-	public static void main(String[] args) {
-		final GLProfile profile = GLProfile.get(GLProfile.GL2);
-		GLCapabilities capabilities = new GLCapabilities(profile);
-
-		// the canvas
-		final GLCanvas glcanvas = new GLCanvas(capabilities);
-		Cube cube = new Cube();
-		glcanvas.addGLEventListener(cube);
-		glcanvas.setSize(400, 400);
-
-		// the frame
-		final JFrame frame = new JFrame(" Multicolored cube");
-		frame.getContentPane().add(glcanvas);
-		frame.setSize(frame.getContentPane().getPreferredSize());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-
-		// start animation
-		final FPSAnimator animator = new FPSAnimator(glcanvas, 300, true);
-		animator.start();
-	}
+	// public static void main(String[] args) {
+	// final GLProfile profile = GLProfile.get(GLProfile.GL2);
+	// GLCapabilities capabilities = new GLCapabilities(profile);
+	//
+	// // the canvas
+	// final GLCanvas glcanvas = new GLCanvas(capabilities);
+	// Cube cube = new Cube();
+	// glcanvas.addGLEventListener(cube);
+	// glcanvas.setSize(400, 400);
+	//
+	// // the frame
+	// final JFrame frame = new JFrame(" Multicolored cube");
+	// frame.getContentPane().add(glcanvas);
+	// frame.setSize(frame.getContentPane().getPreferredSize());
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// frame.setVisible(true);
+	//
+	// // start animation
+	// final FPSAnimator animator = new FPSAnimator(glcanvas, 300, true);
+	// animator.start();
+	// }
 }

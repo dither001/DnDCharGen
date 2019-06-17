@@ -18,7 +18,7 @@ public class PlanetTest {
 	@Test
 	public void testElevation() {
 		Planet p;
-		PlanetColor c = new PlanetColor();
+		
 		int tileCount = 0;
 		int counter = 0;
 		int longestRiver = 0;
@@ -59,18 +59,18 @@ public class PlanetTest {
 			System.out.printf("Average wind speed: %.2f %n", 1.0 * windSpeed / tileCount);
 			System.out.printf("Average humidity: %e %n", 1.0 * humidity / tileCount);
 			System.out.printf("Average rainfall: %e %n", 1.0 * precipitation / tileCount);
+			System.out.println("Tiles above sea Level: " + counter);
 
 			/*
 			 * COLOR
 			 */
-			c.colorTopography(p);
+			PlanetColor.colorTopography(p);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
-		System.out.println("Tiles above sea Level: " + counter);
 	}
 
 }

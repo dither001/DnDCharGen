@@ -2,15 +2,19 @@ package com.worldgen.controller;
 
 import javax.swing.JFrame;
 
+import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.worldgen.math.Cube;
+import com.worldgen.math.Line;
 import com.worldgen.model.Corner;
 import com.worldgen.model.Planet;
 import com.worldgen.model.Tile;
 //import com.worldgen.math.Cube;
-import com.worldgen.view.OldPlanetView;
+import com.worldgen.view.GlobeView;
+import com.worldgen.view.PlanetColor;
 
 public class PlanetViewController {
 
@@ -22,6 +26,8 @@ public class PlanetViewController {
 		 * TEST AREA
 		 */
 		Planet p;
+		GlobeView view = null;
+
 		int tileCount = 0;
 		int counter = 0;
 		int longestRiver = 0;
@@ -51,6 +57,17 @@ public class PlanetViewController {
 
 			System.out.printf("Average wind speed: %.2f %n", 1.0 * windSpeed / tileCount);
 
+			/*
+			 * COLOR
+			 */
+			PlanetColor.colorTopography(p);
+
+			/*
+			 * VIEW
+			 */
+			view = new GlobeView(p, p.rotationToDefault());
+			System.out.println("Trial successful");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,13 +79,15 @@ public class PlanetViewController {
 
 		// the canvas
 		final GLCanvas glcanvas = new GLCanvas(capabilities);
-		// Cube cube = new Cube();
-		OldPlanetView view = new OldPlanetView();
+		// Cube cube = new Cube(PlanetColor.colorTiles);
+		// glcanvas.addGLEventListener(cube);
+
 		glcanvas.addGLEventListener(view);
+
 		glcanvas.setSize(400, 400);
 
 		// the frame
-		final JFrame frame = new JFrame("Multicolored cube");
+		final JFrame frame = new JFrame("Random Planet");
 		frame.getContentPane().add(glcanvas);
 		frame.setSize(frame.getContentPane().getPreferredSize());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -41,10 +41,10 @@ public class PlanetTest {
 					++counter;
 				}
 
-				windSpeed += el.wind.speed;
+//				windSpeed += el.wind.speed;
 
-				humidity = el.humidity > 0 ? el.humidity : humidity;
-				precipitation = el.precipitation > 0 ? el.precipitation : precipitation;
+//				humidity = el.humidity > 0 ? el.humidity : humidity;
+//				precipitation = el.precipitation > 0 ? el.precipitation : precipitation;
 			}
 
 			for (Corner el : p.getGrid().corners) {

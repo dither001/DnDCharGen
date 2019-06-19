@@ -27,6 +27,15 @@ import com.jogamp.opengl.math.VectorUtil;
 
 public class Season {
 
+	/*
+	 * original list from Tile
+	 * 
+	 * latitude, temperature, humidity, precipitation
+	 */
+
+	float[][] climateTiles;
+	float[][] windTiles;
+
 	//
 	Planet planet;
 	int id;
@@ -45,30 +54,98 @@ public class Season {
 	}
 
 	/*
+	 * INSTANCE METHODS
+	 */
+	public void setTemperature(int id, float temperature) {
+		climateTiles[id][0] = temperature;
+	}
+
+	public float getTemperature(int id) {
+		return climateTiles[id][0];
+	}
+
+	public void setHumidity(int id, float humidity) {
+		climateTiles[id][1] = humidity;
+	}
+
+	public float getHumidity(int id) {
+		return climateTiles[id][1];
+	}
+
+	public void setPrecipitation(int id, float precipitation) {
+		climateTiles[id][2] = precipitation;
+	}
+
+	public float getPrecipitation(int id) {
+		return climateTiles[id][2];
+	}
+
+	public float potentialEvapotranspiration(int id) {
+		return Climate.saturationHumidity(getTemperature(id)) - getHumidity(id);
+	}
+
+	public float aridity(int id) {
+		return (float) Climate.aridity(potentialEvapotranspiration(id));
+	}
+
+	public void setWind(int id, Wind wind) {
+		windTiles[id][0] = wind.direction;
+		windTiles[id][0] = wind.speed;
+	}
+
+	public void setWindDirection(int id, float direction) {
+		windTiles[id][0] = direction;
+	}
+
+	public float getWindDirection(int id) {
+		return windTiles[id][0];
+	}
+
+	public void setWindSpeed(int id, float speed) {
+		windTiles[id][1] = speed;
+	}
+
+	public float getWindSpeed(int id) {
+		return windTiles[id][1];
+	}
+
+	/*
 	 * PRIVATE METHODS
 	 */
-	private void setupTemperature() {
-		for (Tile el : planet.grid.tiles) {
-			double temperature = temperatureAtLatitude(tropical_equator - Planet.latitude(el.v));
+	private void setupTiles() {
+		Tile[] gTiles = planet.getGrid().tiles;
+		for (int i = 0; i < gTiles.length; ++i) {
+			climateTiles[i] = new float[] { 0, 0, 0, 0 };
+			windTiles[i] = new float[] { 0, 0 };
+		}
 
-			if (el.isLand() && el.elevation > planet.getSeaLevel()) {
-				temperature -= Climate.temperatureLapse(el.elevation - planet.getSeaLevel());
+	}
+
+	private void setupTemperature() {
+		Tile[] gTiles = planet.getGrid().tiles;
+
+		for (int i = 0; i < gTiles.length; ++i) {
+			float temperature = (float) temperatureAtLatitude(tropical_equator - Planet.latitude(gTiles[i].v));
+
+			if (gTiles[i].isLand() && gTiles[i].elevation > planet.getSeaLevel()) {
+				temperature -= Climate.temperatureLapse(gTiles[i].elevation - planet.getSeaLevel());
 			} else {
-				temperature = 0.3 * temperature + 0.7 * temperatureAtLatitude(Planet.latitude(el.v));
+				temperature = (float) (0.3 * temperature + 0.7 * temperatureAtLatitude(Planet.latitude(gTiles[i].v)));
 			}
 
-			el.temperature = temperature;
+			setTemperature(i, temperature);
 		}
 	}
 
 	private void setupWind() {
 		for (Tile el : planet.grid.tiles) {
 			defaultWind(el);
-			el.wind.direction += planet.north(el);
+
+			setWindDirection(el.id, getWindDirection(el.id) + planet.north(el));
 		}
 
 		for (Tile el : planet.grid.tiles) {
-			double[][] m = PlanetUtil.rotationMatrix(el.north(planet) - el.wind.direction);
+			double[][] m = PlanetUtil.rotationMatrix(el.north(planet) - getWindDirection(el.id));
 			float[][] corners = PlanetUtil.polygon(planet.rotationToDefault(), el);
 
 			corners = PlanetUtil.multMat2ByVec2Array(m, corners);
@@ -80,7 +157,7 @@ public class Season {
 					direction *= -1;
 				}
 
-				planet.grid.edges[el.edges[i].id].wind_velocity -= 0.5 * direction * el.wind.speed
+				planet.grid.edges[el.edges[i].id].wind_velocity -= 0.5 * direction * getWindSpeed(el.id)
 						* Math.abs(corners[i][1] - corners[(i + 1) % n][1])
 						/ VectorUtil.normVec2(PlanetUtil.subVec2(corners[i], corners[(i + 1) % n]));
 			}
@@ -92,10 +169,10 @@ public class Season {
 			float humidity = 0.0f;
 
 			if (el.isWater()) {
-				humidity = Climate.saturationHumidity(el.temperature);
+				humidity = Climate.saturationHumidity(getTemperature(el.id));
 			}
 
-			el.humidity = humidity;
+			setHumidity(el.id, humidity);
 		}
 
 		/*
@@ -131,9 +208,9 @@ public class Season {
 						float density = convection > 0 ? incomingHumidity / (incomingWind + convection)
 								: incomingHumidity / incomingWind;
 
-						float saturation = Climate.saturationHumidity(current.temperature);
-						if (saturation > 0.0001)
-							System.out.println(current.temperature);
+						float saturation = Climate.saturationHumidity(getTemperature(current.id));
+						// if (saturation > 0.0001)
+						// System.out.println(current.temperature);
 
 						// Limit to local saturation humidity
 						humidity[i] = Math.min(saturation, density);
@@ -155,7 +232,8 @@ public class Season {
 						precipitation[i] *= 3.0 / planet.area(current);
 
 					} else {
-						humidity[i] = current.humidity;
+						// humidity[i] = current.humidity;
+						setHumidity(current.id, getHumidity(current.id));
 
 					}
 				}
@@ -163,7 +241,7 @@ public class Season {
 
 			float largestChange = 0.0f;
 			for (int i = 0; i < humidity.length; ++i) {
-				float localHumidity = planet.grid.tiles[i].humidity;
+				float localHumidity = getHumidity(i);
 				largestChange = Math.max(largestChange, humidityChange(humidity[i], localHumidity));
 
 				// System.out.println(localHumidity);
@@ -172,8 +250,8 @@ public class Season {
 
 			delta = largestChange;
 			for (int i = 0; i < humidity.length; ++i) {
-				planet.grid.tiles[i].humidity = humidity[i];
-				planet.grid.tiles[i].precipitation = precipitation[i];
+				setHumidity(i, humidity[i]);
+				setPrecipitation(i, precipitation[i]);
 
 				// System.out.printf("Humidity: %.2f || Rainfall: %.2f %n", humidity[i],
 				// precipitation[i]);
@@ -210,7 +288,7 @@ public class Season {
 
 		for (Edge el : t.edges) {
 			if (el.sign(t) * el.wind_velocity > 0) {
-				sum += t.humidity * Math.abs(el.wind_velocity) * planet.edgeLength(el);
+				sum += getHumidity(t.id) * Math.abs(el.wind_velocity) * planet.edgeLength(el);
 			}
 		}
 
@@ -241,7 +319,7 @@ public class Season {
 		double coriolis = Planet.coriolisCoeeficient(planet, latitude);
 		double friction = tile.isLand() ? 0.000045 : 0.000045;
 
-		tile.wind = Wind.prevailingWind(pgf, coriolis, friction);
+		setWind(tile.id, Wind.prevailingWind(pgf, coriolis, friction));
 	}
 
 	private double temperatureAtLatitude(double latitude) {
@@ -259,10 +337,14 @@ public class Season {
 		season.time_of_year = timeOfYear;
 		season.planet = planet;
 
+		season.climateTiles = new float[planet.grid.tileSize()][];
+		season.windTiles = new float[planet.grid.tileSize()][];
+
 		season.solar_equator = Parameters.axial_tilt * Math.sin(2 * Math.PI * timeOfYear);
 		season.tropical_equator = 0.67 * season.solar_equator;
 
 		//
+		season.setupTiles();
 		season.setupTemperature();
 		season.setupWind();
 		season.setupHumidity();

@@ -4,8 +4,8 @@ import com.jogamp.opengl.math.VectorUtil;
 import com.worldgen.math.Matrix2;
 
 public class Wind {
-	double direction;
-	public double speed;
+	float direction;
+	float speed;
 
 	/*
 	 * CONSTRUCTORS
@@ -15,7 +15,7 @@ public class Wind {
 		speed = 0;
 	}
 
-	private Wind(double direction, double speed) {
+	private Wind(float direction, float speed) {
 		this.direction = direction;
 		this.speed = speed;
 	}
@@ -57,11 +57,11 @@ public class Wind {
 		double angleOffset = Math.atan2(cc, fc);
 		Matrix2 m = Matrix2.rotationMatrix(Math.atan2(pgf[1], pgf[0]) - angleOffset);
 		float[] v = m.mulByVec2(new float[] { 1.0f, 0.0f });
-		double direction = Math.atan2(v[1], v[0]);
+		float direction = (float) Math.atan2(v[1], v[0]);
 
 		// calculate wind speed
 		float[] divisor = new float[] { (float) cc, (float) fc };
-		double speed = VectorUtil.normVec2(pgf) / VectorUtil.normVec2(divisor);
+		float speed = VectorUtil.normVec2(pgf) / VectorUtil.normVec2(divisor);
 
 		return new Wind(direction, speed);
 	}

@@ -2,89 +2,29 @@ package com.worldgen.controller;
 
 import javax.swing.JFrame;
 
-import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
-import com.worldgen.math.Cube;
-import com.worldgen.math.Line;
-import com.worldgen.model.Corner;
 import com.worldgen.model.Planet;
-import com.worldgen.model.Tile;
-//import com.worldgen.math.Cube;
 import com.worldgen.view.GlobeView;
 import com.worldgen.view.PlanetColor;
 
 public class PlanetViewController {
 
+	private static final GLProfile PROFILE;
+	private static final GLCapabilities CAPABILITIES;
+
+	static {
+		PROFILE = GLProfile.get(GLProfile.GL2);
+		CAPABILITIES = new GLCapabilities(PROFILE);
+	}
+
 	public static void main(String... args) {
-		final GLProfile profile = GLProfile.get(GLProfile.GL2);
-		GLCapabilities capabilities = new GLCapabilities(profile);
-
-		/*
-		 * TEST AREA
-		 */
-		Planet p;
-		GlobeView view = null;
-
-		int tileCount = 0;
-		int counter = 0;
-		int longestRiver = 0;
-
-		double windSpeed = 0.0;
-
-		try {
-			p = Planet.build(6);
-			tileCount = p.getGrid().tiles.length;
-
-			for (Tile el : p.getGrid().tiles) {
-				if (el.elevation > p.getSeaLevel()) {
-					++counter;
-				}
-
-				windSpeed += el.wind.speed;
-			}
-
-			for (Corner el : p.getGrid().corners) {
-				if (el.distanceToSea > longestRiver)
-					longestRiver = el.distanceToSea;
-			}
-
-			System.out.printf("Sea Level: %.2f %n", p.getSeaLevel());
-			System.out.println("Tiles: " + tileCount);
-			System.out.println("Longest River: " + longestRiver);
-
-			System.out.printf("Average wind speed: %.2f %n", 1.0 * windSpeed / tileCount);
-
-			/*
-			 * COLOR
-			 */
-			PlanetColor.colorTopography(p);
-
-			/*
-			 * VIEW
-			 */
-			view = new GlobeView(p, p.rotationToDefault());
-			System.out.println("Trial successful");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Tiles above sea Level: " + counter);
-		/*
-		 * 
-		 */
-
 		// the canvas
-		final GLCanvas glcanvas = new GLCanvas(capabilities);
-		// Cube cube = new Cube(PlanetColor.colorTiles);
-		// glcanvas.addGLEventListener(cube);
-
-		glcanvas.addGLEventListener(view);
-
-		glcanvas.setSize(400, 400);
+		final GLCanvas glcanvas = new GLCanvas(CAPABILITIES);
+		glcanvas.addGLEventListener(createGlobeView());
+		glcanvas.setSize(600, 600);
 
 		// the frame
 		final JFrame frame = new JFrame("Random Planet");
@@ -96,6 +36,27 @@ public class PlanetViewController {
 		// start animation
 		final FPSAnimator animator = new FPSAnimator(glcanvas, 300, true);
 		animator.start();
+	}
+
+	private static GlobeView createGlobeView() {
+		Planet p;
+		GlobeView view = null;
+
+		try {
+			p = Planet.build(6);
+			PlanetColor.colorTopography(p);
+			PlanetColor.colorVegetation(p.getClimate().getSeason(), p);
+			PlanetColor.colorTemperature(p.getClimate().getSeason(), p);
+			PlanetColor.colorAridity(p.getClimate().getSeason(), p);
+			PlanetColor.colorHumidity(p.getClimate().getSeason(), p);
+			PlanetColor.colorPrecipitation(p.getClimate().getSeason(), p);
+
+			view = new GlobeView(p, p.rotationToDefault());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return view;
 	}
 
 }

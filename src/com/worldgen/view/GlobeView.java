@@ -1,6 +1,7 @@
 package com.worldgen.view;
 
 import java.awt.DisplayMode;
+import java.util.function.BiConsumer;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -58,13 +59,27 @@ public class GlobeView extends PlanetView implements GLEventListener {
 		this.longitude = 0;
 	}
 
+	/*
+	 * XXX - So, I have to say something about this. When I first booted up the
+	 * globe (and it actually loaded the sphere), the object "flickered." Removing
+	 * "rotationAxis()" from the equation seemed to fix it.
+	 */
 	private Quaternion rotation() {
-		return latitudeRotation().mult(longitudeRotation()).mult(axisRotation());
+		// return latitudeRotation().mult(longitudeRotation()).mult(axisRotation());
+		// return latitudeRotation().mult(longitudeRotation());
+		// return axisRotation();
+		return longitudeRotation();
 	}
 
+	/*
+	 * FIXME - Trying to debug the axisRotation() function
+	 */
 	private Quaternion axisRotation() {
-		Quaternion q = PlanetUtil.fromTwoVec3(planet.defaultAxis(), new float[] { 0, 1, 0 });
-		return q.mult(PlanetUtil.fromTwoVec3(new float[] { 1, 0, 0 }, new float[] { 0, 0, 1 }));
+		// Quaternion q = PlanetUtil.fromTwoVec3(planet.defaultAxis(), new float[] { 0,
+		// 1, 0 });
+		// return q.mult(PlanetUtil.fromTwoVec3(new float[] { 1, 0, 0 }, new float[] {
+		// 0, 0, 1 }));
+		return PlanetUtil.fromTwoVec3(new float[] { 1, 0, 0 }, new float[] { 0, 0, 1 });
 	}
 
 	private Quaternion latitudeRotation() {
@@ -78,7 +93,7 @@ public class GlobeView extends PlanetView implements GLEventListener {
 	/*
 	 * METHODS
 	 */
-	private void drawTile(Tile t, Matrix3 m, float[] color, GL2 gl) {
+	private void drawTileOld(Tile t, Matrix3 m, float[] color, GL2 gl) {
 		gl.glBegin(GL2.GL_TRIANGLE_FAN);
 
 		JO.glColor3f(gl, color);
@@ -118,16 +133,41 @@ public class GlobeView extends PlanetView implements GLEventListener {
 		// gl.glFrontFace(GL.GL_CCW);
 		Matrix3 m = new Matrix3(q.mult(rotation()));
 
+		/*
+		 * XXX - I wrote this anonymous ("lambda?") expression as a way to avoid passing
+		 * a bunch of parameters from one method to another.
+		 */
+		BiConsumer<Tile, float[]> drawTile = (t, color) -> {
+			gl.glBegin(GL2.GL_TRIANGLE_FAN);
+
+			JO.glColor3f(gl, color);
+			JO.glVertex3f(gl, m.multVec3(t.v));
+			for (Corner el : t.corners)
+				JO.glVertex3f(gl, m.multVec3(el.v));
+
+			JO.glVertex3f(gl, m.multVec3(t.corners[0].v));
+
+			gl.glEnd();
+		};
+
 		Tile[] gTiles = planet.getGrid().tiles;
 		int length = gTiles.length;
 
 		for (int i = 0; i < length; ++i) {
-			drawTile(gTiles[i], m, PlanetColor.colorTiles[i], gl);
+			// TOPOGRAPHY
+			drawTile.accept(gTiles[i], PlanetColor.topoColors[i]);
+			// VEGETATION
+			// drawTile.accept(gTiles[i], PlanetColor.vegeColors[i]);
+			// TEMPERATURE
+			// drawTile.accept(gTiles[i], PlanetColor.tempColors[i]);
+			// ARIDITY
+			// drawTile.accept(gTiles[i], PlanetColor.aridColors[i]);
+			// HUMIDITY
+			// drawTile.accept(gTiles[i], PlanetColor.humidColors[i]);
+			// PRECIPITATION
+			// drawTile.accept(gTiles[i], PlanetColor.rainColors[i]);
 		}
 
-		/*
-		 * FIXME - Left off here
-		 */
 		gl.glFlush();
 
 		// System.out.println("This ran.");
@@ -139,16 +179,20 @@ public class GlobeView extends PlanetView implements GLEventListener {
 		// TODO Auto-generated method stub
 	}
 
+	/*
+	 * XXX - I tried commenting out each of these methods, line by line, and none of
+	 * them appeared to do anything.
+	 */
 	@Override
 	public void init(GLAutoDrawable drawable) {
-		final GL2 gl = drawable.getGL().getGL2();
+		// final GL2 gl = drawable.getGL().getGL2();
 
-		gl.glShadeModel(GL2.GL_SMOOTH);
-		gl.glClearColor(0f, 0f, 0f, 0f);
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL2.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL2.GL_LEQUAL);
-		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+		// gl.glShadeModel(GL2.GL_SMOOTH);
+		// gl.glClearColor(0f, 0f, 0f, 0f);
+		// gl.glClearDepth(1.0f);
+		// gl.glEnable(GL2.GL_DEPTH_TEST);
+		// gl.glDepthFunc(GL2.GL_LEQUAL);
+		// gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
 	}
 
 	@Override

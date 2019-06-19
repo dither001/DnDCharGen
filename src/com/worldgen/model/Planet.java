@@ -59,11 +59,11 @@ public class Planet {
 					* VectorUtil.distVec3(t.v, t.corners[(i + 1) % e].v);
 		}
 
-		return a * Math.pow(terrain.radius, 2.0);
+		return a * Math.pow(terrain.getRadius(), 2.0);
 	}
 
 	public double edgeLength(Edge e) {
-		return VectorUtil.distVec3(e.corners[0].v, e.corners[1].v) * terrain.radius;
+		return VectorUtil.distVec3(e.corners[0].v, e.corners[1].v) * terrain.getRadius();
 	}
 
 	public float[] defaultAxis() {
@@ -86,14 +86,14 @@ public class Planet {
 		return rotation().conjugate();
 	}
 
-	public double getSeaLevel() {
+	public float getSeaLevel() {
 		return terrain.seaLevel;
 	}
 
 	/*
 	 * XXX - This method presumably returns "north" relative to the parameter Tile.
 	 */
-	public double north(Tile tile) {
+	public float north(Tile tile) {
 		// Vector3 v = reference_rotation(t, rotation_to_default(p)) *
 		// vector(nth_tile(t, 0));
 		float x = tile.v[0], y = tile.v[1], z = tile.v[2];
@@ -101,7 +101,7 @@ public class Planet {
 		v = PlanetUtil.referenceRotation(v, rotationToDefault()).rotateVector(v, 0, v, 0);
 
 		// return pi - atan2(v.y, v.x);
-		return Math.PI - Math.atan2(v[1], v[0]);
+		return (float) (Math.PI - Math.atan2(v[1], v[0]));
 	}
 
 	/*
@@ -124,38 +124,38 @@ public class Planet {
 	/*
 	 * XXX - default is set to "24 hours"
 	 */
-	public static double angularVelocity(Planet p) {
-		return 2.0 * Math.PI / (24 * 60 * 60);
+	public static float angularVelocity(Planet p) {
+		return (float) (2.0 * Math.PI / (24 * 60 * 60));
 	}
 
-	public static double coriolisCoeeficient(Planet p, double latitude) {
-		return 2.0 * angularVelocity(p) * Math.sin(latitude);
+	public static float coriolisCoeeficient(Planet p, double latitude) {
+		return (float) (2.0 * angularVelocity(p) * Math.sin(latitude));
 	}
 
-	public static double latitude(Planet p, float[] vector3) {
+	public static float latitude(Planet p, float[] vector3) {
 		/*
 		 * FIXME - subtracts (angle between planet's axis and vector3)
 		 */
-		return Math.PI / 2 - VectorUtil.angleVec3(null, vector3);
+		return (float) (Math.PI / 2 - VectorUtil.angleVec3(p.defaultAxis(), vector3));
 	}
 
 	/*
 	 * Checks if x and y are 0; returns inverse-tangent of y, x
 	 */
-	public static double longitude(float[] vector3) {
+	public static float longitude(float[] vector3) {
 		int x = (int) vector3[0];
 		int y = (int) vector3[1];
 		if (x == 0 && y == 0)
 			return 0;
 
-		return Math.atan2(vector3[1], vector3[0]);
+		return (float) Math.atan2(vector3[1], vector3[0]);
 	}
 
 	/*
 	 * Returns inverse-sine of z-coordinate
 	 */
-	public static double latitude(float[] vector3) {
-		return Math.asin(vector3[2]);
+	public static float latitude(float[] vector3) {
+		return (float) Math.asin(vector3[2]);
 	}
 
 	public static float[] pressureGradientForce(double tropicalEquator, double latitude) {

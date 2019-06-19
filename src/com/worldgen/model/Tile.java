@@ -16,11 +16,11 @@ public class Tile implements UsesTerrain {
 	public Water water;
 
 	// climate fields
-	public Wind wind;
-	private float latitude;
-	public double temperature;
-	public float humidity;
-	public float precipitation;
+//	public Wind wind;
+//	private float latitude;
+//	public double temperature;
+//	public float humidity;
+//	public float precipitation;
 
 	/*
 	 * CONSTRUCTORS
@@ -40,10 +40,10 @@ public class Tile implements UsesTerrain {
 		water = new Water();
 
 		// climate fields
-		latitude = 0;
-		temperature = 0;
-		humidity = 0;
-		precipitation = 0;
+//		latitude = 0;
+//		temperature = 0;
+//		humidity = 0;
+//		precipitation = 0;
 	}
 
 	/*

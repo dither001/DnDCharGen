@@ -4,7 +4,7 @@ public class Climate {
 
 	Planet planet;
 	Season[] seasons;
-	
+
 	/*
 	 * CONSTRUCTORS
 	 */
@@ -15,12 +15,19 @@ public class Climate {
 	/*
 	 * 
 	 */
+	public Season getSeason() {
+		return seasons[0];
+	}
+
+	/*
+	 * PRIVATE METHODS
+	 */
 	void clear() {
 		// TODO
 
 	}
 
-	void generateSeasons() {
+	private void generateSeasons() {
 		for (int i = 0; i < seasons.length; ++i) {
 			float t = i / seasons.length;
 			seasons[i] = Season.build(i, t, planet);
@@ -65,16 +72,16 @@ public class Climate {
 		return climate;
 	}
 
-	public static double freezingPoint() {
-		return 273.15;
+	public static float freezingPoint() {
+		return 273.15f;
 	}
 
-	public static double temperatureLapseRate() {
-		return 9.8e-3;
+	public static float temperatureLapseRate() {
+		return 9.8e-3f;
 	}
 
 	// LAPSE OF ELEVATION
-	public static double temperatureLapse(double d) {
+	public static float temperatureLapse(float d) {
 		return d * temperatureLapseRate();
 	}
 
@@ -82,13 +89,13 @@ public class Climate {
 	public static float saturationHumidity(double temperature) {
 		double c = 4.6e-9;
 		double k = 0.05174;
-		
+
 		return (float) (c * Math.pow(k, temperature));
 	}
 
 	// ARIDITY AT TEMPERATURE
-	public static double aridity(double potential_evapotranspiration) {
-		double index_base_temperature = 10 + freezingPoint();
+	public static float aridity(float potential_evapotranspiration) {
+		float index_base_temperature = 10 + freezingPoint();
 
 		return potential_evapotranspiration / saturationHumidity(index_base_temperature);
 	}

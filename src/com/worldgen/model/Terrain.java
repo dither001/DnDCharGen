@@ -34,7 +34,7 @@ package com.worldgen.model;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 import com.jogamp.opengl.math.VectorUtil;
 
@@ -48,9 +48,9 @@ public class Terrain {
 	 * 
 	 */
 	private float[] axis;
-	private double axial_tilt;
-	double radius;
-	protected double seaLevel;
+	private float axial_tilt;
+	private float radius;
+	protected float seaLevel;
 
 	Grid grid;
 
@@ -58,7 +58,16 @@ public class Terrain {
 	 * CONSTRUCTORS
 	 */
 	private Terrain() {
+		// TODO
 
+	}
+
+	public float getRadius() {
+		return radius;
+	}
+
+	public void setRadius(float radius) {
+		this.radius = radius;
 	}
 
 	/*
@@ -130,7 +139,7 @@ public class Terrain {
 
 	private void createSea() {
 		Tile start = lowestTile();
-		double seaLevel = start.elevation;
+		float seaLevel = start.elevation;
 		int waterTileTarget = (int) (Parameters.water_ratio * grid.tiles.length);
 
 		HashSet<Tile> waterTileSet = new HashSet<Tile>();
@@ -153,7 +162,7 @@ public class Terrain {
 			 * Anonymous function "InsertNextTile" iterates through adjacent tiles and adds
 			 * them to unvisited if they aren't already in the WaterTileSet.
 			 */
-			DoubleSupplier insertNextTile = () -> {
+			Supplier<Float> insertNextTile = () -> {
 				Tile tile = unvisited.iterator().next();
 				unvisited.remove(tile);
 				visited.add(tile);
@@ -172,10 +181,10 @@ public class Terrain {
 			};
 
 			while (waterTileSet.size() < waterTileTarget) {
-				seaLevel = insertNextTile.getAsDouble();
+				seaLevel = (float) insertNextTile.get();
 
 				while (unvisited.size() > 0 && unvisited.iterator().next().elevation < seaLevel)
-					insertNextTile.getAsDouble();
+					insertNextTile.get();
 			}
 
 			if (waterTileSet.size() > 0)
@@ -297,7 +306,7 @@ public class Terrain {
 
 		// parameters
 		terrain.axis = Parameters.axis;
-		terrain.radius = 40000000;
+		terrain.setRadius(40000000);
 
 		//
 		terrain.setElevation();
@@ -307,4 +316,5 @@ public class Terrain {
 
 		return terrain;
 	}
+
 }

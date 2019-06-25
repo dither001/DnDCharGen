@@ -123,12 +123,15 @@ public class GlobeView extends PlanetView implements GLEventListener {
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		final GL2 gl = drawable.getGL().getGL2();
+//		System.out.println(GLContext.getCurrent().getGLVersion());
+		
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 
 		setMatrix(gl);
 
 		// gl.glTranslatef(0f, 0f, -15.0f);
-		gl.glRotatef(rquad, 1.0f, 1.0f, 1.0f); // Rotate The Cube On X, Y & Z
+//		gl.glRotatef(rquad, 1.0f, 1.0f, 1.0f);
+		gl.glRotatef(rquad, 0, 1.0f, 0);
 
 		// gl.glFrontFace(GL.GL_CCW);
 		Matrix3 m = new Matrix3(q.mult(rotation()));
@@ -157,15 +160,15 @@ public class GlobeView extends PlanetView implements GLEventListener {
 			// TOPOGRAPHY
 			drawTile.accept(gTiles[i], PlanetColor.topoColors[i]);
 			// VEGETATION
-			// drawTile.accept(gTiles[i], PlanetColor.vegeColors[i]);
+//			 drawTile.accept(gTiles[i], PlanetColor.vegeColors[i]);
 			// TEMPERATURE
-			// drawTile.accept(gTiles[i], PlanetColor.tempColors[i]);
+//			 drawTile.accept(gTiles[i], PlanetColor.tempColors[i]);
 			// ARIDITY
-			// drawTile.accept(gTiles[i], PlanetColor.aridColors[i]);
+//			 drawTile.accept(gTiles[i], PlanetColor.aridColors[i]);
 			// HUMIDITY
-			// drawTile.accept(gTiles[i], PlanetColor.humidColors[i]);
+//			 drawTile.accept(gTiles[i], PlanetColor.humidColors[i]);
 			// PRECIPITATION
-			// drawTile.accept(gTiles[i], PlanetColor.rainColors[i]);
+//			 drawTile.accept(gTiles[i], PlanetColor.rainColors[i]);
 		}
 
 		gl.glFlush();
